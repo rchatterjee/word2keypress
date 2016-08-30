@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import pyximport; pyximport.install()
+# import pyximport; pyximport.install()
 import os, sys, json, csv, re
 import socket
 import random
@@ -41,7 +41,7 @@ class TestKeyboard():
                                                ('r', 'R#$%TGFDE345tgfde')])
     def test_key_prox_chars(self, inp, res):
         kb = Keyboard(u'US')
-        ret = [chr(c) for c in kb.keyboard_prox_chars(ord(inp))]
+        ret = [chr(c) for c in kb.keyboard_nearby_chars(ord(inp))]
         assert set(ret) == set(res)
 
     @pytest.mark.skip(reason="cpython function. Not available outside")

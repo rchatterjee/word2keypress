@@ -176,7 +176,7 @@ cdef class Keyboard(object):
         """
         return self.keyboard_dist(s, d) < 0
 
-    def keyboard_prox_chars(self, char _char):
+    def keyboard_nearby_chars(self, char _char):
         """Returns the closed by characters of character @c in standard US
         Keyboard.
         :param c: character
