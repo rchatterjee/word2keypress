@@ -1,7 +1,12 @@
-import pyximport; pyximport.install(pyimport=True)
-from _keyboard import *
+import numpy as np
+import pyximport;
+# pyximport.install(
+#     pyimport=True,
+#     setup_args={'include_dirs': np.get_include()}
+# )
+from _keyboard import Keyboard
 import time
-
+__all__ = [Keyboard]
 
 if __name__ == '__main__':
     s = time.time()

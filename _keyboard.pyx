@@ -282,10 +282,10 @@ cdef class Keyboard(object):
 
         return new_str
 
-    def print_keyseq(self, keyseq):
+    def print_keyseq(self, str keyseq):
         """print the @key_str as the human readable format.
         """
-        return keyseq.replace(SHIFT_KEY, '<s>').replace(CAPS_KEY, '<c>')
+        return keyseq.replace(chr(SHIFT_KEY), '<s>').replace(chr(CAPS_KEY), '<c>')
 
     def part_keyseq_string(self, str keyseq, shift=False, caps=False):
         """

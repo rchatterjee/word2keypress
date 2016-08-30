@@ -1821,7 +1821,6 @@ static char __pyx_k_ZXCVBNM[] = " ZXCVBNM<>?";
 static char __pyx_k_findall[] = "findall";
 static char __pyx_k_genexpr[] = "genexpr";
 static char __pyx_k_isalpha[] = "isalpha";
-static char __pyx_k_replace[] = "replace";
 static char __pyx_k_zxcvbnm[] = " zxcvbnm,./";
 static char __pyx_k_deleting[] = "deleting @";
 static char __pyx_k_keyboard[] = "_keyboard";
@@ -2018,7 +2017,6 @@ static PyObject *__pyx_n_u_qwertyuiop_2;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_re;
 static PyObject *__pyx_n_s_remove_shift;
-static PyObject *__pyx_n_s_replace;
 static PyObject *__pyx_n_s_replace_keys;
 static PyObject *__pyx_kp_u_replacing;
 static PyObject *__pyx_n_s_s;
@@ -7908,7 +7906,7 @@ static PyObject *__pyx_f_9_keyboard_8Keyboard__word_to_keyseq(struct __pyx_obj_9
  * 
  *         return new_str             # <<<<<<<<<<<<<<
  * 
- *     def print_keyseq(self, keyseq):
+ *     def print_keyseq(self, str keyseq):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v_new_str);
@@ -7955,7 +7953,7 @@ static PyObject *__pyx_f_9_keyboard_8Keyboard__word_to_keyseq(struct __pyx_obj_9
 /* "_keyboard.pyx":285
  *         return new_str
  * 
- *     def print_keyseq(self, keyseq):             # <<<<<<<<<<<<<<
+ *     def print_keyseq(self, str keyseq):             # <<<<<<<<<<<<<<
  *         """print the @key_str as the human readable format.
  *         """
  */
@@ -7964,12 +7962,20 @@ static PyObject *__pyx_f_9_keyboard_8Keyboard__word_to_keyseq(struct __pyx_obj_9
 static PyObject *__pyx_pw_9_keyboard_8Keyboard_23print_keyseq(PyObject *__pyx_v_self, PyObject *__pyx_v_keyseq); /*proto*/
 static char __pyx_doc_9_keyboard_8Keyboard_22print_keyseq[] = "print the @key_str as the human readable format.\n        ";
 static PyObject *__pyx_pw_9_keyboard_8Keyboard_23print_keyseq(PyObject *__pyx_v_self, PyObject *__pyx_v_keyseq) {
+  CYTHON_UNUSED int __pyx_lineno = 0;
+  CYTHON_UNUSED const char *__pyx_filename = NULL;
+  CYTHON_UNUSED int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("print_keyseq (wrapper)", 0);
-  __pyx_r = __pyx_pf_9_keyboard_8Keyboard_22print_keyseq(((struct __pyx_obj_9_keyboard_Keyboard *)__pyx_v_self), ((PyObject *)__pyx_v_keyseq));
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyUnicode_Type), 1, "keyseq", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 285; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_9_keyboard_8Keyboard_22print_keyseq(((struct __pyx_obj_9_keyboard_Keyboard *)__pyx_v_self), ((PyObject*)__pyx_v_keyseq));
 
   /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -7981,10 +7987,6 @@ static PyObject *__pyx_pf_9_keyboard_8Keyboard_22print_keyseq(CYTHON_UNUSED stru
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  Py_ssize_t __pyx_t_6;
-  PyObject *__pyx_t_7 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -7994,82 +7996,50 @@ static PyObject *__pyx_pf_9_keyboard_8Keyboard_22print_keyseq(CYTHON_UNUSED stru
   /* "_keyboard.pyx":288
  *         """print the @key_str as the human readable format.
  *         """
- *         return keyseq.replace(SHIFT_KEY, '<s>').replace(CAPS_KEY, '<c>')             # <<<<<<<<<<<<<<
+ *         return keyseq.replace(chr(SHIFT_KEY), '<s>').replace(chr(CAPS_KEY), '<c>')             # <<<<<<<<<<<<<<
  * 
  *     def part_keyseq_string(self, str keyseq, shift=False, caps=False):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_keyseq, __pyx_n_s_replace); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_v_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = NULL;
-  __pyx_t_6 = 0;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
-      __pyx_t_6 = 1;
-    }
+  if (unlikely(__pyx_v_keyseq == Py_None)) {
+    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "replace");
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_7);
-  if (__pyx_t_5) {
-    __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
-  }
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_t_4);
-  __Pyx_INCREF(__pyx_kp_u_s_2);
-  __Pyx_GIVEREF(__pyx_kp_u_s_2);
-  PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_kp_u_s_2);
-  __pyx_t_4 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyUnicode_Replace(__pyx_v_keyseq, __pyx_t_1, __pyx_kp_u_s_2, -1L); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_9_keyboard_CAPS_KEY); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_replace); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyUnicode_Replace(((PyObject*)__pyx_t_2), __pyx_t_1, __pyx_kp_u_c, -1L); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_v_9_keyboard_CAPS_KEY); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = NULL;
-  __pyx_t_6 = 0;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
-      __pyx_t_6 = 1;
-    }
-  }
-  __pyx_t_4 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  if (__pyx_t_7) {
-    __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7); __pyx_t_7 = NULL;
-  }
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_6, __pyx_t_2);
-  __Pyx_INCREF(__pyx_kp_u_c);
-  __Pyx_GIVEREF(__pyx_kp_u_c);
-  PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_6, __pyx_kp_u_c);
-  __pyx_t_2 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_3;
+  __pyx_t_3 = 0;
   goto __pyx_L0;
 
   /* "_keyboard.pyx":285
  *         return new_str
  * 
- *     def print_keyseq(self, keyseq):             # <<<<<<<<<<<<<<
+ *     def print_keyseq(self, str keyseq):             # <<<<<<<<<<<<<<
  *         """print the @key_str as the human readable format.
  *         """
  */
@@ -8079,9 +8049,6 @@ static PyObject *__pyx_pf_9_keyboard_8Keyboard_22print_keyseq(CYTHON_UNUSED stru
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("_keyboard.Keyboard.print_keyseq", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -8092,7 +8059,7 @@ static PyObject *__pyx_pf_9_keyboard_8Keyboard_22print_keyseq(CYTHON_UNUSED stru
 }
 
 /* "_keyboard.pyx":290
- *         return keyseq.replace(SHIFT_KEY, '<s>').replace(CAPS_KEY, '<c>')
+ *         return keyseq.replace(chr(SHIFT_KEY), '<s>').replace(chr(CAPS_KEY), '<c>')
  * 
  *     def part_keyseq_string(self, str keyseq, shift=False, caps=False):             # <<<<<<<<<<<<<<
  *         """
@@ -8559,7 +8526,7 @@ static PyObject *__pyx_pf_9_keyboard_8Keyboard_24part_keyseq_string(struct __pyx
   goto __pyx_L0;
 
   /* "_keyboard.pyx":290
- *         return keyseq.replace(SHIFT_KEY, '<s>').replace(CAPS_KEY, '<c>')
+ *         return keyseq.replace(chr(SHIFT_KEY), '<s>').replace(chr(CAPS_KEY), '<c>')
  * 
  *     def part_keyseq_string(self, str keyseq, shift=False, caps=False):             # <<<<<<<<<<<<<<
  *         """
@@ -18057,7 +18024,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_re, __pyx_k_re, sizeof(__pyx_k_re), 0, 0, 1, 1},
   {&__pyx_n_s_remove_shift, __pyx_k_remove_shift, sizeof(__pyx_k_remove_shift), 0, 0, 1, 1},
-  {&__pyx_n_s_replace, __pyx_k_replace, sizeof(__pyx_k_replace), 0, 0, 1, 1},
   {&__pyx_n_s_replace_keys, __pyx_k_replace_keys, sizeof(__pyx_k_replace_keys), 0, 0, 1, 1},
   {&__pyx_kp_u_replacing, __pyx_k_replacing, sizeof(__pyx_k_replacing), 0, 1, 0, 0},
   {&__pyx_n_s_s, __pyx_k_s, sizeof(__pyx_k_s), 0, 0, 1, 1},
