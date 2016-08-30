@@ -1,6 +1,7 @@
-import pyximport; pyximport.install()
+import pyximport; pyximport.install(pyimport=True)
 from _keyboard import *
 import time
+
 
 if __name__ == '__main__':
     s = time.time()
