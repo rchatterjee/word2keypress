@@ -13,5 +13,10 @@ auto/
 .env
 pwmodel
 helper.py
+
 build/
-*ipynb*
+dist/
+MANIFEST
+word2keypress.egg-info/
+word2keypress/_keyboard.c
+.ipynb_checkpoints/

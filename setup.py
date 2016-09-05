@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 from Cython.Build import cythonize
 import os
 
@@ -7,12 +7,12 @@ def read(fname):
 
 setup(
     name='word2keypress',
-    version='1.0',
+    version='1.1',
     description='Convert word to keypress sequence',
     author='Rahul Chatterjee',
     author_email='rahul@cs.cornell.edu',
     url='https://github.com/rchatterjee/word2keypress.git',
-    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v1.0',
+    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v1.1',
     install_requires=[
         'cython',
         'numpy',
