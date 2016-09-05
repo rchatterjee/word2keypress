@@ -14,7 +14,7 @@ except ImportError as e:
     from distutils.command.build_ext import build_ext
     keyboardpyx = Extension(
         'word2keypress/_keyboard',
-        sources = ['word2keypress/_keyboard.c'],
+        sources = ['word2keypress/_keyboard.c', 'word2keypress/_keyboard.pyx'],
     )
 
 
