@@ -13,12 +13,12 @@ setup(
     author_email='rahul@cs.cornell.edu',
     url='https://github.com/rchatterjee/word2keypress.git',
     download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v1.0',
-    requires=[
+    install_requires=[
         'cython',
         'numpy',
-        #'python-levenshtein'
+        'python-levenshtein'
     ],
-    long_description=read('README.md'),
+    long_description='See README.md',
     packages=['word2keypress'],
     ext_modules=cythonize('word2keypress/_keyboard.pyx'),  # accepts a glob pattern
     classifiers=[
