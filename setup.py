@@ -1,21 +1,20 @@
 import warnings
 from setuptools import setup, Extension
-try:
-    from Cython.Distutils import build_ext
-    HAVE_CYTHON = True
+
+publish=True
+if publish:
+    from distutils.command.build_ext import build_ext
+    keyboardpyx = Extension(
+        'word2keypress/_keyboard',
+        sources = ['word2keypress/_keyboard.c'],
+    )
+else:
+    from Cython.Distutils import build_ext    
     keyboardpyx = Extension(
         'word2keypress/_keyboard',
         sources = ['word2keypress/_keyboard.pyx'],
     )
-    
-except ImportError as e:
-    HAVE_CYTHON = False
-    warnings.warn(e.message)
-    from distutils.command.build_ext import build_ext
-    keyboardpyx = Extension(
-        'word2keypress/_keyboard',
-        sources = ['word2keypress/_keyboard.c', 'word2keypress/_keyboard.pyx'],
-    )
+
 
 
 configuration = dict(
