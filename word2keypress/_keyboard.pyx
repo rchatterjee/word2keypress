@@ -1,7 +1,7 @@
 #cython: language_level=3, boundscheck=False, c_string_type=str
 #cython: infer_types=True, c_string_encoding=utf-8
 #cython: cdivision=True, profile=True
-import Levenshtein as lv
+
 import re
 import numpy as np
 cimport numpy as np
@@ -227,6 +227,8 @@ cdef class Keyboard(object):
         >>> KB = Keyboard('US')
         >>> KB.word_to_keyseqes('Password12!@')
         <s>password12<s>1<s>2
+        >>> KB.word_to_keyseqes('pASSWORD')
+        <c><s>password
         >>> KB.word_to_keyseqes('PASSword!@')
         <c>pass</c>word<s>1<s>2
         >>> KB.word_to_keyseqes('PAasWOrd') # this is not what it should but close!
@@ -280,7 +282,8 @@ cdef class Keyboard(object):
             # print m.groups(), ns, s
             new_str = new_str.replace(s, ns)
 
-        return new_str
+        # drop last <c> before sending
+        return new_str.rstrip(caps_key)
 
     def print_keyseq(self, str keyseq):
         """print the @key_str as the human readable format.

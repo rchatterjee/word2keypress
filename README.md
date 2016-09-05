@@ -10,32 +10,33 @@ key presses. This module provides those functionality to convert word into and
 from sequence of key presses.  Also, given a word find the possible typo of that
 word tuned to the typos due to mistyping. 
 
-## dependency
+## Dependency
 Right now it needs cython. I will remove it in future.
 * Cython.
+* numpy
 
 ## Install
-
 ```bash
-$ python setup.py build_ext --inplace
+$ pip install word2keypress
+
+# or
+
+$ python setup.py install
 ```
 
-```ipython
-In [1]: from keyboard import Keyboard
+## How to Use?
 
-In [2]: kb = Keyboard()
+Refer to the `HowToRun.ipynb` file.
 
-In [3]: kb.print_keyseq(kb.word_to_keyseq('Oasdfasd!3'))
-Out[3]: u'<s>oasdfasd<s>13'
+```python
+from word2keypress import distance, Keyboard
+kb = Keyboard(u'US') # making unicode is mandatory (weird Cython)
+kseq = kb.word_to_keyseq('Password')
+print "\nRaw sequence:", repr(kseq)
 
-In [4]: kb.word_to
-kb.word_to_keyseq  kb.word_to_typos   
+print "\nReadable sequence:", repr(kb.print_keyseq(kseq))
 
-In [4]: kb.word_to_typos('Password1!')
-Out[4]: <generator at 0x104439408>
+print "\nkeyseq->word:", kb.keyseq_to_word(kseq)
 
-In [5]: s = kb.word_to_keyseq('PassD<o>rd1!')
-
-In [6]: kb.keyseq_to_word(s) == w
-Out[6]: True
+print "\ndistance:", distance('Password1', 'PASSWORD1')
 ```

@@ -4,7 +4,7 @@ import os, sys, json, csv, re
 import socket
 import random
 import pytest
-from _keyboard import Keyboard
+from word2keypress import Keyboard
 import numpy as np
 import time
 SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]
@@ -169,6 +169,21 @@ def test_word_edits(capsys):
     print "\nNumber of typos of {!r}: {:,}".format(rand_string, i)
     print "Total typos covered: {:,}".format(total_typo_computed)
     print ">> Time taken: {:.3f} s".format(e_t-s_t)
+
+
+def test_edit_distance():
+    from word2keypress import distance
+    word_pairs = [
+        ('password', 'PASSWORD'),
+        ('Password', 'password'),
+        ('Password', 'PASSWORD'),
+        ('Password1', 'Password!'),
+        ('pASSWORD', 'Password'),  # This is not good!
+        ('P@ssword', 'Password')]
+    for w1, w2 in word_pairs:
+        assert distance(w1, w2)<3
+
+    
 # class TestPWLogging:
 #     def test_logging(self):
 #         HOST, PORT = "localhost", 9999
