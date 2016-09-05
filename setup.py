@@ -20,12 +20,12 @@ except ImportError as e:
 
 configuration = dict(
     name='word2keypress',
-    version='1.1',
+    version='0.1',
     description='Convert word to keypress sequence',
     author='Rahul Chatterjee',
     author_email='rahul@cs.cornell.edu',
     url='https://github.com/rchatterjee/word2keypress.git',
-    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v1.1',
+    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v0.1',
     install_requires=[
         'numpy',
         'python-levenshtein'
