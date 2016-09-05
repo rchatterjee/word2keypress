@@ -1,19 +1,22 @@
 import warnings
+from setuptools import setup, Extension
 try:
     from Cython.Distutils import build_ext
-    from setuptools import setup, Extension
     HAVE_CYTHON = True
+    keyboardpyx = Extension(
+        'word2keypress/_keyboard',
+        sources = ['word2keypress/_keyboard.pyx'],
+    )
+    
 except ImportError as e:
     HAVE_CYTHON = False
     warnings.warn(e.message)
-    from distutils.core import setup, Extension
-    from distutils.command import build_ext
+    from distutils.command.build_ext import build_ext
+    keyboardpyx = Extension(
+        'word2keypress/_keyboard',
+        sources = ['word2keypress/_keyboard.c'],
+    )
 
-keyboardpyx = Extension(
-    '_keyboard',
-    sources = ['word2keypress/_keyboard.pyx'],
-    include_dirs = ['word2keypress/']
-)
 
 configuration = dict(
     name='word2keypress',
@@ -39,31 +42,4 @@ configuration = dict(
 )
 
 
-if not HAVE_CYTHON:
-    keyboardpyx.sources[0] = '_keyboard.c'
-
-
 setup(**configuration)
-
-
-# from setuptools import setup, extension
-# from Cython.Build import cythonize
-
-# try:
-#     from Cython.Distutils import build_ext
-# except ImportError:
-#     use_cython = False
-# else:
-#     use_cython = True
-
-# import os
-
-# def read(fname):
-#     return open(os.path.join(os.path.dirname(__file__), fname)).read()
-# ext = extension.Extension(
-#     'word2keypress/_keyboard', 
-#     ['word2keypress/_keyboard.pyx']
-# )
-
-# setup(
-# )
