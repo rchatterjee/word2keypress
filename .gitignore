@@ -18,5 +18,5 @@ build/
 dist/
 MANIFEST
 word2keypress.egg-info/
-word2keypress/_keyboard.c
+# word2keypress/_keyboard.c
 .ipynb_checkpoints/

@@ -1,5 +1,11 @@
 import warnings
 from setuptools import setup, Extension
+try:
+    import numpy as np
+except ImportError:
+    print("Could not find numpy, probably you have to install it seperately.")
+    os.cmd('python -m pip install numpy')
+    import numpy as np
 
 publish=True
 if publish:
@@ -26,13 +32,13 @@ configuration = dict(
     url='https://github.com/rchatterjee/word2keypress.git',
     download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v0.3',
     install_requires=[
-        'numpy',
         'python-levenshtein'
     ],
     long_description='See README.md',
     packages=['word2keypress'],
     ext_modules=[keyboardpyx], # cythonize('word2keypress/_keyboard.pyx'),  # accepts a glob pattern
     cmdclass={'build_ext': build_ext},
+    include_dirs=[np.get_include()],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Utilities",
