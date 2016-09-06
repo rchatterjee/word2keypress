@@ -5,7 +5,7 @@ try:
     from pyxdameraulevenshtein import \
         normalized_damerau_levenshtein_distance as _distance
 except ImportError:
-    import Levenshtein.distance as _distance
+    from Levenshtein import distance as _distance
 
 def distance(w1, w2):
     """

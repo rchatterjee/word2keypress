@@ -25,12 +25,12 @@ else:
 
 configuration = dict(
     name='word2keypress',
-    version='0.3',
+    version='0.4',
     description='Convert word to keypress sequence',
     author='Rahul Chatterjee',
     author_email='rahul@cs.cornell.edu',
     url='https://github.com/rchatterjee/word2keypress.git',
-    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v0.3',
+    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v0.4',
     install_requires=[
         'python-levenshtein'
     ],
