@@ -1,4 +1,4 @@
-from _keyboard import Keyboard
+from ._keyboard import Keyboard
 kb = Keyboard(u'US')
 
 try:

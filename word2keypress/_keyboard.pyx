@@ -209,12 +209,12 @@ cdef class Keyboard(object):
         cdef char ch
         i, j, shift = self.loc(_char)
         KM, num_shift = self._keyboard, self._num_shift
-        ret = np.array(filter(
+        ret = np.array(list(filter(
             lambda x: x and x!=ord(' '),
             (self.loc2char(r*num_shift, c)
              for r in range(i-1, i+2)
              for c in range(j-1, j+2))
-        ), dtype='<I')
+        )), dtype='<I')
         assert all((ret<128) & (ret>=20)), "{}  (char: {})".format(ret, _char)
         return ret
 
