@@ -179,9 +179,9 @@ def test_edit_distance():
         ('Password', 'PASSWORD'),
         ('Password1', 'Password!'),
         ('pASSWORD', 'Password'),  # This is not good!
-        ('P@ssword', 'Password')]
+        ('P@ssword', 'P2ssword')]
     for w1, w2 in word_pairs:
-        assert distance(w1, w2)<3
+        assert distance(w1, w2)<2
 
     
 # class TestPWLogging:
