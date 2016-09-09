@@ -1,11 +1,10 @@
 from ._keyboard import Keyboard
 kb = Keyboard(u'US')
 
-try:
-    from pyxdameraulevenshtein import \
-        normalized_damerau_levenshtein_distance as _distance
-except ImportError:
-    from Levenshtein import distance as _distance
+from pyxdameraulevenshtein import \
+    damerau_levenshtein_distance as _distance
+# from Levenshtein import distance as _distance (To aid
+# transposition as distance 1)
 
 def distance(w1, w2):
     """

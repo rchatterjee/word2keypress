@@ -3,8 +3,9 @@ from setuptools import setup, Extension
 try:
     import numpy as np
 except ImportError:
+    import os
     print("Could not find numpy, probably you have to install it seperately.")
-    os.cmd('python -m pip install numpy')
+    os.system('python -m pip install numpy')
     import numpy as np
 
 publish=True
@@ -25,14 +26,15 @@ else:
 
 configuration = dict(
     name='word2keypress',
-    version='0.4',
+    version='0.5',
     description='Convert word to keypress sequence',
     author='Rahul Chatterjee',
     author_email='rahul@cs.cornell.edu',
     url='https://github.com/rchatterjee/word2keypress.git',
-    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v0.4',
+    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v0.5',
     install_requires=[
-        'python-levenshtein'
+        # 'python-levenshtein'
+        'pyxdameraulevenshtein'
     ],
     long_description='See README.md',
     packages=['word2keypress'],
@@ -43,7 +45,8 @@ configuration = dict(
         "Development Status :: 3 - Alpha",
         "Topic :: Utilities",
         "License :: OSI Approved :: MIT License"
-    ]
+    ],
+    license='MIT License'
 )
 
 
