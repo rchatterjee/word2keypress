@@ -13,7 +13,6 @@ word tuned to the typos due to mistyping.
 ## Dependency
 Right now it needs cython. I will remove it in future.
 * Cython.
-* numpy
 
 ## Install
 ```bash

@@ -1,17 +1,17 @@
-#cython: language_level=3, boundscheck=False, c_string_type=str
+#cython: language_level=2, boundscheck=False, c_string_type=str
 #cython: infer_types=True, c_string_encoding=utf-8
 #cython: cdivision=True, profile=True
 
 import re
-import numpy as np
-cimport numpy as np
+from cpython cimport array
+import array
 cimport cython
 
 cdef int user_friendly = 0
 cdef char SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]
 cdef char CAPS_KEY = 4 # [u'\x04', "<c>"][user_friendly]
 cdef str KEYBOARD_TYPE = 'US'
-
+import itertools
 cdef int debug = 0
 
 layout_matrix = {
@@ -49,20 +49,19 @@ layout_matrix = {
 cdef unicode _chr(char c):
     return unicode(chr(c))
 
-cdef np.ndarray str_to_numpyarray(str s):
-    return np.array([ord(k) for k in s])
-
 cdef str safe_chr(char c):
     if c>0 and c<128:
-        return _chr(c)
+        return chr(c)
     else:
-        return u''
+        return ''
 
-_t_keys = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ {}{}"\
+_t_keys = b"`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ {}{}"\
     .format(chr(SHIFT_KEY), chr(CAPS_KEY))
-ALLOWED_KEYS = str_to_numpyarray(_t_keys)
-assert all(map(lambda c: (c>=20 and c<128) or c in [3,4], ALLOWED_KEYS)), \
-    ALLOWED_KEYS
+ALLOWED_KEYS = array.array(b'c', _t_keys)
+
+assert all(map(
+    lambda c: (ord(c)>=20 and ord(c)<128) or ord(c) in [3,4], ALLOWED_KEYS
+)), ALLOWED_KEYS
 
 cdef class Keyboard(object):
     cdef str _keyboard_type 
@@ -147,7 +146,7 @@ cdef class Keyboard(object):
                 return ord(self._keyboard[r][c])
         return 0
 
-    def num_shift(self):
+    cdef int num_shift(self):
         return self._num_shift
 
     def keyboard_dist(self, char key_o, char key_t):
@@ -187,7 +186,7 @@ cdef class Keyboard(object):
         i, j, shift = self.loc(_char)
         ret = []
         KM, num_shift = self._keyboard, self._num_shift
-        for sh in xrange(num_shift):
+        for sh in range(num_shift):
             for r in range(i-1, i+2):
                 for c in range(j-1, j+2):
                     ch = self.loc2char(r*num_shift+sh, c)
@@ -195,33 +194,33 @@ cdef class Keyboard(object):
                         ret.append(ch)
         return ret
 
-    cdef np.ndarray _keyboard_nearby_keys(self, char _char):
+    cdef char[:] _keyboard_nearby_keys(self, char _char):
         """Returns the closed by characters of character @c in standard US
         Keyboard.
         :param c: character
         :return: a list of keys
         """
         if _char == SHIFT_KEY: 
-            return np.array([CAPS_KEY], dtype='<I')
+            return array.array('i', [CAPS_KEY])
         elif _char == CAPS_KEY:
-            return np.array([SHIFT_KEY], dtype='<I')
+            return array.array('c', [SHIFT_KEY])
         cdef int i, j, shift, num_shift, r, c
         cdef char ch
         i, j, shift = self.loc(_char)
         KM, num_shift = self._keyboard, self._num_shift
-        ret = np.array(list(filter(
+        ret = array.array('c', list(filter(
             lambda x: x and x!=ord(' '),
             (self.loc2char(r*num_shift, c)
              for r in range(i-1, i+2)
              for c in range(j-1, j+2))
-        )), dtype='<I')
+        )))
         assert all((ret<128) & (ret>=20)), "{}  (char: {})".format(ret, _char)
         return ret
 
     def word_to_keyseq(self, word):
-        return self._word_to_keyseq(unicode(word))
+        return self._word_to_keyseq(array.array(b'c', word))
 
-    cdef str _word_to_keyseq(self, str word):
+    cdef str _word_to_keyseq(self, array.array[char] word):
         """
         Converts a @word into a key press sequence for the keyboard KB.
         >>> KB = Keyboard('US')
@@ -300,9 +299,9 @@ cdef class Keyboard(object):
         cdef char a
         while i<len(keyseq):
             a = ord(keyseq[i])
-            if keyseq[i] == CAPS_KEY:
+            if a == CAPS_KEY:
                 caps = caps^True
-            elif keyseq[i] == SHIFT_KEY:
+            elif a == SHIFT_KEY:
                 shift = True
             else:
                 if chr(a).isalpha():
@@ -313,7 +312,7 @@ cdef class Keyboard(object):
                 ret += chr(a)
             i += 1
         return ret, shift, caps
-        
+
     cdef char _apply_shift_caps(self, char c, shift, caps):
         assert c>=20 and c<128, "Got: {!r}".format(c)
         if chr(c).isalpha() and shift^caps:
@@ -345,14 +344,14 @@ cdef class Keyboard(object):
                 self.part_keyseq_string(keyseq, True, True)]  # TT
         A[n] = [A[0][1], ('', False, False), ('', False, True), ('', True, False), ('', True, True)]
         cdef int j
+        spcl_keys = (SHIFT_KEY, CAPS_KEY)
         cdef char c, nc, shifted_nc
         for j in xrange(1, n):
             last_row = A[j-1]
             row = A[j];
             c = ord(keyseq[j-1]) # current char
             nc = ord(keyseq[j]) # if j<n else 0 # next char
-            shifted_nc = self.add_shift(nc)[0] if nc not in [SHIFT_KEY, CAPS_KEY] \
-                         else 0
+            shifted_nc = self.add_shift(nc)[0] if nc not in spcl_keys else 0
             if c == SHIFT_KEY:
                 # case 0: only pre
                 row[0] = (last_row[0][0], True, last_row[0][2]) 
@@ -392,39 +391,48 @@ cdef class Keyboard(object):
                           last_row[4][1], last_row[4][2]) # shift-caps = TT
         return A
 
-    def keyseq_insert_edits(self, str keyseq, 
-                               np.ndarray insert_keys=np.array([]), 
-                               np.ndarray replace_keys=np.array([])):
+    def keyseq_insert_edits(self, str keyseq, _insert_keys=[], _replace_keys=[]):
         """It will insert/replace/delete one key at a time from the
         keyseq. And return a set of words. Which keys to insert is
         specified by the @insert_keys parameter. 
         :param pos: int, position of the edit, pos=0..len(keyseq): insert,delete and replace.
                     if pos=len(keyseq)+1, then only insert
         """
-        spcl_keys = np.array([SHIFT_KEY, CAPS_KEY])
+        spcl_keys = array.array(b'b', [SHIFT_KEY, CAPS_KEY])
         sub_words = self._sub_word_table(keyseq)
-        # print '\n'.join(str(r) for r in sub_words)
-        cdef int smart = len(insert_keys)==0 and len(replace_keys)==0
+        # print(">>>>>", _insert_keys, _replace_keys)
+        cdef array.array insert_keys = array.array(b'b')
+        cdef array.array replace_keys = array.array(b'b')
+        insert_keys.fromstring(_insert_keys)
+        replace_keys.fromstring(_replace_keys)
+        cdef int smart = ((not insert_keys or len(insert_keys))==0 and \
+                          (not replace_keys or len(replace_keys)==0))
         cdef int i, t
         cdef char c, k
         cdef str pre_w
-        for i, c in enumerate(keyseq):
+        while i<len(keyseq):
+            c = ord(keyseq[i])
             if smart:
-                if c in spcl_keys: # if replacing a caps or shift, replace with everything
+                # if replacing a caps or shift, replace with everything
+                if c in spcl_keys: 
                     replace_keys = ALLOWED_KEYS
                     insert_keys = ALLOWED_KEYS
                 else: # else use only the closed by keys or spcl keys
-                    replace_keys = np.concatenate(
-                        (self._keyboard_nearby_keys(c), spcl_keys)
-                    )
+                    replace_keys = array.copy(self._keyboard_nearby_keys(c))
+                    replace_keys.extend(spcl_keys)
                     if i>0:
-                        insert_keys = np.unique(np.concatenate(
-                            (replace_keys, 
-                            self._keyboard_nearby_keys(keyseq[i-1]))
-                        ))
-            assert all(map(lambda c: (c>=20 and c<128) or c in [3,4], 
-                           np.concatenate((replace_keys, insert_keys)))), \
-                "Replace: {}\nInsert: {}".format(replace_keys, insert_keys)
+                        insert_keys = array.array(
+                            'c', 
+                            set.union(
+                                set(self._keyboard_nearby_keys(keyseq[i-1])),
+                                set(insert_keys)
+                            )
+                        )
+
+            assert all(map(
+                lambda c: 128>c>=20 or c in [3,4], 
+                replace_keys+insert_keys)), \
+                "Replace: {}\nInsert: {}".format(str(replace_keys), str(insert_keys))
             pre_w, shift, caps  = sub_words[i][0]
             assert ('\x00' not in pre_w), pre_w
             t = 2*shift + caps + 1
@@ -465,7 +473,7 @@ cdef class Keyboard(object):
                     yield pre_w + \
                         chr(self._apply_shift_caps(k, shift, caps)) + \
                         sub_words[i+1][1+caps][0]
-
+            i += 1
         # For inserting at the end
         pre_w, shift, caps = sub_words[-1][0]
         if smart:
@@ -475,21 +483,21 @@ cdef class Keyboard(object):
                 yield pre_w + chr(self._apply_shift_caps(k, shift, caps))
                 # yield pre_w + chr(self._apply_shift_caps(k, True, caps))
 
-    def word_to_typos(self, word, insert_keys='', replace_keys=''):
+    def word_to_typos(self, word, _insert_keys=b'', _replace_keys=b''):
         """
         Most highlevel and useful function.
         All possible edits around the word.
         Insert all keys, delete all keys, replace only keys that are close.
         """
-        keypress = self._word_to_keyseq(unicode(word))
-        insert_keys = np.array([ord(c) for c in insert_keys])
-        replace_keys = np.array([ord(c) for c in replace_keys])
+        keypress = self._word_to_keyseq(array.array(b'c', word))
+        insert_keys = array.array(b'c', _insert_keys) 
+        replace_keys = array.array(b'c', _replace_keys)
         return self.keyseq_insert_edits(
             keypress, insert_keys, replace_keys
         )
 
     def keyseq_to_word(self, keyseq):
-        return self._keyseq_to_word(unicode(keyseq))
+        return self._keyseq_to_word(keyseq)
 
     def _keyseq_to_word(self, str keyseq):
         """This is the same function as word_to_keyseq, just trying to

@@ -1,12 +1,12 @@
 import warnings
 from setuptools import setup, Extension
-try:
-    import numpy as np
-except ImportError:
-    import os
-    print("Could not find numpy, probably you have to install it seperately.")
-    os.system('python -m pip install numpy')
-    import numpy as np
+# try:
+#     import numpy as np
+# except ImportError:
+#     import os
+#     print("Could not find numpy, probably you have to install it seperately.")
+#     os.system('python -m pip install numpy')
+#     import numpy as np
 
 publish=True
 if publish:
@@ -40,7 +40,7 @@ configuration = dict(
     packages=['word2keypress'],
     ext_modules=[keyboardpyx], # cythonize('word2keypress/_keyboard.pyx'),  # accepts a glob pattern
     cmdclass={'build_ext': build_ext},
-    include_dirs=[np.get_include()],
+    # include_dirs=[np.get_include()],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Utilities",

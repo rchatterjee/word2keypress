@@ -1,5 +1,5 @@
 from ._keyboard import Keyboard
-kb = Keyboard(u'US')
+kb = Keyboard('US')
 
 from pyxdameraulevenshtein import \
     damerau_levenshtein_distance as _distance
@@ -15,8 +15,8 @@ def distance(w1, w2):
     if w1==w2: return 0
     if w1.swapcase() == w2: return 1
     return _distance(
-        kb.word_to_keyseq(unicode(w1)),
-        kb.word_to_keyseq(unicode(w2))
+        kb.word_to_keyseq(w1),
+        kb.word_to_keyseq(w2)
     )
 
 
