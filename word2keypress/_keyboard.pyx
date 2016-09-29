@@ -6,6 +6,7 @@ import re
 from cpython cimport array
 import array
 cimport cython
+from libc.stdlib cimport calloc, free
 
 cdef int user_friendly = 0
 cdef char SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]
@@ -54,6 +55,72 @@ cdef str safe_chr(char c):
         return chr(c)
     else:
         return ''
+
+cdef Py_ssize_t TWO_AGO = 0
+cdef Py_ssize_t ONE_AGO = 1
+cdef Py_ssize_t THIS_ROW = 2
+cpdef unsigned int _dl_distance(s1, s2):
+    """
+    Computes the DL distance between two strings s1 and s2. 
+    This part of the code is copied form 
+    https://github.com/gfairchild/pyxDamerauLevenshtein/
+    """
+    # possible short-circuit if words have a lot in common at the
+    # beginning (or are identical)
+    cdef Py_ssize_t first_differing_index = 0
+    while first_differing_index < len(s1) and \
+          first_differing_index < len(s2) and \
+              s1[first_differing_index] == s2[first_differing_index]:
+        first_differing_index += 1
+
+    s1 = s1[first_differing_index:]
+    s2 = s2[first_differing_index:]
+
+    if not s1:
+        return len(s2)
+    if not s2:
+        return len(s1)
+
+    # Py_ssize_t should be used wherever we're dealing with an array index or length
+    cdef Py_ssize_t i, j
+    cdef Py_ssize_t offset = len(s2) + 1
+    cdef unsigned long delete_cost, add_cost, subtract_cost, edit_distance
+
+    # storage is a 3 x (len(s2) + 1) array that stores TWO_AGO, ONE_AGO, and THIS_ROW
+    cdef unsigned long * storage = <unsigned long * >calloc(3 * offset, 
+                                                            sizeof(unsigned long))
+    if not storage:
+        raise MemoryError()
+
+    try:
+        # initialize THIS_ROW
+        for i in range(1, offset):
+            storage[THIS_ROW * offset + (i - 1)] = i
+
+        for i in range(len(s1)):
+            # swap/initialize vectors
+            for j in range(offset):
+                storage[TWO_AGO * offset + j] = storage[ONE_AGO * offset + j]
+                storage[ONE_AGO * offset + j] = storage[THIS_ROW * offset + j]
+            for j in range(len(s2)):
+                storage[THIS_ROW * offset + j] = 0
+            storage[THIS_ROW * offset + len(s2)] = i + 1
+
+            # now compute costs
+            for j in range(len(s2)):
+                delete_cost = storage[ONE_AGO * offset + j] + 1
+                add_cost = storage[THIS_ROW * offset + (j - 1 if j > 0 else len(s2))] + 1
+                subtract_cost = storage[ONE_AGO * offset + (j - 1 if j > 0 else len(s2))] + (s1[i] != s2[j])
+                storage[THIS_ROW * offset + j] = min(delete_cost, add_cost, subtract_cost)
+                # deal with transpositions
+                if (i > 0 and j > 0 and s1[i] == s2[j - 1] and s1[i - 1] == s2[j] and s1[i] != s2[j]):
+                    storage[THIS_ROW * offset + j] = min(storage[THIS_ROW * offset + j], storage[TWO_AGO * offset + j - 2 if j > 1 else len(s2)] + 1)
+        edit_distance = storage[THIS_ROW * offset + (len(s2) - 1)]
+    finally:
+        # free dynamically-allocated memory
+        free(storage)
+
+    return edit_distance
 
 _t_keys = b"`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ {}{}"\
     .format(chr(SHIFT_KEY), chr(CAPS_KEY))
@@ -194,6 +261,11 @@ cdef class Keyboard(object):
                         ret.append(ch)
         return ret
 
+    def dl_distance(self, w1, w2):
+        w1 = self._word_to_keyseq(array.array(b'c', str(w1)))
+        w2 = self._word_to_keyseq(array.array(b'c', str(w2)))
+        return _dl_distance(w1, w2)
+
     cdef char[:] _keyboard_nearby_keys(self, char _char):
         """Returns the closed by characters of character @c in standard US
         Keyboard.
@@ -218,7 +290,7 @@ cdef class Keyboard(object):
         return ret
 
     def word_to_keyseq(self, word):
-        return self._word_to_keyseq(array.array(b'c', word))
+        return self._word_to_keyseq(array.array(b'c', str(word)))
 
     cdef str _word_to_keyseq(self, array.array[char] word):
         """
