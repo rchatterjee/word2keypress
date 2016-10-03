@@ -1,5 +1,5 @@
 from ._keyboard import Keyboard
-kb = Keyboard('US')
+kb = Keyboard('qwerty')
 
 def distance(w1, w2):
     """

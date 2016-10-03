@@ -18,7 +18,7 @@ class TestKeyboard():
                       (('a'), (2,1,0)),
                       (('('), (0,9,1)),
                       (('M'), (3,7,1))]
-        kb = Keyboard('US')
+        kb = Keyboard('qwerty')
         for q, r in inp_res_map:
             assert kb.loc(ord(*q)) == r
 
@@ -30,7 +30,7 @@ class TestKeyboard():
                        (('w', '$'), (3.8)),
                        (('<', '>'), (1))
                    ]
-        kb = Keyboard('US')
+        kb = Keyboard('qwerty')
         for q, r in inp_res_map:
             q = [ord(x) for x in q]
             assert abs(kb.keyboard_dist(*q)-r)<0.0001
@@ -40,13 +40,13 @@ class TestKeyboard():
                                                ('g', 'GRTYHNBVFrtyhnbvf'),
                                                ('r', 'R#$%TGFDE345tgfde')])
     def test_key_prox_chars(self, inp, res):
-        kb = Keyboard('US')
+        kb = Keyboard('qwerty')
         ret = [chr(c) for c in kb.keyboard_nearby_chars(ord(inp))]
         assert set(ret) == set(res)
 
     @pytest.mark.skip(reason="cpython function. Not available outside")
     def test_key_prox_keys(self):
-        kb = Keyboard('US')
+        kb = Keyboard('qwerty')
         for inp, res in [('a', 'aqwsxz'),
                          ('t', 'tr456yhgf'),
                          (';', ";lop['/.")]:
@@ -56,7 +56,7 @@ class TestKeyboard():
     def test_keypress_to_w(self):
         for inp, res in [('wor{c}d123', 'worD123'),
                          ('{c}pass{c}wo{c}rd{c}', 'PASSwoRD')]:
-            kb = Keyboard('US')
+            kb = Keyboard('qwerty')
             w = kb.keyseq_to_word(
                 inp.format(s=chr(SHIFT_KEY), c=chr(CAPS_KEY))
             )
@@ -80,17 +80,17 @@ key = {'c': chr(CAPS_KEY),
 class TestKeyPresses():
     @pytest.mark.skip(reason="cpython function. Not available outside")
     def test_word_to_keyseq(self, inp, res):
-        KB = Keyboard('US')
+        KB = Keyboard('qwerty')
         t1 = KB.word_to_keyseq(inp)
         t2 = res.format(**key)
         assert t1 == t2, "{!r} <--> {!r}".format(t1, t2)
 
     def test_keyseq_to_word(self, inp, res):
-        KB = Keyboard('US')
+        KB = Keyboard('qwerty')
         assert inp == KB.keyseq_to_word(res.format(**key))
 
     def test_other_keyseq_to_word(self, inp, res):
-        KB = Keyboard('US')
+        KB = Keyboard('qwerty')
         kw = KB.keyseq_to_word('{c}asdf{s}1{c}sdf'.format(**key))
         assert 'ASDFasdf' == KB.keyseq_to_word('{c}asdf{s}a{c}sdf'.format(**key))
         assert 'ASDF!sdf' == KB.keyseq_to_word('{c}asdf{s}1{c}sdf'.format(**key))
@@ -98,20 +98,20 @@ class TestKeyPresses():
     def test_keyseq(self, inp, res):
         inp_res_map = [(('|'), (1,13,1))
                        ]
-        kb = Keyboard('US')
+        kb = Keyboard('qwerty')
         for q, r in inp_res_map:
             assert kb.loc(ord(*q)) == r
     
     def test_part_keyseq(self, inp, res):
         res = res.format(**key)
-        kb = Keyboard('US')
+        kb = Keyboard('qwerty')
         i = random.randint(0, len(res))
         pre_word, shift, caps = kb.part_keyseq_string(res[:i])
         post_word, shift, caps = kb.part_keyseq_string(res[i:], shift, caps)
         assert inp == pre_word + post_word
 
     def test_sub_word_table(self, inp, res):
-        kb = Keyboard('US')
+        kb = Keyboard('qwerty')
         res = res.format(**key)
         A = kb._sub_word_table(res)
         for i in xrange(len(res)):
@@ -133,7 +133,7 @@ class TestKeyPresses():
                 'Paa'
             )
         )]
-        kb = Keyboard('US')
+        kb = Keyboard('qwerty')
         for inp, res in inp_res_map:
             inp = (kb.keyseq_to_word(inp[0]), inp[1], inp[2])
             for i,r in enumerate(kb.word_to_typos(*inp)):
@@ -148,7 +148,7 @@ allowed_chars = list(string.printable[:-5])
 
 def test_word_edits(capsys):
     rand_string = ''.join(random.choice(allowed_chars) for _ in range(12))
-    kb = Keyboard('US')
+    kb = Keyboard('qwerty')
     # for pw in kb.word_to_typos(rand_string):
     #     print repr(pw)
     _s = set(allowed_chars)
