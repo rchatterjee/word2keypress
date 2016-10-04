@@ -25,8 +25,8 @@ configuration = dict(
     author_email='rahul@cs.cornell.edu',
     url='https://github.com/rchatterjee/word2keypress.git',
     download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v0.9',
-    install_requires=[
-    ],
+    install_requires=[],
+    package_data=[('word2keypress/adjacency_graphs.json', ['word2keypress/adjacency_graphs.json'])],
     long_description='See README.md',
     packages=['word2keypress'],
     ext_modules=[keyboardpyx], # cythonize('word2keypress/_keyboard.pyx'),  # accepts a glob pattern

@@ -36,12 +36,12 @@ class TestKeyboard():
             assert abs(kb.keyboard_dist(*q)-r)<0.0001
 
 
-    @pytest.mark.parametrize(('inp', 'res'), [('a', 'AQWSXZqwsxz'),
-                                               ('g', 'GRTYHNBVFrtyhnbvf'),
-                                               ('r', 'R#$%TGFDE345tgfde')])
+    @pytest.mark.parametrize(('inp', 'res'), [('a', 'QWSZqwsz'),
+                                              ('g', 'TYHBVFtyhbvf'),
+                                              ('r', '$%TFDE45tfde')])
     def test_key_prox_chars(self, inp, res):
         kb = Keyboard('qwerty')
-        ret = [chr(c) for c in kb.keyboard_nearby_chars(ord(inp))]
+        ret = [c for c in kb.keyboard_nearby_chars(inp)]
         assert set(ret) == set(res)
 
     @pytest.mark.skip(reason="cpython function. Not available outside")
