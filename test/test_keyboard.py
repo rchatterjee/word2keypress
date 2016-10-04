@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import pyximport; pyximport.install()
 import os, sys, json, csv, re
 import socket
 import random
@@ -9,7 +10,16 @@ import time
 SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]
 CAPS_KEY = 4 # [u'\x04', "<c>"][user_friendly]
 
+
 kb = Keyboard('qwerty')
+def test_keyboard_type():
+    with pytest.raises(AssertionError):
+        Keyboard('US')
+        Keyboard('asdfadsf')
+    kb = Keyboard('qwerty')
+    kb = Keyboard('dvorak')
+    
+        
 class TestKeyboard():
     def test_loc(self):
         inp_res_map = [(('t'), (1,5,0)),
@@ -32,6 +42,9 @@ class TestKeyboard():
             q = [ord(x) for x in q]
             assert abs(kb.keyboard_dist(*q)-r)<0.0001
 
+    def test_is_typable(self):
+        assert kb.is_typable('adfasdf')
+        assert not kb.is_typable(b'\xf3a35')
 
     @pytest.mark.parametrize(('inp', 'res'), [('a', 'QWSZqwsz'),
                                               ('g', 'TYHBVFtyhbvf'),
@@ -155,7 +168,6 @@ def test_word_edits(capsys):
     print "\nNumber of typos of {!r}: {:,}".format(rand_string, i)
     print "Total typos covered: {:,}".format(total_typo_computed)
     print ">> Time taken: {:.3f} s".format(e_t-s_t)
-
 
 def test_edit_distance():
     from word2keypress import distance
