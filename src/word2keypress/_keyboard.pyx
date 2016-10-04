@@ -8,7 +8,7 @@ import array
 import json
 cimport cython
 from libc.stdlib cimport calloc, free
-
+from adjacency_graphs import adj_graph
 cdef int user_friendly = 0
 cdef char SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]
 cdef char CAPS_KEY = 4 # [u'\x04', "<c>"][user_friendly]
@@ -154,7 +154,7 @@ cdef class Keyboard(object):
     cdef dict _loc_map, _adj_map
     cdef set _printables
     def __init__(self,  str _type='qwerty', float shift_discount=0.8):
-        self._adj_map = json.load(open('word2keypress/adjacency_graphs.json'))
+        self._adj_map = adj_graph
         assert _type in self._adj_map
         self._keyboard_type = _type
         self._keyboard, self._num_shift = layout_matrix[self._keyboard_type]

@@ -1,5 +1,4 @@
 #!/usr/bin/python
-import pyximport; pyximport.install()
 import os, sys, json, csv, re
 import socket
 import random

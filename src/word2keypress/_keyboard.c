@@ -488,7 +488,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "word2keypress/_keyboard.pyx",
+  "src/word2keypress/_keyboard.pyx",
   "array.pxd",
   "stringsource",
   "type.pxd",
@@ -601,14 +601,12 @@ struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct__loc;
 struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_1_genexpr;
 struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_2_keyboard_nearby_chars;
 struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_3_genexpr;
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys;
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr;
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits;
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow;
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change;
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits;
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow;
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change;
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr;
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change;
 struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr;
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change;
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
@@ -644,6 +642,7 @@ struct __pyx_obj_13word2keypress_9_keyboard_Keyboard {
   PyObject *_keyboard;
   PyObject *_loc_map;
   PyObject *_adj_map;
+  PyObject *_printables;
 };
 
 
@@ -705,49 +704,14 @@ struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_3_genexpr {
 };
 
 
-/* "word2keypress/_keyboard.pyx":303
- *         return _dl_distance(w1, w2)
- * 
- *     cdef char[:] _keyboard_nearby_keys(self, char _char):             # <<<<<<<<<<<<<<
- *         """Returns the closed by characters of character @c in standard qwerty
- *         Keyboard.
- */
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys {
-  PyObject_HEAD
-  int __pyx_v_i;
-  int __pyx_v_j;
-  int __pyx_v_num_shift;
-  struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self;
-};
-
-
-/* "word2keypress/_keyboard.pyx":319
- *         ret = array.array('c', list(filter(
- *             lambda x: x and x!=ord(' '),
- *             (self.loc2char(r*num_shift, c)             # <<<<<<<<<<<<<<
- *              for r in range(i-1, i+2)
- *              for c in range(j-1, j+2))
- */
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr {
-  PyObject_HEAD
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *__pyx_outer_scope;
-  long __pyx_v_c;
-  long __pyx_v_r;
-  long __pyx_t_0;
-  long __pyx_t_1;
-  long __pyx_t_2;
-  long __pyx_t_3;
-};
-
-
-/* "word2keypress/_keyboard.pyx":499
+/* "word2keypress/_keyboard.pyx":501
  *         return A
  * 
  *     def keyseq_insert_edits(self, str keyseq, _insert_keys=[], _replace_keys=[]):             # <<<<<<<<<<<<<<
  *         """It will insert/replace/delete one key at a time from the
  *         keyseq. And return a set of words. Which keys to insert is
  */
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits {
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits {
   PyObject_HEAD
   PyObject *__pyx_v__insert_keys;
   PyObject *__pyx_v__replace_keys;
@@ -771,14 +735,14 @@ struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_e
 };
 
 
-/* "word2keypress/_keyboard.pyx":616
+/* "word2keypress/_keyboard.pyx":618
  * 
  * 
  *     def keyseq_to_word_slow(self, char[] keyseq):             # <<<<<<<<<<<<<<
  *         """
  *         Converts a keypress sequence to a word
  */
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow {
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow {
   PyObject_HEAD
   char __pyx_v_caps_key;
   struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self;
@@ -786,30 +750,30 @@ struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_
 };
 
 
-/* "word2keypress/_keyboard.pyx":625
+/* "word2keypress/_keyboard.pyx":627
  * 
  *         word = keyseq
  *         def caps_change(m):             # <<<<<<<<<<<<<<
  *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
  *                            for c in m.group(1))
  */
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change {
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change {
   PyObject_HEAD
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *__pyx_outer_scope;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *__pyx_outer_scope;
   PyObject *__pyx_v_m;
 };
 
 
-/* "word2keypress/_keyboard.pyx":626
+/* "word2keypress/_keyboard.pyx":628
  *         word = keyseq
  *         def caps_change(m):
  *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key             # <<<<<<<<<<<<<<
  *                            for c in m.group(1))
  * 
  */
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr {
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr {
   PyObject_HEAD
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *__pyx_outer_scope;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *__pyx_outer_scope;
   PyObject *__pyx_v_c;
   PyObject *__pyx_t_0;
   Py_ssize_t __pyx_t_1;
@@ -817,30 +781,30 @@ struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr {
 };
 
 
-/* "word2keypress/_keyboard.pyx":629
+/* "word2keypress/_keyboard.pyx":631
  *                            for c in m.group(1))
  * 
  *         def shift_change(m):             # <<<<<<<<<<<<<<
  *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
  *                            for c in m.group(1))
  */
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change {
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change {
   PyObject_HEAD
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *__pyx_outer_scope;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *__pyx_outer_scope;
   PyObject *__pyx_v_m;
 };
 
 
-/* "word2keypress/_keyboard.pyx":630
+/* "word2keypress/_keyboard.pyx":632
  * 
  *         def shift_change(m):
  *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key             # <<<<<<<<<<<<<<
  *                            for c in m.group(1))
  * 
  */
-struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr {
+struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr {
   PyObject_HEAD
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *__pyx_outer_scope;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *__pyx_outer_scope;
   PyObject *__pyx_v_c;
   PyObject *__pyx_t_0;
   Py_ssize_t __pyx_t_1;
@@ -1398,14 +1362,6 @@ static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, in
 /* GetModuleGlobalName.proto */
 static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 
-/* PyObjectCallMethO.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
-#endif
-
-/* PyObjectCallOneArg.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
-
 /* PyDictContains.proto */
 static CYTHON_INLINE int __Pyx_PyDict_ContainsTF(PyObject* item, PyObject* dict, int eq) {
     int result = PyDict_Contains(dict, item);
@@ -1424,24 +1380,6 @@ static CYTHON_INLINE int __Pyx_IterFinish(void);
 /* UnpackItemEndCheck.proto */
 static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected);
 
-/* PyObjectSetAttrStr.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-#define __Pyx_PyObject_DelAttrStr(o,n) __Pyx_PyObject_SetAttrStr(o,n,NULL)
-static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value) {
-    PyTypeObject* tp = Py_TYPE(obj);
-    if (likely(tp->tp_setattro))
-        return tp->tp_setattro(obj, attr_name, value);
-#if PY_MAJOR_VERSION < 3
-    if (likely(tp->tp_setattr))
-        return tp->tp_setattr(obj, PyString_AS_STRING(attr_name), value);
-#endif
-    return PyObject_SetAttr(obj, attr_name, value);
-}
-#else
-#define __Pyx_PyObject_DelAttrStr(o,n)   PyObject_DelAttr(o,n)
-#define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
-#endif
-
 /* IncludeStringH.proto */
 #include <string.h>
 
@@ -1457,6 +1395,14 @@ static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int 
 #else
 #define __Pyx_PyString_Equals __Pyx_PyBytes_Equals
 #endif
+
+/* PyObjectCallMethO.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
+#endif
+
+/* PyObjectCallOneArg.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
 /* PyObjectCallNoArg.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
@@ -1531,63 +1477,6 @@ static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
 #else
 static CYTHON_INLINE PyObject* __Pyx_PyBytes_Join(PyObject* sep, PyObject* values);
 #endif
-
-/* FetchCommonType.proto */
-static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
-
-/* CythonFunction.proto */
-#define __Pyx_CyFunction_USED 1
-#include <structmember.h>
-#define __Pyx_CYFUNCTION_STATICMETHOD  0x01
-#define __Pyx_CYFUNCTION_CLASSMETHOD   0x02
-#define __Pyx_CYFUNCTION_CCLASS        0x04
-#define __Pyx_CyFunction_GetClosure(f)\
-    (((__pyx_CyFunctionObject *) (f))->func_closure)
-#define __Pyx_CyFunction_GetClassObj(f)\
-    (((__pyx_CyFunctionObject *) (f))->func_classobj)
-#define __Pyx_CyFunction_Defaults(type, f)\
-    ((type *)(((__pyx_CyFunctionObject *) (f))->defaults))
-#define __Pyx_CyFunction_SetDefaultsGetter(f, g)\
-    ((__pyx_CyFunctionObject *) (f))->defaults_getter = (g)
-typedef struct {
-    PyCFunctionObject func;
-#if PY_VERSION_HEX < 0x030500A0
-    PyObject *func_weakreflist;
-#endif
-    PyObject *func_dict;
-    PyObject *func_name;
-    PyObject *func_qualname;
-    PyObject *func_doc;
-    PyObject *func_globals;
-    PyObject *func_code;
-    PyObject *func_closure;
-    PyObject *func_classobj;
-    void *defaults;
-    int defaults_pyobjects;
-    int flags;
-    PyObject *defaults_tuple;
-    PyObject *defaults_kwdict;
-    PyObject *(*defaults_getter)(PyObject *);
-    PyObject *func_annotations;
-} __pyx_CyFunctionObject;
-static PyTypeObject *__pyx_CyFunctionType = 0;
-#define __Pyx_CyFunction_NewEx(ml, flags, qualname, self, module, globals, code)\
-    __Pyx_CyFunction_New(__pyx_CyFunctionType, ml, flags, qualname, self, module, globals, code)
-static PyObject *__Pyx_CyFunction_New(PyTypeObject *, PyMethodDef *ml,
-                                      int flags, PyObject* qualname,
-                                      PyObject *self,
-                                      PyObject *module, PyObject *globals,
-                                      PyObject* code);
-static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *m,
-                                                         size_t size,
-                                                         int pyobjects);
-static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *m,
-                                                            PyObject *tuple);
-static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *m,
-                                                             PyObject *dict);
-static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *m,
-                                                              PyObject *dict);
-static int __pyx_CyFunction_init(void);
 
 /* BufferFormatCheck.proto */
 static CYTHON_INLINE int  __Pyx_GetBufferAndValidate(Py_buffer* buf, PyObject* obj,
@@ -1678,6 +1567,63 @@ static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, long intval, i
 /* ExtTypeTest.proto */
 static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
+/* FetchCommonType.proto */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
+
+/* CythonFunction.proto */
+#define __Pyx_CyFunction_USED 1
+#include <structmember.h>
+#define __Pyx_CYFUNCTION_STATICMETHOD  0x01
+#define __Pyx_CYFUNCTION_CLASSMETHOD   0x02
+#define __Pyx_CYFUNCTION_CCLASS        0x04
+#define __Pyx_CyFunction_GetClosure(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_closure)
+#define __Pyx_CyFunction_GetClassObj(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_classobj)
+#define __Pyx_CyFunction_Defaults(type, f)\
+    ((type *)(((__pyx_CyFunctionObject *) (f))->defaults))
+#define __Pyx_CyFunction_SetDefaultsGetter(f, g)\
+    ((__pyx_CyFunctionObject *) (f))->defaults_getter = (g)
+typedef struct {
+    PyCFunctionObject func;
+#if PY_VERSION_HEX < 0x030500A0
+    PyObject *func_weakreflist;
+#endif
+    PyObject *func_dict;
+    PyObject *func_name;
+    PyObject *func_qualname;
+    PyObject *func_doc;
+    PyObject *func_globals;
+    PyObject *func_code;
+    PyObject *func_closure;
+    PyObject *func_classobj;
+    void *defaults;
+    int defaults_pyobjects;
+    int flags;
+    PyObject *defaults_tuple;
+    PyObject *defaults_kwdict;
+    PyObject *(*defaults_getter)(PyObject *);
+    PyObject *func_annotations;
+} __pyx_CyFunctionObject;
+static PyTypeObject *__pyx_CyFunctionType = 0;
+#define __Pyx_CyFunction_NewEx(ml, flags, qualname, self, module, globals, code)\
+    __Pyx_CyFunction_New(__pyx_CyFunctionType, ml, flags, qualname, self, module, globals, code)
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *, PyMethodDef *ml,
+                                      int flags, PyObject* qualname,
+                                      PyObject *self,
+                                      PyObject *module, PyObject *globals,
+                                      PyObject* code);
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *m,
+                                                         size_t size,
+                                                         int pyobjects);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *m,
+                                                            PyObject *tuple);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *m,
+                                                             PyObject *dict);
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *m,
+                                                              PyObject *dict);
+static int __pyx_CyFunction_init(void);
+
 /* PyIntBinop.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
 static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, long intval, int inplace);
@@ -1761,6 +1707,9 @@ static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname);
 
 /* SetVTable.proto */
 static int __Pyx_SetVtable(PyObject *dict, void *vtable);
+
+/* ImportFrom.proto */
+static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
 
 /* CodeObjectCache.proto */
 typedef struct {
@@ -2184,14 +2133,12 @@ static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct__
 static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_1_genexpr = 0;
 static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_2_keyboard_nearby_chars = 0;
 static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_3_genexpr = 0;
-static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys = 0;
-static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr = 0;
-static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits = 0;
-static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow = 0;
-static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change = 0;
+static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits = 0;
+static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow = 0;
+static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change = 0;
+static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr = 0;
+static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change = 0;
 static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr = 0;
-static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change = 0;
-static PyTypeObject *__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr = 0;
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
 static PyTypeObject *__pyx_memoryview_type = 0;
@@ -2255,10 +2202,8 @@ static PyObject *__pyx_builtin_all;
 static PyObject *__pyx_builtin_map;
 static PyObject *__pyx_builtin_MemoryError;
 static PyObject *__pyx_builtin_range;
-static PyObject *__pyx_builtin_open;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_enumerate;
-static PyObject *__pyx_builtin_filter;
 static PyObject *__pyx_builtin_xrange;
 static PyObject *__pyx_builtin_AssertionError;
 static PyObject *__pyx_builtin_Exception;
@@ -2276,7 +2221,7 @@ static const char __pyx_k_d[] = "d";
 static const char __pyx_k_i[] = "i";
 static const char __pyx_k_m[] = "m";
 static const char __pyx_k_s[] = "s";
-static const char __pyx_k__5[] = ">>><<<<";
+static const char __pyx_k__4[] = ">>><<<<";
 static const char __pyx_k_id[] = "id";
 static const char __pyx_k_os[] = "os";
 static const char __pyx_k_re[] = "re";
@@ -2287,18 +2232,18 @@ static const char __pyx_k_w2[] = "w2";
 static const char __pyx_k_0_0[] = "{0}(.){0}";
 static const char __pyx_k_1_0[] = "\\1{0}";
 static const char __pyx_k_1_2[] = "{}\\1";
-static const char __pyx_k__24[] = "\000";
-static const char __pyx_k__44[] = "~!@#$%^&*()_+";
-static const char __pyx_k__45[] = "         ";
-static const char __pyx_k__46[] = "~`|......";
-static const char __pyx_k__47[] = "@#$%&-+()";
-static const char __pyx_k__48[] = "....^.={}";
-static const char __pyx_k__49[] = "*\"':;!?";
-static const char __pyx_k__50[] = "\\....[]";
-static const char __pyx_k__51[] = "/      .";
-static const char __pyx_k__52[] = ",_    /.";
-static const char __pyx_k__53[] = ",<    >.";
-static const char __pyx_k__54[] = "~!@#$%^&*(){}";
+static const char __pyx_k__23[] = "\000";
+static const char __pyx_k__43[] = "~!@#$%^&*()_+";
+static const char __pyx_k__44[] = "         ";
+static const char __pyx_k__45[] = "~`|......";
+static const char __pyx_k__46[] = "@#$%&-+()";
+static const char __pyx_k__47[] = "....^.={}";
+static const char __pyx_k__48[] = "*\"':;!?";
+static const char __pyx_k__49[] = "\\....[]";
+static const char __pyx_k__50[] = "/      .";
+static const char __pyx_k__51[] = ",_    /.";
+static const char __pyx_k__52[] = ",<    >.";
+static const char __pyx_k__53[] = "~!@#$%^&*(){}";
 static const char __pyx_k_all[] = "all";
 static const char __pyx_k_c_2[] = "<c>";
 static const char __pyx_k_chr[] = "chr";
@@ -2317,12 +2262,10 @@ static const char __pyx_k_char[] = "_char";
 static const char __pyx_k_file[] = "file";
 static const char __pyx_k_join[] = "join";
 static const char __pyx_k_json[] = "json";
-static const char __pyx_k_load[] = "load";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_mode[] = "mode";
 static const char __pyx_k_name[] = "name";
 static const char __pyx_k_ndim[] = "ndim";
-static const char __pyx_k_open[] = "open";
 static const char __pyx_k_pack[] = "pack";
 static const char __pyx_k_send[] = "send";
 static const char __pyx_k_size[] = "size";
@@ -2361,7 +2304,6 @@ static const char __pyx_k_char_r[] = "_char: {!r}";
 static const char __pyx_k_encode[] = "encode";
 static const char __pyx_k_escape[] = "escape";
 static const char __pyx_k_extend[] = "extend";
-static const char __pyx_k_filter[] = "filter";
 static const char __pyx_k_format[] = "format";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_keyseq[] = "keyseq";
@@ -2395,6 +2337,7 @@ static const char __pyx_k_QJKXBMWVZ[] = ":QJKXBMWVZ";
 static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_ZXCVBNM_2[] = "ZXCVBNM";
 static const char __pyx_k_add_shift[] = "add_shift";
+static const char __pyx_k_adj_graph[] = "adj_graph";
 static const char __pyx_k_asdfghjkl[] = " asdfghjkl;'";
 static const char __pyx_k_endshifts[] = "endshifts";
 static const char __pyx_k_enumerate[] = "enumerate";
@@ -2411,7 +2354,6 @@ static const char __pyx_k_QWERTYUIOP[] = " QWERTYUIOP{}|";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_aoeuidhtns[] = "aoeuidhtns-";
 static const char __pyx_k_fromstring[] = "fromstring";
-static const char __pyx_k_printables[] = "_printables";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static const char __pyx_k_qwertyuiop[] = " qwertyuiop[]\\";
 static const char __pyx_k_ASDFGHJKL_2[] = "ASDFGHJKL";
@@ -2442,6 +2384,7 @@ static const char __pyx_k_shift_discount[] = "shift_discount";
 static const char __pyx_k_sub_word_table[] = "_sub_word_table";
 static const char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static const char __pyx_k_dtype_is_object[] = "dtype_is_object";
+static const char __pyx_k_adjacency_graphs[] = "adjacency_graphs";
 static const char __pyx_k_loc_locals_genexpr[] = "loc.<locals>.genexpr";
 static const char __pyx_k_part_keyseq_string[] = "part_keyseq_string";
 static const char __pyx_k_strided_and_direct[] = "<strided and direct>";
@@ -2450,6 +2393,7 @@ static const char __pyx_k_keyseq_insert_edits[] = "keyseq_insert_edits";
 static const char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
 static const char __pyx_k_Not_implemented_for_r[] = "Not implemented for {!r}";
 static const char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
+static const char __pyx_k_keyboard_nearby_chars[] = "keyboard_nearby_chars";
 static const char __pyx_k_MemoryView_of_r_object[] = "<MemoryView of %r object>";
 static const char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x>";
 static const char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
@@ -2465,14 +2409,13 @@ static const char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direc
 static const char __pyx_k_1234567890_qwertyuiop_asdfghjkl[] = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ {}{}";
 static const char __pyx_k_I_could_not_figure_this_out_r_s[] = ">>>> I could not figure this out: {!r}, stuck at {!r}";
 static const char __pyx_k_P_endshifts_0_a_z_a_z_0_2_0_a_z[] = ".*?(?P<endshifts>({0}[a-z][^a-z{0}]*){{2,}}({0}.[^a-z]*)*)$";
-static const char __pyx_k_Users_rahul_word2keypress_word2[] = "/Users/rahul/word2keypress/word2keypress/_keyboard.pyx";
+static const char __pyx_k_Users_rahul_word2keypress_src_w[] = "/Users/rahul/word2keypress/src/word2keypress/_keyboard.pyx";
 static const char __pyx_k_keyseq_to_word_slow_locals_caps[] = "keyseq_to_word_slow.<locals>.caps_change.<locals>.genexpr";
 static const char __pyx_k_Buffer_view_does_not_expose_stri[] = "Buffer view does not expose strides";
 static const char __pyx_k_Can_only_create_a_buffer_that_is[] = "Can only create a buffer that is contiguous in memory.";
 static const char __pyx_k_Empty_shape_tuple_for_cython_arr[] = "Empty shape tuple for cython.array";
 static const char __pyx_k_Indirect_dimensions_not_supporte[] = "Indirect dimensions not supported";
 static const char __pyx_k_Invalid_mode_expected_c_or_fortr[] = "Invalid mode, expected 'c' or 'fortran', got %s";
-static const char __pyx_k_Keyboard__keyboard_nearby_keys_l[] = "Keyboard._keyboard_nearby_keys.<locals>.genexpr";
 static const char __pyx_k_Not_yet_supported_non_qwerty_key[] = "Not yet supported non-qwerty keyboards: {}";
 static const char __pyx_k_Out_of_bounds_on_buffer_access_a[] = "Out of bounds on buffer access (axis %d)";
 static const char __pyx_k_Problem_in_Keyboard_layout_Expec[] = "Problem in Keyboard layout. Expecting the size of the keyboard ({}) to be multiple of num_shift ({}).";
@@ -2482,9 +2425,7 @@ static const char __pyx_k_keyboard_nearby_chars_locals_gen[] = "keyboard_nearby_
 static const char __pyx_k_keyseq_insert_edits_locals_lambd[] = "keyseq_insert_edits.<locals>.<lambda>";
 static const char __pyx_k_keyseq_to_word_slow_locals_shift[] = "keyseq_to_word_slow.<locals>.shift_change.<locals>.genexpr";
 static const char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
-static const char __pyx_k_word2keypress_adjacency_graphs_j[] = "word2keypress/adjacency_graphs.json";
 static const char __pyx_k_keyseq_to_word_slow_locals_caps_2[] = "keyseq_to_word_slow.<locals>.caps_change";
-static const char __pyx_k_Keyboard__keyboard_nearby_keys_l_2[] = "Keyboard._keyboard_nearby_keys.<locals>.<lambda>";
 static const char __pyx_k_keyseq_to_word_slow_locals_shift_2[] = "keyseq_to_word_slow.<locals>.shift_change";
 static PyObject *__pyx_kp_b_;
 static PyObject *__pyx_kp_s_;
@@ -2526,8 +2467,6 @@ static PyObject *__pyx_n_s_IndexError;
 static PyObject *__pyx_kp_s_Indirect_dimensions_not_supporte;
 static PyObject *__pyx_kp_s_Invalid_mode_expected_c_or_fortr;
 static PyObject *__pyx_kp_s_Invalid_shape_in_axis_d_d;
-static PyObject *__pyx_n_s_Keyboard__keyboard_nearby_keys_l;
-static PyObject *__pyx_n_s_Keyboard__keyboard_nearby_keys_l_2;
 static PyObject *__pyx_n_s_Keyboard_keyseq_insert_edits;
 static PyObject *__pyx_n_s_MOBILE_ANDROID;
 static PyObject *__pyx_n_s_MemoryError;
@@ -2548,24 +2487,26 @@ static PyObject *__pyx_kp_s_Replace_Insert;
 static PyObject *__pyx_kp_s_Returning_r;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_Unable_to_convert_item_to_object;
-static PyObject *__pyx_kp_s_Users_rahul_word2keypress_word2;
+static PyObject *__pyx_kp_s_Users_rahul_word2keypress_src_w;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_kp_b_ZXCVBNM;
 static PyObject *__pyx_n_b_ZXCVBNM_2;
-static PyObject *__pyx_kp_s__24;
+static PyObject *__pyx_kp_s__23;
+static PyObject *__pyx_kp_s__4;
+static PyObject *__pyx_kp_b__43;
 static PyObject *__pyx_kp_b__44;
 static PyObject *__pyx_kp_b__45;
 static PyObject *__pyx_kp_b__46;
 static PyObject *__pyx_kp_b__47;
 static PyObject *__pyx_kp_b__48;
 static PyObject *__pyx_kp_b__49;
-static PyObject *__pyx_kp_s__5;
 static PyObject *__pyx_kp_b__50;
 static PyObject *__pyx_kp_b__51;
 static PyObject *__pyx_kp_b__52;
 static PyObject *__pyx_kp_b__53;
-static PyObject *__pyx_kp_b__54;
 static PyObject *__pyx_n_s_add_shift;
+static PyObject *__pyx_n_s_adj_graph;
+static PyObject *__pyx_n_s_adjacency_graphs;
 static PyObject *__pyx_n_s_all;
 static PyObject *__pyx_n_s_allocate_buffer;
 static PyObject *__pyx_kp_b_aoeuidhtns;
@@ -2603,7 +2544,6 @@ static PyObject *__pyx_n_s_error;
 static PyObject *__pyx_n_s_escape;
 static PyObject *__pyx_n_s_extend;
 static PyObject *__pyx_n_s_file;
-static PyObject *__pyx_n_s_filter;
 static PyObject *__pyx_n_s_findall;
 static PyObject *__pyx_n_s_flags;
 static PyObject *__pyx_n_s_format;
@@ -2628,6 +2568,7 @@ static PyObject *__pyx_n_s_json;
 static PyObject *__pyx_n_s_key_o;
 static PyObject *__pyx_n_s_key_t;
 static PyObject *__pyx_n_s_keyboard_dist;
+static PyObject *__pyx_n_s_keyboard_nearby_chars;
 static PyObject *__pyx_n_s_keyboard_nearby_chars_locals_gen;
 static PyObject *__pyx_n_s_keyseq;
 static PyObject *__pyx_n_s_keyseq_insert_edits;
@@ -2639,7 +2580,6 @@ static PyObject *__pyx_n_s_keyseq_to_word_slow_locals_shift;
 static PyObject *__pyx_n_s_keyseq_to_word_slow_locals_shift_2;
 static PyObject *__pyx_n_s_lambda;
 static PyObject *__pyx_n_s_layout_matrix;
-static PyObject *__pyx_n_s_load;
 static PyObject *__pyx_n_s_loc;
 static PyObject *__pyx_n_s_loc_locals_genexpr;
 static PyObject *__pyx_n_s_m;
@@ -2652,12 +2592,10 @@ static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_name_2;
 static PyObject *__pyx_n_s_ndim;
 static PyObject *__pyx_n_s_obj;
-static PyObject *__pyx_n_s_open;
 static PyObject *__pyx_n_s_os;
 static PyObject *__pyx_n_s_pack;
 static PyObject *__pyx_n_s_part_keyseq_string;
 static PyObject *__pyx_n_s_print;
-static PyObject *__pyx_n_s_printables;
 static PyObject *__pyx_kp_b_pyfgcrl;
 static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
@@ -2706,7 +2644,6 @@ static PyObject *__pyx_n_s_w1;
 static PyObject *__pyx_n_s_w2;
 static PyObject *__pyx_n_s_word;
 static PyObject *__pyx_n_s_word2keypress__keyboard;
-static PyObject *__pyx_kp_s_word2keypress_adjacency_graphs_j;
 static PyObject *__pyx_n_s_xrange;
 static PyObject *__pyx_kp_b_zxcvbnm;
 static PyObject *__pyx_n_b_zxcvbnm_2;
@@ -2725,13 +2662,11 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_16is_keyboard_pro
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_21keyboard_nearby_chars_genexpr(PyObject *__pyx_self); /* proto */
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_18keyboard_nearby_chars(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v__char); /* proto */
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_20dl_distance(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v_w1, PyObject *__pyx_v_w2); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_x); /* proto */
-static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_1genexpr(PyObject *__pyx_self); /* proto */
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_22word_to_keyseq(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v_word); /* proto */
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(CYTHON_UNUSED struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v_keyseq); /* proto */
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_string(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v_keyseq, PyObject *__pyx_v_shift, PyObject *__pyx_v_caps); /* proto */
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v_keyseq); /* proto */
-static PyObject *__pyx_lambda_funcdef_lambda5(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_c); /* proto */
+static PyObject *__pyx_lambda_funcdef_lambda3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_c); /* proto */
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_30keyseq_insert_edits(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v_keyseq, PyObject *__pyx_v__insert_keys, PyObject *__pyx_v__replace_keys); /* proto */
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v_word, PyObject *__pyx_v__insert_keys, PyObject *__pyx_v__replace_keys); /* proto */
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_35keyseq_to_word(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v_keyseq); /* proto */
@@ -2780,14 +2715,12 @@ static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct__loc
 static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_1_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_2_keyboard_nearby_chars(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_3_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_Enum(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_memoryview(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -2801,15 +2734,16 @@ static PyObject *__pyx_int_20;
 static PyObject *__pyx_int_32;
 static PyObject *__pyx_int_128;
 static PyObject *__pyx_int_neg_1;
+static PyObject *__pyx_k__19;
 static PyObject *__pyx_k__20;
-static PyObject *__pyx_k__21;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
-static PyObject *__pyx_tuple__4;
+static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
+static PyObject *__pyx_slice__11;
 static PyObject *__pyx_slice__12;
 static PyObject *__pyx_slice__13;
 static PyObject *__pyx_slice__14;
@@ -2817,18 +2751,17 @@ static PyObject *__pyx_slice__15;
 static PyObject *__pyx_slice__16;
 static PyObject *__pyx_slice__17;
 static PyObject *__pyx_slice__18;
-static PyObject *__pyx_slice__19;
+static PyObject *__pyx_slice__39;
 static PyObject *__pyx_slice__40;
 static PyObject *__pyx_slice__41;
-static PyObject *__pyx_slice__42;
 static PyObject *__pyx_tuple__10;
-static PyObject *__pyx_tuple__11;
+static PyObject *__pyx_tuple__21;
 static PyObject *__pyx_tuple__22;
-static PyObject *__pyx_tuple__23;
+static PyObject *__pyx_tuple__24;
 static PyObject *__pyx_tuple__25;
 static PyObject *__pyx_tuple__26;
-static PyObject *__pyx_tuple__27;
-static PyObject *__pyx_tuple__29;
+static PyObject *__pyx_tuple__28;
+static PyObject *__pyx_tuple__30;
 static PyObject *__pyx_tuple__31;
 static PyObject *__pyx_tuple__32;
 static PyObject *__pyx_tuple__33;
@@ -2837,15 +2770,14 @@ static PyObject *__pyx_tuple__35;
 static PyObject *__pyx_tuple__36;
 static PyObject *__pyx_tuple__37;
 static PyObject *__pyx_tuple__38;
-static PyObject *__pyx_tuple__39;
-static PyObject *__pyx_tuple__43;
+static PyObject *__pyx_tuple__42;
+static PyObject *__pyx_tuple__54;
 static PyObject *__pyx_tuple__55;
 static PyObject *__pyx_tuple__56;
 static PyObject *__pyx_tuple__57;
 static PyObject *__pyx_tuple__58;
-static PyObject *__pyx_tuple__59;
-static PyObject *__pyx_codeobj__28;
-static PyObject *__pyx_codeobj__30;
+static PyObject *__pyx_codeobj__27;
+static PyObject *__pyx_codeobj__29;
 
 /* "word2keypress/_keyboard.pyx":145
  * 
@@ -3848,11 +3780,11 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard__dl_distance(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":155
- *     cdef list _keyboard
+/* "word2keypress/_keyboard.pyx":156
  *     cdef dict _loc_map, _adj_map
+ *     cdef set _printables
  *     def __init__(self,  str _type='qwerty', float shift_discount=0.8):             # <<<<<<<<<<<<<<
- *         self._adj_map = json.load(open('word2keypress/adjacency_graphs.json'))
+ *         self._adj_map = adj_graph
  *         assert _type in self._adj_map
  */
 
@@ -3891,7 +3823,7 @@ static int __pyx_pw_13word2keypress_9_keyboard_8Keyboard_1__init__(PyObject *__p
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 155, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 156, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3903,20 +3835,20 @@ static int __pyx_pw_13word2keypress_9_keyboard_8Keyboard_1__init__(PyObject *__p
     }
     __pyx_v__type = ((PyObject*)values[0]);
     if (values[1]) {
-      __pyx_v_shift_discount = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_shift_discount == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 155, __pyx_L3_error)
+      __pyx_v_shift_discount = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_shift_discount == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L3_error)
     } else {
       __pyx_v_shift_discount = ((float)0.8);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 155, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 156, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v__type), (&PyString_Type), 1, "_type", 1))) __PYX_ERR(0, 155, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v__type), (&PyString_Type), 1, "_type", 1))) __PYX_ERR(0, 156, __pyx_L1_error)
   __pyx_r = __pyx_pf_13word2keypress_9_keyboard_8Keyboard___init__(((struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self), __pyx_v__type, __pyx_v_shift_discount);
 
   /* function exit code */
@@ -3933,69 +3865,38 @@ static int __pyx_pf_13word2keypress_9_keyboard_8Keyboard___init__(struct __pyx_o
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
+  int __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
-  PyObject *(*__pyx_t_7)(PyObject *);
-  int __pyx_t_8;
+  PyObject *(*__pyx_t_6)(PyObject *);
+  int __pyx_t_7;
+  Py_ssize_t __pyx_t_8;
   Py_ssize_t __pyx_t_9;
-  Py_ssize_t __pyx_t_10;
+  PyObject *__pyx_t_10 = NULL;
   PyObject *__pyx_t_11 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
-  __Pyx_TraceCall("__init__", __pyx_f[0], 155, 0, __PYX_ERR(0, 155, __pyx_L1_error));
+  __Pyx_TraceCall("__init__", __pyx_f[0], 156, 0, __PYX_ERR(0, 156, __pyx_L1_error));
 
-  /* "word2keypress/_keyboard.pyx":156
- *     cdef dict _loc_map, _adj_map
+  /* "word2keypress/_keyboard.pyx":157
+ *     cdef set _printables
  *     def __init__(self,  str _type='qwerty', float shift_discount=0.8):
- *         self._adj_map = json.load(open('word2keypress/adjacency_graphs.json'))             # <<<<<<<<<<<<<<
+ *         self._adj_map = adj_graph             # <<<<<<<<<<<<<<
  *         assert _type in self._adj_map
  *         self._keyboard_type = _type
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_json); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_load); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 156, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_4)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_4);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
-    }
-  }
-  if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-  } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 156, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
-    __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_2);
-    __pyx_t_2 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_adj_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->_adj_map);
   __Pyx_DECREF(__pyx_v_self->_adj_map);
   __pyx_v_self->_adj_map = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "word2keypress/_keyboard.pyx":157
+  /* "word2keypress/_keyboard.pyx":158
  *     def __init__(self,  str _type='qwerty', float shift_discount=0.8):
- *         self._adj_map = json.load(open('word2keypress/adjacency_graphs.json'))
+ *         self._adj_map = adj_graph
  *         assert _type in self._adj_map             # <<<<<<<<<<<<<<
  *         self._keyboard_type = _type
  *         self._keyboard, self._num_shift = layout_matrix[self._keyboard_type]
@@ -4004,18 +3905,18 @@ static int __pyx_pf_13word2keypress_9_keyboard_8Keyboard___init__(struct __pyx_o
   if (unlikely(!Py_OptimizeFlag)) {
     if (unlikely(__pyx_v_self->_adj_map == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-      __PYX_ERR(0, 157, __pyx_L1_error)
+      __PYX_ERR(0, 158, __pyx_L1_error)
     }
-    __pyx_t_6 = (__Pyx_PyDict_ContainsTF(__pyx_v__type, __pyx_v_self->_adj_map, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 157, __pyx_L1_error)
-    if (unlikely(!(__pyx_t_6 != 0))) {
+    __pyx_t_2 = (__Pyx_PyDict_ContainsTF(__pyx_v__type, __pyx_v_self->_adj_map, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 158, __pyx_L1_error)
+    if (unlikely(!(__pyx_t_2 != 0))) {
       PyErr_SetNone(PyExc_AssertionError);
-      __PYX_ERR(0, 157, __pyx_L1_error)
+      __PYX_ERR(0, 158, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "word2keypress/_keyboard.pyx":158
- *         self._adj_map = json.load(open('word2keypress/adjacency_graphs.json'))
+  /* "word2keypress/_keyboard.pyx":159
+ *         self._adj_map = adj_graph
  *         assert _type in self._adj_map
  *         self._keyboard_type = _type             # <<<<<<<<<<<<<<
  *         self._keyboard, self._num_shift = layout_matrix[self._keyboard_type]
@@ -4027,16 +3928,16 @@ static int __pyx_pf_13word2keypress_9_keyboard_8Keyboard___init__(struct __pyx_o
   __Pyx_DECREF(__pyx_v_self->_keyboard_type);
   __pyx_v_self->_keyboard_type = __pyx_v__type;
 
-  /* "word2keypress/_keyboard.pyx":159
+  /* "word2keypress/_keyboard.pyx":160
  *         assert _type in self._adj_map
  *         self._keyboard_type = _type
  *         self._keyboard, self._num_shift = layout_matrix[self._keyboard_type]             # <<<<<<<<<<<<<<
  *         self._shift_discount = shift_discount
  *         self._loc_map = {}
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_layout_matrix); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_layout_matrix); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyObject_GetItem(__pyx_t_1, __pyx_v_self->_keyboard_type); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_3 = PyObject_GetItem(__pyx_t_1, __pyx_v_self->_keyboard_type); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if ((likely(PyTuple_CheckExact(__pyx_t_3))) || (PyList_CheckExact(__pyx_t_3))) {
@@ -4049,73 +3950,73 @@ static int __pyx_pf_13word2keypress_9_keyboard_8Keyboard___init__(struct __pyx_o
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 159, __pyx_L1_error)
+      __PYX_ERR(0, 160, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
       __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 1); 
+      __pyx_t_4 = PyTuple_GET_ITEM(sequence, 1); 
     } else {
       __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_5 = PyList_GET_ITEM(sequence, 1); 
+      __pyx_t_4 = PyList_GET_ITEM(sequence, 1); 
     }
     __Pyx_INCREF(__pyx_t_1);
-    __Pyx_INCREF(__pyx_t_5);
+    __Pyx_INCREF(__pyx_t_4);
     #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 159, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_2 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_7 = Py_TYPE(__pyx_t_2)->tp_iternext;
-    index = 0; __pyx_t_1 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_1);
-    index = 1; __pyx_t_5 = __pyx_t_7(__pyx_t_2); if (unlikely(!__pyx_t_5)) goto __pyx_L3_unpacking_failed;
+    __pyx_t_5 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_7(__pyx_t_2), 2) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
-    __pyx_t_7 = NULL;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
+    index = 0; __pyx_t_1 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_1)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_1);
+    index = 1; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L3_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_4);
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 2) < 0) __PYX_ERR(0, 160, __pyx_L1_error)
+    __pyx_t_6 = NULL;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     goto __pyx_L4_unpacking_done;
     __pyx_L3_unpacking_failed:;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_7 = NULL;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_6 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 159, __pyx_L1_error)
+    __PYX_ERR(0, 160, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
-  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 159, __pyx_L1_error)
-  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 159, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 160, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->_keyboard);
   __Pyx_DECREF(__pyx_v_self->_keyboard);
   __pyx_v_self->_keyboard = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_v_self->_num_shift = __pyx_t_8;
+  __pyx_v_self->_num_shift = __pyx_t_7;
 
-  /* "word2keypress/_keyboard.pyx":160
+  /* "word2keypress/_keyboard.pyx":161
  *         self._keyboard_type = _type
  *         self._keyboard, self._num_shift = layout_matrix[self._keyboard_type]
  *         self._shift_discount = shift_discount             # <<<<<<<<<<<<<<
  *         self._loc_map = {}
- *         self._printables = set()
+ *         # generated by Dropbox/python-zxcvbn
  */
   __pyx_v_self->_shift_discount = __pyx_v_shift_discount;
 
-  /* "word2keypress/_keyboard.pyx":161
+  /* "word2keypress/_keyboard.pyx":162
  *         self._keyboard, self._num_shift = layout_matrix[self._keyboard_type]
  *         self._shift_discount = shift_discount
  *         self._loc_map = {}             # <<<<<<<<<<<<<<
- *         self._printables = set()
  *         # generated by Dropbox/python-zxcvbn
+ *         assert len(self._keyboard) % self._num_shift==0, "Problem in Keyboard layout. "\
  */
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   __Pyx_GOTREF(__pyx_v_self->_loc_map);
@@ -4123,20 +4024,8 @@ static int __pyx_pf_13word2keypress_9_keyboard_8Keyboard___init__(struct __pyx_o
   __pyx_v_self->_loc_map = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "word2keypress/_keyboard.pyx":162
- *         self._shift_discount = shift_discount
- *         self._loc_map = {}
- *         self._printables = set()             # <<<<<<<<<<<<<<
- *         # generated by Dropbox/python-zxcvbn
- *         assert len(self._keyboard) % self._num_shift==0, "Problem in Keyboard layout. "\
- */
-  __pyx_t_3 = PySet_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_printables, __pyx_t_3) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
   /* "word2keypress/_keyboard.pyx":164
- *         self._printables = set()
+ *         self._loc_map = {}
  *         # generated by Dropbox/python-zxcvbn
  *         assert len(self._keyboard) % self._num_shift==0, "Problem in Keyboard layout. "\             # <<<<<<<<<<<<<<
  *             "Expecting the size of the keyboard ({}) to be multiple of num_shift ({})."\
@@ -4150,9 +4039,9 @@ static int __pyx_pf_13word2keypress_9_keyboard_8Keyboard___init__(struct __pyx_o
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
       __PYX_ERR(0, 164, __pyx_L1_error)
     }
-    __pyx_t_9 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_8 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 164, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!(((__pyx_t_9 % __pyx_v_self->_num_shift) == 0) != 0))) {
+    if (unlikely(!(((__pyx_t_8 % __pyx_v_self->_num_shift) == 0) != 0))) {
 
       /* "word2keypress/_keyboard.pyx":166
  *         assert len(self._keyboard) % self._num_shift==0, "Problem in Keyboard layout. "\
@@ -4161,62 +4050,62 @@ static int __pyx_pf_13word2keypress_9_keyboard_8Keyboard___init__(struct __pyx_o
  * 
  *     def char2key(self, char _char, int capslock_state):
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Problem_in_Keyboard_layout_Expec, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Problem_in_Keyboard_layout_Expec, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_1 = __pyx_v_self->_keyboard;
       __Pyx_INCREF(__pyx_t_1);
       if (unlikely(__pyx_t_1 == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
         __PYX_ERR(0, 166, __pyx_L1_error)
       }
-      __pyx_t_10 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_10 == -1)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __pyx_t_9 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->_num_shift); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = NULL;
-      __pyx_t_10 = 0;
-      if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
-        __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
-        if (likely(__pyx_t_4)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-          __Pyx_INCREF(__pyx_t_4);
+      __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_self->_num_shift); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_10 = NULL;
+      __pyx_t_9 = 0;
+      if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
+        __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_4);
+        if (likely(__pyx_t_10)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+          __Pyx_INCREF(__pyx_t_10);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_5, function);
-          __pyx_t_10 = 1;
+          __Pyx_DECREF_SET(__pyx_t_4, function);
+          __pyx_t_9 = 1;
         }
       }
-      __pyx_t_11 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __pyx_t_11 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
-      if (__pyx_t_4) {
-        __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_4); __pyx_t_4 = NULL;
+      if (__pyx_t_10) {
+        __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_10); __pyx_t_10 = NULL;
       }
       __Pyx_GIVEREF(__pyx_t_1);
-      PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_10, __pyx_t_1);
-      __Pyx_GIVEREF(__pyx_t_2);
-      PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_10, __pyx_t_2);
+      PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_9, __pyx_t_1);
+      __Pyx_GIVEREF(__pyx_t_5);
+      PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_9, __pyx_t_5);
       __pyx_t_1 = 0;
-      __pyx_t_2 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __pyx_t_5 = 0;
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_11, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = PyTuple_Pack(1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = PyTuple_Pack(1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      PyErr_SetObject(PyExc_AssertionError, __pyx_t_5);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      PyErr_SetObject(PyExc_AssertionError, __pyx_t_4);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __PYX_ERR(0, 164, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "word2keypress/_keyboard.pyx":155
- *     cdef list _keyboard
+  /* "word2keypress/_keyboard.pyx":156
  *     cdef dict _loc_map, _adj_map
+ *     cdef set _printables
  *     def __init__(self,  str _type='qwerty', float shift_discount=0.8):             # <<<<<<<<<<<<<<
- *         self._adj_map = json.load(open('word2keypress/adjacency_graphs.json'))
+ *         self._adj_map = adj_graph
  *         assert _type in self._adj_map
  */
 
@@ -4225,10 +4114,10 @@ static int __pyx_pf_13word2keypress_9_keyboard_8Keyboard___init__(struct __pyx_o
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_11);
   __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
@@ -6097,7 +5986,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_10loc(struct __py
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
       __PYX_ERR(0, 220, __pyx_L1_error)
     }
-    if (unlikely(PyDict_SetItem(__pyx_cur_scope->__pyx_v_self->_loc_map, __pyx_int_32, __pyx_tuple__3) < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
+    if (unlikely(PyDict_SetItem(__pyx_cur_scope->__pyx_v_self->_loc_map, __pyx_int_32, __pyx_tuple__2) < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
 
     /* "word2keypress/_keyboard.pyx":221
  *                              for j, ch in enumerate(row)}
@@ -6111,8 +6000,11 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_10loc(struct __py
     __pyx_t_5 = __Pyx_Generator_Next(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_printables, __pyx_t_5) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_GIVEREF(__pyx_t_5);
+    __Pyx_GOTREF(__pyx_cur_scope->__pyx_v_self->_printables);
+    __Pyx_DECREF(__pyx_cur_scope->__pyx_v_self->_printables);
+    __pyx_cur_scope->__pyx_v_self->_printables = ((PyObject*)__pyx_t_5);
+    __pyx_t_5 = 0;
 
     /* "word2keypress/_keyboard.pyx":216
  *         cdef int i, j, num_shift
@@ -6232,7 +6124,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_10loc(struct __py
   }
   __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v__char); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyDict_GetItemDefault(__pyx_cur_scope->__pyx_v_self->_loc_map, __pyx_t_5, __pyx_tuple__4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_GetItemDefault(__pyx_cur_scope->__pyx_v_self->_loc_map, __pyx_t_5, __pyx_tuple__3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_r = __pyx_t_3;
@@ -6531,8 +6423,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_12is_typable(stru
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  Py_ssize_t __pyx_t_4;
+  Py_ssize_t __pyx_t_3;
   __Pyx_RefNannySetupContext("is_typable", 0);
   __Pyx_TraceCall("is_typable", __pyx_f[0], 241, 0, __PYX_ERR(0, 241, __pyx_L1_error));
 
@@ -6546,18 +6437,15 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_12is_typable(stru
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PySet_New(__pyx_v_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_printables); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Subtract(__pyx_t_1, __pyx_v_self->_printables); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Subtract(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = PyObject_Length(__pyx_t_3); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 242, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyBool_FromLong((__pyx_t_4 == 0)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_r = __pyx_t_3;
-  __pyx_t_3 = 0;
+  __pyx_t_2 = __Pyx_PyBool_FromLong((__pyx_t_3 == 0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
   /* "word2keypress/_keyboard.pyx":241
@@ -6572,7 +6460,6 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_12is_typable(stru
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.is_typable", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -6903,9 +6790,9 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_14keyboard_dist(s
     __Pyx_INCREF(__pyx_v_oshift);
     __Pyx_GIVEREF(__pyx_v_oshift);
     PyTuple_SET_ITEM(__pyx_t_5, 3, __pyx_v_oshift);
-    __Pyx_INCREF(__pyx_kp_s__5);
-    __Pyx_GIVEREF(__pyx_kp_s__5);
-    PyTuple_SET_ITEM(__pyx_t_5, 4, __pyx_kp_s__5);
+    __Pyx_INCREF(__pyx_kp_s__4);
+    __Pyx_GIVEREF(__pyx_kp_s__4);
+    PyTuple_SET_ITEM(__pyx_t_5, 4, __pyx_kp_s__4);
     __pyx_t_1 = 0;
     if (__Pyx_PrintOne(0, __pyx_t_5) < 0) __PYX_ERR(0, 255, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -7703,197 +7590,6 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_20dl_distance(str
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":318
- *         KM, num_shift = self._keyboard, self._num_shift
- *         ret = array.array('c', list(filter(
- *             lambda x: x and x!=ord(' '),             # <<<<<<<<<<<<<<
- *             (self.loc2char(r*num_shift, c)
- *              for r in range(i-1, i+2)
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_lambda3(PyObject *__pyx_self, PyObject *__pyx_v_x); /*proto*/
-static PyMethodDef __pyx_mdef_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_lambda3 = {"lambda3", (PyCFunction)__pyx_pw_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_lambda3, METH_O, 0};
-static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_lambda3(PyObject *__pyx_self, PyObject *__pyx_v_x) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("lambda3 (wrapper)", 0);
-  __pyx_r = __pyx_lambda_funcdef_lambda3(__pyx_self, ((PyObject *)__pyx_v_x));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_lambda_funcdef_lambda3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_x) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_t_2;
-  PyObject *__pyx_t_3 = NULL;
-  __Pyx_RefNannySetupContext("lambda3", 0);
-  __Pyx_TraceCall("lambda3", __pyx_f[0], 318, 0, __PYX_ERR(0, 318, __pyx_L1_error));
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_x); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 318, __pyx_L1_error)
-  if (__pyx_t_2) {
-  } else {
-    __Pyx_INCREF(__pyx_v_x);
-    __pyx_t_1 = __pyx_v_x;
-    goto __pyx_L3_bool_binop_done;
-  }
-  __pyx_t_3 = PyObject_RichCompare(__pyx_v_x, __pyx_int_32, Py_NE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 318, __pyx_L1_error)
-  __Pyx_INCREF(__pyx_t_3);
-  __pyx_t_1 = __pyx_t_3;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_L3_bool_binop_done:;
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("word2keypress._keyboard.Keyboard._keyboard_nearby_keys.lambda3", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_3generator3(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
-
-/* "word2keypress/_keyboard.pyx":319
- *         ret = array.array('c', list(filter(
- *             lambda x: x and x!=ord(' '),
- *             (self.loc2char(r*num_shift, c)             # <<<<<<<<<<<<<<
- *              for r in range(i-1, i+2)
- *              for c in range(j-1, j+2))
- */
-
-static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_1genexpr(PyObject *__pyx_self) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *__pyx_cur_scope;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("genexpr", 0);
-  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr, __pyx_empty_tuple, NULL);
-  if (unlikely(!__pyx_cur_scope)) {
-    __Pyx_RefNannyFinishContext();
-    return NULL;
-  }
-  __Pyx_GOTREF(__pyx_cur_scope);
-  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *) __pyx_self;
-  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
-  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
-  __Pyx_TraceCall("genexpr", __pyx_f[0], 319, 0, __PYX_ERR(0, 319, __pyx_L1_error));
-  {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_3generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Keyboard__keyboard_nearby_keys_l, __pyx_n_s_word2keypress__keyboard); if (unlikely(!gen)) __PYX_ERR(0, 319, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_cur_scope);
-    __Pyx_RefNannyFinishContext();
-    return (PyObject *) gen;
-  }
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_AddTraceback("word2keypress._keyboard.Keyboard._keyboard_nearby_keys.genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_3generator3(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
-{
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *__pyx_cur_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *)__pyx_generator->closure);
-  PyObject *__pyx_r = NULL;
-  long __pyx_t_1;
-  long __pyx_t_2;
-  long __pyx_t_3;
-  long __pyx_t_4;
-  PyObject *__pyx_t_5 = NULL;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("None", 0);
-  switch (__pyx_generator->resume_label) {
-    case 0: goto __pyx_L3_first_run;
-    case 1: goto __pyx_L8_resume_from_yield;
-    default: /* CPython raises the right error here */
-    __Pyx_RefNannyFinishContext();
-    return NULL;
-  }
-  __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 319, __pyx_L1_error)
-
-  /* "word2keypress/_keyboard.pyx":320
- *             lambda x: x and x!=ord(' '),
- *             (self.loc2char(r*num_shift, c)
- *              for r in range(i-1, i+2)             # <<<<<<<<<<<<<<
- *              for c in range(j-1, j+2))
- *         )))
- */
-  __pyx_t_1 = (__pyx_cur_scope->__pyx_outer_scope->__pyx_v_i + 2);
-  for (__pyx_t_2 = (__pyx_cur_scope->__pyx_outer_scope->__pyx_v_i - 1); __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
-    __pyx_cur_scope->__pyx_v_r = __pyx_t_2;
-
-    /* "word2keypress/_keyboard.pyx":321
- *             (self.loc2char(r*num_shift, c)
- *              for r in range(i-1, i+2)
- *              for c in range(j-1, j+2))             # <<<<<<<<<<<<<<
- *         )))
- *         return ret
- */
-    __pyx_t_3 = (__pyx_cur_scope->__pyx_outer_scope->__pyx_v_j + 2);
-    for (__pyx_t_4 = (__pyx_cur_scope->__pyx_outer_scope->__pyx_v_j - 1); __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
-      __pyx_cur_scope->__pyx_v_c = __pyx_t_4;
-
-      /* "word2keypress/_keyboard.pyx":319
- *         ret = array.array('c', list(filter(
- *             lambda x: x and x!=ord(' '),
- *             (self.loc2char(r*num_shift, c)             # <<<<<<<<<<<<<<
- *              for r in range(i-1, i+2)
- *              for c in range(j-1, j+2))
- */
-      if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 319, __pyx_L1_error) }
-      __pyx_t_5 = __Pyx_PyInt_From_char(((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->__pyx_vtab)->loc2char(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self, (__pyx_cur_scope->__pyx_v_r * __pyx_cur_scope->__pyx_outer_scope->__pyx_v_num_shift), __pyx_cur_scope->__pyx_v_c)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 319, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __pyx_r = __pyx_t_5;
-      __pyx_t_5 = 0;
-      __pyx_cur_scope->__pyx_t_0 = __pyx_t_1;
-      __pyx_cur_scope->__pyx_t_1 = __pyx_t_2;
-      __pyx_cur_scope->__pyx_t_2 = __pyx_t_3;
-      __pyx_cur_scope->__pyx_t_3 = __pyx_t_4;
-      __Pyx_XGIVEREF(__pyx_r);
-      __Pyx_RefNannyFinishContext();
-      /* return from generator, yielding value */
-      __pyx_generator->resume_label = 1;
-      return __pyx_r;
-      __pyx_L8_resume_from_yield:;
-      __pyx_t_1 = __pyx_cur_scope->__pyx_t_0;
-      __pyx_t_2 = __pyx_cur_scope->__pyx_t_1;
-      __pyx_t_3 = __pyx_cur_scope->__pyx_t_2;
-      __pyx_t_4 = __pyx_cur_scope->__pyx_t_3;
-      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 319, __pyx_L1_error)
-    }
-  }
-
-  /* function exit code */
-  PyErr_SetNone(PyExc_StopIteration);
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_r); __pyx_r = 0;
-  __pyx_generator->resume_label = -1;
-  __Pyx_Coroutine_clear((PyObject*)__pyx_generator);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "word2keypress/_keyboard.pyx":303
  *         return _dl_distance(w1, w2)
  * 
@@ -7903,10 +7599,6 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearb
  */
 
 static __Pyx_memviewslice __pyx_f_13word2keypress_9_keyboard_8Keyboard__keyboard_nearby_keys(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, char __pyx_v__char) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *__pyx_cur_scope;
-  CYTHON_UNUSED int __pyx_v_shift;
-  CYTHON_UNUSED PyObject *__pyx_v_KM = NULL;
-  PyObject *__pyx_v_ret = NULL;
   __Pyx_memviewslice __pyx_r = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -7917,17 +7609,8 @@ static __Pyx_memviewslice __pyx_f_13word2keypress_9_keyboard_8Keyboard__keyboard
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
-  PyObject *(*__pyx_t_8)(PyObject *);
-  int __pyx_t_9;
-  int __pyx_t_10;
-  int __pyx_t_11;
   __Pyx_RefNannySetupContext("_keyboard_nearby_keys", 0);
-  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys, __pyx_empty_tuple, NULL);
-  __Pyx_GOTREF(__pyx_cur_scope);
   __Pyx_TraceCall("_keyboard_nearby_keys", __pyx_f[0], 303, 0, __PYX_ERR(0, 303, __pyx_L1_error));
-  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
-  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
-  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
 
   /* "word2keypress/_keyboard.pyx":309
  *         :return: a list of keys
@@ -7986,7 +7669,7 @@ static __Pyx_memviewslice __pyx_f_13word2keypress_9_keyboard_8Keyboard__keyboard
  *             return array.array('i', [CAPS_KEY])
  *         elif _char == CAPS_KEY:             # <<<<<<<<<<<<<<
  *             return array.array('c', [SHIFT_KEY])
- *         cdef int i, j, shift, num_shift, r, c
+ *         return self.keyboard_nearby_chars(chr(_char))
  */
   __pyx_t_1 = ((__pyx_v__char == __pyx_v_13word2keypress_9_keyboard_CAPS_KEY) != 0);
   if (__pyx_t_1) {
@@ -7995,8 +7678,8 @@ static __Pyx_memviewslice __pyx_f_13word2keypress_9_keyboard_8Keyboard__keyboard
  *             return array.array('i', [CAPS_KEY])
  *         elif _char == CAPS_KEY:
  *             return array.array('c', [SHIFT_KEY])             # <<<<<<<<<<<<<<
- *         cdef int i, j, shift, num_shift, r, c
- *         cdef char ch
+ *         return self.keyboard_nearby_chars(chr(_char))
+ * 
  */
     __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -8029,21 +7712,29 @@ static __Pyx_memviewslice __pyx_f_13word2keypress_9_keyboard_8Keyboard__keyboard
  *             return array.array('i', [CAPS_KEY])
  *         elif _char == CAPS_KEY:             # <<<<<<<<<<<<<<
  *             return array.array('c', [SHIFT_KEY])
- *         cdef int i, j, shift, num_shift, r, c
+ *         return self.keyboard_nearby_chars(chr(_char))
  */
   }
 
-  /* "word2keypress/_keyboard.pyx":315
- *         cdef int i, j, shift, num_shift, r, c
- *         cdef char ch
- *         i, j, shift = self.loc(_char)             # <<<<<<<<<<<<<<
- *         KM, num_shift = self._keyboard, self._num_shift
- *         ret = array.array('c', list(filter(
+  /* "word2keypress/_keyboard.pyx":313
+ *         elif _char == CAPS_KEY:
+ *             return array.array('c', [SHIFT_KEY])
+ *         return self.keyboard_nearby_chars(chr(_char))             # <<<<<<<<<<<<<<
+ * 
+ *         # cdef int i, j, shift, num_shift, r, c
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_loc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_keyboard_nearby_chars); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 313, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v__char); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v__char); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 313, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 313, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 313, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
     __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_3);
@@ -8055,166 +7746,24 @@ static __Pyx_memviewslice __pyx_f_13word2keypress_9_keyboard_8Keyboard__keyboard
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 313, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 313, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 313, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
-    PyObject* sequence = __pyx_t_2;
-    #if CYTHON_COMPILING_IN_CPYTHON
-    Py_ssize_t size = Py_SIZE(sequence);
-    #else
-    Py_ssize_t size = PySequence_Size(sequence);
-    #endif
-    if (unlikely(size != 3)) {
-      if (size > 3) __Pyx_RaiseTooManyValuesError(3);
-      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 315, __pyx_L1_error)
-    }
-    #if CYTHON_COMPILING_IN_CPYTHON
-    if (likely(PyTuple_CheckExact(sequence))) {
-      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
-      __pyx_t_7 = PyTuple_GET_ITEM(sequence, 1); 
-      __pyx_t_5 = PyTuple_GET_ITEM(sequence, 2); 
-    } else {
-      __pyx_t_3 = PyList_GET_ITEM(sequence, 0); 
-      __pyx_t_7 = PyList_GET_ITEM(sequence, 1); 
-      __pyx_t_5 = PyList_GET_ITEM(sequence, 2); 
-    }
-    __Pyx_INCREF(__pyx_t_3);
-    __Pyx_INCREF(__pyx_t_7);
-    __Pyx_INCREF(__pyx_t_5);
-    #else
-    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 315, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 315, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_5 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 315, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    #endif
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  } else {
-    Py_ssize_t index = -1;
-    __pyx_t_6 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 315, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_8 = Py_TYPE(__pyx_t_6)->tp_iternext;
-    index = 0; __pyx_t_3 = __pyx_t_8(__pyx_t_6); if (unlikely(!__pyx_t_3)) goto __pyx_L4_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_3);
-    index = 1; __pyx_t_7 = __pyx_t_8(__pyx_t_6); if (unlikely(!__pyx_t_7)) goto __pyx_L4_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_7);
-    index = 2; __pyx_t_5 = __pyx_t_8(__pyx_t_6); if (unlikely(!__pyx_t_5)) goto __pyx_L4_unpacking_failed;
-    __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_6), 3) < 0) __PYX_ERR(0, 315, __pyx_L1_error)
-    __pyx_t_8 = NULL;
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    goto __pyx_L5_unpacking_done;
-    __pyx_L4_unpacking_failed:;
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_8 = NULL;
-    if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 315, __pyx_L1_error)
-    __pyx_L5_unpacking_done:;
-  }
-  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 315, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_7); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 315, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 315, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_cur_scope->__pyx_v_i = __pyx_t_9;
-  __pyx_cur_scope->__pyx_v_j = __pyx_t_10;
-  __pyx_v_shift = __pyx_t_11;
-
-  /* "word2keypress/_keyboard.pyx":316
- *         cdef char ch
- *         i, j, shift = self.loc(_char)
- *         KM, num_shift = self._keyboard, self._num_shift             # <<<<<<<<<<<<<<
- *         ret = array.array('c', list(filter(
- *             lambda x: x and x!=ord(' '),
- */
-  __pyx_t_2 = __pyx_cur_scope->__pyx_v_self->_keyboard;
-  __Pyx_INCREF(__pyx_t_2);
-  __pyx_t_11 = __pyx_cur_scope->__pyx_v_self->_num_shift;
-  __pyx_v_KM = ((PyObject*)__pyx_t_2);
-  __pyx_t_2 = 0;
-  __pyx_cur_scope->__pyx_v_num_shift = __pyx_t_11;
-
-  /* "word2keypress/_keyboard.pyx":318
- *         KM, num_shift = self._keyboard, self._num_shift
- *         ret = array.array('c', list(filter(
- *             lambda x: x and x!=ord(' '),             # <<<<<<<<<<<<<<
- *             (self.loc2char(r*num_shift, c)
- *              for r in range(i-1, i+2)
- */
-  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_lambda3, 0, __pyx_n_s_Keyboard__keyboard_nearby_keys_l_2, NULL, __pyx_n_s_word2keypress__keyboard, __pyx_d, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 318, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-
-  /* "word2keypress/_keyboard.pyx":319
- *         ret = array.array('c', list(filter(
- *             lambda x: x and x!=ord(' '),
- *             (self.loc2char(r*num_shift, c)             # <<<<<<<<<<<<<<
- *              for r in range(i-1, i+2)
- *              for c in range(j-1, j+2))
- */
-  __pyx_t_5 = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_21_keyboard_nearby_keys_1genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 319, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-
-  /* "word2keypress/_keyboard.pyx":317
- *         i, j, shift = self.loc(_char)
- *         KM, num_shift = self._keyboard, self._num_shift
- *         ret = array.array('c', list(filter(             # <<<<<<<<<<<<<<
- *             lambda x: x and x!=ord(' '),
- *             (self.loc2char(r*num_shift, c)
- */
-  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_5);
-  __pyx_t_2 = 0;
-  __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_filter, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PySequence_List(__pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_INCREF(__pyx_n_s_c);
-  __Pyx_GIVEREF(__pyx_n_s_c);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_n_s_c);
-  __Pyx_GIVEREF(__pyx_t_7);
-  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_7);
-  __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_5, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_v_ret = __pyx_t_7;
-  __pyx_t_7 = 0;
-
-  /* "word2keypress/_keyboard.pyx":323
- *              for c in range(j-1, j+2))
- *         )))
- *         return ret             # <<<<<<<<<<<<<<
- * 
- *     def word_to_keyseq(self, word):
- */
-  __pyx_t_4 = __Pyx_PyObject_to_MemoryviewSlice_ds_char(__pyx_v_ret);
-  if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 323, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_to_MemoryviewSlice_ds_char(__pyx_t_2);
+  if (unlikely(!__pyx_t_4.memview)) __PYX_ERR(0, 313, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_4;
   __pyx_t_4.memview = NULL;
   __pyx_t_4.data = NULL;
@@ -8246,16 +7795,13 @@ static __Pyx_memviewslice __pyx_f_13word2keypress_9_keyboard_8Keyboard__keyboard
     PyErr_SetString(PyExc_TypeError, "Memoryview return value is not initialized");
   }
   __pyx_L2:;
-  __Pyx_XDECREF(__pyx_v_KM);
-  __Pyx_XDECREF(__pyx_v_ret);
-  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_TraceReturn(Py_None, 0);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":325
- *         return ret
+/* "word2keypress/_keyboard.pyx":327
+ *         # return ret
  * 
  *     def word_to_keyseq(self, word):             # <<<<<<<<<<<<<<
  *         return self._word_to_keyseq(array.array(b'c', str(word)))
@@ -8282,9 +7828,9 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_22word_to_keyseq(
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("word_to_keyseq", 0);
-  __Pyx_TraceCall("word_to_keyseq", __pyx_f[0], 325, 0, __PYX_ERR(0, 325, __pyx_L1_error));
+  __Pyx_TraceCall("word_to_keyseq", __pyx_f[0], 327, 0, __PYX_ERR(0, 327, __pyx_L1_error));
 
-  /* "word2keypress/_keyboard.pyx":326
+  /* "word2keypress/_keyboard.pyx":328
  * 
  *     def word_to_keyseq(self, word):
  *         return self._word_to_keyseq(array.array(b'c', str(word)))             # <<<<<<<<<<<<<<
@@ -8292,15 +7838,15 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_22word_to_keyseq(
  *     cdef str _word_to_keyseq(self, array.array[char] word):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_word);
   __Pyx_GIVEREF(__pyx_v_word);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_word);
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_b_c);
   __Pyx_GIVEREF(__pyx_n_b_c);
@@ -8308,18 +7854,18 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_22word_to_keyseq(
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = ((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self->__pyx_vtab)->_word_to_keyseq(__pyx_v_self, ((arrayobject *)__pyx_t_2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self->__pyx_vtab)->_word_to_keyseq(__pyx_v_self, ((arrayobject *)__pyx_t_2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 328, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":325
- *         return ret
+  /* "word2keypress/_keyboard.pyx":327
+ *         # return ret
  * 
  *     def word_to_keyseq(self, word):             # <<<<<<<<<<<<<<
  *         return self._word_to_keyseq(array.array(b'c', str(word)))
@@ -8339,7 +7885,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_22word_to_keyseq(
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":328
+/* "word2keypress/_keyboard.pyx":330
  *         return self._word_to_keyseq(array.array(b'c', str(word)))
  * 
  *     cdef str _word_to_keyseq(self, array.array[char] word):             # <<<<<<<<<<<<<<
@@ -8387,58 +7933,58 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
   PyObject *__pyx_t_19 = NULL;
   Py_ssize_t __pyx_t_20;
   __Pyx_RefNannySetupContext("_word_to_keyseq", 0);
-  __Pyx_TraceCall("_word_to_keyseq", __pyx_f[0], 328, 0, __PYX_ERR(0, 328, __pyx_L1_error));
+  __Pyx_TraceCall("_word_to_keyseq", __pyx_f[0], 330, 0, __PYX_ERR(0, 330, __pyx_L1_error));
   __pyx_pybuffer_word.pybuffer.buf = NULL;
   __pyx_pybuffer_word.refcount = 0;
   __pyx_pybuffernd_word.data = NULL;
   __pyx_pybuffernd_word.rcbuffer = &__pyx_pybuffer_word;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_word.rcbuffer->pybuffer, (PyObject*)__pyx_v_word, &__Pyx_TypeInfo_char, PyBUF_FORMAT| PyBUF_INDIRECT, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 328, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_word.rcbuffer->pybuffer, (PyObject*)__pyx_v_word, &__Pyx_TypeInfo_char, PyBUF_FORMAT| PyBUF_INDIRECT, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 330, __pyx_L1_error)
   }
   __pyx_pybuffernd_word.diminfo[0].strides = __pyx_pybuffernd_word.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_word.diminfo[0].shape = __pyx_pybuffernd_word.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_word.diminfo[0].suboffsets = __pyx_pybuffernd_word.rcbuffer->pybuffer.suboffsets[0];
 
-  /* "word2keypress/_keyboard.pyx":342
+  /* "word2keypress/_keyboard.pyx":344
  *         <c>pa</c>as<c>wo</c>rd
  *         """
  *         caps_key = chr(CAPS_KEY)             # <<<<<<<<<<<<<<
  *         shift_key = chr(SHIFT_KEY)
  *         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for {!r}".format(KEYBOARD_TYPE)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_CAPS_KEY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_CAPS_KEY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 344, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_caps_key = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "word2keypress/_keyboard.pyx":343
+  /* "word2keypress/_keyboard.pyx":345
  *         """
  *         caps_key = chr(CAPS_KEY)
  *         shift_key = chr(SHIFT_KEY)             # <<<<<<<<<<<<<<
  *         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for {!r}".format(KEYBOARD_TYPE)
  *         cdef str new_str = ''
  */
-  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_shift_key = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "word2keypress/_keyboard.pyx":344
+  /* "word2keypress/_keyboard.pyx":346
  *         caps_key = chr(CAPS_KEY)
  *         shift_key = chr(SHIFT_KEY)
  *         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for {!r}".format(KEYBOARD_TYPE)             # <<<<<<<<<<<<<<
@@ -8447,9 +7993,9 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_3 = (__Pyx_PyString_Equals(__pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE, __pyx_n_s_qwerty, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 344, __pyx_L1_error)
+    __pyx_t_3 = (__Pyx_PyString_Equals(__pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE, __pyx_n_s_qwerty, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 346, __pyx_L1_error)
     if (unlikely(!(__pyx_t_3 != 0))) {
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Not_implemented_for_r, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 344, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Not_implemented_for_r, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 346, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_4 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -8462,31 +8008,31 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
         }
       }
       if (!__pyx_t_4) {
-        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
       } else {
-        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 344, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 346, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
         __Pyx_INCREF(__pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE);
         __Pyx_GIVEREF(__pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE);
         PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE);
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 346, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyTuple_Pack(1, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 344, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_Pack(1, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 346, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       PyErr_SetObject(PyExc_AssertionError, __pyx_t_2);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __PYX_ERR(0, 344, __pyx_L1_error)
+      __PYX_ERR(0, 346, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "word2keypress/_keyboard.pyx":345
+  /* "word2keypress/_keyboard.pyx":347
  *         shift_key = chr(SHIFT_KEY)
  *         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for {!r}".format(KEYBOARD_TYPE)
  *         cdef str new_str = ''             # <<<<<<<<<<<<<<
@@ -8496,7 +8042,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
   __Pyx_INCREF(__pyx_kp_s_);
   __pyx_v_new_str = __pyx_kp_s_;
 
-  /* "word2keypress/_keyboard.pyx":349
+  /* "word2keypress/_keyboard.pyx":351
  *         cdef int i, shift
  *         cdef char ch
  *         for i in xrange(len(word)):             # <<<<<<<<<<<<<<
@@ -8505,13 +8051,13 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
  */
   if (unlikely(((PyObject *)__pyx_v_word) == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 349, __pyx_L1_error)
+    __PYX_ERR(0, 351, __pyx_L1_error)
   }
-  __pyx_t_6 = Py_SIZE(((PyObject *)__pyx_v_word)); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 349, __pyx_L1_error)
+  __pyx_t_6 = Py_SIZE(((PyObject *)__pyx_v_word)); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 351, __pyx_L1_error)
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
-    /* "word2keypress/_keyboard.pyx":350
+    /* "word2keypress/_keyboard.pyx":352
  *         cdef char ch
  *         for i in xrange(len(word)):
  *             ch = word[i]             # <<<<<<<<<<<<<<
@@ -8522,7 +8068,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     if (__pyx_t_8 < 0) __pyx_t_8 += __pyx_pybuffernd_word.diminfo[0].shape;
     __pyx_v_ch = (*__Pyx_BufPtrFull1d(char *, __pyx_pybuffernd_word.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_word.diminfo[0].strides, __pyx_pybuffernd_word.diminfo[0].suboffsets));
 
-    /* "word2keypress/_keyboard.pyx":351
+    /* "word2keypress/_keyboard.pyx":353
  *         for i in xrange(len(word)):
  *             ch = word[i]
  *             try:             # <<<<<<<<<<<<<<
@@ -8538,16 +8084,16 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __Pyx_XGOTREF(__pyx_t_11);
       /*try:*/ {
 
-        /* "word2keypress/_keyboard.pyx":352
+        /* "word2keypress/_keyboard.pyx":354
  *             ch = word[i]
  *             try:
  *                 ch, shift = self.remove_shift(ch)             # <<<<<<<<<<<<<<
  *             except (AssertionError, ValueError) as e:
  *                 print("Bad word found!!", e, repr(word), repr(ch), repr(shift))
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_remove_shift); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L5_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_remove_shift); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 354, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_ch); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 352, __pyx_L5_error)
+        __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_ch); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 354, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_5);
         __pyx_t_4 = NULL;
         if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -8560,17 +8106,17 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
           }
         }
         if (!__pyx_t_4) {
-          __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 352, __pyx_L5_error)
+          __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 354, __pyx_L5_error)
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_GOTREF(__pyx_t_2);
         } else {
-          __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 352, __pyx_L5_error)
+          __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 354, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_4); __pyx_t_4 = NULL;
           __Pyx_GIVEREF(__pyx_t_5);
           PyTuple_SET_ITEM(__pyx_t_12, 0+1, __pyx_t_5);
           __pyx_t_5 = 0;
-          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 352, __pyx_L5_error)
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 354, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         }
@@ -8585,7 +8131,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
           if (unlikely(size != 2)) {
             if (size > 2) __Pyx_RaiseTooManyValuesError(2);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 352, __pyx_L5_error)
+            __PYX_ERR(0, 354, __pyx_L5_error)
           }
           #if CYTHON_COMPILING_IN_CPYTHON
           if (likely(PyTuple_CheckExact(sequence))) {
@@ -8598,15 +8144,15 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
           __Pyx_INCREF(__pyx_t_1);
           __Pyx_INCREF(__pyx_t_12);
           #else
-          __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 352, __pyx_L5_error)
+          __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 354, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_12 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 352, __pyx_L5_error)
+          __pyx_t_12 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 354, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_12);
           #endif
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 352, __pyx_L5_error)
+          __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 354, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __pyx_t_13 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -8614,7 +8160,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
           __Pyx_GOTREF(__pyx_t_1);
           index = 1; __pyx_t_12 = __pyx_t_13(__pyx_t_5); if (unlikely(!__pyx_t_12)) goto __pyx_L13_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_12);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_5), 2) < 0) __PYX_ERR(0, 352, __pyx_L5_error)
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_5), 2) < 0) __PYX_ERR(0, 354, __pyx_L5_error)
           __pyx_t_13 = NULL;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           goto __pyx_L14_unpacking_done;
@@ -8622,17 +8168,17 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __pyx_t_13 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 352, __pyx_L5_error)
+          __PYX_ERR(0, 354, __pyx_L5_error)
           __pyx_L14_unpacking_done:;
         }
-        __pyx_t_14 = __Pyx_PyInt_As_char(__pyx_t_1); if (unlikely((__pyx_t_14 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 352, __pyx_L5_error)
+        __pyx_t_14 = __Pyx_PyInt_As_char(__pyx_t_1); if (unlikely((__pyx_t_14 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 354, __pyx_L5_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_15 = __Pyx_PyInt_As_int(__pyx_t_12); if (unlikely((__pyx_t_15 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 352, __pyx_L5_error)
+        __pyx_t_15 = __Pyx_PyInt_As_int(__pyx_t_12); if (unlikely((__pyx_t_15 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 354, __pyx_L5_error)
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __pyx_v_ch = __pyx_t_14;
         __pyx_v_shift = __pyx_t_15;
 
-        /* "word2keypress/_keyboard.pyx":351
+        /* "word2keypress/_keyboard.pyx":353
  *         for i in xrange(len(word)):
  *             ch = word[i]
  *             try:             # <<<<<<<<<<<<<<
@@ -8652,7 +8198,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "word2keypress/_keyboard.pyx":353
+      /* "word2keypress/_keyboard.pyx":355
  *             try:
  *                 ch, shift = self.remove_shift(ch)
  *             except (AssertionError, ValueError) as e:             # <<<<<<<<<<<<<<
@@ -8662,33 +8208,33 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __pyx_t_15 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_AssertionError) || __Pyx_PyErr_ExceptionMatches(__pyx_builtin_ValueError);
       if (__pyx_t_15) {
         __Pyx_AddTraceback("word2keypress._keyboard.Keyboard._word_to_keyseq", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_12, &__pyx_t_1) < 0) __PYX_ERR(0, 353, __pyx_L7_except_error)
+        if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_12, &__pyx_t_1) < 0) __PYX_ERR(0, 355, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_INCREF(__pyx_t_12);
         __pyx_v_e = __pyx_t_12;
 
-        /* "word2keypress/_keyboard.pyx":354
+        /* "word2keypress/_keyboard.pyx":356
  *                 ch, shift = self.remove_shift(ch)
  *             except (AssertionError, ValueError) as e:
  *                 print("Bad word found!!", e, repr(word), repr(ch), repr(shift))             # <<<<<<<<<<<<<<
  *                 raise e
  *             if shift:
  */
-        __pyx_t_5 = PyObject_Repr(((PyObject *)__pyx_v_word)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 354, __pyx_L7_except_error)
+        __pyx_t_5 = PyObject_Repr(((PyObject *)__pyx_v_word)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 356, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_v_ch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L7_except_error)
+        __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_v_ch); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 356, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_16 = PyObject_Repr(__pyx_t_4); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 354, __pyx_L7_except_error)
+        __pyx_t_16 = PyObject_Repr(__pyx_t_4); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 356, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_16);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_shift); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L7_except_error)
+        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_shift); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 356, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_17 = PyObject_Repr(__pyx_t_4); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 354, __pyx_L7_except_error)
+        __pyx_t_17 = PyObject_Repr(__pyx_t_4); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 356, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = PyTuple_New(5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 354, __pyx_L7_except_error)
+        __pyx_t_4 = PyTuple_New(5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 356, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_kp_s_Bad_word_found);
         __Pyx_GIVEREF(__pyx_kp_s_Bad_word_found);
@@ -8705,10 +8251,10 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
         __pyx_t_5 = 0;
         __pyx_t_16 = 0;
         __pyx_t_17 = 0;
-        if (__Pyx_PrintOne(0, __pyx_t_4) < 0) __PYX_ERR(0, 354, __pyx_L7_except_error)
+        if (__Pyx_PrintOne(0, __pyx_t_4) < 0) __PYX_ERR(0, 356, __pyx_L7_except_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "word2keypress/_keyboard.pyx":355
+        /* "word2keypress/_keyboard.pyx":357
  *             except (AssertionError, ValueError) as e:
  *                 print("Bad word found!!", e, repr(word), repr(ch), repr(shift))
  *                 raise e             # <<<<<<<<<<<<<<
@@ -8716,12 +8262,12 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
  *                 new_str += shift_key + chr(ch)
  */
         __Pyx_Raise(__pyx_v_e, 0, 0, 0);
-        __PYX_ERR(0, 355, __pyx_L7_except_error)
+        __PYX_ERR(0, 357, __pyx_L7_except_error)
       }
       goto __pyx_L7_except_error;
       __pyx_L7_except_error:;
 
-      /* "word2keypress/_keyboard.pyx":351
+      /* "word2keypress/_keyboard.pyx":353
  *         for i in xrange(len(word)):
  *             ch = word[i]
  *             try:             # <<<<<<<<<<<<<<
@@ -8737,7 +8283,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __pyx_L12_try_end:;
     }
 
-    /* "word2keypress/_keyboard.pyx":356
+    /* "word2keypress/_keyboard.pyx":358
  *                 print("Bad word found!!", e, repr(word), repr(ch), repr(shift))
  *                 raise e
  *             if shift:             # <<<<<<<<<<<<<<
@@ -8747,51 +8293,13 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     __pyx_t_3 = (__pyx_v_shift != 0);
     if (__pyx_t_3) {
 
-      /* "word2keypress/_keyboard.pyx":357
+      /* "word2keypress/_keyboard.pyx":359
  *                 raise e
  *             if shift:
  *                 new_str += shift_key + chr(ch)             # <<<<<<<<<<<<<<
  *             else:
  *                 new_str += chr(ch)
  */
-      __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_ch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 357, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 357, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_GIVEREF(__pyx_t_1);
-      PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_1);
-      __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 357, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = PyNumber_Add(__pyx_v_shift_key, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 357, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_new_str, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 357, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      if (!(likely(PyString_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 357, __pyx_L1_error)
-      __Pyx_DECREF_SET(__pyx_v_new_str, ((PyObject*)__pyx_t_1));
-      __pyx_t_1 = 0;
-
-      /* "word2keypress/_keyboard.pyx":356
- *                 print("Bad word found!!", e, repr(word), repr(ch), repr(shift))
- *                 raise e
- *             if shift:             # <<<<<<<<<<<<<<
- *                 new_str += shift_key + chr(ch)
- *             else:
- */
-      goto __pyx_L17;
-    }
-
-    /* "word2keypress/_keyboard.pyx":359
- *                 new_str += shift_key + chr(ch)
- *             else:
- *                 new_str += chr(ch)             # <<<<<<<<<<<<<<
- * 
- *         # finding continuous use of shift and replace that with capslock
- */
-    /*else*/ {
       __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_ch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 359, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 359, __pyx_L1_error)
@@ -8802,29 +8310,67 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 359, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_12 = PyNumber_InPlaceAdd(__pyx_v_new_str, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 359, __pyx_L1_error)
+      __pyx_t_12 = PyNumber_Add(__pyx_v_shift_key, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 359, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (!(likely(PyString_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 359, __pyx_L1_error)
+      __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_new_str, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 359, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      if (!(likely(PyString_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 359, __pyx_L1_error)
+      __Pyx_DECREF_SET(__pyx_v_new_str, ((PyObject*)__pyx_t_1));
+      __pyx_t_1 = 0;
+
+      /* "word2keypress/_keyboard.pyx":358
+ *                 print("Bad word found!!", e, repr(word), repr(ch), repr(shift))
+ *                 raise e
+ *             if shift:             # <<<<<<<<<<<<<<
+ *                 new_str += shift_key + chr(ch)
+ *             else:
+ */
+      goto __pyx_L17;
+    }
+
+    /* "word2keypress/_keyboard.pyx":361
+ *                 new_str += shift_key + chr(ch)
+ *             else:
+ *                 new_str += chr(ch)             # <<<<<<<<<<<<<<
+ * 
+ *         # finding continuous use of shift and replace that with capslock
+ */
+    /*else*/ {
+      __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_ch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 361, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_GIVEREF(__pyx_t_1);
+      PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_1);
+      __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 361, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      __pyx_t_12 = PyNumber_InPlaceAdd(__pyx_v_new_str, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 361, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if (!(likely(PyString_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 361, __pyx_L1_error)
       __Pyx_DECREF_SET(__pyx_v_new_str, ((PyObject*)__pyx_t_12));
       __pyx_t_12 = 0;
     }
     __pyx_L17:;
   }
 
-  /* "word2keypress/_keyboard.pyx":362
+  /* "word2keypress/_keyboard.pyx":364
  * 
  *         # finding continuous use of shift and replace that with capslock
  *         for s in re.findall(r'(({0}[a-z]){{3,}})'.format(shift_key), new_str):             # <<<<<<<<<<<<<<
  *             o_s, _ = s
  *             n_s = re.sub(r'{0}([a-z])'.format(shift_key), r'\1'.format(caps_key), o_s)
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 362, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_findall); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 362, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_findall); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_a_z_3, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 362, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_a_z_3, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_17 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -8837,16 +8383,16 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     }
   }
   if (!__pyx_t_17) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_shift_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_shift_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_16 = PyTuple_New(1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_16 = PyTuple_New(1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 364, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
     __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_17); __pyx_t_17 = NULL;
     __Pyx_INCREF(__pyx_v_shift_key);
     __Pyx_GIVEREF(__pyx_v_shift_key);
     PyTuple_SET_ITEM(__pyx_t_16, 0+1, __pyx_v_shift_key);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_16, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_16, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   }
@@ -8863,7 +8409,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_16 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 362, __pyx_L1_error)
+  __pyx_t_16 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
   if (__pyx_t_4) {
     __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -8874,7 +8420,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
   __Pyx_GIVEREF(__pyx_v_new_str);
   PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_6, __pyx_v_new_str);
   __pyx_t_1 = 0;
-  __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_16, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 362, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_16, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 364, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -8882,9 +8428,9 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     __pyx_t_2 = __pyx_t_12; __Pyx_INCREF(__pyx_t_2); __pyx_t_6 = 0;
     __pyx_t_18 = NULL;
   } else {
-    __pyx_t_6 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 364, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_18 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_18 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 364, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   for (;;) {
@@ -8892,17 +8438,17 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_12 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_6); __Pyx_INCREF(__pyx_t_12); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 362, __pyx_L1_error)
+        __pyx_t_12 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_6); __Pyx_INCREF(__pyx_t_12); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 364, __pyx_L1_error)
         #else
-        __pyx_t_12 = PySequence_ITEM(__pyx_t_2, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 362, __pyx_L1_error)
+        __pyx_t_12 = PySequence_ITEM(__pyx_t_2, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 364, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         #endif
       } else {
         if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_12 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_6); __Pyx_INCREF(__pyx_t_12); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 362, __pyx_L1_error)
+        __pyx_t_12 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_6); __Pyx_INCREF(__pyx_t_12); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 364, __pyx_L1_error)
         #else
-        __pyx_t_12 = PySequence_ITEM(__pyx_t_2, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 362, __pyx_L1_error)
+        __pyx_t_12 = PySequence_ITEM(__pyx_t_2, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 364, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         #endif
       }
@@ -8912,7 +8458,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 362, __pyx_L1_error)
+          else __PYX_ERR(0, 364, __pyx_L1_error)
         }
         break;
       }
@@ -8921,7 +8467,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     __Pyx_XDECREF_SET(__pyx_v_s, __pyx_t_12);
     __pyx_t_12 = 0;
 
-    /* "word2keypress/_keyboard.pyx":363
+    /* "word2keypress/_keyboard.pyx":365
  *         # finding continuous use of shift and replace that with capslock
  *         for s in re.findall(r'(({0}[a-z]){{3,}})'.format(shift_key), new_str):
  *             o_s, _ = s             # <<<<<<<<<<<<<<
@@ -8938,7 +8484,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 363, __pyx_L1_error)
+        __PYX_ERR(0, 365, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -8951,21 +8497,21 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __Pyx_INCREF(__pyx_t_12);
       __Pyx_INCREF(__pyx_t_16);
       #else
-      __pyx_t_12 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 363, __pyx_L1_error)
+      __pyx_t_12 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 365, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_16 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 363, __pyx_L1_error)
+      __pyx_t_16 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 365, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       #endif
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_1 = PyObject_GetIter(__pyx_v_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 363, __pyx_L1_error)
+      __pyx_t_1 = PyObject_GetIter(__pyx_v_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_13 = Py_TYPE(__pyx_t_1)->tp_iternext;
       index = 0; __pyx_t_12 = __pyx_t_13(__pyx_t_1); if (unlikely(!__pyx_t_12)) goto __pyx_L20_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_12);
       index = 1; __pyx_t_16 = __pyx_t_13(__pyx_t_1); if (unlikely(!__pyx_t_16)) goto __pyx_L20_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_16);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_1), 2) < 0) __PYX_ERR(0, 363, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_1), 2) < 0) __PYX_ERR(0, 365, __pyx_L1_error)
       __pyx_t_13 = NULL;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       goto __pyx_L21_unpacking_done;
@@ -8973,7 +8519,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_13 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 363, __pyx_L1_error)
+      __PYX_ERR(0, 365, __pyx_L1_error)
       __pyx_L21_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_o_s, __pyx_t_12);
@@ -8981,19 +8527,19 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     __Pyx_XDECREF_SET(__pyx_v__, __pyx_t_16);
     __pyx_t_16 = 0;
 
-    /* "word2keypress/_keyboard.pyx":364
+    /* "word2keypress/_keyboard.pyx":366
  *         for s in re.findall(r'(({0}[a-z]){{3,}})'.format(shift_key), new_str):
  *             o_s, _ = s
  *             n_s = re.sub(r'{0}([a-z])'.format(shift_key), r'\1'.format(caps_key), o_s)             # <<<<<<<<<<<<<<
  *             new_str = re.sub(re.escape(o_s), '{0}{1}{0}'.format(caps_key, n_s), new_str)
  * 
  */
-    __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_sub); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_sub); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_a_z, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_a_z, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_17 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -9006,21 +8552,21 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       }
     }
     if (!__pyx_t_17) {
-      __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_shift_key); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_shift_key); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 366, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
     } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 366, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_17); __pyx_t_17 = NULL;
       __Pyx_INCREF(__pyx_v_shift_key);
       __Pyx_GIVEREF(__pyx_v_shift_key);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_shift_key);
-      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 366, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_1, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_1, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_17 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -9033,16 +8579,16 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       }
     }
     if (!__pyx_t_17) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_caps_key); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_caps_key); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 366, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
     } else {
-      __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 366, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_19);
       __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_17); __pyx_t_17 = NULL;
       __Pyx_INCREF(__pyx_v_caps_key);
       __Pyx_GIVEREF(__pyx_v_caps_key);
       PyTuple_SET_ITEM(__pyx_t_19, 0+1, __pyx_v_caps_key);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_19, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 364, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_19, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 366, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
     }
@@ -9059,7 +8605,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
         __pyx_t_20 = 1;
       }
     }
-    __pyx_t_19 = PyTuple_New(3+__pyx_t_20); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_19 = PyTuple_New(3+__pyx_t_20); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_19);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -9073,28 +8619,28 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     PyTuple_SET_ITEM(__pyx_t_19, 2+__pyx_t_20, __pyx_v_o_s);
     __pyx_t_12 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_19, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_19, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
     __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF_SET(__pyx_v_n_s, __pyx_t_16);
     __pyx_t_16 = 0;
 
-    /* "word2keypress/_keyboard.pyx":365
+    /* "word2keypress/_keyboard.pyx":367
  *             o_s, _ = s
  *             n_s = re.sub(r'{0}([a-z])'.format(shift_key), r'\1'.format(caps_key), o_s)
  *             new_str = re.sub(re.escape(o_s), '{0}{1}{0}'.format(caps_key, n_s), new_str)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_sub); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_sub); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_19);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_escape); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_escape); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -9108,21 +8654,21 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       }
     }
     if (!__pyx_t_4) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_v_o_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_v_o_s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 367, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
     } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 367, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
       __Pyx_INCREF(__pyx_v_o_s);
       __Pyx_GIVEREF(__pyx_v_o_s);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_o_s);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 365, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 367, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_1_0, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_1_0, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_4 = NULL;
     __pyx_t_20 = 0;
@@ -9136,7 +8682,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
         __pyx_t_20 = 1;
       }
     }
-    __pyx_t_17 = PyTuple_New(2+__pyx_t_20); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_17 = PyTuple_New(2+__pyx_t_20); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -9147,7 +8693,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     __Pyx_INCREF(__pyx_v_n_s);
     __Pyx_GIVEREF(__pyx_v_n_s);
     PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_20, __pyx_v_n_s);
-    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_17, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_17, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -9163,7 +8709,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
         __pyx_t_20 = 1;
       }
     }
-    __pyx_t_17 = PyTuple_New(3+__pyx_t_20); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_17 = PyTuple_New(3+__pyx_t_20); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -9177,15 +8723,15 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     PyTuple_SET_ITEM(__pyx_t_17, 2+__pyx_t_20, __pyx_v_new_str);
     __pyx_t_1 = 0;
     __pyx_t_12 = 0;
-    __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_19, __pyx_t_17, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 365, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_19, __pyx_t_17, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
     __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
     __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-    if (!(likely(PyString_CheckExact(__pyx_t_16))||((__pyx_t_16) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_16)->tp_name), 0))) __PYX_ERR(0, 365, __pyx_L1_error)
+    if (!(likely(PyString_CheckExact(__pyx_t_16))||((__pyx_t_16) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_16)->tp_name), 0))) __PYX_ERR(0, 367, __pyx_L1_error)
     __Pyx_DECREF_SET(__pyx_v_new_str, ((PyObject*)__pyx_t_16));
     __pyx_t_16 = 0;
 
-    /* "word2keypress/_keyboard.pyx":362
+    /* "word2keypress/_keyboard.pyx":364
  * 
  *         # finding continuous use of shift and replace that with capslock
  *         for s in re.findall(r'(({0}[a-z]){{3,}})'.format(shift_key), new_str):             # <<<<<<<<<<<<<<
@@ -9195,19 +8741,19 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":369
+  /* "word2keypress/_keyboard.pyx":371
  * 
  *         # drop <c>a<c> to <s>a
  *         new_str = re.sub(r'{0}(.){0}'.format(caps_key),             # <<<<<<<<<<<<<<
  *                          r'{}\1'.format(shift_key),
  *                          new_str)
  */
-  __pyx_t_16 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 369, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 371, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_sub); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 369, __pyx_L1_error)
+  __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_sub); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 371, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_19);
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_0, __pyx_n_s_format); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 369, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_0, __pyx_n_s_format); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 371, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __pyx_t_12 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_17))) {
@@ -9220,29 +8766,29 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     }
   }
   if (!__pyx_t_12) {
-    __pyx_t_16 = __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_v_caps_key); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 369, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_v_caps_key); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 371, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
   } else {
-    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 369, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 371, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_12); __pyx_t_12 = NULL;
     __Pyx_INCREF(__pyx_v_caps_key);
     __Pyx_GIVEREF(__pyx_v_caps_key);
     PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_v_caps_key);
-    __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_1, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 369, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_1, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 371, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "word2keypress/_keyboard.pyx":370
+  /* "word2keypress/_keyboard.pyx":372
  *         # drop <c>a<c> to <s>a
  *         new_str = re.sub(r'{0}(.){0}'.format(caps_key),
  *                          r'{}\1'.format(shift_key),             # <<<<<<<<<<<<<<
  *                          new_str)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_1_2, __pyx_n_s_format); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 370, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_1_2, __pyx_n_s_format); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 372, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_12 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -9255,22 +8801,22 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     }
   }
   if (!__pyx_t_12) {
-    __pyx_t_17 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_shift_key); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 370, __pyx_L1_error)
+    __pyx_t_17 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_shift_key); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 372, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
   } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 370, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 372, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_12); __pyx_t_12 = NULL;
     __Pyx_INCREF(__pyx_v_shift_key);
     __Pyx_GIVEREF(__pyx_v_shift_key);
     PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_shift_key);
-    __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 370, __pyx_L1_error)
+    __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 372, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "word2keypress/_keyboard.pyx":371
+  /* "word2keypress/_keyboard.pyx":373
  *         new_str = re.sub(r'{0}(.){0}'.format(caps_key),
  *                          r'{}\1'.format(shift_key),
  *                          new_str)             # <<<<<<<<<<<<<<
@@ -9289,7 +8835,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 369, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 371, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_1) {
     __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -9303,35 +8849,35 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
   PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_6, __pyx_v_new_str);
   __pyx_t_16 = 0;
   __pyx_t_17 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_19, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 369, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_19, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 371, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
 
-  /* "word2keypress/_keyboard.pyx":369
+  /* "word2keypress/_keyboard.pyx":371
  * 
  *         # drop <c>a<c> to <s>a
  *         new_str = re.sub(r'{0}(.){0}'.format(caps_key),             # <<<<<<<<<<<<<<
  *                          r'{}\1'.format(shift_key),
  *                          new_str)
  */
-  if (!(likely(PyString_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 369, __pyx_L1_error)
+  if (!(likely(PyString_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 371, __pyx_L1_error)
   __Pyx_DECREF_SET(__pyx_v_new_str, ((PyObject*)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":375
+  /* "word2keypress/_keyboard.pyx":377
  *         # move the last capslock to the end
  *         # PASSOWRD123 -> <c>password<c>123 -> <c>password123<c>
  *         new_str = re.sub(r'{0}([^a-z]+)$'.format(caps_key),             # <<<<<<<<<<<<<<
  *                          r'\1{0}'.format(caps_key),
  *                          new_str)
  */
-  __pyx_t_19 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_t_19 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_19);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_19, __pyx_n_s_sub); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_19, __pyx_n_s_sub); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_a_z_2, __pyx_n_s_format); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_a_z_2, __pyx_n_s_format); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __pyx_t_16 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_17))) {
@@ -9344,29 +8890,29 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     }
   }
   if (!__pyx_t_16) {
-    __pyx_t_19 = __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_v_caps_key); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 375, __pyx_L1_error)
+    __pyx_t_19 = __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_v_caps_key); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 377, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_19);
   } else {
-    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 375, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 377, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_16); __pyx_t_16 = NULL;
     __Pyx_INCREF(__pyx_v_caps_key);
     __Pyx_GIVEREF(__pyx_v_caps_key);
     PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_v_caps_key);
-    __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_1, NULL); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 375, __pyx_L1_error)
+    __pyx_t_19 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_1, NULL); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 377, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_19);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "word2keypress/_keyboard.pyx":376
+  /* "word2keypress/_keyboard.pyx":378
  *         # PASSOWRD123 -> <c>password<c>123 -> <c>password123<c>
  *         new_str = re.sub(r'{0}([^a-z]+)$'.format(caps_key),
  *                          r'\1{0}'.format(caps_key),             # <<<<<<<<<<<<<<
  *                          new_str)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_1_0, __pyx_n_s_format); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 376, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_1_0, __pyx_n_s_format); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 378, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_16 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -9379,22 +8925,22 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     }
   }
   if (!__pyx_t_16) {
-    __pyx_t_17 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_caps_key); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 376, __pyx_L1_error)
+    __pyx_t_17 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_caps_key); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
   } else {
-    __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 376, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_16); __pyx_t_16 = NULL;
     __Pyx_INCREF(__pyx_v_caps_key);
     __Pyx_GIVEREF(__pyx_v_caps_key);
     PyTuple_SET_ITEM(__pyx_t_12, 0+1, __pyx_v_caps_key);
-    __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 376, __pyx_L1_error)
+    __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, NULL); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 378, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_17);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "word2keypress/_keyboard.pyx":377
+  /* "word2keypress/_keyboard.pyx":379
  *         new_str = re.sub(r'{0}([^a-z]+)$'.format(caps_key),
  *                          r'\1{0}'.format(caps_key),
  *                          new_str)             # <<<<<<<<<<<<<<
@@ -9413,7 +8959,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_12 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_t_12 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   if (__pyx_t_1) {
     __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -9427,35 +8973,35 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
   PyTuple_SET_ITEM(__pyx_t_12, 2+__pyx_t_6, __pyx_v_new_str);
   __pyx_t_19 = 0;
   __pyx_t_17 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 375, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "word2keypress/_keyboard.pyx":375
+  /* "word2keypress/_keyboard.pyx":377
  *         # move the last capslock to the end
  *         # PASSOWRD123 -> <c>password<c>123 -> <c>password123<c>
  *         new_str = re.sub(r'{0}([^a-z]+)$'.format(caps_key),             # <<<<<<<<<<<<<<
  *                          r'\1{0}'.format(caps_key),
  *                          new_str)
  */
-  if (!(likely(PyString_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 375, __pyx_L1_error)
+  if (!(likely(PyString_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 377, __pyx_L1_error)
   __Pyx_DECREF_SET(__pyx_v_new_str, ((PyObject*)__pyx_t_2));
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":382
+  /* "word2keypress/_keyboard.pyx":384
  *         # passwoRD123 -> passwo<s>r<s>d123 -> passwo<c>rd123<c>
  *         # r'(<s>[a-z][^a-z]*)+{2,}$ ->
  *         m = re.match(r'.*?(?P<endshifts>({0}[a-z][^a-z{0}]*){{2,}}({0}.[^a-z]*)*)$'.format(shift_key), new_str)             # <<<<<<<<<<<<<<
  *         if m:
  *             s = m.group('endshifts')
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_match); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_match); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_P_endshifts_0_a_z_a_z_0_2_0_a_z, __pyx_n_s_format); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_P_endshifts_0_a_z_a_z_0_2_0_a_z, __pyx_n_s_format); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
   __pyx_t_19 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_17))) {
@@ -9468,16 +9014,16 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     }
   }
   if (!__pyx_t_19) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_v_shift_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 382, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_v_shift_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 384, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
   } else {
-    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 382, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 384, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_19); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_19); __pyx_t_19 = NULL;
     __Pyx_INCREF(__pyx_v_shift_key);
     __Pyx_GIVEREF(__pyx_v_shift_key);
     PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_v_shift_key);
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 382, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_1, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 384, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
@@ -9494,7 +9040,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_1 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (__pyx_t_17) {
     __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_17); __pyx_t_17 = NULL;
@@ -9505,51 +9051,51 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
   __Pyx_GIVEREF(__pyx_v_new_str);
   PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_6, __pyx_v_new_str);
   __pyx_t_5 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 384, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __pyx_v_m = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":383
+  /* "word2keypress/_keyboard.pyx":385
  *         # r'(<s>[a-z][^a-z]*)+{2,}$ ->
  *         m = re.match(r'.*?(?P<endshifts>({0}[a-z][^a-z{0}]*){{2,}}({0}.[^a-z]*)*)$'.format(shift_key), new_str)
  *         if m:             # <<<<<<<<<<<<<<
  *             s = m.group('endshifts')
  *             ns = caps_key + re.sub(r'{0}([a-z])'.format(shift_key), r'\1', s) + caps_key
  */
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_m); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 383, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_v_m); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 385, __pyx_L1_error)
   if (__pyx_t_3) {
 
-    /* "word2keypress/_keyboard.pyx":384
+    /* "word2keypress/_keyboard.pyx":386
  *         m = re.match(r'.*?(?P<endshifts>({0}[a-z][^a-z{0}]*){{2,}}({0}.[^a-z]*)*)$'.format(shift_key), new_str)
  *         if m:
  *             s = m.group('endshifts')             # <<<<<<<<<<<<<<
  *             ns = caps_key + re.sub(r'{0}([a-z])'.format(shift_key), r'\1', s) + caps_key
  *             # print m.groups(), ns, s
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_m, __pyx_n_s_group); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 384, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_m, __pyx_n_s_group); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 386, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 384, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 386, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_XDECREF_SET(__pyx_v_s, __pyx_t_12);
     __pyx_t_12 = 0;
 
-    /* "word2keypress/_keyboard.pyx":385
+    /* "word2keypress/_keyboard.pyx":387
  *         if m:
  *             s = m.group('endshifts')
  *             ns = caps_key + re.sub(r'{0}([a-z])'.format(shift_key), r'\1', s) + caps_key             # <<<<<<<<<<<<<<
  *             # print m.groups(), ns, s
  *             new_str = new_str.replace(s, ns)
  */
-    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 385, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 387, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sub); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 385, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sub); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 387, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_a_z, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 385, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_a_z, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 387, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_17 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -9562,16 +9108,16 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
       }
     }
     if (!__pyx_t_17) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_shift_key); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 385, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_shift_key); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 387, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
     } else {
-      __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 385, __pyx_L1_error)
+      __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 387, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_19);
       __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_17); __pyx_t_17 = NULL;
       __Pyx_INCREF(__pyx_v_shift_key);
       __Pyx_GIVEREF(__pyx_v_shift_key);
       PyTuple_SET_ITEM(__pyx_t_19, 0+1, __pyx_v_shift_key);
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_19, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 385, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_19, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 387, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
     }
@@ -9588,7 +9134,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
         __pyx_t_6 = 1;
       }
     }
-    __pyx_t_19 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 385, __pyx_L1_error)
+    __pyx_t_19 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 387, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_19);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -9602,27 +9148,27 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     __Pyx_GIVEREF(__pyx_v_s);
     PyTuple_SET_ITEM(__pyx_t_19, 2+__pyx_t_6, __pyx_v_s);
     __pyx_t_2 = 0;
-    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_19, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 385, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_19, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 387, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Add(__pyx_v_caps_key, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 385, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_v_caps_key, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 387, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_12 = PyNumber_Add(__pyx_t_1, __pyx_v_caps_key); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 385, __pyx_L1_error)
+    __pyx_t_12 = PyNumber_Add(__pyx_t_1, __pyx_v_caps_key); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 387, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_ns = __pyx_t_12;
     __pyx_t_12 = 0;
 
-    /* "word2keypress/_keyboard.pyx":387
+    /* "word2keypress/_keyboard.pyx":389
  *             ns = caps_key + re.sub(r'{0}([a-z])'.format(shift_key), r'\1', s) + caps_key
  *             # print m.groups(), ns, s
  *             new_str = new_str.replace(s, ns)             # <<<<<<<<<<<<<<
  * 
  *         # drop last <c> before sending
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_str, __pyx_n_s_replace); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 387, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_str, __pyx_n_s_replace); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 389, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_19 = NULL;
     __pyx_t_6 = 0;
@@ -9636,7 +9182,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
         __pyx_t_6 = 1;
       }
     }
-    __pyx_t_2 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 387, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 389, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     if (__pyx_t_19) {
       __Pyx_GIVEREF(__pyx_t_19); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_19); __pyx_t_19 = NULL;
@@ -9647,15 +9193,15 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     __Pyx_INCREF(__pyx_v_ns);
     __Pyx_GIVEREF(__pyx_v_ns);
     PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_6, __pyx_v_ns);
-    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 387, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 389, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(PyString_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 387, __pyx_L1_error)
+    if (!(likely(PyString_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 389, __pyx_L1_error)
     __Pyx_DECREF_SET(__pyx_v_new_str, ((PyObject*)__pyx_t_12));
     __pyx_t_12 = 0;
 
-    /* "word2keypress/_keyboard.pyx":383
+    /* "word2keypress/_keyboard.pyx":385
  *         # r'(<s>[a-z][^a-z]*)+{2,}$ ->
  *         m = re.match(r'.*?(?P<endshifts>({0}[a-z][^a-z{0}]*){{2,}}({0}.[^a-z]*)*)$'.format(shift_key), new_str)
  *         if m:             # <<<<<<<<<<<<<<
@@ -9664,7 +9210,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
  */
   }
 
-  /* "word2keypress/_keyboard.pyx":390
+  /* "word2keypress/_keyboard.pyx":392
  * 
  *         # drop last <c> before sending
  *         return new_str.rstrip(caps_key)             # <<<<<<<<<<<<<<
@@ -9672,7 +9218,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
  *     def print_keyseq(self, str keyseq):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_str, __pyx_n_s_rstrip); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 390, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_str, __pyx_n_s_rstrip); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 392, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
@@ -9685,26 +9231,26 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_caps_key); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 390, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_caps_key); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 392, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
   } else {
-    __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 390, __pyx_L1_error)
+    __pyx_t_19 = PyTuple_New(1+1); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 392, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_19);
     __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_19, 0, __pyx_t_2); __pyx_t_2 = NULL;
     __Pyx_INCREF(__pyx_v_caps_key);
     __Pyx_GIVEREF(__pyx_v_caps_key);
     PyTuple_SET_ITEM(__pyx_t_19, 0+1, __pyx_v_caps_key);
-    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_19, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 390, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_19, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 392, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(PyString_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 390, __pyx_L1_error)
+  if (!(likely(PyString_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 392, __pyx_L1_error)
   __pyx_r = ((PyObject*)__pyx_t_12);
   __pyx_t_12 = 0;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":328
+  /* "word2keypress/_keyboard.pyx":330
  *         return self._word_to_keyseq(array.array(b'c', str(word)))
  * 
  *     cdef str _word_to_keyseq(self, array.array[char] word):             # <<<<<<<<<<<<<<
@@ -9750,7 +9296,7 @@ static PyObject *__pyx_f_13word2keypress_9_keyboard_8Keyboard__word_to_keyseq(st
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":392
+/* "word2keypress/_keyboard.pyx":394
  *         return new_str.rstrip(caps_key)
  * 
  *     def print_keyseq(self, str keyseq):             # <<<<<<<<<<<<<<
@@ -9765,7 +9311,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_25print_keyseq(Py
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("print_keyseq (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 392, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 394, __pyx_L1_error)
   __pyx_r = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(((struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self), ((PyObject*)__pyx_v_keyseq));
 
   /* function exit code */
@@ -9789,9 +9335,9 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(CY
   Py_ssize_t __pyx_t_6;
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("print_keyseq", 0);
-  __Pyx_TraceCall("print_keyseq", __pyx_f[0], 392, 0, __PYX_ERR(0, 392, __pyx_L1_error));
+  __Pyx_TraceCall("print_keyseq", __pyx_f[0], 394, 0, __PYX_ERR(0, 394, __pyx_L1_error));
 
-  /* "word2keypress/_keyboard.pyx":395
+  /* "word2keypress/_keyboard.pyx":397
  *         """print the @key_str as the human readable format.
  *         """
  *         return keyseq.replace(chr(SHIFT_KEY), '<s>').replace(chr(CAPS_KEY), '<c>')             # <<<<<<<<<<<<<<
@@ -9799,16 +9345,16 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(CY
  *     def part_keyseq_string(self, str keyseq, shift=False, caps=False):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_keyseq, __pyx_n_s_replace); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_keyseq, __pyx_n_s_replace); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -9823,7 +9369,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(CY
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (__pyx_t_5) {
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -9834,21 +9380,21 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(CY
   __Pyx_GIVEREF(__pyx_kp_s_s_2);
   PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_kp_s_s_2);
   __pyx_t_4 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_replace); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_replace); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_CAPS_KEY); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_CAPS_KEY); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -9863,7 +9409,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(CY
       __pyx_t_6 = 1;
     }
   }
-  __pyx_t_4 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__pyx_t_7) {
     __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -9874,7 +9420,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(CY
   __Pyx_GIVEREF(__pyx_kp_s_c_2);
   PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_6, __pyx_kp_s_c_2);
   __pyx_t_2 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 395, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -9882,7 +9428,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(CY
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":392
+  /* "word2keypress/_keyboard.pyx":394
  *         return new_str.rstrip(caps_key)
  * 
  *     def print_keyseq(self, str keyseq):             # <<<<<<<<<<<<<<
@@ -9907,7 +9453,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_24print_keyseq(CY
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":397
+/* "word2keypress/_keyboard.pyx":399
  *         return keyseq.replace(chr(SHIFT_KEY), '<s>').replace(chr(CAPS_KEY), '<c>')
  * 
  *     def part_keyseq_string(self, str keyseq, shift=False, caps=False):             # <<<<<<<<<<<<<<
@@ -9957,7 +9503,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_27part_keyseq_str
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "part_keyseq_string") < 0)) __PYX_ERR(0, 397, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "part_keyseq_string") < 0)) __PYX_ERR(0, 399, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -9974,13 +9520,13 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_27part_keyseq_str
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("part_keyseq_string", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 397, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("part_keyseq_string", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 399, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.part_keyseq_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 397, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 399, __pyx_L1_error)
   __pyx_r = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_string(((struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self), __pyx_v_keyseq, __pyx_v_shift, __pyx_v_caps);
 
   /* function exit code */
@@ -10010,11 +9556,11 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
   PyObject *__pyx_t_9 = NULL;
   char __pyx_t_10;
   __Pyx_RefNannySetupContext("part_keyseq_string", 0);
-  __Pyx_TraceCall("part_keyseq_string", __pyx_f[0], 397, 0, __PYX_ERR(0, 397, __pyx_L1_error));
+  __Pyx_TraceCall("part_keyseq_string", __pyx_f[0], 399, 0, __PYX_ERR(0, 399, __pyx_L1_error));
   __Pyx_INCREF(__pyx_v_shift);
   __Pyx_INCREF(__pyx_v_caps);
 
-  /* "word2keypress/_keyboard.pyx":401
+  /* "word2keypress/_keyboard.pyx":403
  *         returns the word for a part of the keyseq, and returns (word, shift, caps)
  *         """
  *         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for mobile"             # <<<<<<<<<<<<<<
@@ -10023,15 +9569,15 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE, __pyx_n_s_qwerty, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 401, __pyx_L1_error)
+    __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE, __pyx_n_s_qwerty, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 403, __pyx_L1_error)
     if (unlikely(!(__pyx_t_1 != 0))) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_Not_implemented_for_mobile);
-      __PYX_ERR(0, 401, __pyx_L1_error)
+      __PYX_ERR(0, 403, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "word2keypress/_keyboard.pyx":402
+  /* "word2keypress/_keyboard.pyx":404
  *         """
  *         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for mobile"
  *         cdef str ret = ''             # <<<<<<<<<<<<<<
@@ -10041,7 +9587,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
   __Pyx_INCREF(__pyx_kp_s_);
   __pyx_v_ret = __pyx_kp_s_;
 
-  /* "word2keypress/_keyboard.pyx":403
+  /* "word2keypress/_keyboard.pyx":405
  *         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for mobile"
  *         cdef str ret = ''
  *         cdef int i = 0             # <<<<<<<<<<<<<<
@@ -10050,7 +9596,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
  */
   __pyx_v_i = 0;
 
-  /* "word2keypress/_keyboard.pyx":405
+  /* "word2keypress/_keyboard.pyx":407
  *         cdef int i = 0
  *         cdef char a
  *         while i<len(keyseq):             # <<<<<<<<<<<<<<
@@ -10058,24 +9604,24 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
  *             if a == CAPS_KEY:
  */
   while (1) {
-    __pyx_t_2 = PyObject_Length(__pyx_v_keyseq); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 405, __pyx_L1_error)
+    __pyx_t_2 = PyObject_Length(__pyx_v_keyseq); if (unlikely(__pyx_t_2 == -1)) __PYX_ERR(0, 407, __pyx_L1_error)
     __pyx_t_1 = ((__pyx_v_i < __pyx_t_2) != 0);
     if (!__pyx_t_1) break;
 
-    /* "word2keypress/_keyboard.pyx":406
+    /* "word2keypress/_keyboard.pyx":408
  *         cdef char a
  *         while i<len(keyseq):
  *             a = ord(keyseq[i])             # <<<<<<<<<<<<<<
  *             if a == CAPS_KEY:
  *                 caps = caps^True
  */
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_keyseq, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 406, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_keyseq, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 408, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_Ord(__pyx_t_3); if (unlikely(__pyx_t_4 == (long)(Py_UCS4)-1)) __PYX_ERR(0, 406, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Ord(__pyx_t_3); if (unlikely(__pyx_t_4 == (long)(Py_UCS4)-1)) __PYX_ERR(0, 408, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_a = __pyx_t_4;
 
-    /* "word2keypress/_keyboard.pyx":407
+    /* "word2keypress/_keyboard.pyx":409
  *         while i<len(keyseq):
  *             a = ord(keyseq[i])
  *             if a == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -10085,19 +9631,19 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
     __pyx_t_1 = ((__pyx_v_a == __pyx_v_13word2keypress_9_keyboard_CAPS_KEY) != 0);
     if (__pyx_t_1) {
 
-      /* "word2keypress/_keyboard.pyx":408
+      /* "word2keypress/_keyboard.pyx":410
  *             a = ord(keyseq[i])
  *             if a == CAPS_KEY:
  *                 caps = caps^True             # <<<<<<<<<<<<<<
  *             elif a == SHIFT_KEY:
  *                 shift = True
  */
-      __pyx_t_3 = PyNumber_Xor(__pyx_v_caps, Py_True); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 408, __pyx_L1_error)
+      __pyx_t_3 = PyNumber_Xor(__pyx_v_caps, Py_True); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 410, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF_SET(__pyx_v_caps, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "word2keypress/_keyboard.pyx":407
+      /* "word2keypress/_keyboard.pyx":409
  *         while i<len(keyseq):
  *             a = ord(keyseq[i])
  *             if a == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -10107,7 +9653,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
       goto __pyx_L5;
     }
 
-    /* "word2keypress/_keyboard.pyx":409
+    /* "word2keypress/_keyboard.pyx":411
  *             if a == CAPS_KEY:
  *                 caps = caps^True
  *             elif a == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -10117,7 +9663,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
     __pyx_t_1 = ((__pyx_v_a == __pyx_v_13word2keypress_9_keyboard_SHIFT_KEY) != 0);
     if (__pyx_t_1) {
 
-      /* "word2keypress/_keyboard.pyx":410
+      /* "word2keypress/_keyboard.pyx":412
  *                 caps = caps^True
  *             elif a == SHIFT_KEY:
  *                 shift = True             # <<<<<<<<<<<<<<
@@ -10127,7 +9673,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
       __Pyx_INCREF(Py_True);
       __Pyx_DECREF_SET(__pyx_v_shift, Py_True);
 
-      /* "word2keypress/_keyboard.pyx":409
+      /* "word2keypress/_keyboard.pyx":411
  *             if a == CAPS_KEY:
  *                 caps = caps^True
  *             elif a == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -10137,7 +9683,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
       goto __pyx_L5;
     }
 
-    /* "word2keypress/_keyboard.pyx":412
+    /* "word2keypress/_keyboard.pyx":414
  *                 shift = True
  *             else:
  *                 if chr(a).isalpha():             # <<<<<<<<<<<<<<
@@ -10145,17 +9691,17 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
  *                 else:
  */
     /*else*/ {
-      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_a); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 412, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_a); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 414, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 412, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 414, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_5);
       PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5);
       __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 412, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 414, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_isalpha); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 412, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_isalpha); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 414, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_5 = NULL;
@@ -10169,32 +9715,32 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
         }
       }
       if (__pyx_t_5) {
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 412, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 414, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       } else {
-        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 412, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 414, __pyx_L1_error)
       }
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 412, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 414, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_1) {
 
-        /* "word2keypress/_keyboard.pyx":413
+        /* "word2keypress/_keyboard.pyx":415
  *             else:
  *                 if chr(a).isalpha():
  *                     a = self.add_shift(a)[0] if caps^shift else a             # <<<<<<<<<<<<<<
  *                 else:
  *                     a = self.add_shift(a)[0] if shift else a
  */
-        __pyx_t_3 = PyNumber_Xor(__pyx_v_caps, __pyx_v_shift); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 413, __pyx_L1_error)
+        __pyx_t_3 = PyNumber_Xor(__pyx_v_caps, __pyx_v_shift); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 415, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 413, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 415, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         if (__pyx_t_1) {
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 413, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 415, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_a); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 413, __pyx_L1_error)
+          __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_a); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 415, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
           __pyx_t_8 = NULL;
           if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_6))) {
@@ -10207,25 +9753,25 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
             }
           }
           if (!__pyx_t_8) {
-            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 413, __pyx_L1_error)
+            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 415, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
             __Pyx_GOTREF(__pyx_t_3);
           } else {
-            __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 413, __pyx_L1_error)
+            __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 415, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_9);
             __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
             __Pyx_GIVEREF(__pyx_t_5);
             PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_5);
             __pyx_t_5 = 0;
-            __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 413, __pyx_L1_error)
+            __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 415, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           }
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 413, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 415, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_char(__pyx_t_6); if (unlikely((__pyx_t_10 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 413, __pyx_L1_error)
+          __pyx_t_10 = __Pyx_PyInt_As_char(__pyx_t_6); if (unlikely((__pyx_t_10 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 415, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __pyx_t_7 = __pyx_t_10;
         } else {
@@ -10233,7 +9779,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
         }
         __pyx_v_a = __pyx_t_7;
 
-        /* "word2keypress/_keyboard.pyx":412
+        /* "word2keypress/_keyboard.pyx":414
  *                 shift = True
  *             else:
  *                 if chr(a).isalpha():             # <<<<<<<<<<<<<<
@@ -10243,7 +9789,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
         goto __pyx_L6;
       }
 
-      /* "word2keypress/_keyboard.pyx":415
+      /* "word2keypress/_keyboard.pyx":417
  *                     a = self.add_shift(a)[0] if caps^shift else a
  *                 else:
  *                     a = self.add_shift(a)[0] if shift else a             # <<<<<<<<<<<<<<
@@ -10251,11 +9797,11 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
  *                 ret += chr(a)
  */
       /*else*/ {
-        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_shift); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 415, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_shift); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 417, __pyx_L1_error)
         if (__pyx_t_1) {
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 415, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 417, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_9 = __Pyx_PyInt_From_char(__pyx_v_a); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 415, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyInt_From_char(__pyx_v_a); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 417, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           __pyx_t_5 = NULL;
           if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -10268,25 +9814,25 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
             }
           }
           if (!__pyx_t_5) {
-            __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_9); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 415, __pyx_L1_error)
+            __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_9); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 417, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
             __Pyx_GOTREF(__pyx_t_6);
           } else {
-            __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 415, __pyx_L1_error)
+            __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 417, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_8);
             __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
             __Pyx_GIVEREF(__pyx_t_9);
             PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_9);
             __pyx_t_9 = 0;
-            __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 415, __pyx_L1_error)
+            __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_8, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 417, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_6);
             __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           }
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 415, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 417, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_10 = __Pyx_PyInt_As_char(__pyx_t_3); if (unlikely((__pyx_t_10 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 415, __pyx_L1_error)
+          __pyx_t_10 = __Pyx_PyInt_As_char(__pyx_t_3); if (unlikely((__pyx_t_10 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 417, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __pyx_t_7 = __pyx_t_10;
         } else {
@@ -10296,7 +9842,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
       }
       __pyx_L6:;
 
-      /* "word2keypress/_keyboard.pyx":416
+      /* "word2keypress/_keyboard.pyx":418
  *                 else:
  *                     a = self.add_shift(a)[0] if shift else a
  *                 shift = False             # <<<<<<<<<<<<<<
@@ -10306,33 +9852,33 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
       __Pyx_INCREF(Py_False);
       __Pyx_DECREF_SET(__pyx_v_shift, Py_False);
 
-      /* "word2keypress/_keyboard.pyx":417
+      /* "word2keypress/_keyboard.pyx":419
  *                     a = self.add_shift(a)[0] if shift else a
  *                 shift = False
  *                 ret += chr(a)             # <<<<<<<<<<<<<<
  *             i += 1
  *         return ret, shift, caps
  */
-      __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_v_a); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 417, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_v_a); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 417, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_3);
       PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 417, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_ret, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 417, __pyx_L1_error)
+      __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_ret, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (!(likely(PyString_CheckExact(__pyx_t_6))||((__pyx_t_6) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_6)->tp_name), 0))) __PYX_ERR(0, 417, __pyx_L1_error)
+      if (!(likely(PyString_CheckExact(__pyx_t_6))||((__pyx_t_6) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_6)->tp_name), 0))) __PYX_ERR(0, 419, __pyx_L1_error)
       __Pyx_DECREF_SET(__pyx_v_ret, ((PyObject*)__pyx_t_6));
       __pyx_t_6 = 0;
     }
     __pyx_L5:;
 
-    /* "word2keypress/_keyboard.pyx":418
+    /* "word2keypress/_keyboard.pyx":420
  *                 shift = False
  *                 ret += chr(a)
  *             i += 1             # <<<<<<<<<<<<<<
@@ -10342,7 +9888,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
     __pyx_v_i = (__pyx_v_i + 1);
   }
 
-  /* "word2keypress/_keyboard.pyx":419
+  /* "word2keypress/_keyboard.pyx":421
  *                 ret += chr(a)
  *             i += 1
  *         return ret, shift, caps             # <<<<<<<<<<<<<<
@@ -10350,7 +9896,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
  *     cdef char _apply_shift_caps(self, char c, shift, caps):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 419, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 421, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_ret);
   __Pyx_GIVEREF(__pyx_v_ret);
@@ -10365,7 +9911,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":397
+  /* "word2keypress/_keyboard.pyx":399
  *         return keyseq.replace(chr(SHIFT_KEY), '<s>').replace(chr(CAPS_KEY), '<c>')
  * 
  *     def part_keyseq_string(self, str keyseq, shift=False, caps=False):             # <<<<<<<<<<<<<<
@@ -10392,7 +9938,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_26part_keyseq_str
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":421
+/* "word2keypress/_keyboard.pyx":423
  *         return ret, shift, caps
  * 
  *     cdef char _apply_shift_caps(self, char c, shift, caps):             # <<<<<<<<<<<<<<
@@ -10413,9 +9959,9 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
   PyObject *__pyx_t_7 = NULL;
   char __pyx_t_8;
   __Pyx_RefNannySetupContext("_apply_shift_caps", 0);
-  __Pyx_TraceCall("_apply_shift_caps", __pyx_f[0], 421, 0, __PYX_ERR(0, 421, __pyx_L1_error));
+  __Pyx_TraceCall("_apply_shift_caps", __pyx_f[0], 423, 0, __PYX_ERR(0, 423, __pyx_L1_error));
 
-  /* "word2keypress/_keyboard.pyx":422
+  /* "word2keypress/_keyboard.pyx":424
  * 
  *     cdef char _apply_shift_caps(self, char c, shift, caps):
  *         assert c>=20 and c<128, "Got: {!r}".format(c)             # <<<<<<<<<<<<<<
@@ -10434,9 +9980,9 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
     __pyx_t_1 = __pyx_t_2;
     __pyx_L3_bool_binop_done:;
     if (unlikely(!__pyx_t_1)) {
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Got_r, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 422, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Got_r, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 424, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 422, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 424, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_6 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -10449,49 +9995,49 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
         }
       }
       if (!__pyx_t_6) {
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 422, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 424, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_3);
       } else {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 422, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 424, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_5);
         __pyx_t_5 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 422, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 424, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyTuple_Pack(1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 422, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_Pack(1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 424, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       PyErr_SetObject(PyExc_AssertionError, __pyx_t_4);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __PYX_ERR(0, 422, __pyx_L1_error)
+      __PYX_ERR(0, 424, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "word2keypress/_keyboard.pyx":423
+  /* "word2keypress/_keyboard.pyx":425
  *     cdef char _apply_shift_caps(self, char c, shift, caps):
  *         assert c>=20 and c<128, "Got: {!r}".format(c)
  *         if chr(c).isalpha() and shift^caps:             # <<<<<<<<<<<<<<
  *             c = self.add_shift(c)[0]
  *         elif shift:
  */
-  __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_3);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_isalpha); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_isalpha); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -10505,38 +10051,38 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 423, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 423, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 425, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_2) {
   } else {
     __pyx_t_1 = __pyx_t_2;
     goto __pyx_L6_bool_binop_done;
   }
-  __pyx_t_4 = PyNumber_Xor(__pyx_v_shift, __pyx_v_caps); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Xor(__pyx_v_shift, __pyx_v_caps); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_1 = __pyx_t_2;
   __pyx_L6_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "word2keypress/_keyboard.pyx":424
+    /* "word2keypress/_keyboard.pyx":426
  *         assert c>=20 and c<128, "Got: {!r}".format(c)
  *         if chr(c).isalpha() and shift^caps:
  *             c = self.add_shift(c)[0]             # <<<<<<<<<<<<<<
  *         elif shift:
  *             c = self.add_shift(c)[0]
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 426, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 426, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_5 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
@@ -10549,29 +10095,29 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
       }
     }
     if (!__pyx_t_5) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 424, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 426, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_4);
     } else {
-      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 424, __pyx_L1_error)
+      __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 426, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
       __Pyx_GIVEREF(__pyx_t_3);
       PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_3);
       __pyx_t_3 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 424, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 426, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 424, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 426, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_8 = __Pyx_PyInt_As_char(__pyx_t_7); if (unlikely((__pyx_t_8 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 424, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyInt_As_char(__pyx_t_7); if (unlikely((__pyx_t_8 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 426, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_c = __pyx_t_8;
 
-    /* "word2keypress/_keyboard.pyx":423
+    /* "word2keypress/_keyboard.pyx":425
  *     cdef char _apply_shift_caps(self, char c, shift, caps):
  *         assert c>=20 and c<128, "Got: {!r}".format(c)
  *         if chr(c).isalpha() and shift^caps:             # <<<<<<<<<<<<<<
@@ -10581,26 +10127,26 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
     goto __pyx_L5;
   }
 
-  /* "word2keypress/_keyboard.pyx":425
+  /* "word2keypress/_keyboard.pyx":427
  *         if chr(c).isalpha() and shift^caps:
  *             c = self.add_shift(c)[0]
  *         elif shift:             # <<<<<<<<<<<<<<
  *             c = self.add_shift(c)[0]
  *         assert c>=20, "Returning: {!r}".format(c)
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_shift); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 425, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_shift); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 427, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "word2keypress/_keyboard.pyx":426
+    /* "word2keypress/_keyboard.pyx":428
  *             c = self.add_shift(c)[0]
  *         elif shift:
  *             c = self.add_shift(c)[0]             # <<<<<<<<<<<<<<
  *         assert c>=20, "Returning: {!r}".format(c)
  *         return c
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_3 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -10613,29 +10159,29 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
       }
     }
     if (!__pyx_t_3) {
-      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 426, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 428, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_7);
     } else {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 426, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 428, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 426, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 428, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_8 = __Pyx_PyInt_As_char(__pyx_t_4); if (unlikely((__pyx_t_8 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyInt_As_char(__pyx_t_4); if (unlikely((__pyx_t_8 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_c = __pyx_t_8;
 
-    /* "word2keypress/_keyboard.pyx":425
+    /* "word2keypress/_keyboard.pyx":427
  *         if chr(c).isalpha() and shift^caps:
  *             c = self.add_shift(c)[0]
  *         elif shift:             # <<<<<<<<<<<<<<
@@ -10645,7 +10191,7 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
   }
   __pyx_L5:;
 
-  /* "word2keypress/_keyboard.pyx":427
+  /* "word2keypress/_keyboard.pyx":429
  *         elif shift:
  *             c = self.add_shift(c)[0]
  *         assert c>=20, "Returning: {!r}".format(c)             # <<<<<<<<<<<<<<
@@ -10655,9 +10201,9 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
     if (unlikely(!((__pyx_v_c >= 20) != 0))) {
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Returning_r, __pyx_n_s_format); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 427, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Returning_r, __pyx_n_s_format); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 429, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 427, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_c); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 429, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_6 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
@@ -10670,32 +10216,32 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
         }
       }
       if (!__pyx_t_6) {
-        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 427, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 429, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_4);
       } else {
-        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 427, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 429, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_5);
         __pyx_t_5 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 427, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 429, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = PyTuple_Pack(1, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 427, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_Pack(1, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 429, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       PyErr_SetObject(PyExc_AssertionError, __pyx_t_7);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __PYX_ERR(0, 427, __pyx_L1_error)
+      __PYX_ERR(0, 429, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "word2keypress/_keyboard.pyx":428
+  /* "word2keypress/_keyboard.pyx":430
  *             c = self.add_shift(c)[0]
  *         assert c>=20, "Returning: {!r}".format(c)
  *         return c             # <<<<<<<<<<<<<<
@@ -10705,7 +10251,7 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
   __pyx_r = __pyx_v_c;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":421
+  /* "word2keypress/_keyboard.pyx":423
  *         return ret, shift, caps
  * 
  *     cdef char _apply_shift_caps(self, char c, shift, caps):             # <<<<<<<<<<<<<<
@@ -10728,7 +10274,7 @@ static char __pyx_f_13word2keypress_9_keyboard_8Keyboard__apply_shift_caps(struc
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":430
+/* "word2keypress/_keyboard.pyx":432
  *         return c
  * 
  *     def _sub_word_table(self, str keyseq):             # <<<<<<<<<<<<<<
@@ -10743,7 +10289,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_29_sub_word_table
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_sub_word_table (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 430, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 432, __pyx_L1_error)
   __pyx_r = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table(((struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self), ((PyObject*)__pyx_v_keyseq));
 
   /* function exit code */
@@ -10786,31 +10332,31 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
   int __pyx_t_15;
   char __pyx_t_16;
   __Pyx_RefNannySetupContext("_sub_word_table", 0);
-  __Pyx_TraceCall("_sub_word_table", __pyx_f[0], 430, 0, __PYX_ERR(0, 430, __pyx_L1_error));
+  __Pyx_TraceCall("_sub_word_table", __pyx_f[0], 432, 0, __PYX_ERR(0, 432, __pyx_L1_error));
 
-  /* "word2keypress/_keyboard.pyx":443
+  /* "word2keypress/_keyboard.pyx":445
  * 
  *         """
  *         cdef int n = len(keyseq)             # <<<<<<<<<<<<<<
  *         A = [[(), (), (), (), ()] for i in xrange(n+1)]
  *         A[0] = [('', False, False),
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_keyseq); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 443, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_v_keyseq); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 445, __pyx_L1_error)
   __pyx_v_n = __pyx_t_1;
 
-  /* "word2keypress/_keyboard.pyx":444
+  /* "word2keypress/_keyboard.pyx":446
  *         """
  *         cdef int n = len(keyseq)
  *         A = [[(), (), (), (), ()] for i in xrange(n+1)]             # <<<<<<<<<<<<<<
  *         A[0] = [('', False, False),
  *                 self.part_keyseq_string(keyseq, False, False),# FF
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 444, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 446, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = (__pyx_v_n + 1);
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
-    __pyx_t_5 = PyList_New(5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 444, __pyx_L1_error)
+    __pyx_t_5 = PyList_New(5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 446, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_INCREF(__pyx_empty_tuple);
     __Pyx_GIVEREF(__pyx_empty_tuple);
@@ -10827,20 +10373,20 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
     __Pyx_INCREF(__pyx_empty_tuple);
     __Pyx_GIVEREF(__pyx_empty_tuple);
     PyList_SET_ITEM(__pyx_t_5, 4, __pyx_empty_tuple);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 444, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 446, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __pyx_v_A = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":446
+  /* "word2keypress/_keyboard.pyx":448
  *         A = [[(), (), (), (), ()] for i in xrange(n+1)]
  *         A[0] = [('', False, False),
  *                 self.part_keyseq_string(keyseq, False, False),# FF             # <<<<<<<<<<<<<<
  *                 self.part_keyseq_string(keyseq, False, True), # FT
  *                 self.part_keyseq_string(keyseq, True, False), # TF
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 446, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 448, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   __pyx_t_1 = 0;
@@ -10854,7 +10400,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_1 = 1;
     }
   }
-  __pyx_t_7 = PyTuple_New(3+__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 446, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(3+__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 448, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (__pyx_t_6) {
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -10868,19 +10414,19 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
   __Pyx_INCREF(Py_False);
   __Pyx_GIVEREF(Py_False);
   PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_1, Py_False);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 446, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 448, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "word2keypress/_keyboard.pyx":447
+  /* "word2keypress/_keyboard.pyx":449
  *         A[0] = [('', False, False),
  *                 self.part_keyseq_string(keyseq, False, False),# FF
  *                 self.part_keyseq_string(keyseq, False, True), # FT             # <<<<<<<<<<<<<<
  *                 self.part_keyseq_string(keyseq, True, False), # TF
  *                 self.part_keyseq_string(keyseq, True, True)]  # TT
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 447, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 449, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = NULL;
   __pyx_t_1 = 0;
@@ -10894,7 +10440,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_1 = 1;
     }
   }
-  __pyx_t_8 = PyTuple_New(3+__pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 447, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(3+__pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 449, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   if (__pyx_t_6) {
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -10908,19 +10454,19 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
   __Pyx_INCREF(Py_True);
   __Pyx_GIVEREF(Py_True);
   PyTuple_SET_ITEM(__pyx_t_8, 2+__pyx_t_1, Py_True);
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 447, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 449, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "word2keypress/_keyboard.pyx":448
+  /* "word2keypress/_keyboard.pyx":450
  *                 self.part_keyseq_string(keyseq, False, False),# FF
  *                 self.part_keyseq_string(keyseq, False, True), # FT
  *                 self.part_keyseq_string(keyseq, True, False), # TF             # <<<<<<<<<<<<<<
  *                 self.part_keyseq_string(keyseq, True, True)]  # TT
  *         A[n] = [A[0][1], ('', False, False), ('', False, True), ('', True, False), ('', True, True)]
  */
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 448, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 450, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_6 = NULL;
   __pyx_t_1 = 0;
@@ -10934,7 +10480,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_1 = 1;
     }
   }
-  __pyx_t_9 = PyTuple_New(3+__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 448, __pyx_L1_error)
+  __pyx_t_9 = PyTuple_New(3+__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 450, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   if (__pyx_t_6) {
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -10948,19 +10494,19 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
   __Pyx_INCREF(Py_False);
   __Pyx_GIVEREF(Py_False);
   PyTuple_SET_ITEM(__pyx_t_9, 2+__pyx_t_1, Py_False);
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 448, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 450, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "word2keypress/_keyboard.pyx":449
+  /* "word2keypress/_keyboard.pyx":451
  *                 self.part_keyseq_string(keyseq, False, True), # FT
  *                 self.part_keyseq_string(keyseq, True, False), # TF
  *                 self.part_keyseq_string(keyseq, True, True)]  # TT             # <<<<<<<<<<<<<<
  *         A[n] = [A[0][1], ('', False, False), ('', False, True), ('', True, False), ('', True, True)]
  *         cdef int j
  */
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 449, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_t_6 = NULL;
   __pyx_t_1 = 0;
@@ -10974,7 +10520,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_1 = 1;
     }
   }
-  __pyx_t_10 = PyTuple_New(3+__pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 449, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(3+__pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   if (__pyx_t_6) {
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -10988,23 +10534,23 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
   __Pyx_INCREF(Py_True);
   __Pyx_GIVEREF(Py_True);
   PyTuple_SET_ITEM(__pyx_t_10, 2+__pyx_t_1, Py_True);
-  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_10, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 449, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_10, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "word2keypress/_keyboard.pyx":445
+  /* "word2keypress/_keyboard.pyx":447
  *         cdef int n = len(keyseq)
  *         A = [[(), (), (), (), ()] for i in xrange(n+1)]
  *         A[0] = [('', False, False),             # <<<<<<<<<<<<<<
  *                 self.part_keyseq_string(keyseq, False, False),# FF
  *                 self.part_keyseq_string(keyseq, False, True), # FT
  */
-  __pyx_t_9 = PyList_New(5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 445, __pyx_L1_error)
+  __pyx_t_9 = PyList_New(5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 447, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __Pyx_INCREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
-  PyList_SET_ITEM(__pyx_t_9, 0, __pyx_tuple__7);
+  __Pyx_INCREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
+  PyList_SET_ITEM(__pyx_t_9, 0, __pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_t_2);
   PyList_SET_ITEM(__pyx_t_9, 1, __pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_5);
@@ -11017,39 +10563,39 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
   __pyx_t_5 = 0;
   __pyx_t_7 = 0;
   __pyx_t_8 = 0;
-  if (unlikely(__Pyx_SetItemInt(__pyx_v_A, 0, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0)) __PYX_ERR(0, 445, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(__pyx_v_A, 0, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0)) __PYX_ERR(0, 447, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "word2keypress/_keyboard.pyx":450
+  /* "word2keypress/_keyboard.pyx":452
  *                 self.part_keyseq_string(keyseq, True, False), # TF
  *                 self.part_keyseq_string(keyseq, True, True)]  # TT
  *         A[n] = [A[0][1], ('', False, False), ('', False, True), ('', True, False), ('', True, True)]             # <<<<<<<<<<<<<<
  *         cdef int j
  *         spcl_keys = (SHIFT_KEY, CAPS_KEY)
  */
-  __pyx_t_9 = __Pyx_GetItemInt(PyList_GET_ITEM(__pyx_v_A, 0), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_GetItemInt(PyList_GET_ITEM(__pyx_v_A, 0), 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_8 = PyList_New(5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_t_8 = PyList_New(5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_9);
   PyList_SET_ITEM(__pyx_t_8, 0, __pyx_t_9);
+  __Pyx_INCREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
+  PyList_SET_ITEM(__pyx_t_8, 1, __pyx_tuple__7);
   __Pyx_INCREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  PyList_SET_ITEM(__pyx_t_8, 1, __pyx_tuple__8);
+  PyList_SET_ITEM(__pyx_t_8, 2, __pyx_tuple__8);
   __Pyx_INCREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  PyList_SET_ITEM(__pyx_t_8, 2, __pyx_tuple__9);
+  PyList_SET_ITEM(__pyx_t_8, 3, __pyx_tuple__9);
   __Pyx_INCREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  PyList_SET_ITEM(__pyx_t_8, 3, __pyx_tuple__10);
-  __Pyx_INCREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
-  PyList_SET_ITEM(__pyx_t_8, 4, __pyx_tuple__11);
+  PyList_SET_ITEM(__pyx_t_8, 4, __pyx_tuple__10);
   __pyx_t_9 = 0;
-  if (unlikely(__Pyx_SetItemInt(__pyx_v_A, __pyx_v_n, __pyx_t_8, int, 1, __Pyx_PyInt_From_int, 1, 1, 0) < 0)) __PYX_ERR(0, 450, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(__pyx_v_A, __pyx_v_n, __pyx_t_8, int, 1, __Pyx_PyInt_From_int, 1, 1, 0) < 0)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "word2keypress/_keyboard.pyx":452
+  /* "word2keypress/_keyboard.pyx":454
  *         A[n] = [A[0][1], ('', False, False), ('', False, True), ('', True, False), ('', True, True)]
  *         cdef int j
  *         spcl_keys = (SHIFT_KEY, CAPS_KEY)             # <<<<<<<<<<<<<<
@@ -11060,7 +10606,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
   __pyx_t_11.f1 = __pyx_v_13word2keypress_9_keyboard_CAPS_KEY;
   __pyx_v_spcl_keys = __pyx_t_11;
 
-  /* "word2keypress/_keyboard.pyx":454
+  /* "word2keypress/_keyboard.pyx":456
  *         spcl_keys = (SHIFT_KEY, CAPS_KEY)
  *         cdef char c, nc, shifted_nc
  *         for j in xrange(1, n):             # <<<<<<<<<<<<<<
@@ -11071,7 +10617,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
   for (__pyx_t_13 = 1; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
     __pyx_v_j = __pyx_t_13;
 
-    /* "word2keypress/_keyboard.pyx":455
+    /* "word2keypress/_keyboard.pyx":457
  *         cdef char c, nc, shifted_nc
  *         for j in xrange(1, n):
  *             last_row = A[j-1]             # <<<<<<<<<<<<<<
@@ -11079,24 +10625,24 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
  *             c = ord(keyseq[j-1]) # current char
  */
     __pyx_t_3 = (__pyx_v_j - 1);
-    __pyx_t_8 = __Pyx_GetItemInt_List(__pyx_v_A, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 1, 1, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 455, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetItemInt_List(__pyx_v_A, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 1, 1, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 457, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_XDECREF_SET(__pyx_v_last_row, __pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "word2keypress/_keyboard.pyx":456
+    /* "word2keypress/_keyboard.pyx":458
  *         for j in xrange(1, n):
  *             last_row = A[j-1]
  *             row = A[j];             # <<<<<<<<<<<<<<
  *             c = ord(keyseq[j-1]) # current char
  *             nc = ord(keyseq[j]) # if j<n else 0 # next char
  */
-    __pyx_t_8 = __Pyx_GetItemInt_List(__pyx_v_A, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 1, 1, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 456, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetItemInt_List(__pyx_v_A, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 1, 1, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_XDECREF_SET(__pyx_v_row, __pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "word2keypress/_keyboard.pyx":457
+    /* "word2keypress/_keyboard.pyx":459
  *             last_row = A[j-1]
  *             row = A[j];
  *             c = ord(keyseq[j-1]) # current char             # <<<<<<<<<<<<<<
@@ -11104,43 +10650,43 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
  *             shifted_nc = self.add_shift(nc)[0] if nc not in spcl_keys else 0
  */
     __pyx_t_3 = (__pyx_v_j - 1);
-    __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_keyseq, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 457, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_keyseq, __pyx_t_3, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_3 = __Pyx_PyObject_Ord(__pyx_t_8); if (unlikely(__pyx_t_3 == (long)(Py_UCS4)-1)) __PYX_ERR(0, 457, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Ord(__pyx_t_8); if (unlikely(__pyx_t_3 == (long)(Py_UCS4)-1)) __PYX_ERR(0, 459, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __pyx_v_c = __pyx_t_3;
 
-    /* "word2keypress/_keyboard.pyx":458
+    /* "word2keypress/_keyboard.pyx":460
  *             row = A[j];
  *             c = ord(keyseq[j-1]) # current char
  *             nc = ord(keyseq[j]) # if j<n else 0 # next char             # <<<<<<<<<<<<<<
  *             shifted_nc = self.add_shift(nc)[0] if nc not in spcl_keys else 0
  *             if c == SHIFT_KEY:
  */
-    __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_keyseq, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 458, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_keyseq, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 460, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_3 = __Pyx_PyObject_Ord(__pyx_t_8); if (unlikely(__pyx_t_3 == (long)(Py_UCS4)-1)) __PYX_ERR(0, 458, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Ord(__pyx_t_8); if (unlikely(__pyx_t_3 == (long)(Py_UCS4)-1)) __PYX_ERR(0, 460, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __pyx_v_nc = __pyx_t_3;
 
-    /* "word2keypress/_keyboard.pyx":459
+    /* "word2keypress/_keyboard.pyx":461
  *             c = ord(keyseq[j-1]) # current char
  *             nc = ord(keyseq[j]) # if j<n else 0 # next char
  *             shifted_nc = self.add_shift(nc)[0] if nc not in spcl_keys else 0             # <<<<<<<<<<<<<<
  *             if c == SHIFT_KEY:
  *                 # case 0: only pre
  */
-    __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 459, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 461, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = __pyx_convert__to_py___pyx_ctuple_char__and_char(__pyx_v_spcl_keys); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 459, __pyx_L1_error)
+    __pyx_t_9 = __pyx_convert__to_py___pyx_ctuple_char__and_char(__pyx_v_spcl_keys); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 461, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_15 = (__Pyx_PySequence_ContainsTF(__pyx_t_8, __pyx_t_9, Py_NE)); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 459, __pyx_L1_error)
+    __pyx_t_15 = (__Pyx_PySequence_ContainsTF(__pyx_t_8, __pyx_t_9, Py_NE)); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 461, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     if ((__pyx_t_15 != 0)) {
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 459, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 461, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_7 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 459, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 461, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __pyx_t_5 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_8))) {
@@ -11153,25 +10699,25 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
         }
       }
       if (!__pyx_t_5) {
-        __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 459, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 461, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_9);
       } else {
-        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 459, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 461, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_GIVEREF(__pyx_t_7);
         PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_7);
         __pyx_t_7 = 0;
-        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_2, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 459, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_2, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 461, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 459, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 461, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_16 = __Pyx_PyInt_As_char(__pyx_t_8); if (unlikely((__pyx_t_16 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 459, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyInt_As_char(__pyx_t_8); if (unlikely((__pyx_t_16 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 461, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __pyx_t_14 = __pyx_t_16;
     } else {
@@ -11179,7 +10725,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
     }
     __pyx_v_shifted_nc = __pyx_t_14;
 
-    /* "word2keypress/_keyboard.pyx":460
+    /* "word2keypress/_keyboard.pyx":462
  *             nc = ord(keyseq[j]) # if j<n else 0 # next char
  *             shifted_nc = self.add_shift(nc)[0] if nc not in spcl_keys else 0
  *             if c == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -11189,24 +10735,24 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
     __pyx_t_15 = ((__pyx_v_c == __pyx_v_13word2keypress_9_keyboard_SHIFT_KEY) != 0);
     if (__pyx_t_15) {
 
-      /* "word2keypress/_keyboard.pyx":462
+      /* "word2keypress/_keyboard.pyx":464
  *             if c == SHIFT_KEY:
  *                 # case 0: only pre
  *                 row[0] = (last_row[0][0], True, last_row[0][2])             # <<<<<<<<<<<<<<
  *                 # case 1: shift-caps = FF, remove the shift from next char
  *                 row[1] = (chr(nc) + last_row[1][0][1:], last_row[1][1], last_row[1][2])
  */
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 462, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 462, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 462, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_8, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 462, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_8, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 462, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_9);
@@ -11217,49 +10763,49 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_2);
       __pyx_t_9 = 0;
       __pyx_t_2 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 0, __pyx_t_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 462, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 0, __pyx_t_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 464, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "word2keypress/_keyboard.pyx":464
+      /* "word2keypress/_keyboard.pyx":466
  *                 row[0] = (last_row[0][0], True, last_row[0][2])
  *                 # case 1: shift-caps = FF, remove the shift from next char
  *                 row[1] = (chr(nc) + last_row[1][0][1:], last_row[1][1], last_row[1][2])             # <<<<<<<<<<<<<<
  *                 # case 2: shift-caps = FT
  *                 row[2] = ((safe_chr(shifted_nc) if chr(nc).isalpha() else chr(nc)) + last_row[2][0][1:], last_row[2][1], last_row[2][2])
  */
-      __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_8);
       __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_9, 1, 0, NULL, NULL, &__pyx_slice__12, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_9, 1, 0, NULL, NULL, &__pyx_slice__11, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = PyNumber_Add(__pyx_t_8, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_9 = PyNumber_Add(__pyx_t_8, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 464, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_9);
@@ -11270,27 +10816,27 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_9 = 0;
       __pyx_t_8 = 0;
       __pyx_t_7 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 1, __pyx_t_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 464, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 1, __pyx_t_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "word2keypress/_keyboard.pyx":466
+      /* "word2keypress/_keyboard.pyx":468
  *                 row[1] = (chr(nc) + last_row[1][0][1:], last_row[1][1], last_row[1][2])
  *                 # case 2: shift-caps = FT
  *                 row[2] = ((safe_chr(shifted_nc) if chr(nc).isalpha() else chr(nc)) + last_row[2][0][1:], last_row[2][1], last_row[2][2])             # <<<<<<<<<<<<<<
  *                 # case 2: shift-caps = TF
  *                 row[3] = last_row[3]
  */
-      __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8);
       __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_isalpha); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_isalpha); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __pyx_t_8 = NULL;
@@ -11304,57 +10850,57 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
         }
       }
       if (__pyx_t_8) {
-        __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       } else {
-        __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_CallNoArg(__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
       }
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (__pyx_t_15) {
-        __pyx_t_7 = __pyx_f_13word2keypress_9_keyboard_safe_chr(__pyx_v_shifted_nc); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_7 = __pyx_f_13word2keypress_9_keyboard_safe_chr(__pyx_v_shifted_nc); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __pyx_t_2 = __pyx_t_7;
         __pyx_t_7 = 0;
       } else {
-        __pyx_t_7 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 468, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_GIVEREF(__pyx_t_7);
         PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7);
         __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_9, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_9, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __pyx_t_2 = __pyx_t_7;
         __pyx_t_7 = 0;
       }
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_t_9, 1, 0, NULL, NULL, &__pyx_slice__13, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_t_9, 1, 0, NULL, NULL, &__pyx_slice__12, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = PyNumber_Add(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_9 = PyNumber_Add(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 466, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9);
@@ -11365,34 +10911,34 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_9 = 0;
       __pyx_t_2 = 0;
       __pyx_t_8 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 2, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 466, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 2, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 468, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "word2keypress/_keyboard.pyx":468
+      /* "word2keypress/_keyboard.pyx":470
  *                 row[2] = ((safe_chr(shifted_nc) if chr(nc).isalpha() else chr(nc)) + last_row[2][0][1:], last_row[2][1], last_row[2][2])
  *                 # case 2: shift-caps = TF
  *                 row[3] = last_row[3]             # <<<<<<<<<<<<<<
  *                 # case 2: shift-caps = TT
  *                 row[4] = last_row[4]
  */
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 468, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 470, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 3, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 468, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 3, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 470, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "word2keypress/_keyboard.pyx":470
+      /* "word2keypress/_keyboard.pyx":472
  *                 row[3] = last_row[3]
  *                 # case 2: shift-caps = TT
  *                 row[4] = last_row[4]             # <<<<<<<<<<<<<<
  *             elif c == CAPS_KEY:
  *                 # case 0: only pre
  */
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 470, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 472, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 4, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 470, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 4, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 472, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "word2keypress/_keyboard.pyx":460
+      /* "word2keypress/_keyboard.pyx":462
  *             nc = ord(keyseq[j]) # if j<n else 0 # next char
  *             shifted_nc = self.add_shift(nc)[0] if nc not in spcl_keys else 0
  *             if c == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -11402,7 +10948,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       goto __pyx_L7;
     }
 
-    /* "word2keypress/_keyboard.pyx":471
+    /* "word2keypress/_keyboard.pyx":473
  *                 # case 2: shift-caps = TT
  *                 row[4] = last_row[4]
  *             elif c == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -11412,32 +10958,32 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
     __pyx_t_15 = ((__pyx_v_c == __pyx_v_13word2keypress_9_keyboard_CAPS_KEY) != 0);
     if (__pyx_t_15) {
 
-      /* "word2keypress/_keyboard.pyx":473
+      /* "word2keypress/_keyboard.pyx":475
  *             elif c == CAPS_KEY:
  *                 # case 0: only pre
  *                 row[0] = (last_row[0][0], last_row[0][1], last_row[0][2]^True)             # <<<<<<<<<<<<<<
  *                 # shift-caps = FF
  *                 row[1] = (last_row[1][0].swapcase(), last_row[1][1], last_row[1][2]^True)
  */
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 475, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 475, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 475, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 475, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 475, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 475, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = PyNumber_Xor(__pyx_t_9, Py_True); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_7 = PyNumber_Xor(__pyx_t_9, Py_True); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 475, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 473, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 475, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8);
@@ -11448,22 +10994,22 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_8 = 0;
       __pyx_t_2 = 0;
       __pyx_t_7 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 0, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 473, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 0, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 475, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "word2keypress/_keyboard.pyx":475
+      /* "word2keypress/_keyboard.pyx":477
  *                 row[0] = (last_row[0][0], last_row[0][1], last_row[0][2]^True)
  *                 # shift-caps = FF
  *                 row[1] = (last_row[1][0].swapcase(), last_row[1][1], last_row[1][2]^True)             # <<<<<<<<<<<<<<
  *                 # shift-caps = FT
  *                 row[2] = last_row[1]
  */
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 475, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 475, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_swapcase); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 475, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_swapcase); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_2 = NULL;
@@ -11477,27 +11023,27 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
         }
       }
       if (__pyx_t_2) {
-        __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 475, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 477, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       } else {
-        __pyx_t_9 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 475, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 477, __pyx_L1_error)
       }
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 475, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 475, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 475, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 475, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = PyNumber_Xor(__pyx_t_8, Py_True); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 475, __pyx_L1_error)
+      __pyx_t_7 = PyNumber_Xor(__pyx_t_8, Py_True); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 475, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_9);
@@ -11508,34 +11054,34 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_9 = 0;
       __pyx_t_2 = 0;
       __pyx_t_7 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 1, __pyx_t_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 475, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 1, __pyx_t_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 477, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "word2keypress/_keyboard.pyx":477
+      /* "word2keypress/_keyboard.pyx":479
  *                 row[1] = (last_row[1][0].swapcase(), last_row[1][1], last_row[1][2]^True)
  *                 # shift-caps = FT
  *                 row[2] = last_row[1]             # <<<<<<<<<<<<<<
  *                 # shift-caps = TF
  *                 row[3] = (last_row[3][0].swapcase(), last_row[3][1], last_row[3][2]^True)
  */
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 477, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 479, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 2, __pyx_t_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 477, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 2, __pyx_t_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 479, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "word2keypress/_keyboard.pyx":479
+      /* "word2keypress/_keyboard.pyx":481
  *                 row[2] = last_row[1]
  *                 # shift-caps = TF
  *                 row[3] = (last_row[3][0].swapcase(), last_row[3][1], last_row[3][2]^True)             # <<<<<<<<<<<<<<
  *                 # shift-caps = TT
  *                 row[4] = last_row[3]
  */
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 479, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 479, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_swapcase); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 479, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_swapcase); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_2 = NULL;
@@ -11549,27 +11095,27 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
         }
       }
       if (__pyx_t_2) {
-        __pyx_t_8 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 479, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 481, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       } else {
-        __pyx_t_8 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 479, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_CallNoArg(__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 481, __pyx_L1_error)
       }
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 479, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 479, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 479, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 479, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = PyNumber_Xor(__pyx_t_9, Py_True); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 479, __pyx_L1_error)
+      __pyx_t_7 = PyNumber_Xor(__pyx_t_9, Py_True); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 479, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8);
@@ -11580,22 +11126,22 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_8 = 0;
       __pyx_t_2 = 0;
       __pyx_t_7 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 3, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 479, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 3, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 481, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "word2keypress/_keyboard.pyx":481
+      /* "word2keypress/_keyboard.pyx":483
  *                 row[3] = (last_row[3][0].swapcase(), last_row[3][1], last_row[3][2]^True)
  *                 # shift-caps = TT
  *                 row[4] = last_row[3]             # <<<<<<<<<<<<<<
  *             else: # c is not SHIT or CAPS
  *                 row[0] = (
  */
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 481, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 483, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 4, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 481, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 4, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 483, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "word2keypress/_keyboard.pyx":471
+      /* "word2keypress/_keyboard.pyx":473
  *                 # case 2: shift-caps = TT
  *                 row[4] = last_row[4]
  *             elif c == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -11605,7 +11151,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       goto __pyx_L7;
     }
 
-    /* "word2keypress/_keyboard.pyx":483
+    /* "word2keypress/_keyboard.pyx":485
  *                 row[4] = last_row[3]
  *             else: # c is not SHIT or CAPS
  *                 row[0] = (             # <<<<<<<<<<<<<<
@@ -11614,90 +11160,90 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
  */
     /*else*/ {
 
-      /* "word2keypress/_keyboard.pyx":484
+      /* "word2keypress/_keyboard.pyx":486
  *             else: # c is not SHIT or CAPS
  *                 row[0] = (
  *                     last_row[0][0] + \             # <<<<<<<<<<<<<<
  *                     chr(self._apply_shift_caps(
  *                         c, last_row[0][1], last_row[0][2])
  */
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 484, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 486, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 484, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 486, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "word2keypress/_keyboard.pyx":486
+      /* "word2keypress/_keyboard.pyx":488
  *                     last_row[0][0] + \
  *                     chr(self._apply_shift_caps(
  *                         c, last_row[0][1], last_row[0][2])             # <<<<<<<<<<<<<<
  *                     ),
  *                     False, last_row[0][2]
  */
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 486, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 488, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_9, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 486, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_9, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 488, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 486, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 488, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_9, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 486, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_9, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 488, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "word2keypress/_keyboard.pyx":485
+      /* "word2keypress/_keyboard.pyx":487
  *                 row[0] = (
  *                     last_row[0][0] + \
  *                     chr(self._apply_shift_caps(             # <<<<<<<<<<<<<<
  *                         c, last_row[0][1], last_row[0][2])
  *                     ),
  */
-      __pyx_t_9 = __Pyx_PyInt_From_char(((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self->__pyx_vtab)->_apply_shift_caps(__pyx_v_self, __pyx_v_c, __pyx_t_2, __pyx_t_8)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 485, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyInt_From_char(((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self->__pyx_vtab)->_apply_shift_caps(__pyx_v_self, __pyx_v_c, __pyx_t_2, __pyx_t_8)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 487, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 485, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 487, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_9);
       __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_8, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 485, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_8, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 487, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "word2keypress/_keyboard.pyx":484
+      /* "word2keypress/_keyboard.pyx":486
  *             else: # c is not SHIT or CAPS
  *                 row[0] = (
  *                     last_row[0][0] + \             # <<<<<<<<<<<<<<
  *                     chr(self._apply_shift_caps(
  *                         c, last_row[0][1], last_row[0][2])
  */
-      __pyx_t_8 = PyNumber_Add(__pyx_t_7, __pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 484, __pyx_L1_error)
+      __pyx_t_8 = PyNumber_Add(__pyx_t_7, __pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 486, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "word2keypress/_keyboard.pyx":488
+      /* "word2keypress/_keyboard.pyx":490
  *                         c, last_row[0][1], last_row[0][2])
  *                     ),
  *                     False, last_row[0][2]             # <<<<<<<<<<<<<<
  *                 )
  *                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF
  */
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 488, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 490, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_9, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 488, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_9, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 490, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "word2keypress/_keyboard.pyx":484
+      /* "word2keypress/_keyboard.pyx":486
  *             else: # c is not SHIT or CAPS
  *                 row[0] = (
  *                     last_row[0][0] + \             # <<<<<<<<<<<<<<
  *                     chr(self._apply_shift_caps(
  *                         c, last_row[0][1], last_row[0][2])
  */
-      __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 484, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 486, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8);
@@ -11709,42 +11255,42 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_8 = 0;
       __pyx_t_7 = 0;
 
-      /* "word2keypress/_keyboard.pyx":483
+      /* "word2keypress/_keyboard.pyx":485
  *                 row[4] = last_row[3]
  *             else: # c is not SHIT or CAPS
  *                 row[0] = (             # <<<<<<<<<<<<<<
  *                     last_row[0][0] + \
  *                     chr(self._apply_shift_caps(
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 0, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 483, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 0, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 485, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "word2keypress/_keyboard.pyx":490
+      /* "word2keypress/_keyboard.pyx":492
  *                     False, last_row[0][2]
  *                 )
  *                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF             # <<<<<<<<<<<<<<
  *                 row[2] = (last_row[2][0][1:], last_row[2][1], last_row[2][2]) # shift-caps = FT
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],
  */
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 490, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 492, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 490, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_9, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 492, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetSlice(__pyx_t_7, 1, 0, NULL, NULL, &__pyx_slice__14, 1, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 490, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetSlice(__pyx_t_7, 1, 0, NULL, NULL, &__pyx_slice__13, 1, 0, 1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 492, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 490, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 492, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 490, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 492, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 490, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 492, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 490, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 492, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 490, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 492, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_9);
       PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9);
@@ -11755,35 +11301,35 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_9 = 0;
       __pyx_t_8 = 0;
       __pyx_t_2 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 1, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 490, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 1, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 492, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "word2keypress/_keyboard.pyx":491
+      /* "word2keypress/_keyboard.pyx":493
  *                 )
  *                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF
  *                 row[2] = (last_row[2][0][1:], last_row[2][1], last_row[2][2]) # shift-caps = FT             # <<<<<<<<<<<<<<
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF
  */
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_t_2, 1, 0, NULL, NULL, &__pyx_slice__15, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_t_2, 1, 0, NULL, NULL, &__pyx_slice__14, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 491, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_7);
@@ -11794,10 +11340,10 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_7 = 0;
       __pyx_t_8 = 0;
       __pyx_t_9 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 2, __pyx_t_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 2, __pyx_t_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 493, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "word2keypress/_keyboard.pyx":492
+      /* "word2keypress/_keyboard.pyx":494
  *                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF
  *                 row[2] = (last_row[2][0][1:], last_row[2][1], last_row[2][2]) # shift-caps = FT
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],             # <<<<<<<<<<<<<<
@@ -11805,61 +11351,61 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else
  */
       if ((__pyx_v_shifted_nc != 0)) {
-        __pyx_t_9 = __pyx_f_13word2keypress_9_keyboard_safe_chr(__pyx_v_shifted_nc); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 492, __pyx_L1_error)
+        __pyx_t_9 = __pyx_f_13word2keypress_9_keyboard_safe_chr(__pyx_v_shifted_nc); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 494, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 492, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 494, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 492, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 494, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_PyObject_GetSlice(__pyx_t_7, 2, 0, NULL, NULL, &__pyx_slice__16, 1, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 492, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetSlice(__pyx_t_7, 2, 0, NULL, NULL, &__pyx_slice__15, 1, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 494, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = PyNumber_Add(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 492, __pyx_L1_error)
+        __pyx_t_7 = PyNumber_Add(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 494, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __pyx_t_2 = __pyx_t_7;
         __pyx_t_7 = 0;
       } else {
-        __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 492, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 494, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 492, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 494, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_t_8, 1, 0, NULL, NULL, &__pyx_slice__17, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 492, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetSlice(__pyx_t_8, 1, 0, NULL, NULL, &__pyx_slice__16, 1, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 494, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __pyx_t_2 = __pyx_t_7;
         __pyx_t_7 = 0;
       }
 
-      /* "word2keypress/_keyboard.pyx":493
+      /* "word2keypress/_keyboard.pyx":495
  *                 row[2] = (last_row[2][0][1:], last_row[2][1], last_row[2][2]) # shift-caps = FT
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF             # <<<<<<<<<<<<<<
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else
  *                           safe_chr(shifted_nc) + last_row[4][0][2:],
  */
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 493, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 495, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 493, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 495, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 493, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_last_row, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 495, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 493, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_7, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 495, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "word2keypress/_keyboard.pyx":492
+      /* "word2keypress/_keyboard.pyx":494
  *                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF
  *                 row[2] = (last_row[2][0][1:], last_row[2][1], last_row[2][2]) # shift-caps = FT
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],             # <<<<<<<<<<<<<<
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else
  */
-      __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 492, __pyx_L1_error)
+      __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 494, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_2);
@@ -11870,27 +11416,27 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_2 = 0;
       __pyx_t_8 = 0;
       __pyx_t_9 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 3, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 492, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 3, __pyx_t_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 494, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "word2keypress/_keyboard.pyx":494
+      /* "word2keypress/_keyboard.pyx":496
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else             # <<<<<<<<<<<<<<
  *                           safe_chr(shifted_nc) + last_row[4][0][2:],
  *                           last_row[4][1], last_row[4][2]) # shift-caps = TT
  */
-      __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 494, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 496, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 494, __pyx_L1_error)
+      __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_8);
       PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_8);
       __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 494, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 496, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_isalpha); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 494, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_isalpha); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __pyx_t_8 = NULL;
@@ -11904,35 +11450,35 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
         }
       }
       if (__pyx_t_8) {
-        __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 494, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 496, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       } else {
-        __pyx_t_9 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 494, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 496, __pyx_L1_error)
       }
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 494, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 496, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       if (__pyx_t_15) {
-        __pyx_t_9 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 494, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyInt_From_char(__pyx_v_nc); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 496, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 494, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_9);
         PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_9);
         __pyx_t_9 = 0;
-        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 494, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 496, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 494, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 494, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 496, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_8, 2, 0, NULL, NULL, &__pyx_slice__18, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 494, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_8, 2, 0, NULL, NULL, &__pyx_slice__17, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = PyNumber_Add(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 494, __pyx_L1_error)
+        __pyx_t_8 = PyNumber_Add(__pyx_t_9, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 496, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -11940,24 +11486,24 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
         __pyx_t_8 = 0;
       } else {
 
-        /* "word2keypress/_keyboard.pyx":495
+        /* "word2keypress/_keyboard.pyx":497
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else
  *                           safe_chr(shifted_nc) + last_row[4][0][2:],             # <<<<<<<<<<<<<<
  *                           last_row[4][1], last_row[4][2]) # shift-caps = TT
  *         return A
  */
-        __pyx_t_8 = __pyx_f_13word2keypress_9_keyboard_safe_chr(__pyx_v_shifted_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 495, __pyx_L1_error)
+        __pyx_t_8 = __pyx_f_13word2keypress_9_keyboard_safe_chr(__pyx_v_shifted_nc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 497, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 495, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 497, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 495, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 497, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_9, 2, 0, NULL, NULL, &__pyx_slice__19, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 495, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetSlice(__pyx_t_9, 2, 0, NULL, NULL, &__pyx_slice__18, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 497, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __pyx_t_9 = PyNumber_Add(__pyx_t_8, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 495, __pyx_L1_error)
+        __pyx_t_9 = PyNumber_Add(__pyx_t_8, __pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 497, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -11965,32 +11511,32 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
         __pyx_t_9 = 0;
       }
 
-      /* "word2keypress/_keyboard.pyx":496
+      /* "word2keypress/_keyboard.pyx":498
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else
  *                           safe_chr(shifted_nc) + last_row[4][0][2:],
  *                           last_row[4][1], last_row[4][2]) # shift-caps = TT             # <<<<<<<<<<<<<<
  *         return A
  * 
  */
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 496, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 498, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_9, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 496, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_9, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 498, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 496, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_GetItemInt(__pyx_v_last_row, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 498, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_9, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 496, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_9, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 498, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "word2keypress/_keyboard.pyx":494
+      /* "word2keypress/_keyboard.pyx":496
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else             # <<<<<<<<<<<<<<
  *                           safe_chr(shifted_nc) + last_row[4][0][2:],
  *                           last_row[4][1], last_row[4][2]) # shift-caps = TT
  */
-      __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 494, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 496, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_GIVEREF(__pyx_t_7);
       PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7);
@@ -12001,13 +11547,13 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
       __pyx_t_7 = 0;
       __pyx_t_2 = 0;
       __pyx_t_8 = 0;
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 4, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 494, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_row, 4, __pyx_t_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 496, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     }
     __pyx_L7:;
   }
 
-  /* "word2keypress/_keyboard.pyx":497
+  /* "word2keypress/_keyboard.pyx":499
  *                           safe_chr(shifted_nc) + last_row[4][0][2:],
  *                           last_row[4][1], last_row[4][2]) # shift-caps = TT
  *         return A             # <<<<<<<<<<<<<<
@@ -12019,7 +11565,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
   __pyx_r = __pyx_v_A;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":430
+  /* "word2keypress/_keyboard.pyx":432
  *         return c
  * 
  *     def _sub_word_table(self, str keyseq):             # <<<<<<<<<<<<<<
@@ -12049,7 +11595,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_28_sub_word_table
 }
 static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "word2keypress/_keyboard.pyx":499
+/* "word2keypress/_keyboard.pyx":501
  *         return A
  * 
  *     def keyseq_insert_edits(self, str keyseq, _insert_keys=[], _replace_keys=[]):             # <<<<<<<<<<<<<<
@@ -12070,8 +11616,8 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_31keyseq_insert_e
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_keyseq,&__pyx_n_s_insert_keys,&__pyx_n_s_replace_keys,0};
     PyObject* values[3] = {0,0,0};
-    values[1] = __pyx_k__20;
-    values[2] = __pyx_k__21;
+    values[1] = __pyx_k__19;
+    values[2] = __pyx_k__20;
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -12099,7 +11645,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_31keyseq_insert_e
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "keyseq_insert_edits") < 0)) __PYX_ERR(0, 499, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "keyseq_insert_edits") < 0)) __PYX_ERR(0, 501, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -12116,13 +11662,13 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_31keyseq_insert_e
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("keyseq_insert_edits", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 499, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("keyseq_insert_edits", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 501, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.keyseq_insert_edits", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 499, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 501, __pyx_L1_error)
   __pyx_r = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_30keyseq_insert_edits(((struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self), __pyx_v_keyseq, __pyx_v__insert_keys, __pyx_v__replace_keys);
 
   /* function exit code */
@@ -12134,7 +11680,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_31keyseq_insert_e
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":538
+/* "word2keypress/_keyboard.pyx":540
  * 
  *             assert all(map(
  *                 lambda c: 128>c>=20 or c in [3,4],             # <<<<<<<<<<<<<<
@@ -12143,20 +11689,20 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_31keyseq_insert_e
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda5(PyObject *__pyx_self, PyObject *__pyx_v_c); /*proto*/
-static PyMethodDef __pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda5 = {"lambda5", (PyCFunction)__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda5, METH_O, 0};
-static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda5(PyObject *__pyx_self, PyObject *__pyx_v_c) {
+static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda3(PyObject *__pyx_self, PyObject *__pyx_v_c); /*proto*/
+static PyMethodDef __pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda3 = {"lambda3", (PyCFunction)__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda3, METH_O, 0};
+static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda3(PyObject *__pyx_self, PyObject *__pyx_v_c) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("lambda5 (wrapper)", 0);
-  __pyx_r = __pyx_lambda_funcdef_lambda5(__pyx_self, ((PyObject *)__pyx_v_c));
+  __Pyx_RefNannySetupContext("lambda3 (wrapper)", 0);
+  __pyx_r = __pyx_lambda_funcdef_lambda3(__pyx_self, ((PyObject *)__pyx_v_c));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_lambda_funcdef_lambda5(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_c) {
+static PyObject *__pyx_lambda_funcdef_lambda3(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_c) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -12165,15 +11711,15 @@ static PyObject *__pyx_lambda_funcdef_lambda5(CYTHON_UNUSED PyObject *__pyx_self
   int __pyx_t_3;
   PyObject *__pyx_t_4 = NULL;
   int __pyx_t_5;
-  __Pyx_RefNannySetupContext("lambda5", 0);
-  __Pyx_TraceCall("lambda5", __pyx_f[0], 538, 0, __PYX_ERR(0, 538, __pyx_L1_error));
+  __Pyx_RefNannySetupContext("lambda3", 0);
+  __Pyx_TraceCall("lambda3", __pyx_f[0], 540, 0, __PYX_ERR(0, 540, __pyx_L1_error));
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyObject_RichCompare(__pyx_int_128, __pyx_v_c, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_int_128, __pyx_v_c, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 540, __pyx_L1_error)
   if (__Pyx_PyObject_IsTrue(__pyx_t_2)) {
     __Pyx_DECREF(__pyx_t_2);
-    __pyx_t_2 = PyObject_RichCompare(__pyx_v_c, __pyx_int_20, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 538, __pyx_L1_error)
+    __pyx_t_2 = PyObject_RichCompare(__pyx_v_c, __pyx_int_20, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 540, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 540, __pyx_L1_error)
   if (!__pyx_t_3) {
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
@@ -12184,24 +11730,24 @@ static PyObject *__pyx_lambda_funcdef_lambda5(CYTHON_UNUSED PyObject *__pyx_self
   }
   __Pyx_INCREF(__pyx_v_c);
   __pyx_t_2 = __pyx_v_c;
-  __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 540, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 540, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (!__pyx_t_5) {
   } else {
     __pyx_t_3 = __pyx_t_5;
     goto __pyx_L5_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_4, 4, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_t_2, __pyx_int_4, 4, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 540, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 540, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_3 = __pyx_t_5;
   __pyx_L5_bool_binop_done:;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_5 = __pyx_t_3;
-  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 540, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -12215,7 +11761,7 @@ static PyObject *__pyx_lambda_funcdef_lambda5(CYTHON_UNUSED PyObject *__pyx_self
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.keyseq_insert_edits.lambda5", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.keyseq_insert_edits.lambda3", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -12224,7 +11770,7 @@ static PyObject *__pyx_lambda_funcdef_lambda5(CYTHON_UNUSED PyObject *__pyx_self
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":499
+/* "word2keypress/_keyboard.pyx":501
  *         return A
  * 
  *     def keyseq_insert_edits(self, str keyseq, _insert_keys=[], _replace_keys=[]):             # <<<<<<<<<<<<<<
@@ -12233,18 +11779,18 @@ static PyObject *__pyx_lambda_funcdef_lambda5(CYTHON_UNUSED PyObject *__pyx_self
  */
 
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_30keyseq_insert_edits(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, PyObject *__pyx_v_keyseq, PyObject *__pyx_v__insert_keys, PyObject *__pyx_v__replace_keys) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *__pyx_cur_scope;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("keyseq_insert_edits", 0);
-  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __Pyx_RefNannyFinishContext();
     return NULL;
   }
   __Pyx_GOTREF(__pyx_cur_scope);
-  __Pyx_TraceCall("keyseq_insert_edits", __pyx_f[0], 499, 0, __PYX_ERR(0, 499, __pyx_L1_error));
+  __Pyx_TraceCall("keyseq_insert_edits", __pyx_f[0], 501, 0, __PYX_ERR(0, 501, __pyx_L1_error));
   __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
@@ -12258,7 +11804,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_30keyseq_insert_e
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v__replace_keys);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v__replace_keys);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_keyseq_insert_edits, __pyx_n_s_Keyboard_keyseq_insert_edits, __pyx_n_s_word2keypress__keyboard); if (unlikely(!gen)) __PYX_ERR(0, 499, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_keyseq_insert_edits, __pyx_n_s_Keyboard_keyseq_insert_edits, __pyx_n_s_word2keypress__keyboard); if (unlikely(!gen)) __PYX_ERR(0, 501, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -12277,7 +11823,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_30keyseq_insert_e
 
 static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *__pyx_cur_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *)__pyx_generator->closure);
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *__pyx_cur_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -12314,20 +11860,20 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 499, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 501, __pyx_L1_error)
 
-  /* "word2keypress/_keyboard.pyx":506
+  /* "word2keypress/_keyboard.pyx":508
  *                     if pos=len(keyseq)+1, then only insert
  *         """
  *         spcl_keys = array.array(b'b', [SHIFT_KEY, CAPS_KEY])             # <<<<<<<<<<<<<<
  *         sub_words = self._sub_word_table(keyseq)
  *         # print(">>>>>", _insert_keys, _replace_keys)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 506, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_CAPS_KEY); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 506, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_CAPS_KEY); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyList_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 506, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyList_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
@@ -12335,7 +11881,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
   PyList_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 506, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_b_b);
   __Pyx_GIVEREF(__pyx_n_b_b);
@@ -12343,21 +11889,21 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_3);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 506, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 508, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_cur_scope->__pyx_v_spcl_keys = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "word2keypress/_keyboard.pyx":507
+  /* "word2keypress/_keyboard.pyx":509
  *         """
  *         spcl_keys = array.array(b'b', [SHIFT_KEY, CAPS_KEY])
  *         sub_words = self._sub_word_table(keyseq)             # <<<<<<<<<<<<<<
  *         # print(">>>>>", _insert_keys, _replace_keys)
  *         cdef array.array insert_keys = array.array(b'b')
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_sub_word_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 507, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_sub_word_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 509, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -12370,16 +11916,16 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_cur_scope->__pyx_v_keyseq); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 507, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_cur_scope->__pyx_v_keyseq); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 507, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1); __pyx_t_1 = NULL;
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_keyseq);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_keyseq);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_cur_scope->__pyx_v_keyseq);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 507, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 509, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -12388,40 +11934,40 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
   __pyx_cur_scope->__pyx_v_sub_words = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "word2keypress/_keyboard.pyx":509
+  /* "word2keypress/_keyboard.pyx":511
  *         sub_words = self._sub_word_table(keyseq)
  *         # print(">>>>>", _insert_keys, _replace_keys)
  *         cdef array.array insert_keys = array.array(b'b')             # <<<<<<<<<<<<<<
  *         cdef array.array replace_keys = array.array(b'b')
  *         insert_keys.fromstring(_insert_keys)
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 509, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_cur_scope->__pyx_v_insert_keys = ((arrayobject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "word2keypress/_keyboard.pyx":510
+  /* "word2keypress/_keyboard.pyx":512
  *         # print(">>>>>", _insert_keys, _replace_keys)
  *         cdef array.array insert_keys = array.array(b'b')
  *         cdef array.array replace_keys = array.array(b'b')             # <<<<<<<<<<<<<<
  *         insert_keys.fromstring(_insert_keys)
  *         replace_keys.fromstring(_replace_keys)
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_tuple__23, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 510, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 512, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_cur_scope->__pyx_v_replace_keys = ((arrayobject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "word2keypress/_keyboard.pyx":511
+  /* "word2keypress/_keyboard.pyx":513
  *         cdef array.array insert_keys = array.array(b'b')
  *         cdef array.array replace_keys = array.array(b'b')
  *         insert_keys.fromstring(_insert_keys)             # <<<<<<<<<<<<<<
  *         replace_keys.fromstring(_replace_keys)
  *         cdef int smart = ((not insert_keys or len(insert_keys))==0 and \
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys), __pyx_n_s_fromstring); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys), __pyx_n_s_fromstring); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 513, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -12434,30 +11980,30 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_cur_scope->__pyx_v__insert_keys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 511, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_cur_scope->__pyx_v__insert_keys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 513, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 511, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 513, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4); __pyx_t_4 = NULL;
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v__insert_keys);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v__insert_keys);
     PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_cur_scope->__pyx_v__insert_keys);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 511, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 513, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "word2keypress/_keyboard.pyx":512
+  /* "word2keypress/_keyboard.pyx":514
  *         cdef array.array replace_keys = array.array(b'b')
  *         insert_keys.fromstring(_insert_keys)
  *         replace_keys.fromstring(_replace_keys)             # <<<<<<<<<<<<<<
  *         cdef int smart = ((not insert_keys or len(insert_keys))==0 and \
  *                           (not replace_keys or len(replace_keys)==0))
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys), __pyx_n_s_fromstring); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 512, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys), __pyx_n_s_fromstring); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 514, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -12470,79 +12016,79 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_cur_scope->__pyx_v__replace_keys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 512, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_cur_scope->__pyx_v__replace_keys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 514, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 512, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 514, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1); __pyx_t_1 = NULL;
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v__replace_keys);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v__replace_keys);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_cur_scope->__pyx_v__replace_keys);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 512, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 514, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "word2keypress/_keyboard.pyx":513
+  /* "word2keypress/_keyboard.pyx":515
  *         insert_keys.fromstring(_insert_keys)
  *         replace_keys.fromstring(_replace_keys)
  *         cdef int smart = ((not insert_keys or len(insert_keys))==0 and \             # <<<<<<<<<<<<<<
  *                           (not replace_keys or len(replace_keys)==0))
  *         cdef int i, t
  */
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 513, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 515, __pyx_L1_error)
   __pyx_t_7 = (!__pyx_t_6);
   if (!__pyx_t_7) {
   } else {
-    __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 513, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 515, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L6_bool_binop_done;
   }
-  __pyx_t_8 = Py_SIZE(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 513, __pyx_L1_error)
-  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 513, __pyx_L1_error)
+  __pyx_t_8 = Py_SIZE(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 515, __pyx_L1_error)
+  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 515, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __pyx_t_2;
   __pyx_t_2 = 0;
   __pyx_L6_bool_binop_done:;
-  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 513, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_3, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 515, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 513, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 515, __pyx_L1_error)
   if (__pyx_t_7) {
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 513, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 515, __pyx_L1_error)
     __pyx_t_5 = __pyx_t_9;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     goto __pyx_L4_bool_binop_done;
   }
 
-  /* "word2keypress/_keyboard.pyx":514
+  /* "word2keypress/_keyboard.pyx":516
  *         replace_keys.fromstring(_replace_keys)
  *         cdef int smart = ((not insert_keys or len(insert_keys))==0 and \
  *                           (not replace_keys or len(replace_keys)==0))             # <<<<<<<<<<<<<<
  *         cdef int i, t
  *         cdef char c, k
  */
-  __pyx_t_7 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 514, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 516, __pyx_L1_error)
   __pyx_t_6 = (!__pyx_t_7);
   if (!__pyx_t_6) {
   } else {
     __pyx_t_5 = __pyx_t_6;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_8 = Py_SIZE(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys)); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 514, __pyx_L1_error)
+  __pyx_t_8 = Py_SIZE(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys)); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 516, __pyx_L1_error)
   __pyx_t_6 = (__pyx_t_8 == 0);
   __pyx_t_5 = __pyx_t_6;
   __pyx_L4_bool_binop_done:;
   __pyx_cur_scope->__pyx_v_smart = __pyx_t_5;
 
-  /* "word2keypress/_keyboard.pyx":518
+  /* "word2keypress/_keyboard.pyx":520
  *         cdef char c, k
  *         cdef str pre_w
  *         while i<len(keyseq):             # <<<<<<<<<<<<<<
@@ -12550,24 +12096,24 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  *             if smart:
  */
   while (1) {
-    __pyx_t_8 = PyObject_Length(__pyx_cur_scope->__pyx_v_keyseq); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 518, __pyx_L1_error)
+    __pyx_t_8 = PyObject_Length(__pyx_cur_scope->__pyx_v_keyseq); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 520, __pyx_L1_error)
     __pyx_t_6 = ((__pyx_cur_scope->__pyx_v_i < __pyx_t_8) != 0);
     if (!__pyx_t_6) break;
 
-    /* "word2keypress/_keyboard.pyx":519
+    /* "word2keypress/_keyboard.pyx":521
  *         cdef str pre_w
  *         while i<len(keyseq):
  *             c = ord(keyseq[i])             # <<<<<<<<<<<<<<
  *             if smart:
  *                 # if replacing a caps or shift, replace with everything
  */
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_keyseq, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 519, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_keyseq, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 521, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_10 = __Pyx_PyObject_Ord(__pyx_t_2); if (unlikely(__pyx_t_10 == (long)(Py_UCS4)-1)) __PYX_ERR(0, 519, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_Ord(__pyx_t_2); if (unlikely(__pyx_t_10 == (long)(Py_UCS4)-1)) __PYX_ERR(0, 521, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_cur_scope->__pyx_v_c = __pyx_t_10;
 
-    /* "word2keypress/_keyboard.pyx":520
+    /* "word2keypress/_keyboard.pyx":522
  *         while i<len(keyseq):
  *             c = ord(keyseq[i])
  *             if smart:             # <<<<<<<<<<<<<<
@@ -12577,51 +12123,51 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __pyx_t_6 = (__pyx_cur_scope->__pyx_v_smart != 0);
     if (__pyx_t_6) {
 
-      /* "word2keypress/_keyboard.pyx":522
+      /* "word2keypress/_keyboard.pyx":524
  *             if smart:
  *                 # if replacing a caps or shift, replace with everything
  *                 if c in spcl_keys:             # <<<<<<<<<<<<<<
  *                     replace_keys = ALLOWED_KEYS
  *                     insert_keys = ALLOWED_KEYS
  */
-      __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 524, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_t_2, __pyx_cur_scope->__pyx_v_spcl_keys, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 522, __pyx_L1_error)
+      __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_t_2, __pyx_cur_scope->__pyx_v_spcl_keys, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 524, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_7 = (__pyx_t_6 != 0);
       if (__pyx_t_7) {
 
-        /* "word2keypress/_keyboard.pyx":523
+        /* "word2keypress/_keyboard.pyx":525
  *                 # if replacing a caps or shift, replace with everything
  *                 if c in spcl_keys:
  *                     replace_keys = ALLOWED_KEYS             # <<<<<<<<<<<<<<
  *                     insert_keys = ALLOWED_KEYS
  *                 else: # else use only the closed by keys or spcl keys
  */
-        __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALLOWED_KEYS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 523, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALLOWED_KEYS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 525, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7cpython_5array_array))))) __PYX_ERR(0, 523, __pyx_L1_error)
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7cpython_5array_array))))) __PYX_ERR(0, 525, __pyx_L1_error)
         __Pyx_GOTREF(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys));
         __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_replace_keys, ((arrayobject *)__pyx_t_2));
         __Pyx_GIVEREF(__pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "word2keypress/_keyboard.pyx":524
+        /* "word2keypress/_keyboard.pyx":526
  *                 if c in spcl_keys:
  *                     replace_keys = ALLOWED_KEYS
  *                     insert_keys = ALLOWED_KEYS             # <<<<<<<<<<<<<<
  *                 else: # else use only the closed by keys or spcl keys
  *                     replace_keys = array.copy(self._keyboard_nearby_keys(c))
  */
-        __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALLOWED_KEYS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 524, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALLOWED_KEYS); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 526, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7cpython_5array_array))))) __PYX_ERR(0, 524, __pyx_L1_error)
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7cpython_5array_array))))) __PYX_ERR(0, 526, __pyx_L1_error)
         __Pyx_GOTREF(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys));
         __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_insert_keys, ((arrayobject *)__pyx_t_2));
         __Pyx_GIVEREF(__pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "word2keypress/_keyboard.pyx":522
+        /* "word2keypress/_keyboard.pyx":524
  *             if smart:
  *                 # if replacing a caps or shift, replace with everything
  *                 if c in spcl_keys:             # <<<<<<<<<<<<<<
@@ -12631,7 +12177,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         goto __pyx_L12;
       }
 
-      /* "word2keypress/_keyboard.pyx":526
+      /* "word2keypress/_keyboard.pyx":528
  *                     insert_keys = ALLOWED_KEYS
  *                 else: # else use only the closed by keys or spcl keys
  *                     replace_keys = array.copy(self._keyboard_nearby_keys(c))             # <<<<<<<<<<<<<<
@@ -12639,12 +12185,12 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  *                     if i>0:
  */
       /*else*/ {
-        __pyx_t_11 = ((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_keyboard_nearby_keys(__pyx_cur_scope->__pyx_v_self, __pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 526, __pyx_L1_error)
-        __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __pyx_memview_get_char, (int (*)(char *, PyObject *)) __pyx_memview_set_char, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 526, __pyx_L1_error)
+        __pyx_t_11 = ((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_keyboard_nearby_keys(__pyx_cur_scope->__pyx_v_self, __pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 528, __pyx_L1_error)
+        __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __pyx_memview_get_char, (int (*)(char *, PyObject *)) __pyx_memview_set_char, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 528, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __PYX_XDEC_MEMVIEW(&__pyx_t_11, 1);
-        if (!(likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7cpython_5array_array)))) __PYX_ERR(0, 526, __pyx_L1_error)
-        __pyx_t_3 = ((PyObject *)__pyx_f_7cpython_5array_copy(((arrayobject *)__pyx_t_2))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 526, __pyx_L1_error)
+        if (!(likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7cpython_5array_array)))) __PYX_ERR(0, 528, __pyx_L1_error)
+        __pyx_t_3 = ((PyObject *)__pyx_f_7cpython_5array_copy(((arrayobject *)__pyx_t_2))); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 528, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys));
@@ -12652,14 +12198,14 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         __Pyx_GIVEREF(__pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "word2keypress/_keyboard.pyx":527
+        /* "word2keypress/_keyboard.pyx":529
  *                 else: # else use only the closed by keys or spcl keys
  *                     replace_keys = array.copy(self._keyboard_nearby_keys(c))
  *                     replace_keys.extend(spcl_keys)             # <<<<<<<<<<<<<<
  *                     if i>0:
  *                         insert_keys = array.array(
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys), __pyx_n_s_extend); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 527, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys), __pyx_n_s_extend); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 529, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_4 = NULL;
         if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -12672,23 +12218,23 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
           }
         }
         if (!__pyx_t_4) {
-          __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_cur_scope->__pyx_v_spcl_keys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 527, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_cur_scope->__pyx_v_spcl_keys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 529, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
         } else {
-          __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 527, __pyx_L1_error)
+          __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 529, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4); __pyx_t_4 = NULL;
           __Pyx_INCREF(__pyx_cur_scope->__pyx_v_spcl_keys);
           __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_spcl_keys);
           PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_cur_scope->__pyx_v_spcl_keys);
-          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 527, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 529, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         }
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "word2keypress/_keyboard.pyx":528
+        /* "word2keypress/_keyboard.pyx":530
  *                     replace_keys = array.copy(self._keyboard_nearby_keys(c))
  *                     replace_keys.extend(spcl_keys)
  *                     if i>0:             # <<<<<<<<<<<<<<
@@ -12698,17 +12244,17 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         __pyx_t_7 = ((__pyx_cur_scope->__pyx_v_i > 0) != 0);
         if (__pyx_t_7) {
 
-          /* "word2keypress/_keyboard.pyx":531
+          /* "word2keypress/_keyboard.pyx":533
  *                         insert_keys = array.array(
  *                             'c',
  *                             set.union(             # <<<<<<<<<<<<<<
  *                                 set(self._keyboard_nearby_keys(keyseq[i-1])),
  *                                 set(insert_keys)
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PySet_Type)), __pyx_n_s_union); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 531, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PySet_Type)), __pyx_n_s_union); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 533, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
 
-          /* "word2keypress/_keyboard.pyx":532
+          /* "word2keypress/_keyboard.pyx":534
  *                             'c',
  *                             set.union(
  *                                 set(self._keyboard_nearby_keys(keyseq[i-1])),             # <<<<<<<<<<<<<<
@@ -12716,26 +12262,26 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  *                             )
  */
           __pyx_t_10 = (__pyx_cur_scope->__pyx_v_i - 1);
-          __pyx_t_1 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_keyseq, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 532, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_keyseq, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 534, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_12 = __Pyx_PyInt_As_char(__pyx_t_1); if (unlikely((__pyx_t_12 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 532, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyInt_As_char(__pyx_t_1); if (unlikely((__pyx_t_12 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 534, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_11 = ((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_keyboard_nearby_keys(__pyx_cur_scope->__pyx_v_self, __pyx_t_12); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 532, __pyx_L1_error)
-          __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __pyx_memview_get_char, (int (*)(char *, PyObject *)) __pyx_memview_set_char, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 532, __pyx_L1_error)
+          __pyx_t_11 = ((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_keyboard_nearby_keys(__pyx_cur_scope->__pyx_v_self, __pyx_t_12); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 534, __pyx_L1_error)
+          __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_11, 1, (PyObject *(*)(char *)) __pyx_memview_get_char, (int (*)(char *, PyObject *)) __pyx_memview_set_char, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 534, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __PYX_XDEC_MEMVIEW(&__pyx_t_11, 1);
-          __pyx_t_4 = PySet_New(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 532, __pyx_L1_error)
+          __pyx_t_4 = PySet_New(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 534, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "word2keypress/_keyboard.pyx":533
+          /* "word2keypress/_keyboard.pyx":535
  *                             set.union(
  *                                 set(self._keyboard_nearby_keys(keyseq[i-1])),
  *                                 set(insert_keys)             # <<<<<<<<<<<<<<
  *                             )
  *                         )
  */
-          __pyx_t_1 = PySet_New(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 533, __pyx_L1_error)
+          __pyx_t_1 = PySet_New(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 535, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __pyx_t_13 = NULL;
           __pyx_t_8 = 0;
@@ -12749,7 +12295,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
               __pyx_t_8 = 1;
             }
           }
-          __pyx_t_14 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 531, __pyx_L1_error)
+          __pyx_t_14 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 533, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_14);
           if (__pyx_t_13) {
             __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_13); __pyx_t_13 = NULL;
@@ -12760,19 +12306,19 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
           PyTuple_SET_ITEM(__pyx_t_14, 1+__pyx_t_8, __pyx_t_1);
           __pyx_t_4 = 0;
           __pyx_t_1 = 0;
-          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 531, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 533, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "word2keypress/_keyboard.pyx":529
+          /* "word2keypress/_keyboard.pyx":531
  *                     replace_keys.extend(spcl_keys)
  *                     if i>0:
  *                         insert_keys = array.array(             # <<<<<<<<<<<<<<
  *                             'c',
  *                             set.union(
  */
-          __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 529, __pyx_L1_error)
+          __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 531, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_INCREF(__pyx_n_s_c);
           __Pyx_GIVEREF(__pyx_n_s_c);
@@ -12780,7 +12326,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
           __Pyx_GIVEREF(__pyx_t_3);
           PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_3);
           __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 529, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 531, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_GOTREF(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys));
@@ -12788,7 +12334,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
           __Pyx_GIVEREF(__pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "word2keypress/_keyboard.pyx":528
+          /* "word2keypress/_keyboard.pyx":530
  *                     replace_keys = array.copy(self._keyboard_nearby_keys(c))
  *                     replace_keys.extend(spcl_keys)
  *                     if i>0:             # <<<<<<<<<<<<<<
@@ -12799,7 +12345,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       }
       __pyx_L12:;
 
-      /* "word2keypress/_keyboard.pyx":520
+      /* "word2keypress/_keyboard.pyx":522
  *         while i<len(keyseq):
  *             c = ord(keyseq[i])
  *             if smart:             # <<<<<<<<<<<<<<
@@ -12808,7 +12354,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
     }
 
-    /* "word2keypress/_keyboard.pyx":537
+    /* "word2keypress/_keyboard.pyx":539
  *                         )
  * 
  *             assert all(map(             # <<<<<<<<<<<<<<
@@ -12818,34 +12364,34 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     #ifndef CYTHON_WITHOUT_ASSERTIONS
     if (unlikely(!Py_OptimizeFlag)) {
 
-      /* "word2keypress/_keyboard.pyx":538
+      /* "word2keypress/_keyboard.pyx":540
  * 
  *             assert all(map(
  *                 lambda c: 128>c>=20 or c in [3,4],             # <<<<<<<<<<<<<<
  *                 replace_keys+insert_keys)), \
  *                 "Replace: {}\nInsert: {}".format(str(replace_keys), str(insert_keys))
  */
-      __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda5, 0, __pyx_n_s_keyseq_insert_edits_locals_lambd, NULL, __pyx_n_s_word2keypress__keyboard, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 538, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_insert_edits_lambda3, 0, __pyx_n_s_keyseq_insert_edits_locals_lambd, NULL, __pyx_n_s_word2keypress__keyboard, __pyx_d, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 540, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
 
-      /* "word2keypress/_keyboard.pyx":539
+      /* "word2keypress/_keyboard.pyx":541
  *             assert all(map(
  *                 lambda c: 128>c>=20 or c in [3,4],
  *                 replace_keys+insert_keys)), \             # <<<<<<<<<<<<<<
  *                 "Replace: {}\nInsert: {}".format(str(replace_keys), str(insert_keys))
  *             pre_w, shift, caps  = sub_words[i][0]
  */
-      __pyx_t_2 = PyNumber_Add(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys), ((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __pyx_t_2 = PyNumber_Add(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys), ((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 541, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
 
-      /* "word2keypress/_keyboard.pyx":537
+      /* "word2keypress/_keyboard.pyx":539
  *                         )
  * 
  *             assert all(map(             # <<<<<<<<<<<<<<
  *                 lambda c: 128>c>=20 or c in [3,4],
  *                 replace_keys+insert_keys)), \
  */
-      __pyx_t_14 = PyTuple_New(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 537, __pyx_L1_error)
+      __pyx_t_14 = PyTuple_New(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 539, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_GIVEREF(__pyx_t_3);
       PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_3);
@@ -12853,44 +12399,44 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       PyTuple_SET_ITEM(__pyx_t_14, 1, __pyx_t_2);
       __pyx_t_3 = 0;
       __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_map, __pyx_t_14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 537, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_map, __pyx_t_14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 537, __pyx_L1_error)
+      __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 539, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_all, __pyx_t_14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 537, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_all, __pyx_t_14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 537, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 539, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (unlikely(!__pyx_t_7)) {
 
-        /* "word2keypress/_keyboard.pyx":540
+        /* "word2keypress/_keyboard.pyx":542
  *                 lambda c: 128>c>=20 or c in [3,4],
  *                 replace_keys+insert_keys)), \
  *                 "Replace: {}\nInsert: {}".format(str(replace_keys), str(insert_keys))             # <<<<<<<<<<<<<<
  *             pre_w, shift, caps  = sub_words[i][0]
  *             assert ('\x00' not in pre_w), pre_w
  */
-        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Replace_Insert, __pyx_n_s_format); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 540, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Replace_Insert, __pyx_n_s_format); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 542, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 540, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 542, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys));
         __Pyx_GIVEREF(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys));
         PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys));
-        __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 540, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 542, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 540, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 542, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys));
         __Pyx_GIVEREF(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys));
         PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys));
-        __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 540, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 542, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __pyx_t_3 = NULL;
@@ -12905,7 +12451,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
             __pyx_t_8 = 1;
           }
         }
-        __pyx_t_13 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 540, __pyx_L1_error)
+        __pyx_t_13 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 542, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         if (__pyx_t_3) {
           __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -12916,30 +12462,30 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         PyTuple_SET_ITEM(__pyx_t_13, 1+__pyx_t_8, __pyx_t_4);
         __pyx_t_1 = 0;
         __pyx_t_4 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 540, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 542, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __pyx_t_14 = PyTuple_Pack(1, __pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 540, __pyx_L1_error)
+        __pyx_t_14 = PyTuple_Pack(1, __pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 542, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         PyErr_SetObject(PyExc_AssertionError, __pyx_t_14);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __PYX_ERR(0, 537, __pyx_L1_error)
+        __PYX_ERR(0, 539, __pyx_L1_error)
       }
     }
     #endif
 
-    /* "word2keypress/_keyboard.pyx":541
+    /* "word2keypress/_keyboard.pyx":543
  *                 replace_keys+insert_keys)), \
  *                 "Replace: {}\nInsert: {}".format(str(replace_keys), str(insert_keys))
  *             pre_w, shift, caps  = sub_words[i][0]             # <<<<<<<<<<<<<<
  *             assert ('\x00' not in pre_w), pre_w
  *             t = 2*shift + caps + 1
  */
-    __pyx_t_14 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 541, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 543, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_14, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 541, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_14, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -12952,7 +12498,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       if (unlikely(size != 3)) {
         if (size > 3) __Pyx_RaiseTooManyValuesError(3);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 541, __pyx_L1_error)
+        __PYX_ERR(0, 543, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -12968,17 +12514,17 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __Pyx_INCREF(__pyx_t_13);
       __Pyx_INCREF(__pyx_t_4);
       #else
-      __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 541, __pyx_L1_error)
+      __pyx_t_14 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 543, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __pyx_t_13 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 541, __pyx_L1_error)
+      __pyx_t_13 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 543, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 541, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       #endif
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 541, __pyx_L1_error)
+      __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 543, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_15 = Py_TYPE(__pyx_t_1)->tp_iternext;
@@ -12988,7 +12534,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __Pyx_GOTREF(__pyx_t_13);
       index = 2; __pyx_t_4 = __pyx_t_15(__pyx_t_1); if (unlikely(!__pyx_t_4)) goto __pyx_L14_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_4);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 3) < 0) __PYX_ERR(0, 541, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_1), 3) < 0) __PYX_ERR(0, 543, __pyx_L1_error)
       __pyx_t_15 = NULL;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       goto __pyx_L15_unpacking_done;
@@ -12996,10 +12542,10 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_15 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 541, __pyx_L1_error)
+      __PYX_ERR(0, 543, __pyx_L1_error)
       __pyx_L15_unpacking_done:;
     }
-    if (!(likely(PyString_CheckExact(__pyx_t_14))||((__pyx_t_14) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_14)->tp_name), 0))) __PYX_ERR(0, 541, __pyx_L1_error)
+    if (!(likely(PyString_CheckExact(__pyx_t_14))||((__pyx_t_14) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_14)->tp_name), 0))) __PYX_ERR(0, 543, __pyx_L1_error)
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_pre_w);
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_pre_w, ((PyObject*)__pyx_t_14));
     __Pyx_GIVEREF(__pyx_t_14);
@@ -13013,7 +12559,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __Pyx_GIVEREF(__pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "word2keypress/_keyboard.pyx":542
+    /* "word2keypress/_keyboard.pyx":544
  *                 "Replace: {}\nInsert: {}".format(str(replace_keys), str(insert_keys))
  *             pre_w, shift, caps  = sub_words[i][0]
  *             assert ('\x00' not in pre_w), pre_w             # <<<<<<<<<<<<<<
@@ -13022,34 +12568,34 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
     #ifndef CYTHON_WITHOUT_ASSERTIONS
     if (unlikely(!Py_OptimizeFlag)) {
-      __pyx_t_7 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__24, __pyx_cur_scope->__pyx_v_pre_w, Py_NE)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 542, __pyx_L1_error)
+      __pyx_t_7 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__23, __pyx_cur_scope->__pyx_v_pre_w, Py_NE)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 544, __pyx_L1_error)
       if (unlikely(!(__pyx_t_7 != 0))) {
         PyErr_SetObject(PyExc_AssertionError, __pyx_cur_scope->__pyx_v_pre_w);
-        __PYX_ERR(0, 542, __pyx_L1_error)
+        __PYX_ERR(0, 544, __pyx_L1_error)
       }
     }
     #endif
 
-    /* "word2keypress/_keyboard.pyx":543
+    /* "word2keypress/_keyboard.pyx":545
  *             pre_w, shift, caps  = sub_words[i][0]
  *             assert ('\x00' not in pre_w), pre_w
  *             t = 2*shift + caps + 1             # <<<<<<<<<<<<<<
  *             if debug>1:
  *                 print("inserting @", i, pre_w, chr(c), repr(sub_words[i][2*shift+2][0]))
  */
-    __pyx_t_2 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 545, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_cur_scope->__pyx_v_caps); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_cur_scope->__pyx_v_caps); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 545, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_t_4, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_t_4, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 545, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 543, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 545, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_cur_scope->__pyx_v_t = __pyx_t_5;
 
-    /* "word2keypress/_keyboard.pyx":544
+    /* "word2keypress/_keyboard.pyx":546
  *             assert ('\x00' not in pre_w), pre_w
  *             t = 2*shift + caps + 1
  *             if debug>1:             # <<<<<<<<<<<<<<
@@ -13059,43 +12605,43 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __pyx_t_7 = ((__pyx_v_13word2keypress_9_keyboard_debug > 1) != 0);
     if (__pyx_t_7) {
 
-      /* "word2keypress/_keyboard.pyx":545
+      /* "word2keypress/_keyboard.pyx":547
  *             t = 2*shift + caps + 1
  *             if debug>1:
  *                 print("inserting @", i, pre_w, chr(c), repr(sub_words[i][2*shift+2][0]))             # <<<<<<<<<<<<<<
  *             # insert
  *             for k in insert_keys:
  */
-      __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_13 = PyTuple_New(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_13 = PyTuple_New(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_13, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_13, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __pyx_t_13 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_14 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_14 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_14, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_t_14, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = PyObject_GetItem(__pyx_t_13, __pyx_t_1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_14 = PyObject_GetItem(__pyx_t_13, __pyx_t_1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_14, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_14, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = PyObject_Repr(__pyx_t_1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_14 = PyObject_Repr(__pyx_t_1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyTuple_New(5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_kp_s_inserting);
       __Pyx_GIVEREF(__pyx_kp_s_inserting);
@@ -13112,10 +12658,10 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_t_2 = 0;
       __pyx_t_4 = 0;
       __pyx_t_14 = 0;
-      if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 545, __pyx_L1_error)
+      if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "word2keypress/_keyboard.pyx":544
+      /* "word2keypress/_keyboard.pyx":546
  *             assert ('\x00' not in pre_w), pre_w
  *             t = 2*shift + caps + 1
  *             if debug>1:             # <<<<<<<<<<<<<<
@@ -13124,7 +12670,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
     }
 
-    /* "word2keypress/_keyboard.pyx":547
+    /* "word2keypress/_keyboard.pyx":549
  *                 print("inserting @", i, pre_w, chr(c), repr(sub_words[i][2*shift+2][0]))
  *             # insert
  *             for k in insert_keys:             # <<<<<<<<<<<<<<
@@ -13135,26 +12681,26 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_t_1 = ((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys); __Pyx_INCREF(__pyx_t_1); __pyx_t_8 = 0;
       __pyx_t_16 = NULL;
     } else {
-      __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 547, __pyx_L1_error)
+      __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_16 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 547, __pyx_L1_error)
+      __pyx_t_16 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 549, __pyx_L1_error)
     }
     for (;;) {
       if (likely(!__pyx_t_16)) {
         if (likely(PyList_CheckExact(__pyx_t_1))) {
           if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_14 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_14); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 547, __pyx_L1_error)
+          __pyx_t_14 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_14); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 549, __pyx_L1_error)
           #else
-          __pyx_t_14 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 547, __pyx_L1_error)
+          __pyx_t_14 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 549, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_14);
           #endif
         } else {
           if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_14 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_14); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 547, __pyx_L1_error)
+          __pyx_t_14 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_14); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 549, __pyx_L1_error)
           #else
-          __pyx_t_14 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 547, __pyx_L1_error)
+          __pyx_t_14 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 549, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_14);
           #endif
         }
@@ -13164,17 +12710,17 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 547, __pyx_L1_error)
+            else __PYX_ERR(0, 549, __pyx_L1_error)
           }
           break;
         }
         __Pyx_GOTREF(__pyx_t_14);
       }
-      __pyx_t_12 = __Pyx_PyInt_As_char(__pyx_t_14); if (unlikely((__pyx_t_12 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 547, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyInt_As_char(__pyx_t_14); if (unlikely((__pyx_t_12 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       __pyx_cur_scope->__pyx_v_k = __pyx_t_12;
 
-      /* "word2keypress/_keyboard.pyx":548
+      /* "word2keypress/_keyboard.pyx":550
  *             # insert
  *             for k in insert_keys:
  *                 if k == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -13184,25 +12730,25 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_t_7 = ((__pyx_cur_scope->__pyx_v_k == __pyx_v_13word2keypress_9_keyboard_SHIFT_KEY) != 0);
       if (__pyx_t_7) {
 
-        /* "word2keypress/_keyboard.pyx":549
+        /* "word2keypress/_keyboard.pyx":551
  *             for k in insert_keys:
  *                 if k == SHIFT_KEY:
  *                     yield pre_w + sub_words[i][3+caps][0]             # <<<<<<<<<<<<<<
  *                 elif k == CAPS_KEY:
  *                     yield pre_w + sub_words[i][2*shift+2][0]
  */
-        __pyx_t_14 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 549, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 551, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __pyx_t_4 = __Pyx_PyInt_AddCObj(__pyx_int_3, __pyx_cur_scope->__pyx_v_caps, 3, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyInt_AddCObj(__pyx_int_3, __pyx_cur_scope->__pyx_v_caps, 3, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_2 = PyObject_GetItem(__pyx_t_14, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
+        __pyx_t_2 = PyObject_GetItem(__pyx_t_14, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
+        __pyx_t_2 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_r = __pyx_t_2;
@@ -13222,9 +12768,9 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         __Pyx_XGOTREF(__pyx_t_1);
         __pyx_t_8 = __pyx_cur_scope->__pyx_t_1;
         __pyx_t_16 = __pyx_cur_scope->__pyx_t_2;
-        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 549, __pyx_L1_error)
+        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 551, __pyx_L1_error)
 
-        /* "word2keypress/_keyboard.pyx":548
+        /* "word2keypress/_keyboard.pyx":550
  *             # insert
  *             for k in insert_keys:
  *                 if k == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -13234,7 +12780,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         goto __pyx_L19;
       }
 
-      /* "word2keypress/_keyboard.pyx":550
+      /* "word2keypress/_keyboard.pyx":552
  *                 if k == SHIFT_KEY:
  *                     yield pre_w + sub_words[i][3+caps][0]
  *                 elif k == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -13244,28 +12790,28 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_t_7 = ((__pyx_cur_scope->__pyx_v_k == __pyx_v_13word2keypress_9_keyboard_CAPS_KEY) != 0);
       if (__pyx_t_7) {
 
-        /* "word2keypress/_keyboard.pyx":551
+        /* "word2keypress/_keyboard.pyx":553
  *                     yield pre_w + sub_words[i][3+caps][0]
  *                 elif k == CAPS_KEY:
  *                     yield pre_w + sub_words[i][2*shift+2][0]             # <<<<<<<<<<<<<<
  *                 else:
  *                     yield pre_w + \
  */
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 553, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_4 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
+        __pyx_t_4 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 553, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_14 = __Pyx_PyInt_AddObjC(__pyx_t_4, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 551, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyInt_AddObjC(__pyx_t_4, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 553, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = PyObject_GetItem(__pyx_t_2, __pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
+        __pyx_t_4 = PyObject_GetItem(__pyx_t_2, __pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 553, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 551, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 553, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
+        __pyx_t_4 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 553, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __pyx_r = __pyx_t_4;
@@ -13285,9 +12831,9 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         __Pyx_XGOTREF(__pyx_t_1);
         __pyx_t_8 = __pyx_cur_scope->__pyx_t_1;
         __pyx_t_16 = __pyx_cur_scope->__pyx_t_2;
-        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 551, __pyx_L1_error)
+        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 553, __pyx_L1_error)
 
-        /* "word2keypress/_keyboard.pyx":550
+        /* "word2keypress/_keyboard.pyx":552
  *                 if k == SHIFT_KEY:
  *                     yield pre_w + sub_words[i][3+caps][0]
  *                 elif k == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -13297,7 +12843,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         goto __pyx_L19;
       }
 
-      /* "word2keypress/_keyboard.pyx":553
+      /* "word2keypress/_keyboard.pyx":555
  *                     yield pre_w + sub_words[i][2*shift+2][0]
  *                 else:
  *                     yield pre_w + \             # <<<<<<<<<<<<<<
@@ -13306,62 +12852,62 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
       /*else*/ {
 
-        /* "word2keypress/_keyboard.pyx":554
+        /* "word2keypress/_keyboard.pyx":556
  *                 else:
  *                     yield pre_w + \
  *                         chr(self._apply_shift_caps(k, shift, caps)) + \             # <<<<<<<<<<<<<<
  *                         sub_words[i][caps+1][0]
  *                     # if i == 0:
  */
-        __pyx_t_4 = __Pyx_PyInt_From_char(((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_apply_shift_caps(__pyx_cur_scope->__pyx_v_self, __pyx_cur_scope->__pyx_v_k, __pyx_cur_scope->__pyx_v_shift, __pyx_cur_scope->__pyx_v_caps)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 554, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyInt_From_char(((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_apply_shift_caps(__pyx_cur_scope->__pyx_v_self, __pyx_cur_scope->__pyx_v_k, __pyx_cur_scope->__pyx_v_shift, __pyx_cur_scope->__pyx_v_caps)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 554, __pyx_L1_error)
+        __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 554, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-        /* "word2keypress/_keyboard.pyx":553
+        /* "word2keypress/_keyboard.pyx":555
  *                     yield pre_w + sub_words[i][2*shift+2][0]
  *                 else:
  *                     yield pre_w + \             # <<<<<<<<<<<<<<
  *                         chr(self._apply_shift_caps(k, shift, caps)) + \
  *                         sub_words[i][caps+1][0]
  */
-        __pyx_t_14 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_4); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 553, __pyx_L1_error)
+        __pyx_t_14 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_4); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 555, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "word2keypress/_keyboard.pyx":555
+        /* "word2keypress/_keyboard.pyx":557
  *                     yield pre_w + \
  *                         chr(self._apply_shift_caps(k, shift, caps)) + \
  *                         sub_words[i][caps+1][0]             # <<<<<<<<<<<<<<
  *                     # if i == 0:
  *                     #     yield chr(self._apply_shift_caps(k, True, caps)) + \
  */
-        __pyx_t_4 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_cur_scope->__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 557, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_cur_scope->__pyx_v_caps, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_cur_scope->__pyx_v_caps, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 557, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_13 = PyObject_GetItem(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 555, __pyx_L1_error)
+        __pyx_t_13 = PyObject_GetItem(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 557, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_13, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_13, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 557, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-        /* "word2keypress/_keyboard.pyx":554
+        /* "word2keypress/_keyboard.pyx":556
  *                 else:
  *                     yield pre_w + \
  *                         chr(self._apply_shift_caps(k, shift, caps)) + \             # <<<<<<<<<<<<<<
  *                         sub_words[i][caps+1][0]
  *                     # if i == 0:
  */
-        __pyx_t_13 = PyNumber_Add(__pyx_t_14, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 554, __pyx_L1_error)
+        __pyx_t_13 = PyNumber_Add(__pyx_t_14, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 556, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -13382,11 +12928,11 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         __Pyx_XGOTREF(__pyx_t_1);
         __pyx_t_8 = __pyx_cur_scope->__pyx_t_1;
         __pyx_t_16 = __pyx_cur_scope->__pyx_t_2;
-        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 553, __pyx_L1_error)
+        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 555, __pyx_L1_error)
       }
       __pyx_L19:;
 
-      /* "word2keypress/_keyboard.pyx":547
+      /* "word2keypress/_keyboard.pyx":549
  *                 print("inserting @", i, pre_w, chr(c), repr(sub_words[i][2*shift+2][0]))
  *             # insert
  *             for k in insert_keys:             # <<<<<<<<<<<<<<
@@ -13396,7 +12942,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "word2keypress/_keyboard.pyx":559
+    /* "word2keypress/_keyboard.pyx":561
  *                     #     yield chr(self._apply_shift_caps(k, True, caps)) + \
  *                     #         sub_words[i][1][0]
  *             if debug>1:             # <<<<<<<<<<<<<<
@@ -13406,16 +12952,16 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __pyx_t_7 = ((__pyx_v_13word2keypress_9_keyboard_debug > 1) != 0);
     if (__pyx_t_7) {
 
-      /* "word2keypress/_keyboard.pyx":560
+      /* "word2keypress/_keyboard.pyx":562
  *                     #         sub_words[i][1][0]
  *             if debug>1:
  *                 print("deleting @", i)             # <<<<<<<<<<<<<<
  *             # delete
  *             if c == SHIFT_KEY:
  */
-      __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 562, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 560, __pyx_L1_error)
+      __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 562, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_INCREF(__pyx_kp_s_deleting);
       __Pyx_GIVEREF(__pyx_kp_s_deleting);
@@ -13423,10 +12969,10 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_13, 1, __pyx_t_1);
       __pyx_t_1 = 0;
-      if (__Pyx_PrintOne(0, __pyx_t_13) < 0) __PYX_ERR(0, 560, __pyx_L1_error)
+      if (__Pyx_PrintOne(0, __pyx_t_13) < 0) __PYX_ERR(0, 562, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-      /* "word2keypress/_keyboard.pyx":559
+      /* "word2keypress/_keyboard.pyx":561
  *                     #     yield chr(self._apply_shift_caps(k, True, caps)) + \
  *                     #         sub_words[i][1][0]
  *             if debug>1:             # <<<<<<<<<<<<<<
@@ -13435,7 +12981,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
     }
 
-    /* "word2keypress/_keyboard.pyx":562
+    /* "word2keypress/_keyboard.pyx":564
  *                 print("deleting @", i)
  *             # delete
  *             if c == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -13445,7 +12991,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __pyx_t_7 = ((__pyx_cur_scope->__pyx_v_c == __pyx_v_13word2keypress_9_keyboard_SHIFT_KEY) != 0);
     if (__pyx_t_7) {
 
-      /* "word2keypress/_keyboard.pyx":563
+      /* "word2keypress/_keyboard.pyx":565
  *             # delete
  *             if c == SHIFT_KEY:
  *                 yield pre_w + sub_words[i+1][1+caps][0]             # <<<<<<<<<<<<<<
@@ -13453,18 +12999,18 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  *                 yield pre_w + sub_words[i+1][2*shift+2][0]
  */
       __pyx_t_10 = (__pyx_cur_scope->__pyx_v_i + 1);
-      __pyx_t_13 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 563, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 565, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_1 = __Pyx_PyInt_AddCObj(__pyx_int_1, __pyx_cur_scope->__pyx_v_caps, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 563, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_AddCObj(__pyx_int_1, __pyx_cur_scope->__pyx_v_caps, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 565, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = PyObject_GetItem(__pyx_t_13, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 563, __pyx_L1_error)
+      __pyx_t_2 = PyObject_GetItem(__pyx_t_13, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 565, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 563, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 565, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 563, __pyx_L1_error)
+      __pyx_t_2 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 565, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_r = __pyx_t_2;
@@ -13475,9 +13021,9 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_generator->resume_label = 4;
       return __pyx_r;
       __pyx_L25_resume_from_yield:;
-      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 563, __pyx_L1_error)
+      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 565, __pyx_L1_error)
 
-      /* "word2keypress/_keyboard.pyx":562
+      /* "word2keypress/_keyboard.pyx":564
  *                 print("deleting @", i)
  *             # delete
  *             if c == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -13487,7 +13033,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       goto __pyx_L24;
     }
 
-    /* "word2keypress/_keyboard.pyx":564
+    /* "word2keypress/_keyboard.pyx":566
  *             if c == SHIFT_KEY:
  *                 yield pre_w + sub_words[i+1][1+caps][0]
  *             elif c == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -13497,7 +13043,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __pyx_t_7 = ((__pyx_cur_scope->__pyx_v_c == __pyx_v_13word2keypress_9_keyboard_CAPS_KEY) != 0);
     if (__pyx_t_7) {
 
-      /* "word2keypress/_keyboard.pyx":565
+      /* "word2keypress/_keyboard.pyx":567
  *                 yield pre_w + sub_words[i+1][1+caps][0]
  *             elif c == CAPS_KEY:
  *                 yield pre_w + sub_words[i+1][2*shift+2][0]             # <<<<<<<<<<<<<<
@@ -13505,21 +13051,21 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  *                 yield pre_w + sub_words[i+1][t][0]
  */
       __pyx_t_10 = (__pyx_cur_scope->__pyx_v_i + 1);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 565, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 567, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 565, __pyx_L1_error)
+      __pyx_t_1 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 567, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_13 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 565, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 567, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyObject_GetItem(__pyx_t_2, __pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 565, __pyx_L1_error)
+      __pyx_t_1 = PyObject_GetItem(__pyx_t_2, __pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 567, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 565, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 567, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 565, __pyx_L1_error)
+      __pyx_t_1 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 567, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
       __pyx_r = __pyx_t_1;
@@ -13530,9 +13076,9 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_generator->resume_label = 5;
       return __pyx_r;
       __pyx_L26_resume_from_yield:;
-      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 565, __pyx_L1_error)
+      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 567, __pyx_L1_error)
 
-      /* "word2keypress/_keyboard.pyx":564
+      /* "word2keypress/_keyboard.pyx":566
  *             if c == SHIFT_KEY:
  *                 yield pre_w + sub_words[i+1][1+caps][0]
  *             elif c == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -13542,7 +13088,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       goto __pyx_L24;
     }
 
-    /* "word2keypress/_keyboard.pyx":567
+    /* "word2keypress/_keyboard.pyx":569
  *                 yield pre_w + sub_words[i+1][2*shift+2][0]
  *             else:
  *                 yield pre_w + sub_words[i+1][t][0]             # <<<<<<<<<<<<<<
@@ -13551,15 +13097,15 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
     /*else*/ {
       __pyx_t_10 = (__pyx_cur_scope->__pyx_v_i + 1);
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 567, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 569, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, __pyx_cur_scope->__pyx_v_t, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 567, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_1, __pyx_cur_scope->__pyx_v_t, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 569, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_13, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 567, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_13, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 569, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __pyx_t_13 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 567, __pyx_L1_error)
+      __pyx_t_13 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 569, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_r = __pyx_t_13;
@@ -13570,11 +13116,11 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_generator->resume_label = 6;
       return __pyx_r;
       __pyx_L27_resume_from_yield:;
-      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 567, __pyx_L1_error)
+      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 569, __pyx_L1_error)
     }
     __pyx_L24:;
 
-    /* "word2keypress/_keyboard.pyx":569
+    /* "word2keypress/_keyboard.pyx":571
  *                 yield pre_w + sub_words[i+1][t][0]
  *             # replace
  *             if debug>1:             # <<<<<<<<<<<<<<
@@ -13584,16 +13130,16 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __pyx_t_7 = ((__pyx_v_13word2keypress_9_keyboard_debug > 1) != 0);
     if (__pyx_t_7) {
 
-      /* "word2keypress/_keyboard.pyx":570
+      /* "word2keypress/_keyboard.pyx":572
  *             # replace
  *             if debug>1:
  *                 print("replacing @", i)             # <<<<<<<<<<<<<<
  *             for k in replace_keys:
  *                 if k == SHIFT_KEY:
  */
-      __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_i); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 570, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_i); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 572, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 570, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 572, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_kp_s_replacing);
       __Pyx_GIVEREF(__pyx_kp_s_replacing);
@@ -13601,10 +13147,10 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __Pyx_GIVEREF(__pyx_t_13);
       PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_13);
       __pyx_t_13 = 0;
-      if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 570, __pyx_L1_error)
+      if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 572, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "word2keypress/_keyboard.pyx":569
+      /* "word2keypress/_keyboard.pyx":571
  *                 yield pre_w + sub_words[i+1][t][0]
  *             # replace
  *             if debug>1:             # <<<<<<<<<<<<<<
@@ -13613,7 +13159,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
     }
 
-    /* "word2keypress/_keyboard.pyx":571
+    /* "word2keypress/_keyboard.pyx":573
  *             if debug>1:
  *                 print("replacing @", i)
  *             for k in replace_keys:             # <<<<<<<<<<<<<<
@@ -13624,26 +13170,26 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_t_1 = ((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys); __Pyx_INCREF(__pyx_t_1); __pyx_t_8 = 0;
       __pyx_t_16 = NULL;
     } else {
-      __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 571, __pyx_L1_error)
+      __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(((PyObject *)__pyx_cur_scope->__pyx_v_replace_keys)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 573, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_16 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 571, __pyx_L1_error)
+      __pyx_t_16 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 573, __pyx_L1_error)
     }
     for (;;) {
       if (likely(!__pyx_t_16)) {
         if (likely(PyList_CheckExact(__pyx_t_1))) {
           if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_13 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_13); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 571, __pyx_L1_error)
+          __pyx_t_13 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_13); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 573, __pyx_L1_error)
           #else
-          __pyx_t_13 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 571, __pyx_L1_error)
+          __pyx_t_13 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 573, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           #endif
         } else {
           if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_13); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 571, __pyx_L1_error)
+          __pyx_t_13 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_13); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 573, __pyx_L1_error)
           #else
-          __pyx_t_13 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 571, __pyx_L1_error)
+          __pyx_t_13 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 573, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_13);
           #endif
         }
@@ -13653,17 +13199,17 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 571, __pyx_L1_error)
+            else __PYX_ERR(0, 573, __pyx_L1_error)
           }
           break;
         }
         __Pyx_GOTREF(__pyx_t_13);
       }
-      __pyx_t_12 = __Pyx_PyInt_As_char(__pyx_t_13); if (unlikely((__pyx_t_12 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 571, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyInt_As_char(__pyx_t_13); if (unlikely((__pyx_t_12 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 573, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
       __pyx_cur_scope->__pyx_v_k = __pyx_t_12;
 
-      /* "word2keypress/_keyboard.pyx":572
+      /* "word2keypress/_keyboard.pyx":574
  *                 print("replacing @", i)
  *             for k in replace_keys:
  *                 if k == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -13673,7 +13219,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_t_7 = ((__pyx_cur_scope->__pyx_v_k == __pyx_v_13word2keypress_9_keyboard_SHIFT_KEY) != 0);
       if (__pyx_t_7) {
 
-        /* "word2keypress/_keyboard.pyx":573
+        /* "word2keypress/_keyboard.pyx":575
  *             for k in replace_keys:
  *                 if k == SHIFT_KEY:
  *                     yield pre_w + sub_words[i+1][3+caps][0]             # <<<<<<<<<<<<<<
@@ -13681,18 +13227,18 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  *                     # If already caps, then this will cancel that
  */
         __pyx_t_10 = (__pyx_cur_scope->__pyx_v_i + 1);
-        __pyx_t_13 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 573, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 575, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
-        __pyx_t_2 = __Pyx_PyInt_AddCObj(__pyx_int_3, __pyx_cur_scope->__pyx_v_caps, 3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 573, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyInt_AddCObj(__pyx_int_3, __pyx_cur_scope->__pyx_v_caps, 3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 575, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_14 = PyObject_GetItem(__pyx_t_13, __pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 573, __pyx_L1_error)
+        __pyx_t_14 = PyObject_GetItem(__pyx_t_13, __pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 575, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_14, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 573, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_14, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 575, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __pyx_t_14 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 573, __pyx_L1_error)
+        __pyx_t_14 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 575, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_14;
@@ -13712,9 +13258,9 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         __Pyx_XGOTREF(__pyx_t_1);
         __pyx_t_8 = __pyx_cur_scope->__pyx_t_1;
         __pyx_t_16 = __pyx_cur_scope->__pyx_t_2;
-        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 573, __pyx_L1_error)
+        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 575, __pyx_L1_error)
 
-        /* "word2keypress/_keyboard.pyx":572
+        /* "word2keypress/_keyboard.pyx":574
  *                 print("replacing @", i)
  *             for k in replace_keys:
  *                 if k == SHIFT_KEY:             # <<<<<<<<<<<<<<
@@ -13724,7 +13270,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         goto __pyx_L31;
       }
 
-      /* "word2keypress/_keyboard.pyx":574
+      /* "word2keypress/_keyboard.pyx":576
  *                 if k == SHIFT_KEY:
  *                     yield pre_w + sub_words[i+1][3+caps][0]
  *                 elif k == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -13734,7 +13280,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __pyx_t_7 = ((__pyx_cur_scope->__pyx_v_k == __pyx_v_13word2keypress_9_keyboard_CAPS_KEY) != 0);
       if (__pyx_t_7) {
 
-        /* "word2keypress/_keyboard.pyx":576
+        /* "word2keypress/_keyboard.pyx":578
  *                 elif k == CAPS_KEY:
  *                     # If already caps, then this will cancel that
  *                     yield pre_w + sub_words[i+1][2*shift + 2 - caps][0]             # <<<<<<<<<<<<<<
@@ -13742,24 +13288,24 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  *                     yield pre_w + \
  */
         __pyx_t_10 = (__pyx_cur_scope->__pyx_v_i + 1);
-        __pyx_t_14 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 576, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __pyx_t_2 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 576, __pyx_L1_error)
+        __pyx_t_2 = PyNumber_Multiply(__pyx_int_2, __pyx_cur_scope->__pyx_v_shift); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_13 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 576, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = PyNumber_Subtract(__pyx_t_13, __pyx_cur_scope->__pyx_v_caps); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 576, __pyx_L1_error)
+        __pyx_t_2 = PyNumber_Subtract(__pyx_t_13, __pyx_cur_scope->__pyx_v_caps); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __pyx_t_13 = PyObject_GetItem(__pyx_t_14, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 576, __pyx_L1_error)
+        __pyx_t_13 = PyObject_GetItem(__pyx_t_14, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_13, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 576, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_13, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __pyx_t_13 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 576, __pyx_L1_error)
+        __pyx_t_13 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 578, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_13;
@@ -13779,9 +13325,9 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         __Pyx_XGOTREF(__pyx_t_1);
         __pyx_t_8 = __pyx_cur_scope->__pyx_t_1;
         __pyx_t_16 = __pyx_cur_scope->__pyx_t_2;
-        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 576, __pyx_L1_error)
+        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 578, __pyx_L1_error)
 
-        /* "word2keypress/_keyboard.pyx":574
+        /* "word2keypress/_keyboard.pyx":576
  *                 if k == SHIFT_KEY:
  *                     yield pre_w + sub_words[i+1][3+caps][0]
  *                 elif k == CAPS_KEY:             # <<<<<<<<<<<<<<
@@ -13791,7 +13337,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         goto __pyx_L31;
       }
 
-      /* "word2keypress/_keyboard.pyx":578
+      /* "word2keypress/_keyboard.pyx":580
  *                     yield pre_w + sub_words[i+1][2*shift + 2 - caps][0]
  *                 else:
  *                     yield pre_w + \             # <<<<<<<<<<<<<<
@@ -13800,36 +13346,36 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
       /*else*/ {
 
-        /* "word2keypress/_keyboard.pyx":579
+        /* "word2keypress/_keyboard.pyx":581
  *                 else:
  *                     yield pre_w + \
  *                         chr(self._apply_shift_caps(k, shift, caps)) + \             # <<<<<<<<<<<<<<
  *                         sub_words[i+1][1+caps][0]
  *             i += 1
  */
-        __pyx_t_13 = __Pyx_PyInt_From_char(((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_apply_shift_caps(__pyx_cur_scope->__pyx_v_self, __pyx_cur_scope->__pyx_v_k, __pyx_cur_scope->__pyx_v_shift, __pyx_cur_scope->__pyx_v_caps)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 579, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyInt_From_char(((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_apply_shift_caps(__pyx_cur_scope->__pyx_v_self, __pyx_cur_scope->__pyx_v_k, __pyx_cur_scope->__pyx_v_shift, __pyx_cur_scope->__pyx_v_caps)); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 581, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
-        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 579, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 581, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_13);
         PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_13);
         __pyx_t_13 = 0;
-        __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 579, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_2, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 581, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "word2keypress/_keyboard.pyx":578
+        /* "word2keypress/_keyboard.pyx":580
  *                     yield pre_w + sub_words[i+1][2*shift + 2 - caps][0]
  *                 else:
  *                     yield pre_w + \             # <<<<<<<<<<<<<<
  *                         chr(self._apply_shift_caps(k, shift, caps)) + \
  *                         sub_words[i+1][1+caps][0]
  */
-        __pyx_t_2 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 578, __pyx_L1_error)
+        __pyx_t_2 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 580, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-        /* "word2keypress/_keyboard.pyx":580
+        /* "word2keypress/_keyboard.pyx":582
  *                     yield pre_w + \
  *                         chr(self._apply_shift_caps(k, shift, caps)) + \
  *                         sub_words[i+1][1+caps][0]             # <<<<<<<<<<<<<<
@@ -13837,26 +13383,26 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  *         # For inserting at the end
  */
         __pyx_t_10 = (__pyx_cur_scope->__pyx_v_i + 1);
-        __pyx_t_13 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 580, __pyx_L1_error)
+        __pyx_t_13 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, __pyx_t_10, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 582, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_13);
-        __pyx_t_14 = __Pyx_PyInt_AddCObj(__pyx_int_1, __pyx_cur_scope->__pyx_v_caps, 1, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 580, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyInt_AddCObj(__pyx_int_1, __pyx_cur_scope->__pyx_v_caps, 1, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 582, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __pyx_t_4 = PyObject_GetItem(__pyx_t_13, __pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 580, __pyx_L1_error)
+        __pyx_t_4 = PyObject_GetItem(__pyx_t_13, __pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 582, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-        __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 580, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 582, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "word2keypress/_keyboard.pyx":579
+        /* "word2keypress/_keyboard.pyx":581
  *                 else:
  *                     yield pre_w + \
  *                         chr(self._apply_shift_caps(k, shift, caps)) + \             # <<<<<<<<<<<<<<
  *                         sub_words[i+1][1+caps][0]
  *             i += 1
  */
-        __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 579, __pyx_L1_error)
+        __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_t_14); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 581, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -13877,11 +13423,11 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         __Pyx_XGOTREF(__pyx_t_1);
         __pyx_t_8 = __pyx_cur_scope->__pyx_t_1;
         __pyx_t_16 = __pyx_cur_scope->__pyx_t_2;
-        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 578, __pyx_L1_error)
+        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 580, __pyx_L1_error)
       }
       __pyx_L31:;
 
-      /* "word2keypress/_keyboard.pyx":571
+      /* "word2keypress/_keyboard.pyx":573
  *             if debug>1:
  *                 print("replacing @", i)
  *             for k in replace_keys:             # <<<<<<<<<<<<<<
@@ -13891,7 +13437,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "word2keypress/_keyboard.pyx":581
+    /* "word2keypress/_keyboard.pyx":583
  *                         chr(self._apply_shift_caps(k, shift, caps)) + \
  *                         sub_words[i+1][1+caps][0]
  *             i += 1             # <<<<<<<<<<<<<<
@@ -13901,16 +13447,16 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __pyx_cur_scope->__pyx_v_i = (__pyx_cur_scope->__pyx_v_i + 1);
   }
 
-  /* "word2keypress/_keyboard.pyx":583
+  /* "word2keypress/_keyboard.pyx":585
  *             i += 1
  *         # For inserting at the end
  *         pre_w, shift, caps = sub_words[-1][0]             # <<<<<<<<<<<<<<
  *         if smart:
  *             insert_keys = ALLOWED_KEYS
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 583, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_sub_words, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 585, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 583, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 585, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if ((likely(PyTuple_CheckExact(__pyx_t_4))) || (PyList_CheckExact(__pyx_t_4))) {
@@ -13923,7 +13469,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     if (unlikely(size != 3)) {
       if (size > 3) __Pyx_RaiseTooManyValuesError(3);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 583, __pyx_L1_error)
+      __PYX_ERR(0, 585, __pyx_L1_error)
     }
     #if CYTHON_COMPILING_IN_CPYTHON
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -13939,17 +13485,17 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __Pyx_INCREF(__pyx_t_14);
     __Pyx_INCREF(__pyx_t_2);
     #else
-    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 583, __pyx_L1_error)
+    __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 585, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 583, __pyx_L1_error)
+    __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 585, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
-    __pyx_t_2 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 583, __pyx_L1_error)
+    __pyx_t_2 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 585, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     #endif
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_13 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 583, __pyx_L1_error)
+    __pyx_t_13 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 585, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_15 = Py_TYPE(__pyx_t_13)->tp_iternext;
@@ -13959,7 +13505,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __Pyx_GOTREF(__pyx_t_14);
     index = 2; __pyx_t_2 = __pyx_t_15(__pyx_t_13); if (unlikely(!__pyx_t_2)) goto __pyx_L35_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_2);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_13), 3) < 0) __PYX_ERR(0, 583, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_15(__pyx_t_13), 3) < 0) __PYX_ERR(0, 585, __pyx_L1_error)
     __pyx_t_15 = NULL;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     goto __pyx_L36_unpacking_done;
@@ -13967,10 +13513,10 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __pyx_t_15 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 583, __pyx_L1_error)
+    __PYX_ERR(0, 585, __pyx_L1_error)
     __pyx_L36_unpacking_done:;
   }
-  if (!(likely(PyString_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 583, __pyx_L1_error)
+  if (!(likely(PyString_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 585, __pyx_L1_error)
   __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_pre_w);
   __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_pre_w, ((PyObject*)__pyx_t_1));
   __Pyx_GIVEREF(__pyx_t_1);
@@ -13984,7 +13530,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
   __Pyx_GIVEREF(__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":584
+  /* "word2keypress/_keyboard.pyx":586
  *         # For inserting at the end
  *         pre_w, shift, caps = sub_words[-1][0]
  *         if smart:             # <<<<<<<<<<<<<<
@@ -13994,22 +13540,22 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
   __pyx_t_7 = (__pyx_cur_scope->__pyx_v_smart != 0);
   if (__pyx_t_7) {
 
-    /* "word2keypress/_keyboard.pyx":585
+    /* "word2keypress/_keyboard.pyx":587
  *         pre_w, shift, caps = sub_words[-1][0]
  *         if smart:
  *             insert_keys = ALLOWED_KEYS             # <<<<<<<<<<<<<<
  *         for k in insert_keys:
  *             if k not in spcl_keys:
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALLOWED_KEYS); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 585, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_ALLOWED_KEYS); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 587, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_7cpython_5array_array))))) __PYX_ERR(0, 585, __pyx_L1_error)
+    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_7cpython_5array_array))))) __PYX_ERR(0, 587, __pyx_L1_error)
     __Pyx_GOTREF(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys));
     __Pyx_DECREF_SET(__pyx_cur_scope->__pyx_v_insert_keys, ((arrayobject *)__pyx_t_4));
     __Pyx_GIVEREF(__pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "word2keypress/_keyboard.pyx":584
+    /* "word2keypress/_keyboard.pyx":586
  *         # For inserting at the end
  *         pre_w, shift, caps = sub_words[-1][0]
  *         if smart:             # <<<<<<<<<<<<<<
@@ -14018,7 +13564,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
   }
 
-  /* "word2keypress/_keyboard.pyx":586
+  /* "word2keypress/_keyboard.pyx":588
  *         if smart:
  *             insert_keys = ALLOWED_KEYS
  *         for k in insert_keys:             # <<<<<<<<<<<<<<
@@ -14029,26 +13575,26 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
     __pyx_t_4 = ((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys); __Pyx_INCREF(__pyx_t_4); __pyx_t_8 = 0;
     __pyx_t_16 = NULL;
   } else {
-    __pyx_t_8 = -1; __pyx_t_4 = PyObject_GetIter(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 586, __pyx_L1_error)
+    __pyx_t_8 = -1; __pyx_t_4 = PyObject_GetIter(((PyObject *)__pyx_cur_scope->__pyx_v_insert_keys)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 588, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_16 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 586, __pyx_L1_error)
+    __pyx_t_16 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 588, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_16)) {
       if (likely(PyList_CheckExact(__pyx_t_4))) {
         if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 586, __pyx_L1_error)
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 588, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 586, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 588, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       } else {
         if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 586, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_2); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 588, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 586, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 588, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       }
@@ -14058,48 +13604,48 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 586, __pyx_L1_error)
+          else __PYX_ERR(0, 588, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_2);
     }
-    __pyx_t_12 = __Pyx_PyInt_As_char(__pyx_t_2); if (unlikely((__pyx_t_12 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 586, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyInt_As_char(__pyx_t_2); if (unlikely((__pyx_t_12 == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 588, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_cur_scope->__pyx_v_k = __pyx_t_12;
 
-    /* "word2keypress/_keyboard.pyx":587
+    /* "word2keypress/_keyboard.pyx":589
  *             insert_keys = ALLOWED_KEYS
  *         for k in insert_keys:
  *             if k not in spcl_keys:             # <<<<<<<<<<<<<<
  *                 yield pre_w + chr(self._apply_shift_caps(k, shift, caps))
  *                 # yield pre_w + chr(self._apply_shift_caps(k, True, caps))
  */
-    __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_k); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 587, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_k); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 589, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = (__Pyx_PySequence_ContainsTF(__pyx_t_2, __pyx_cur_scope->__pyx_v_spcl_keys, Py_NE)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 587, __pyx_L1_error)
+    __pyx_t_7 = (__Pyx_PySequence_ContainsTF(__pyx_t_2, __pyx_cur_scope->__pyx_v_spcl_keys, Py_NE)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 589, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_6 = (__pyx_t_7 != 0);
     if (__pyx_t_6) {
 
-      /* "word2keypress/_keyboard.pyx":588
+      /* "word2keypress/_keyboard.pyx":590
  *         for k in insert_keys:
  *             if k not in spcl_keys:
  *                 yield pre_w + chr(self._apply_shift_caps(k, shift, caps))             # <<<<<<<<<<<<<<
  *                 # yield pre_w + chr(self._apply_shift_caps(k, True, caps))
  * 
  */
-      __pyx_t_2 = __Pyx_PyInt_From_char(((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_apply_shift_caps(__pyx_cur_scope->__pyx_v_self, __pyx_cur_scope->__pyx_v_k, __pyx_cur_scope->__pyx_v_shift, __pyx_cur_scope->__pyx_v_caps)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 588, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_From_char(((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_apply_shift_caps(__pyx_cur_scope->__pyx_v_self, __pyx_cur_scope->__pyx_v_k, __pyx_cur_scope->__pyx_v_shift, __pyx_cur_scope->__pyx_v_caps)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 590, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 588, __pyx_L1_error)
+      __pyx_t_14 = PyTuple_New(1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 590, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 588, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 590, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 588, __pyx_L1_error)
+      __pyx_t_14 = PyNumber_Add(__pyx_cur_scope->__pyx_v_pre_w, __pyx_t_2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 590, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_r = __pyx_t_14;
@@ -14119,9 +13665,9 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
       __Pyx_XGOTREF(__pyx_t_4);
       __pyx_t_8 = __pyx_cur_scope->__pyx_t_1;
       __pyx_t_16 = __pyx_cur_scope->__pyx_t_2;
-      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 588, __pyx_L1_error)
+      if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 590, __pyx_L1_error)
 
-      /* "word2keypress/_keyboard.pyx":587
+      /* "word2keypress/_keyboard.pyx":589
  *             insert_keys = ALLOWED_KEYS
  *         for k in insert_keys:
  *             if k not in spcl_keys:             # <<<<<<<<<<<<<<
@@ -14130,7 +13676,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
  */
     }
 
-    /* "word2keypress/_keyboard.pyx":586
+    /* "word2keypress/_keyboard.pyx":588
  *         if smart:
  *             insert_keys = ALLOWED_KEYS
  *         for k in insert_keys:             # <<<<<<<<<<<<<<
@@ -14140,7 +13686,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "word2keypress/_keyboard.pyx":499
+  /* "word2keypress/_keyboard.pyx":501
  *         return A
  * 
  *     def keyseq_insert_edits(self, str keyseq, _insert_keys=[], _replace_keys=[]):             # <<<<<<<<<<<<<<
@@ -14168,7 +13714,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_32generator(__pyx
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":591
+/* "word2keypress/_keyboard.pyx":593
  *                 # yield pre_w + chr(self._apply_shift_caps(k, True, caps))
  * 
  *     def word_to_typos(self, word, _insert_keys=b'', _replace_keys=b''):             # <<<<<<<<<<<<<<
@@ -14218,7 +13764,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_34word_to_typos(P
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "word_to_typos") < 0)) __PYX_ERR(0, 591, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "word_to_typos") < 0)) __PYX_ERR(0, 593, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -14235,7 +13781,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_34word_to_typos(P
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("word_to_typos", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 591, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("word_to_typos", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 593, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.word_to_typos", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -14261,16 +13807,16 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(s
   Py_ssize_t __pyx_t_4;
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("word_to_typos", 0);
-  __Pyx_TraceCall("word_to_typos", __pyx_f[0], 591, 0, __PYX_ERR(0, 591, __pyx_L1_error));
+  __Pyx_TraceCall("word_to_typos", __pyx_f[0], 593, 0, __PYX_ERR(0, 593, __pyx_L1_error));
 
-  /* "word2keypress/_keyboard.pyx":597
+  /* "word2keypress/_keyboard.pyx":599
  *         Insert all keys, delete all keys, replace only keys that are close.
  *         """
  *         keypress = self._word_to_keyseq(array.array(b'c', word))             # <<<<<<<<<<<<<<
  *         insert_keys = array.array(b'c', _insert_keys)
  *         replace_keys = array.array(b'c', _replace_keys)
  */
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 597, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 599, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_b_c);
   __Pyx_GIVEREF(__pyx_n_b_c);
@@ -14278,23 +13824,23 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(s
   __Pyx_INCREF(__pyx_v_word);
   __Pyx_GIVEREF(__pyx_v_word);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_word);
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 597, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 599, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = ((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self->__pyx_vtab)->_word_to_keyseq(__pyx_v_self, ((arrayobject *)__pyx_t_2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 597, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self->__pyx_vtab)->_word_to_keyseq(__pyx_v_self, ((arrayobject *)__pyx_t_2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 599, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_keypress = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "word2keypress/_keyboard.pyx":598
+  /* "word2keypress/_keyboard.pyx":600
  *         """
  *         keypress = self._word_to_keyseq(array.array(b'c', word))
  *         insert_keys = array.array(b'c', _insert_keys)             # <<<<<<<<<<<<<<
  *         replace_keys = array.array(b'c', _replace_keys)
  *         return self.keyseq_insert_edits(
  */
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 598, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 600, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_b_c);
   __Pyx_GIVEREF(__pyx_n_b_c);
@@ -14302,20 +13848,20 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(s
   __Pyx_INCREF(__pyx_v__insert_keys);
   __Pyx_GIVEREF(__pyx_v__insert_keys);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v__insert_keys);
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 598, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 600, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_insert_keys = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":599
+  /* "word2keypress/_keyboard.pyx":601
  *         keypress = self._word_to_keyseq(array.array(b'c', word))
  *         insert_keys = array.array(b'c', _insert_keys)
  *         replace_keys = array.array(b'c', _replace_keys)             # <<<<<<<<<<<<<<
  *         return self.keyseq_insert_edits(
  *             keypress, insert_keys, replace_keys
  */
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 599, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 601, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_b_c);
   __Pyx_GIVEREF(__pyx_n_b_c);
@@ -14323,13 +13869,13 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(s
   __Pyx_INCREF(__pyx_v__replace_keys);
   __Pyx_GIVEREF(__pyx_v__replace_keys);
   PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v__replace_keys);
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 599, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 601, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_replace_keys = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "word2keypress/_keyboard.pyx":600
+  /* "word2keypress/_keyboard.pyx":602
  *         insert_keys = array.array(b'c', _insert_keys)
  *         replace_keys = array.array(b'c', _replace_keys)
  *         return self.keyseq_insert_edits(             # <<<<<<<<<<<<<<
@@ -14337,10 +13883,10 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(s
  *         )
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_keyseq_insert_edits); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 600, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_keyseq_insert_edits); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 602, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "word2keypress/_keyboard.pyx":602
+  /* "word2keypress/_keyboard.pyx":604
  *         return self.keyseq_insert_edits(
  *             keypress, insert_keys, replace_keys
  *         )             # <<<<<<<<<<<<<<
@@ -14359,7 +13905,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(s
       __pyx_t_4 = 1;
     }
   }
-  __pyx_t_5 = PyTuple_New(3+__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 600, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(3+__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 602, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if (__pyx_t_3) {
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -14373,7 +13919,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(s
   __Pyx_INCREF(__pyx_v_replace_keys);
   __Pyx_GIVEREF(__pyx_v_replace_keys);
   PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_4, __pyx_v_replace_keys);
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 600, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 602, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -14381,7 +13927,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(s
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":591
+  /* "word2keypress/_keyboard.pyx":593
  *                 # yield pre_w + chr(self._apply_shift_caps(k, True, caps))
  * 
  *     def word_to_typos(self, word, _insert_keys=b'', _replace_keys=b''):             # <<<<<<<<<<<<<<
@@ -14407,7 +13953,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_33word_to_typos(s
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":604
+/* "word2keypress/_keyboard.pyx":606
  *         )
  * 
  *     def keyseq_to_word(self, keyseq):             # <<<<<<<<<<<<<<
@@ -14437,9 +13983,9 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_35keyseq_to_word(
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("keyseq_to_word", 0);
-  __Pyx_TraceCall("keyseq_to_word", __pyx_f[0], 604, 0, __PYX_ERR(0, 604, __pyx_L1_error));
+  __Pyx_TraceCall("keyseq_to_word", __pyx_f[0], 606, 0, __PYX_ERR(0, 606, __pyx_L1_error));
 
-  /* "word2keypress/_keyboard.pyx":605
+  /* "word2keypress/_keyboard.pyx":607
  * 
  *     def keyseq_to_word(self, keyseq):
  *         return self._keyseq_to_word(keyseq)             # <<<<<<<<<<<<<<
@@ -14447,7 +13993,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_35keyseq_to_word(
  *     def _keyseq_to_word(self, str keyseq):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_keyseq_to_word); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 605, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_keyseq_to_word); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 607, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -14460,16 +14006,16 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_35keyseq_to_word(
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_keyseq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 605, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_keyseq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 607, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 605, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 607, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(__pyx_v_keyseq);
     __Pyx_GIVEREF(__pyx_v_keyseq);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_keyseq);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 605, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 607, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -14478,7 +14024,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_35keyseq_to_word(
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":604
+  /* "word2keypress/_keyboard.pyx":606
  *         )
  * 
  *     def keyseq_to_word(self, keyseq):             # <<<<<<<<<<<<<<
@@ -14501,7 +14047,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_35keyseq_to_word(
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":607
+/* "word2keypress/_keyboard.pyx":609
  *         return self._keyseq_to_word(keyseq)
  * 
  *     def _keyseq_to_word(self, str keyseq):             # <<<<<<<<<<<<<<
@@ -14516,7 +14062,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_38_keyseq_to_word
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_keyseq_to_word (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 607, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_keyseq), (&PyString_Type), 1, "keyseq", 1))) __PYX_ERR(0, 609, __pyx_L1_error)
   __pyx_r = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_37_keyseq_to_word(((struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *)__pyx_v_self), ((PyObject*)__pyx_v_keyseq));
 
   /* function exit code */
@@ -14537,9 +14083,9 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_37_keyseq_to_word
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("_keyseq_to_word", 0);
-  __Pyx_TraceCall("_keyseq_to_word", __pyx_f[0], 607, 0, __PYX_ERR(0, 607, __pyx_L1_error));
+  __Pyx_TraceCall("_keyseq_to_word", __pyx_f[0], 609, 0, __PYX_ERR(0, 609, __pyx_L1_error));
 
-  /* "word2keypress/_keyboard.pyx":613
+  /* "word2keypress/_keyboard.pyx":615
  * 
  *         """
  *         return self.part_keyseq_string(keyseq)[0]             # <<<<<<<<<<<<<<
@@ -14547,7 +14093,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_37_keyseq_to_word
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 613, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_part_keyseq_string); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 615, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -14560,28 +14106,28 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_37_keyseq_to_word
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_keyseq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 613, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_keyseq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 615, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 613, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 615, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(__pyx_v_keyseq);
     __Pyx_GIVEREF(__pyx_v_keyseq);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_keyseq);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 613, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 615, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 613, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 615, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":607
+  /* "word2keypress/_keyboard.pyx":609
  *         return self._keyseq_to_word(keyseq)
  * 
  *     def _keyseq_to_word(self, str keyseq):             # <<<<<<<<<<<<<<
@@ -14604,7 +14150,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_37_keyseq_to_word
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":616
+/* "word2keypress/_keyboard.pyx":618
  * 
  * 
  *     def keyseq_to_word_slow(self, char[] keyseq):             # <<<<<<<<<<<<<<
@@ -14621,7 +14167,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_40keyseq_to_word_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("keyseq_to_word_slow (wrapper)", 0);
   assert(__pyx_arg_keyseq); {
-    __pyx_v_keyseq = __Pyx_PyObject_AsString(__pyx_arg_keyseq); if (unlikely((!__pyx_v_keyseq) && PyErr_Occurred())) __PYX_ERR(0, 616, __pyx_L3_error)
+    __pyx_v_keyseq = __Pyx_PyObject_AsString(__pyx_arg_keyseq); if (unlikely((!__pyx_v_keyseq) && PyErr_Occurred())) __PYX_ERR(0, 618, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -14636,7 +14182,7 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_40keyseq_to_word_
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":625
+/* "word2keypress/_keyboard.pyx":627
  * 
  *         word = keyseq
  *         def caps_change(m):             # <<<<<<<<<<<<<<
@@ -14657,9 +14203,9 @@ static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_11caps_change_2generator4(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_11caps_change_2generator3(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "word2keypress/_keyboard.pyx":626
+/* "word2keypress/_keyboard.pyx":628
  *         word = keyseq
  *         def caps_change(m):
  *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key             # <<<<<<<<<<<<<<
@@ -14668,23 +14214,23 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
  */
 
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_11caps_change_genexpr(PyObject *__pyx_self) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr *__pyx_cur_scope;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("genexpr", 0);
-  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __Pyx_RefNannyFinishContext();
     return NULL;
   }
   __Pyx_GOTREF(__pyx_cur_scope);
-  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *) __pyx_self;
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *) __pyx_self;
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
-  __Pyx_TraceCall("genexpr", __pyx_f[0], 626, 0, __PYX_ERR(0, 626, __pyx_L1_error));
+  __Pyx_TraceCall("genexpr", __pyx_f[0], 628, 0, __PYX_ERR(0, 628, __pyx_L1_error));
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_11caps_change_2generator4, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_keyseq_to_word_slow_locals_caps, __pyx_n_s_word2keypress__keyboard); if (unlikely(!gen)) __PYX_ERR(0, 626, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_11caps_change_2generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_keyseq_to_word_slow_locals_caps, __pyx_n_s_word2keypress__keyboard); if (unlikely(!gen)) __PYX_ERR(0, 628, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -14701,7 +14247,333 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_11caps_change_2generator4(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_11caps_change_2generator3(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+{
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *__pyx_cur_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *)__pyx_generator->closure);
+  PyObject *__pyx_r = NULL;
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  Py_ssize_t __pyx_t_3;
+  PyObject *(*__pyx_t_4)(PyObject *);
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  int __pyx_t_7;
+  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("None", 0);
+  switch (__pyx_generator->resume_label) {
+    case 0: goto __pyx_L3_first_run;
+    case 1: goto __pyx_L6_resume_from_yield;
+    default: /* CPython raises the right error here */
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __pyx_L3_first_run:;
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 628, __pyx_L1_error)
+
+  /* "word2keypress/_keyboard.pyx":629
+ *         def caps_change(m):
+ *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
+ *                            for c in m.group(1))             # <<<<<<<<<<<<<<
+ * 
+ *         def shift_change(m):
+ */
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_m)) { __Pyx_RaiseClosureNameError("m"); __PYX_ERR(0, 629, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_m, __pyx_n_s_group); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 629, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 629, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
+    __pyx_t_1 = __pyx_t_2; __Pyx_INCREF(__pyx_t_1); __pyx_t_3 = 0;
+    __pyx_t_4 = NULL;
+  } else {
+    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 629, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_4 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 629, __pyx_L1_error)
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  for (;;) {
+    if (likely(!__pyx_t_4)) {
+      if (likely(PyList_CheckExact(__pyx_t_1))) {
+        if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_1)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 629, __pyx_L1_error)
+        #else
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 629, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        #endif
+      } else {
+        if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 629, __pyx_L1_error)
+        #else
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 629, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        #endif
+      }
+    } else {
+      __pyx_t_2 = __pyx_t_4(__pyx_t_1);
+      if (unlikely(!__pyx_t_2)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else __PYX_ERR(0, 629, __pyx_L1_error)
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_2);
+    }
+    __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_c);
+    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_c, __pyx_t_2);
+    __Pyx_GIVEREF(__pyx_t_2);
+    __pyx_t_2 = 0;
+
+    /* "word2keypress/_keyboard.pyx":628
+ *         word = keyseq
+ *         def caps_change(m):
+ *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key             # <<<<<<<<<<<<<<
+ *                            for c in m.group(1))
+ * 
+ */
+    __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 628, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_6 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_c, __pyx_t_5, Py_NE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 628, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 628, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (__pyx_t_7) {
+      if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 628, __pyx_L1_error) }
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_self), __pyx_n_s_change_shift); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 628, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_8 = NULL;
+      if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
+        __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_5);
+        if (likely(__pyx_t_8)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+          __Pyx_INCREF(__pyx_t_8);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_5, function);
+        }
+      }
+      if (!__pyx_t_8) {
+        __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 628, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+      } else {
+        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 628, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
+        __Pyx_INCREF(__pyx_cur_scope->__pyx_v_c);
+        __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_c);
+        PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_cur_scope->__pyx_v_c);
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 628, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 628, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_2 = __pyx_t_5;
+      __pyx_t_5 = 0;
+    } else {
+
+      /* "word2keypress/_keyboard.pyx":629
+ *         def caps_change(m):
+ *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
+ *                            for c in m.group(1))             # <<<<<<<<<<<<<<
+ * 
+ *         def shift_change(m):
+ */
+      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 629, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_2 = __pyx_t_5;
+      __pyx_t_5 = 0;
+    }
+    __pyx_r = __pyx_t_2;
+    __pyx_t_2 = 0;
+    __Pyx_XGIVEREF(__pyx_t_1);
+    __pyx_cur_scope->__pyx_t_0 = __pyx_t_1;
+    __pyx_cur_scope->__pyx_t_1 = __pyx_t_3;
+    __pyx_cur_scope->__pyx_t_2 = __pyx_t_4;
+    __Pyx_XGIVEREF(__pyx_r);
+    __Pyx_RefNannyFinishContext();
+    /* return from generator, yielding value */
+    __pyx_generator->resume_label = 1;
+    return __pyx_r;
+    __pyx_L6_resume_from_yield:;
+    __pyx_t_1 = __pyx_cur_scope->__pyx_t_0;
+    __pyx_cur_scope->__pyx_t_0 = 0;
+    __Pyx_XGOTREF(__pyx_t_1);
+    __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
+    __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 628, __pyx_L1_error)
+  }
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "word2keypress/_keyboard.pyx":628
+ *         word = keyseq
+ *         def caps_change(m):
+ *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key             # <<<<<<<<<<<<<<
+ *                            for c in m.group(1))
+ * 
+ */
+
+  /* function exit code */
+  PyErr_SetNone(PyExc_StopIteration);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_AddTraceback("genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_r); __pyx_r = 0;
+  __pyx_generator->resume_label = -1;
+  __Pyx_Coroutine_clear((PyObject*)__pyx_generator);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "word2keypress/_keyboard.pyx":627
+ * 
+ *         word = keyseq
+ *         def caps_change(m):             # <<<<<<<<<<<<<<
+ *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
+ *                            for c in m.group(1))
+ */
+
+static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_caps_change(PyObject *__pyx_self, PyObject *__pyx_v_m) {
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("caps_change", 0);
+  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
+  __Pyx_TraceCall("caps_change", __pyx_f[0], 627, 0, __PYX_ERR(0, 627, __pyx_L1_error));
+  __pyx_cur_scope->__pyx_v_m = __pyx_v_m;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_m);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_m);
+
+  /* "word2keypress/_keyboard.pyx":628
+ *         word = keyseq
+ *         def caps_change(m):
+ *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key             # <<<<<<<<<<<<<<
+ *                            for c in m.group(1))
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_11caps_change_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 628, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyString_Join(__pyx_kp_s_, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 628, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "word2keypress/_keyboard.pyx":627
+ * 
+ *         word = keyseq
+ *         def caps_change(m):             # <<<<<<<<<<<<<<
+ *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
+ *                            for c in m.group(1))
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.keyseq_to_word_slow.caps_change", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_TraceReturn(__pyx_r, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "word2keypress/_keyboard.pyx":631
+ *                            for c in m.group(1))
+ * 
+ *         def shift_change(m):             # <<<<<<<<<<<<<<
+ *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
+ *                            for c in m.group(1))
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change(PyObject *__pyx_self, PyObject *__pyx_v_m); /*proto*/
+static PyMethodDef __pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change = {"shift_change", (PyCFunction)__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change, METH_O, 0};
+static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change(PyObject *__pyx_self, PyObject *__pyx_v_m) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("shift_change (wrapper)", 0);
+  __pyx_r = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_2shift_change(__pyx_self, ((PyObject *)__pyx_v_m));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_2generator4(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+
+/* "word2keypress/_keyboard.pyx":632
+ * 
+ *         def shift_change(m):
+ *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key             # <<<<<<<<<<<<<<
+ *                            for c in m.group(1))
+ * 
+ */
+
+static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_genexpr(PyObject *__pyx_self) {
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("genexpr", 0);
+  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *) __pyx_self;
+  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
+  __Pyx_TraceCall("genexpr", __pyx_f[0], 632, 0, __PYX_ERR(0, 632, __pyx_L1_error));
+  {
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_2generator4, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_keyseq_to_word_slow_locals_shift, __pyx_n_s_word2keypress__keyboard); if (unlikely(!gen)) __PYX_ERR(0, 632, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_cur_scope);
+    __Pyx_RefNannyFinishContext();
+    return (PyObject *) gen;
+  }
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.keyseq_to_word_slow.shift_change.genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_TraceReturn(__pyx_r, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_2generator4(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
   struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr *__pyx_cur_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
@@ -14724,28 +14596,28 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 626, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 632, __pyx_L1_error)
 
-  /* "word2keypress/_keyboard.pyx":627
- *         def caps_change(m):
- *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
+  /* "word2keypress/_keyboard.pyx":633
+ *         def shift_change(m):
+ *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
  *                            for c in m.group(1))             # <<<<<<<<<<<<<<
  * 
- *         def shift_change(m):
+ *         word = re.sub(r'({0})+'.format(shift_key), r'\1', word)
  */
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_m)) { __Pyx_RaiseClosureNameError("m"); __PYX_ERR(0, 627, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_m, __pyx_n_s_group); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 627, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_m)) { __Pyx_RaiseClosureNameError("m"); __PYX_ERR(0, 633, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_m, __pyx_n_s_group); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 633, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 627, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 633, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
     __pyx_t_1 = __pyx_t_2; __Pyx_INCREF(__pyx_t_1); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 627, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 633, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 627, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 633, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   for (;;) {
@@ -14753,17 +14625,17 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 627, __pyx_L1_error)
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 633, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 627, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 633, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 627, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 633, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 627, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 633, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       }
@@ -14773,7 +14645,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 627, __pyx_L1_error)
+          else __PYX_ERR(0, 633, __pyx_L1_error)
         }
         break;
       }
@@ -14784,22 +14656,22 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
     __Pyx_GIVEREF(__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "word2keypress/_keyboard.pyx":626
- *         word = keyseq
- *         def caps_change(m):
- *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key             # <<<<<<<<<<<<<<
+    /* "word2keypress/_keyboard.pyx":632
+ * 
+ *         def shift_change(m):
+ *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key             # <<<<<<<<<<<<<<
  *                            for c in m.group(1))
  * 
  */
-    __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 626, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 632, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_c, __pyx_t_5, Py_NE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 626, __pyx_L1_error)
+    __pyx_t_6 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_c, __pyx_t_5, Py_NE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 632, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 626, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 632, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_7) {
-      if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 626, __pyx_L1_error) }
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_self), __pyx_n_s_change_shift); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 626, __pyx_L1_error)
+      if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 632, __pyx_L1_error) }
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 632, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_8 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -14812,35 +14684,35 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
         }
       }
       if (!__pyx_t_8) {
-        __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 626, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 632, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
       } else {
-        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 626, __pyx_L1_error)
+        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 632, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
         __Pyx_INCREF(__pyx_cur_scope->__pyx_v_c);
         __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_c);
         PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_cur_scope->__pyx_v_c);
-        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 626, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 632, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       }
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 626, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 632, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_2 = __pyx_t_5;
       __pyx_t_5 = 0;
     } else {
 
-      /* "word2keypress/_keyboard.pyx":627
- *         def caps_change(m):
- *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
+      /* "word2keypress/_keyboard.pyx":633
+ *         def shift_change(m):
+ *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
  *                            for c in m.group(1))             # <<<<<<<<<<<<<<
  * 
- *         def shift_change(m):
+ *         word = re.sub(r'({0})+'.format(shift_key), r'\1', word)
  */
-      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 627, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 633, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_2 = __pyx_t_5;
       __pyx_t_5 = 0;
@@ -14862,337 +14734,11 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
     __Pyx_XGOTREF(__pyx_t_1);
     __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 626, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 632, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "word2keypress/_keyboard.pyx":626
- *         word = keyseq
- *         def caps_change(m):
- *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key             # <<<<<<<<<<<<<<
- *                            for c in m.group(1))
- * 
- */
-
-  /* function exit code */
-  PyErr_SetNone(PyExc_StopIteration);
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_r); __pyx_r = 0;
-  __pyx_generator->resume_label = -1;
-  __Pyx_Coroutine_clear((PyObject*)__pyx_generator);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "word2keypress/_keyboard.pyx":625
- * 
- *         word = keyseq
- *         def caps_change(m):             # <<<<<<<<<<<<<<
- *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
- *                            for c in m.group(1))
- */
-
-static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_caps_change(PyObject *__pyx_self, PyObject *__pyx_v_m) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *__pyx_cur_scope;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  __Pyx_RefNannySetupContext("caps_change", 0);
-  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change, __pyx_empty_tuple, NULL);
-  if (unlikely(!__pyx_cur_scope)) {
-    __Pyx_RefNannyFinishContext();
-    return NULL;
-  }
-  __Pyx_GOTREF(__pyx_cur_scope);
-  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *) __Pyx_CyFunction_GetClosure(__pyx_self);
-  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
-  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
-  __Pyx_TraceCall("caps_change", __pyx_f[0], 625, 0, __PYX_ERR(0, 625, __pyx_L1_error));
-  __pyx_cur_scope->__pyx_v_m = __pyx_v_m;
-  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_m);
-  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_m);
-
-  /* "word2keypress/_keyboard.pyx":626
- *         word = keyseq
- *         def caps_change(m):
- *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key             # <<<<<<<<<<<<<<
- *                            for c in m.group(1))
- * 
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_11caps_change_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 626, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyString_Join(__pyx_kp_s_, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 626, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_r = __pyx_t_2;
-  __pyx_t_2 = 0;
-  goto __pyx_L0;
-
-  /* "word2keypress/_keyboard.pyx":625
- * 
- *         word = keyseq
- *         def caps_change(m):             # <<<<<<<<<<<<<<
- *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
- *                            for c in m.group(1))
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.keyseq_to_word_slow.caps_change", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "word2keypress/_keyboard.pyx":629
- *                            for c in m.group(1))
- * 
- *         def shift_change(m):             # <<<<<<<<<<<<<<
- *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
- *                            for c in m.group(1))
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change(PyObject *__pyx_self, PyObject *__pyx_v_m); /*proto*/
-static PyMethodDef __pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change = {"shift_change", (PyCFunction)__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change, METH_O, 0};
-static PyObject *__pyx_pw_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change(PyObject *__pyx_self, PyObject *__pyx_v_m) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("shift_change (wrapper)", 0);
-  __pyx_r = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_2shift_change(__pyx_self, ((PyObject *)__pyx_v_m));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_2generator5(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
-
-/* "word2keypress/_keyboard.pyx":630
- * 
- *         def shift_change(m):
- *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key             # <<<<<<<<<<<<<<
- *                            for c in m.group(1))
- * 
- */
-
-static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_genexpr(PyObject *__pyx_self) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *__pyx_cur_scope;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("genexpr", 0);
-  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr, __pyx_empty_tuple, NULL);
-  if (unlikely(!__pyx_cur_scope)) {
-    __Pyx_RefNannyFinishContext();
-    return NULL;
-  }
-  __Pyx_GOTREF(__pyx_cur_scope);
-  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *) __pyx_self;
-  __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
-  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
-  __Pyx_TraceCall("genexpr", __pyx_f[0], 630, 0, __PYX_ERR(0, 630, __pyx_L1_error));
-  {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_2generator5, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_keyseq_to_word_slow_locals_shift, __pyx_n_s_word2keypress__keyboard); if (unlikely(!gen)) __PYX_ERR(0, 630, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_cur_scope);
-    __Pyx_RefNannyFinishContext();
-    return (PyObject *) gen;
-  }
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.keyseq_to_word_slow.shift_change.genexpr", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_2generator5(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
-{
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *__pyx_cur_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *)__pyx_generator->closure);
-  PyObject *__pyx_r = NULL;
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  Py_ssize_t __pyx_t_3;
-  PyObject *(*__pyx_t_4)(PyObject *);
-  PyObject *__pyx_t_5 = NULL;
-  PyObject *__pyx_t_6 = NULL;
-  int __pyx_t_7;
-  PyObject *__pyx_t_8 = NULL;
-  PyObject *__pyx_t_9 = NULL;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("None", 0);
-  switch (__pyx_generator->resume_label) {
-    case 0: goto __pyx_L3_first_run;
-    case 1: goto __pyx_L6_resume_from_yield;
-    default: /* CPython raises the right error here */
-    __Pyx_RefNannyFinishContext();
-    return NULL;
-  }
-  __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 630, __pyx_L1_error)
-
-  /* "word2keypress/_keyboard.pyx":631
- *         def shift_change(m):
- *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
- *                            for c in m.group(1))             # <<<<<<<<<<<<<<
- * 
- *         word = re.sub(r'({0})+'.format(shift_key), r'\1', word)
- */
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_m)) { __Pyx_RaiseClosureNameError("m"); __PYX_ERR(0, 631, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_m, __pyx_n_s_group); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 631, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__26, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 631, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
-    __pyx_t_1 = __pyx_t_2; __Pyx_INCREF(__pyx_t_1); __pyx_t_3 = 0;
-    __pyx_t_4 = NULL;
-  } else {
-    __pyx_t_3 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 631, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 631, __pyx_L1_error)
-  }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  for (;;) {
-    if (likely(!__pyx_t_4)) {
-      if (likely(PyList_CheckExact(__pyx_t_1))) {
-        if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 631, __pyx_L1_error)
-        #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 631, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        #endif
-      } else {
-        if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_3); __Pyx_INCREF(__pyx_t_2); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 631, __pyx_L1_error)
-        #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 631, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        #endif
-      }
-    } else {
-      __pyx_t_2 = __pyx_t_4(__pyx_t_1);
-      if (unlikely(!__pyx_t_2)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 631, __pyx_L1_error)
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_2);
-    }
-    __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_c);
-    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_c, __pyx_t_2);
-    __Pyx_GIVEREF(__pyx_t_2);
-    __pyx_t_2 = 0;
-
-    /* "word2keypress/_keyboard.pyx":630
- * 
- *         def shift_change(m):
- *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key             # <<<<<<<<<<<<<<
- *                            for c in m.group(1))
- * 
- */
-    __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 630, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_c, __pyx_t_5, Py_NE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 630, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 630, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (__pyx_t_7) {
-      if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 630, __pyx_L1_error) }
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_self), __pyx_n_s_add_shift); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 630, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_8 = NULL;
-      if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
-        __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_5);
-        if (likely(__pyx_t_8)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-          __Pyx_INCREF(__pyx_t_8);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_5, function);
-        }
-      }
-      if (!__pyx_t_8) {
-        __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_cur_scope->__pyx_v_c); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 630, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-      } else {
-        __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 630, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_9);
-        __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
-        __Pyx_INCREF(__pyx_cur_scope->__pyx_v_c);
-        __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_c);
-        PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_cur_scope->__pyx_v_c);
-        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 630, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      }
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 630, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_2 = __pyx_t_5;
-      __pyx_t_5 = 0;
-    } else {
-
-      /* "word2keypress/_keyboard.pyx":631
- *         def shift_change(m):
- *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
- *                            for c in m.group(1))             # <<<<<<<<<<<<<<
- * 
- *         word = re.sub(r'({0})+'.format(shift_key), r'\1', word)
- */
-      __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_outer_scope->__pyx_outer_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 631, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_2 = __pyx_t_5;
-      __pyx_t_5 = 0;
-    }
-    __pyx_r = __pyx_t_2;
-    __pyx_t_2 = 0;
-    __Pyx_XGIVEREF(__pyx_t_1);
-    __pyx_cur_scope->__pyx_t_0 = __pyx_t_1;
-    __pyx_cur_scope->__pyx_t_1 = __pyx_t_3;
-    __pyx_cur_scope->__pyx_t_2 = __pyx_t_4;
-    __Pyx_XGIVEREF(__pyx_r);
-    __Pyx_RefNannyFinishContext();
-    /* return from generator, yielding value */
-    __pyx_generator->resume_label = 1;
-    return __pyx_r;
-    __pyx_L6_resume_from_yield:;
-    __pyx_t_1 = __pyx_cur_scope->__pyx_t_0;
-    __pyx_cur_scope->__pyx_t_0 = 0;
-    __Pyx_XGOTREF(__pyx_t_1);
-    __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
-    __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 630, __pyx_L1_error)
-  }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "word2keypress/_keyboard.pyx":630
+  /* "word2keypress/_keyboard.pyx":632
  * 
  *         def shift_change(m):
  *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key             # <<<<<<<<<<<<<<
@@ -15219,7 +14765,7 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":629
+/* "word2keypress/_keyboard.pyx":631
  *                            for c in m.group(1))
  * 
  *         def shift_change(m):             # <<<<<<<<<<<<<<
@@ -15228,28 +14774,28 @@ static PyObject *__pyx_gb_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
  */
 
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_2shift_change(PyObject *__pyx_self, PyObject *__pyx_v_m) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *__pyx_cur_scope;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("shift_change", 0);
-  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __Pyx_RefNannyFinishContext();
     return NULL;
   }
   __Pyx_GOTREF(__pyx_cur_scope);
-  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_cur_scope->__pyx_outer_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
-  __Pyx_TraceCall("shift_change", __pyx_f[0], 629, 0, __PYX_ERR(0, 629, __pyx_L1_error));
+  __Pyx_TraceCall("shift_change", __pyx_f[0], 631, 0, __PYX_ERR(0, 631, __pyx_L1_error));
   __pyx_cur_scope->__pyx_v_m = __pyx_v_m;
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_m);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_m);
 
-  /* "word2keypress/_keyboard.pyx":630
+  /* "word2keypress/_keyboard.pyx":632
  * 
  *         def shift_change(m):
  *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key             # <<<<<<<<<<<<<<
@@ -15257,16 +14803,16 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 630, __pyx_L1_error)
+  __pyx_t_1 = __pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_12shift_change_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 632, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyString_Join(__pyx_kp_s_, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 630, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyString_Join(__pyx_kp_s_, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 632, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":629
+  /* "word2keypress/_keyboard.pyx":631
  *                            for c in m.group(1))
  * 
  *         def shift_change(m):             # <<<<<<<<<<<<<<
@@ -15288,7 +14834,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
   return __pyx_r;
 }
 
-/* "word2keypress/_keyboard.pyx":616
+/* "word2keypress/_keyboard.pyx":618
  * 
  * 
  *     def keyseq_to_word_slow(self, char[] keyseq):             # <<<<<<<<<<<<<<
@@ -15297,7 +14843,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_
  */
 
 static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_slow(struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *__pyx_v_self, char *__pyx_v_keyseq) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *__pyx_cur_scope;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *__pyx_cur_scope;
   PyObject *__pyx_v_word = NULL;
   PyObject *__pyx_v_caps_change = 0;
   PyObject *__pyx_v_shift_change = 0;
@@ -15321,18 +14867,18 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
   PyObject *__pyx_t_14 = NULL;
   int __pyx_t_15;
   __Pyx_RefNannySetupContext("keyseq_to_word_slow", 0);
-  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *)__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow(__pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __Pyx_RefNannyFinishContext();
     return NULL;
   }
   __Pyx_GOTREF(__pyx_cur_scope);
-  __Pyx_TraceCall("keyseq_to_word_slow", __pyx_f[0], 616, 0, __PYX_ERR(0, 616, __pyx_L1_error));
+  __Pyx_TraceCall("keyseq_to_word_slow", __pyx_f[0], 618, 0, __PYX_ERR(0, 618, __pyx_L1_error));
   __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
 
-  /* "word2keypress/_keyboard.pyx":620
+  /* "word2keypress/_keyboard.pyx":622
  *         Converts a keypress sequence to a word
  *         """
  *         caps_key = CAPS_KEY             # <<<<<<<<<<<<<<
@@ -15341,7 +14887,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
  */
   __pyx_cur_scope->__pyx_v_caps_key = __pyx_v_13word2keypress_9_keyboard_CAPS_KEY;
 
-  /* "word2keypress/_keyboard.pyx":621
+  /* "word2keypress/_keyboard.pyx":623
  *         """
  *         caps_key = CAPS_KEY
  *         shift_key = SHIFT_KEY             # <<<<<<<<<<<<<<
@@ -15350,7 +14896,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
  */
   __pyx_cur_scope->__pyx_v_shift_key = __pyx_v_13word2keypress_9_keyboard_SHIFT_KEY;
 
-  /* "word2keypress/_keyboard.pyx":622
+  /* "word2keypress/_keyboard.pyx":624
  *         caps_key = CAPS_KEY
  *         shift_key = SHIFT_KEY
  *         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for mobile"             # <<<<<<<<<<<<<<
@@ -15359,65 +14905,65 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE, __pyx_n_s_qwerty, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 622, __pyx_L1_error)
+    __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_13word2keypress_9_keyboard_KEYBOARD_TYPE, __pyx_n_s_qwerty, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 624, __pyx_L1_error)
     if (unlikely(!(__pyx_t_1 != 0))) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_Not_implemented_for_mobile);
-      __PYX_ERR(0, 622, __pyx_L1_error)
+      __PYX_ERR(0, 624, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "word2keypress/_keyboard.pyx":624
+  /* "word2keypress/_keyboard.pyx":626
  *         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for mobile"
  * 
  *         word = keyseq             # <<<<<<<<<<<<<<
  *         def caps_change(m):
  *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
  */
-  __pyx_t_2 = __Pyx_PyStr_FromString(__pyx_v_keyseq); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 624, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyStr_FromString(__pyx_v_keyseq); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 626, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_word = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":625
+  /* "word2keypress/_keyboard.pyx":627
  * 
  *         word = keyseq
  *         def caps_change(m):             # <<<<<<<<<<<<<<
  *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
  *                            for c in m.group(1))
  */
-  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_1caps_change, 0, __pyx_n_s_keyseq_to_word_slow_locals_caps_2, ((PyObject*)__pyx_cur_scope), __pyx_n_s_word2keypress__keyboard, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 625, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_1caps_change, 0, __pyx_n_s_keyseq_to_word_slow_locals_caps_2, ((PyObject*)__pyx_cur_scope), __pyx_n_s_word2keypress__keyboard, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 627, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_caps_change = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":629
+  /* "word2keypress/_keyboard.pyx":631
  *                            for c in m.group(1))
  * 
  *         def shift_change(m):             # <<<<<<<<<<<<<<
  *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
  *                            for c in m.group(1))
  */
-  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change, 0, __pyx_n_s_keyseq_to_word_slow_locals_shift_2, ((PyObject*)__pyx_cur_scope), __pyx_n_s_word2keypress__keyboard, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 629, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13word2keypress_9_keyboard_8Keyboard_19keyseq_to_word_slow_3shift_change, 0, __pyx_n_s_keyseq_to_word_slow_locals_shift_2, ((PyObject*)__pyx_cur_scope), __pyx_n_s_word2keypress__keyboard, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 631, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_shift_change = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":633
+  /* "word2keypress/_keyboard.pyx":635
  *                            for c in m.group(1))
  * 
  *         word = re.sub(r'({0})+'.format(shift_key), r'\1', word)             # <<<<<<<<<<<<<<
  *         word = re.sub(r'({0})+'.format(caps_key), r'\1', word)
  *         # only swap <s><c> to <c><s>
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 633, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 635, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_sub); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 633, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_sub); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 635, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 633, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 635, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 633, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 635, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_7 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -15430,17 +14976,17 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
     }
   }
   if (!__pyx_t_7) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 633, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 635, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 633, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 635, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7); __pyx_t_7 = NULL;
     __Pyx_GIVEREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 633, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 635, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
@@ -15457,7 +15003,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
       __pyx_t_9 = 1;
     }
   }
-  __pyx_t_8 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 633, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 635, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   if (__pyx_t_5) {
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -15471,28 +15017,28 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
   __Pyx_GIVEREF(__pyx_v_word);
   PyTuple_SET_ITEM(__pyx_t_8, 2+__pyx_t_9, __pyx_v_word);
   __pyx_t_3 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 633, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 635, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF_SET(__pyx_v_word, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":634
+  /* "word2keypress/_keyboard.pyx":636
  * 
  *         word = re.sub(r'({0})+'.format(shift_key), r'\1', word)
  *         word = re.sub(r'({0})+'.format(caps_key), r'\1', word)             # <<<<<<<<<<<<<<
  *         # only swap <s><c> to <c><s>
  *         word = re.sub(r'({1}{0})+([a-zA-Z])'.format(caps_key, shift_key),
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 634, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 636, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_sub); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 634, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_sub); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 636, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 634, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 636, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 634, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 636, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
@@ -15505,17 +15051,17 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
     }
   }
   if (!__pyx_t_6) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 634, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 636, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
-    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 634, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 636, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 634, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 636, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -15532,7 +15078,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
       __pyx_t_9 = 1;
     }
   }
-  __pyx_t_7 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 634, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 636, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (__pyx_t_3) {
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -15546,30 +15092,30 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
   __Pyx_GIVEREF(__pyx_v_word);
   PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_9, __pyx_v_word);
   __pyx_t_4 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 634, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 636, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF_SET(__pyx_v_word, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":636
+  /* "word2keypress/_keyboard.pyx":638
  *         word = re.sub(r'({0})+'.format(caps_key), r'\1', word)
  *         # only swap <s><c> to <c><s>
  *         word = re.sub(r'({1}{0})+([a-zA-Z])'.format(caps_key, shift_key),             # <<<<<<<<<<<<<<
  *                       r'{0}{1}\2'.format(caps_key, shift_key),
  *                       word)
  */
-  __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 636, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 638, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_sub); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 636, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_sub); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 638, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_1_0_a_zA_Z, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 636, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_1_0_a_zA_Z, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 638, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 636, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 638, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 636, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 638, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   __pyx_t_9 = 0;
@@ -15583,7 +15129,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
       __pyx_t_9 = 1;
     }
   }
-  __pyx_t_10 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 636, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 638, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   if (__pyx_t_6) {
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -15594,23 +15140,23 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
   PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_9, __pyx_t_5);
   __pyx_t_3 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 636, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 638, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "word2keypress/_keyboard.pyx":637
+  /* "word2keypress/_keyboard.pyx":639
  *         # only swap <s><c> to <c><s>
  *         word = re.sub(r'({1}{0})+([a-zA-Z])'.format(caps_key, shift_key),
  *                       r'{0}{1}\2'.format(caps_key, shift_key),             # <<<<<<<<<<<<<<
  *                       word)
  * 
  */
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_1_2, __pyx_n_s_format); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_1_2, __pyx_n_s_format); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 639, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 639, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 639, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_6 = NULL;
   __pyx_t_9 = 0;
@@ -15624,7 +15170,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
       __pyx_t_9 = 1;
     }
   }
-  __pyx_t_11 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 639, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__pyx_t_6) {
     __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -15635,12 +15181,12 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
   PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_9, __pyx_t_3);
   __pyx_t_5 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 637, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 639, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "word2keypress/_keyboard.pyx":638
+  /* "word2keypress/_keyboard.pyx":640
  *         word = re.sub(r'({1}{0})+([a-zA-Z])'.format(caps_key, shift_key),
  *                       r'{0}{1}\2'.format(caps_key, shift_key),
  *                       word)             # <<<<<<<<<<<<<<
@@ -15659,7 +15205,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
       __pyx_t_9 = 1;
     }
   }
-  __pyx_t_11 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 636, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 638, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (__pyx_t_10) {
     __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_10); __pyx_t_10 = NULL;
@@ -15673,23 +15219,23 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
   PyTuple_SET_ITEM(__pyx_t_11, 2+__pyx_t_9, __pyx_v_word);
   __pyx_t_8 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 636, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 638, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF_SET(__pyx_v_word, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "word2keypress/_keyboard.pyx":640
+  /* "word2keypress/_keyboard.pyx":642
  *                       word)
  * 
  *         if word.count(caps_key)%2 == 1:             # <<<<<<<<<<<<<<
  *             word += caps_key
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_word, __pyx_n_s_count); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 640, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_word, __pyx_n_s_count); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 642, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_11 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 640, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 642, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __pyx_t_4 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
@@ -15702,47 +15248,47 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 640, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 642, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 640, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 642, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4); __pyx_t_4 = NULL;
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 640, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 642, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_RemainderObjC(__pyx_t_2, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 640, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_RemainderObjC(__pyx_t_2, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 642, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_7, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 640, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_EqObjC(__pyx_t_7, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 642, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 640, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 642, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_1) {
 
-    /* "word2keypress/_keyboard.pyx":641
+    /* "word2keypress/_keyboard.pyx":643
  * 
  *         if word.count(caps_key)%2 == 1:
  *             word += caps_key             # <<<<<<<<<<<<<<
  * 
  *         try:
  */
-    __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 641, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 643, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_v_word, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 641, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_v_word, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 643, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF_SET(__pyx_v_word, __pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "word2keypress/_keyboard.pyx":640
+    /* "word2keypress/_keyboard.pyx":642
  *                       word)
  * 
  *         if word.count(caps_key)%2 == 1:             # <<<<<<<<<<<<<<
@@ -15751,7 +15297,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
  */
   }
 
-  /* "word2keypress/_keyboard.pyx":643
+  /* "word2keypress/_keyboard.pyx":645
  *             word += caps_key
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -15767,21 +15313,21 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
     __Pyx_XGOTREF(__pyx_t_14);
     /*try:*/ {
 
-      /* "word2keypress/_keyboard.pyx":645
+      /* "word2keypress/_keyboard.pyx":647
  *         try:
  *             # apply all shift keys
  *             word = re.sub(r'{0}+([\w\W])'.format(shift_key),             # <<<<<<<<<<<<<<
  *                           shift_change, word)
  *             # apply all capslocks
  */
-      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 645, __pyx_L4_error)
+      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 647, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sub); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 645, __pyx_L4_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_sub); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 647, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_w_W, __pyx_n_s_format); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 645, __pyx_L4_error)
+      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_w_W, __pyx_n_s_format); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 647, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_11);
-      __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 645, __pyx_L4_error)
+      __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 647, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_10 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_11))) {
@@ -15794,23 +15340,23 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
         }
       }
       if (!__pyx_t_10) {
-        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 645, __pyx_L4_error)
+        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 647, __pyx_L4_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_GOTREF(__pyx_t_2);
       } else {
-        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 645, __pyx_L4_error)
+        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 647, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_10); __pyx_t_10 = NULL;
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 645, __pyx_L4_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 647, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-      /* "word2keypress/_keyboard.pyx":646
+      /* "word2keypress/_keyboard.pyx":648
  *             # apply all shift keys
  *             word = re.sub(r'{0}+([\w\W])'.format(shift_key),
  *                           shift_change, word)             # <<<<<<<<<<<<<<
@@ -15829,7 +15375,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
           __pyx_t_9 = 1;
         }
       }
-      __pyx_t_3 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 645, __pyx_L4_error)
+      __pyx_t_3 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 647, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_3);
       if (__pyx_t_11) {
         __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -15843,28 +15389,28 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
       __Pyx_GIVEREF(__pyx_v_word);
       PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_9, __pyx_v_word);
       __pyx_t_2 = 0;
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_3, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 645, __pyx_L4_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_3, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 647, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF_SET(__pyx_v_word, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "word2keypress/_keyboard.pyx":648
+      /* "word2keypress/_keyboard.pyx":650
  *                           shift_change, word)
  *             # apply all capslocks
  *             word = re.sub(r'{0}(.*?){0}'.format(caps_key),             # <<<<<<<<<<<<<<
  *                           caps_change, word)
  *         except Exception, e:
  */
-      __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 648, __pyx_L4_error)
+      __pyx_t_8 = __Pyx_GetModuleGlobalName(__pyx_n_s_re); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 650, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_sub); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 648, __pyx_L4_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_sub); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 650, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_0_2, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 648, __pyx_L4_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_0_0_2, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 650, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_11 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 648, __pyx_L4_error)
+      __pyx_t_11 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 650, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_11);
       __pyx_t_4 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -15877,23 +15423,23 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
         }
       }
       if (!__pyx_t_4) {
-        __pyx_t_8 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_11); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 648, __pyx_L4_error)
+        __pyx_t_8 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_11); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 650, __pyx_L4_error)
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_GOTREF(__pyx_t_8);
       } else {
-        __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 648, __pyx_L4_error)
+        __pyx_t_10 = PyTuple_New(1+1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 650, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_4); __pyx_t_4 = NULL;
         __Pyx_GIVEREF(__pyx_t_11);
         PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_11);
         __pyx_t_11 = 0;
-        __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 648, __pyx_L4_error)
+        __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 650, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "word2keypress/_keyboard.pyx":649
+      /* "word2keypress/_keyboard.pyx":651
  *             # apply all capslocks
  *             word = re.sub(r'{0}(.*?){0}'.format(caps_key),
  *                           caps_change, word)             # <<<<<<<<<<<<<<
@@ -15912,7 +15458,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
           __pyx_t_9 = 1;
         }
       }
-      __pyx_t_10 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 648, __pyx_L4_error)
+      __pyx_t_10 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 650, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_10);
       if (__pyx_t_2) {
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -15926,14 +15472,14 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
       __Pyx_GIVEREF(__pyx_v_word);
       PyTuple_SET_ITEM(__pyx_t_10, 2+__pyx_t_9, __pyx_v_word);
       __pyx_t_8 = 0;
-      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 648, __pyx_L4_error)
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 650, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF_SET(__pyx_v_word, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "word2keypress/_keyboard.pyx":643
+      /* "word2keypress/_keyboard.pyx":645
  *             word += caps_key
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -15957,7 +15503,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "word2keypress/_keyboard.pyx":650
+    /* "word2keypress/_keyboard.pyx":652
  *             word = re.sub(r'{0}(.*?){0}'.format(caps_key),
  *                           caps_change, word)
  *         except Exception, e:             # <<<<<<<<<<<<<<
@@ -15967,23 +15513,23 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
     __pyx_t_15 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_Exception);
     if (__pyx_t_15) {
       __Pyx_AddTraceback("word2keypress._keyboard.Keyboard.keyseq_to_word_slow", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_7, &__pyx_t_3, &__pyx_t_10) < 0) __PYX_ERR(0, 650, __pyx_L6_except_error)
+      if (__Pyx_GetException(&__pyx_t_7, &__pyx_t_3, &__pyx_t_10) < 0) __PYX_ERR(0, 652, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_INCREF(__pyx_t_3);
       __pyx_v_e = __pyx_t_3;
 
-      /* "word2keypress/_keyboard.pyx":651
+      /* "word2keypress/_keyboard.pyx":653
  *                           caps_change, word)
  *         except Exception, e:
  *             print (">>>> I could not figure this out: {!r}, stuck at {!r}".format(keyseq, word))             # <<<<<<<<<<<<<<
  *             raise e
  *         word = word.strip(shift_key).strip(caps_key)
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_I_could_not_figure_this_out_r_s, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 651, __pyx_L6_except_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_I_could_not_figure_this_out_r_s, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 653, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_11 = __Pyx_PyStr_FromString(__pyx_v_keyseq); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 651, __pyx_L6_except_error)
+      __pyx_t_11 = __Pyx_PyStr_FromString(__pyx_v_keyseq); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 653, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_11);
       __pyx_t_4 = NULL;
       __pyx_t_9 = 0;
@@ -15997,7 +15543,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
           __pyx_t_9 = 1;
         }
       }
-      __pyx_t_5 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 651, __pyx_L6_except_error)
+      __pyx_t_5 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 653, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_5);
       if (__pyx_t_4) {
         __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -16008,14 +15554,14 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
       __Pyx_GIVEREF(__pyx_v_word);
       PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_9, __pyx_v_word);
       __pyx_t_11 = 0;
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 651, __pyx_L6_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 653, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (__Pyx_PrintOne(0, __pyx_t_8) < 0) __PYX_ERR(0, 651, __pyx_L6_except_error)
+      if (__Pyx_PrintOne(0, __pyx_t_8) < 0) __PYX_ERR(0, 653, __pyx_L6_except_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "word2keypress/_keyboard.pyx":652
+      /* "word2keypress/_keyboard.pyx":654
  *         except Exception, e:
  *             print (">>>> I could not figure this out: {!r}, stuck at {!r}".format(keyseq, word))
  *             raise e             # <<<<<<<<<<<<<<
@@ -16023,12 +15569,12 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
  *         return word
  */
       __Pyx_Raise(__pyx_v_e, 0, 0, 0);
-      __PYX_ERR(0, 652, __pyx_L6_except_error)
+      __PYX_ERR(0, 654, __pyx_L6_except_error)
     }
     goto __pyx_L6_except_error;
     __pyx_L6_except_error:;
 
-    /* "word2keypress/_keyboard.pyx":643
+    /* "word2keypress/_keyboard.pyx":645
  *             word += caps_key
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -16044,15 +15590,15 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
     __pyx_L11_try_end:;
   }
 
-  /* "word2keypress/_keyboard.pyx":653
+  /* "word2keypress/_keyboard.pyx":655
  *             print (">>>> I could not figure this out: {!r}, stuck at {!r}".format(keyseq, word))
  *             raise e
  *         word = word.strip(shift_key).strip(caps_key)             # <<<<<<<<<<<<<<
  *         return word
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_word, __pyx_n_s_strip); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 653, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_word, __pyx_n_s_strip); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 655, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 653, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_shift_key); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 655, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_2 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
@@ -16065,25 +15611,25 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 653, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 655, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 653, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 655, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
     __Pyx_GIVEREF(__pyx_t_8);
     PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_8);
     __pyx_t_8 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 653, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 655, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_strip); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 653, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_strip); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 655, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 653, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_cur_scope->__pyx_v_caps_key); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 655, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_5 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_7))) {
@@ -16096,17 +15642,17 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 653, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 655, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_10);
   } else {
-    __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 653, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(1+1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 655, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_8, 0+1, __pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 653, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_8, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 655, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   }
@@ -16114,7 +15660,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
   __Pyx_DECREF_SET(__pyx_v_word, __pyx_t_10);
   __pyx_t_10 = 0;
 
-  /* "word2keypress/_keyboard.pyx":654
+  /* "word2keypress/_keyboard.pyx":656
  *             raise e
  *         word = word.strip(shift_key).strip(caps_key)
  *         return word             # <<<<<<<<<<<<<<
@@ -16124,7 +15670,7 @@ static PyObject *__pyx_pf_13word2keypress_9_keyboard_8Keyboard_39keyseq_to_word_
   __pyx_r = __pyx_v_word;
   goto __pyx_L0;
 
-  /* "word2keypress/_keyboard.pyx":616
+  /* "word2keypress/_keyboard.pyx":618
  * 
  * 
  *     def keyseq_to_word_slow(self, char[] keyseq):             # <<<<<<<<<<<<<<
@@ -17007,7 +16553,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __
  * 
  *         if itemsize <= 0:
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__31, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 131, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__30, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -17039,7 +16585,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __
  * 
  *         if not isinstance(format, bytes):
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__32, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 134, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__31, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 134, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -17074,7 +16620,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __
  */
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_format, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__33, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 137, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__32, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF_SET(__pyx_v_format, __pyx_t_5);
@@ -17150,7 +16696,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __
  * 
  * 
  */
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__34, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 146, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__33, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_Raise(__pyx_t_5, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -17434,7 +16980,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __
  * 
  *             if self.dtype_is_object:
  */
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__35, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 174, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__34, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 174, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_Raise(__pyx_t_5, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -17675,7 +17221,7 @@ static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(stru
  *         info.buf = self.data
  *         info.len = self.len
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__36, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 190, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__35, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 190, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -20701,7 +20247,7 @@ static PyObject *__pyx_memoryview_convert_item_to_object(struct __pyx_memoryview
  *         else:
  *             if len(self.view.format) == 1:
  */
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__37, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 484, __pyx_L5_except_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__36, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 484, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_Raise(__pyx_t_6, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -21553,7 +21099,7 @@ static PyObject *__pyx_pf_15View_dot_MemoryView_10memoryview_7strides___get__(st
  * 
  *         return tuple([stride for stride in self.view.strides[:self.view.ndim]])
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__38, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 556, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__37, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 556, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -21670,7 +21216,7 @@ static PyObject *__pyx_pf_15View_dot_MemoryView_10memoryview_10suboffsets___get_
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->view.ndim); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 563, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyNumber_Multiply(__pyx_tuple__39, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 563, __pyx_L1_error)
+    __pyx_t_3 = PyNumber_Multiply(__pyx_tuple__38, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 563, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_r = __pyx_t_3;
@@ -23022,9 +22568,9 @@ static PyObject *_unellipsify(PyObject *__pyx_v_index, int __pyx_v_ndim) {
         __Pyx_GOTREF(__pyx_t_7);
         { Py_ssize_t __pyx_temp;
           for (__pyx_temp=0; __pyx_temp < ((__pyx_v_ndim - __pyx_t_8) + 1); __pyx_temp++) {
-            __Pyx_INCREF(__pyx_slice__40);
-            __Pyx_GIVEREF(__pyx_slice__40);
-            PyList_SET_ITEM(__pyx_t_7, __pyx_temp, __pyx_slice__40);
+            __Pyx_INCREF(__pyx_slice__39);
+            __Pyx_GIVEREF(__pyx_slice__39);
+            PyList_SET_ITEM(__pyx_t_7, __pyx_temp, __pyx_slice__39);
           }
         }
         __pyx_t_9 = __Pyx_PyList_Extend(__pyx_v_result, __pyx_t_7); if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(2, 668, __pyx_L1_error)
@@ -23057,7 +22603,7 @@ static PyObject *_unellipsify(PyObject *__pyx_v_index, int __pyx_v_ndim) {
  *         else:
  */
       /*else*/ {
-        __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_result, __pyx_slice__41); if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(2, 671, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_result, __pyx_slice__40); if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(2, 671, __pyx_L1_error)
       }
       __pyx_L7:;
 
@@ -23202,9 +22748,9 @@ static PyObject *_unellipsify(PyObject *__pyx_v_index, int __pyx_v_ndim) {
     __Pyx_GOTREF(__pyx_t_3);
     { Py_ssize_t __pyx_temp;
       for (__pyx_temp=0; __pyx_temp < __pyx_v_nslices; __pyx_temp++) {
-        __Pyx_INCREF(__pyx_slice__42);
-        __Pyx_GIVEREF(__pyx_slice__42);
-        PyList_SET_ITEM(__pyx_t_3, __pyx_temp, __pyx_slice__42);
+        __Pyx_INCREF(__pyx_slice__41);
+        __Pyx_GIVEREF(__pyx_slice__41);
+        PyList_SET_ITEM(__pyx_t_3, __pyx_temp, __pyx_slice__41);
       }
     }
     __pyx_t_9 = __Pyx_PyList_Extend(__pyx_v_result, __pyx_t_3); if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(2, 682, __pyx_L1_error)
@@ -23331,7 +22877,7 @@ static PyObject *assert_direct_dimensions(Py_ssize_t *__pyx_v_suboffsets, int __
  * 
  * 
  */
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__43, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 689, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__42, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 689, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_Raise(__pyx_t_5, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -28721,6 +28267,7 @@ static PyObject *__pyx_tp_new_13word2keypress_9_keyboard_Keyboard(PyTypeObject *
   p->_keyboard = ((PyObject*)Py_None); Py_INCREF(Py_None);
   p->_loc_map = ((PyObject*)Py_None); Py_INCREF(Py_None);
   p->_adj_map = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->_printables = ((PyObject*)Py_None); Py_INCREF(Py_None);
   return o;
 }
 
@@ -28736,6 +28283,7 @@ static void __pyx_tp_dealloc_13word2keypress_9_keyboard_Keyboard(PyObject *o) {
   Py_CLEAR(p->_keyboard);
   Py_CLEAR(p->_loc_map);
   Py_CLEAR(p->_adj_map);
+  Py_CLEAR(p->_printables);
   (*Py_TYPE(o)->tp_free)(o);
 }
 
@@ -28751,6 +28299,9 @@ static int __pyx_tp_traverse_13word2keypress_9_keyboard_Keyboard(PyObject *o, vi
   if (p->_adj_map) {
     e = (*v)(p->_adj_map, a); if (e) return e;
   }
+  if (p->_printables) {
+    e = (*v)(p->_printables, a); if (e) return e;
+  }
   return 0;
 }
 
@@ -28765,6 +28316,9 @@ static int __pyx_tp_clear_13word2keypress_9_keyboard_Keyboard(PyObject *o) {
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->_adj_map);
   p->_adj_map = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->_printables);
+  p->_printables = ((PyObject*)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -29294,14 +28848,14 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_3_g
   #endif
 };
 
-static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys[8];
-static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys = 0;
+static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits[8];
+static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits = 0;
 
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys)))) {
-    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys];
-    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys));
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits)))) {
+    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits];
+    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else {
@@ -29311,216 +28865,8 @@ static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_4__k
   return o;
 }
 
-static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys(PyObject *o) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *)o;
-  PyObject_GC_UnTrack(o);
-  Py_CLEAR(p->__pyx_v_self);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys)))) {
-    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *)o);
-  } else {
-    (*Py_TYPE(o)->tp_free)(o);
-  }
-}
-
-static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys(PyObject *o, visitproc v, void *a) {
-  int e;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *)o;
-  if (p->__pyx_v_self) {
-    e = (*v)(((PyObject*)p->__pyx_v_self), a); if (e) return e;
-  }
-  return 0;
-}
-
-static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys(PyObject *o) {
-  PyObject* tmp;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *)o;
-  tmp = ((PyObject*)p->__pyx_v_self);
-  p->__pyx_v_self = ((struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *)Py_None); Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  return 0;
-}
-
-static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys = {
-  PyVarObject_HEAD_INIT(0, 0)
-  "word2keypress._keyboard.__pyx_scope_struct_4__keyboard_nearby_keys", /*tp_name*/
-  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys, /*tp_dealloc*/
-  0, /*tp_print*/
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
-  #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
-  #endif
-  #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
-  #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys, /*tp_traverse*/
-  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
-  0, /*tp_dictoffset*/
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
-  #if PY_VERSION_HEX >= 0x030400a1
-  0, /*tp_finalize*/
-  #endif
-};
-
-static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr[8];
-static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr = 0;
-
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr)))) {
-    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr];
-    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr));
-    (void) PyObject_INIT(o, t);
-    PyObject_GC_Track(o);
-  } else {
-    o = (*t->tp_alloc)(t, 0);
-    if (unlikely(!o)) return 0;
-  }
-  return o;
-}
-
-static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr(PyObject *o) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *)o;
-  PyObject_GC_UnTrack(o);
-  Py_CLEAR(p->__pyx_outer_scope);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr)))) {
-    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *)o);
-  } else {
-    (*Py_TYPE(o)->tp_free)(o);
-  }
-}
-
-static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr(PyObject *o, visitproc v, void *a) {
-  int e;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *)o;
-  if (p->__pyx_outer_scope) {
-    e = (*v)(((PyObject*)p->__pyx_outer_scope), a); if (e) return e;
-  }
-  return 0;
-}
-
-static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr(PyObject *o) {
-  PyObject* tmp;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr *)o;
-  tmp = ((PyObject*)p->__pyx_outer_scope);
-  p->__pyx_outer_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys *)Py_None); Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  return 0;
-}
-
-static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr = {
-  PyVarObject_HEAD_INIT(0, 0)
-  "word2keypress._keyboard.__pyx_scope_struct_5_genexpr", /*tp_name*/
-  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr, /*tp_dealloc*/
-  0, /*tp_print*/
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
-  #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
-  #endif
-  #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
-  #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr, /*tp_traverse*/
-  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
-  0, /*tp_dictoffset*/
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
-  #if PY_VERSION_HEX >= 0x030400a1
-  0, /*tp_finalize*/
-  #endif
-};
-
-static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits[8];
-static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits = 0;
-
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits)))) {
-    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits];
-    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits));
-    (void) PyObject_INIT(o, t);
-    PyObject_GC_Track(o);
-  } else {
-    o = (*t->tp_alloc)(t, 0);
-    if (unlikely(!o)) return 0;
-  }
-  return o;
-}
-
-static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits(PyObject *o) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *)o;
+static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits(PyObject *o) {
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *)o;
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->__pyx_v__insert_keys);
   Py_CLEAR(p->__pyx_v__replace_keys);
@@ -29534,16 +28880,16 @@ static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_6_key
   Py_CLEAR(p->__pyx_v_spcl_keys);
   Py_CLEAR(p->__pyx_v_sub_words);
   Py_CLEAR(p->__pyx_t_0);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits)))) {
-    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *)o);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits)))) {
+    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *)o);
   } else {
     (*Py_TYPE(o)->tp_free)(o);
   }
 }
 
-static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *)o;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *)o;
   if (p->__pyx_v__insert_keys) {
     e = (*v)(p->__pyx_v__insert_keys, a); if (e) return e;
   }
@@ -29577,9 +28923,9 @@ static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_6_key
   return 0;
 }
 
-static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits(PyObject *o) {
+static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits *)o;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits *)o;
   tmp = ((PyObject*)p->__pyx_v__insert_keys);
   p->__pyx_v__insert_keys = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
@@ -29613,12 +28959,12 @@ static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq
   return 0;
 }
 
-static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits = {
+static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits = {
   PyVarObject_HEAD_INIT(0, 0)
-  "word2keypress._keyboard.__pyx_scope_struct_6_keyseq_insert_edits", /*tp_name*/
-  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits), /*tp_basicsize*/
+  "word2keypress._keyboard.__pyx_scope_struct_4_keyseq_insert_edits", /*tp_name*/
+  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits, /*tp_dealloc*/
+  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -29640,8 +28986,8 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_k
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits, /*tp_traverse*/
-  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits, /*tp_clear*/
+  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits, /*tp_traverse*/
+  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -29656,7 +29002,7 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_k
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits, /*tp_new*/
+  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -29671,14 +29017,14 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_k
   #endif
 };
 
-static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow[8];
-static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow = 0;
+static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow[8];
+static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow = 0;
 
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow)))) {
-    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow];
-    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow));
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow)))) {
+    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow];
+    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else {
@@ -29688,41 +29034,41 @@ static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_7_ke
   return o;
 }
 
-static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow(PyObject *o) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *)o;
+static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow(PyObject *o) {
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *)o;
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->__pyx_v_self);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow)))) {
-    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *)o);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow)))) {
+    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *)o);
   } else {
     (*Py_TYPE(o)->tp_free)(o);
   }
 }
 
-static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *)o;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *)o;
   if (p->__pyx_v_self) {
     e = (*v)(((PyObject*)p->__pyx_v_self), a); if (e) return e;
   }
   return 0;
 }
 
-static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow(PyObject *o) {
+static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *)o;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
   p->__pyx_v_self = ((struct __pyx_obj_13word2keypress_9_keyboard_Keyboard *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
 
-static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow = {
+static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow = {
   PyVarObject_HEAD_INIT(0, 0)
-  "word2keypress._keyboard.__pyx_scope_struct_7_keyseq_to_word_slow", /*tp_name*/
-  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow), /*tp_basicsize*/
+  "word2keypress._keyboard.__pyx_scope_struct_5_keyseq_to_word_slow", /*tp_name*/
+  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow, /*tp_dealloc*/
+  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -29744,8 +29090,8 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_k
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow, /*tp_traverse*/
-  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow, /*tp_clear*/
+  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow, /*tp_traverse*/
+  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -29760,7 +29106,7 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_k
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow, /*tp_new*/
+  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -29775,14 +29121,14 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_k
   #endif
 };
 
-static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change[8];
-static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change = 0;
+static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change[8];
+static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change = 0;
 
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
   PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change)))) {
-    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change];
-    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change));
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change)))) {
+    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change];
+    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change));
     (void) PyObject_INIT(o, t);
     PyObject_GC_Track(o);
   } else {
@@ -29792,21 +29138,21 @@ static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_8_ca
   return o;
 }
 
-static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change(PyObject *o) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *)o;
+static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change(PyObject *o) {
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *)o;
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->__pyx_outer_scope);
   Py_CLEAR(p->__pyx_v_m);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change)))) {
-    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *)o);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change)))) {
+    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *)o);
   } else {
     (*Py_TYPE(o)->tp_free)(o);
   }
 }
 
-static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *)o;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *)o;
   if (p->__pyx_outer_scope) {
     e = (*v)(((PyObject*)p->__pyx_outer_scope), a); if (e) return e;
   }
@@ -29816,11 +29162,11 @@ static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_8_cap
   return 0;
 }
 
-static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change(PyObject *o) {
+static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *)o;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *)o;
   tmp = ((PyObject*)p->__pyx_outer_scope);
-  p->__pyx_outer_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *)Py_None); Py_INCREF(Py_None);
+  p->__pyx_outer_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_v_m);
   p->__pyx_v_m = Py_None; Py_INCREF(Py_None);
@@ -29828,12 +29174,12 @@ static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_c
   return 0;
 }
 
-static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change = {
+static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change = {
   PyVarObject_HEAD_INIT(0, 0)
-  "word2keypress._keyboard.__pyx_scope_struct_8_caps_change", /*tp_name*/
-  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change), /*tp_basicsize*/
+  "word2keypress._keyboard.__pyx_scope_struct_6_caps_change", /*tp_name*/
+  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change, /*tp_dealloc*/
+  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -29855,8 +29201,8 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_c
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change, /*tp_traverse*/
-  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change, /*tp_clear*/
+  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change, /*tp_traverse*/
+  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
@@ -29871,7 +29217,236 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_c
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change, /*tp_new*/
+  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
+static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr[8];
+static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr = 0;
+
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr)))) {
+    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr];
+    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr(PyObject *o) {
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_outer_scope);
+  Py_CLEAR(p->__pyx_v_c);
+  Py_CLEAR(p->__pyx_t_0);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr)))) {
+    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *)o;
+  if (p->__pyx_outer_scope) {
+    e = (*v)(((PyObject*)p->__pyx_outer_scope), a); if (e) return e;
+  }
+  if (p->__pyx_v_c) {
+    e = (*v)(p->__pyx_v_c, a); if (e) return e;
+  }
+  if (p->__pyx_t_0) {
+    e = (*v)(p->__pyx_t_0, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr *)o;
+  tmp = ((PyObject*)p->__pyx_outer_scope);
+  p->__pyx_outer_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_c);
+  p->__pyx_v_c = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_t_0);
+  p->__pyx_t_0 = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "word2keypress._keyboard.__pyx_scope_struct_7_genexpr", /*tp_name*/
+  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr, /*tp_traverse*/
+  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
+static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change[8];
+static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change = 0;
+
+static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change)))) {
+    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change];
+    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change(PyObject *o) {
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_outer_scope);
+  Py_CLEAR(p->__pyx_v_m);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change)))) {
+    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *)o;
+  if (p->__pyx_outer_scope) {
+    e = (*v)(((PyObject*)p->__pyx_outer_scope), a); if (e) return e;
+  }
+  if (p->__pyx_v_m) {
+    e = (*v)(p->__pyx_v_m, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *)o;
+  tmp = ((PyObject*)p->__pyx_outer_scope);
+  p->__pyx_outer_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_m);
+  p->__pyx_v_m = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "word2keypress._keyboard.__pyx_scope_struct_8_shift_change", /*tp_name*/
+  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change, /*tp_traverse*/
+  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -29935,7 +29510,7 @@ static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_9_genexp
   PyObject* tmp;
   struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr *)o;
   tmp = ((PyObject*)p->__pyx_outer_scope);
-  p->__pyx_outer_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change *)Py_None); Py_INCREF(Py_None);
+  p->__pyx_outer_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_v_c);
   p->__pyx_v_c = Py_None; Py_INCREF(Py_None);
@@ -29990,235 +29565,6 @@ static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_9_g
   0, /*tp_init*/
   0, /*tp_alloc*/
   __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
-  #if PY_VERSION_HEX >= 0x030400a1
-  0, /*tp_finalize*/
-  #endif
-};
-
-static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change[8];
-static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change = 0;
-
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change)))) {
-    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change];
-    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change));
-    (void) PyObject_INIT(o, t);
-    PyObject_GC_Track(o);
-  } else {
-    o = (*t->tp_alloc)(t, 0);
-    if (unlikely(!o)) return 0;
-  }
-  return o;
-}
-
-static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change(PyObject *o) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *)o;
-  PyObject_GC_UnTrack(o);
-  Py_CLEAR(p->__pyx_outer_scope);
-  Py_CLEAR(p->__pyx_v_m);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change)))) {
-    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *)o);
-  } else {
-    (*Py_TYPE(o)->tp_free)(o);
-  }
-}
-
-static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change(PyObject *o, visitproc v, void *a) {
-  int e;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *)o;
-  if (p->__pyx_outer_scope) {
-    e = (*v)(((PyObject*)p->__pyx_outer_scope), a); if (e) return e;
-  }
-  if (p->__pyx_v_m) {
-    e = (*v)(p->__pyx_v_m, a); if (e) return e;
-  }
-  return 0;
-}
-
-static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change(PyObject *o) {
-  PyObject* tmp;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *)o;
-  tmp = ((PyObject*)p->__pyx_outer_scope);
-  p->__pyx_outer_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow *)Py_None); Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  tmp = ((PyObject*)p->__pyx_v_m);
-  p->__pyx_v_m = Py_None; Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  return 0;
-}
-
-static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change = {
-  PyVarObject_HEAD_INIT(0, 0)
-  "word2keypress._keyboard.__pyx_scope_struct_10_shift_change", /*tp_name*/
-  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change, /*tp_dealloc*/
-  0, /*tp_print*/
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
-  #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
-  #endif
-  #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
-  #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change, /*tp_traverse*/
-  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
-  0, /*tp_dictoffset*/
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
-  #if PY_VERSION_HEX >= 0x030400a1
-  0, /*tp_finalize*/
-  #endif
-};
-
-static struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr[8];
-static int __pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr = 0;
-
-static PyObject *__pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  PyObject *o;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr)))) {
-    o = (PyObject*)__pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr[--__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr];
-    memset(o, 0, sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr));
-    (void) PyObject_INIT(o, t);
-    PyObject_GC_Track(o);
-  } else {
-    o = (*t->tp_alloc)(t, 0);
-    if (unlikely(!o)) return 0;
-  }
-  return o;
-}
-
-static void __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr(PyObject *o) {
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *)o;
-  PyObject_GC_UnTrack(o);
-  Py_CLEAR(p->__pyx_outer_scope);
-  Py_CLEAR(p->__pyx_v_c);
-  Py_CLEAR(p->__pyx_t_0);
-  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr)))) {
-    __pyx_freelist_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr[__pyx_freecount_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr++] = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *)o);
-  } else {
-    (*Py_TYPE(o)->tp_free)(o);
-  }
-}
-
-static int __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr(PyObject *o, visitproc v, void *a) {
-  int e;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *)o;
-  if (p->__pyx_outer_scope) {
-    e = (*v)(((PyObject*)p->__pyx_outer_scope), a); if (e) return e;
-  }
-  if (p->__pyx_v_c) {
-    e = (*v)(p->__pyx_v_c, a); if (e) return e;
-  }
-  if (p->__pyx_t_0) {
-    e = (*v)(p->__pyx_t_0, a); if (e) return e;
-  }
-  return 0;
-}
-
-static int __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr(PyObject *o) {
-  PyObject* tmp;
-  struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *p = (struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr *)o;
-  tmp = ((PyObject*)p->__pyx_outer_scope);
-  p->__pyx_outer_scope = ((struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change *)Py_None); Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  tmp = ((PyObject*)p->__pyx_v_c);
-  p->__pyx_v_c = Py_None; Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  tmp = ((PyObject*)p->__pyx_t_0);
-  p->__pyx_t_0 = Py_None; Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  return 0;
-}
-
-static PyTypeObject __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr = {
-  PyVarObject_HEAD_INIT(0, 0)
-  "word2keypress._keyboard.__pyx_scope_struct_11_genexpr", /*tp_name*/
-  sizeof(struct __pyx_obj_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr, /*tp_dealloc*/
-  0, /*tp_print*/
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
-  #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
-  #endif
-  #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
-  #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
-  0, /*tp_doc*/
-  __pyx_tp_traverse_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr, /*tp_traverse*/
-  __pyx_tp_clear_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  0, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
-  0, /*tp_dictoffset*/
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -30958,8 +30304,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Indirect_dimensions_not_supporte, __pyx_k_Indirect_dimensions_not_supporte, sizeof(__pyx_k_Indirect_dimensions_not_supporte), 0, 0, 1, 0},
   {&__pyx_kp_s_Invalid_mode_expected_c_or_fortr, __pyx_k_Invalid_mode_expected_c_or_fortr, sizeof(__pyx_k_Invalid_mode_expected_c_or_fortr), 0, 0, 1, 0},
   {&__pyx_kp_s_Invalid_shape_in_axis_d_d, __pyx_k_Invalid_shape_in_axis_d_d, sizeof(__pyx_k_Invalid_shape_in_axis_d_d), 0, 0, 1, 0},
-  {&__pyx_n_s_Keyboard__keyboard_nearby_keys_l, __pyx_k_Keyboard__keyboard_nearby_keys_l, sizeof(__pyx_k_Keyboard__keyboard_nearby_keys_l), 0, 0, 1, 1},
-  {&__pyx_n_s_Keyboard__keyboard_nearby_keys_l_2, __pyx_k_Keyboard__keyboard_nearby_keys_l_2, sizeof(__pyx_k_Keyboard__keyboard_nearby_keys_l_2), 0, 0, 1, 1},
   {&__pyx_n_s_Keyboard_keyseq_insert_edits, __pyx_k_Keyboard_keyseq_insert_edits, sizeof(__pyx_k_Keyboard_keyseq_insert_edits), 0, 0, 1, 1},
   {&__pyx_n_s_MOBILE_ANDROID, __pyx_k_MOBILE_ANDROID, sizeof(__pyx_k_MOBILE_ANDROID), 0, 0, 1, 1},
   {&__pyx_n_s_MemoryError, __pyx_k_MemoryError, sizeof(__pyx_k_MemoryError), 0, 0, 1, 1},
@@ -30980,24 +30324,26 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Returning_r, __pyx_k_Returning_r, sizeof(__pyx_k_Returning_r), 0, 0, 1, 0},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_kp_s_Unable_to_convert_item_to_object, __pyx_k_Unable_to_convert_item_to_object, sizeof(__pyx_k_Unable_to_convert_item_to_object), 0, 0, 1, 0},
-  {&__pyx_kp_s_Users_rahul_word2keypress_word2, __pyx_k_Users_rahul_word2keypress_word2, sizeof(__pyx_k_Users_rahul_word2keypress_word2), 0, 0, 1, 0},
+  {&__pyx_kp_s_Users_rahul_word2keypress_src_w, __pyx_k_Users_rahul_word2keypress_src_w, sizeof(__pyx_k_Users_rahul_word2keypress_src_w), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_kp_b_ZXCVBNM, __pyx_k_ZXCVBNM, sizeof(__pyx_k_ZXCVBNM), 0, 0, 0, 0},
   {&__pyx_n_b_ZXCVBNM_2, __pyx_k_ZXCVBNM_2, sizeof(__pyx_k_ZXCVBNM_2), 0, 0, 0, 1},
-  {&__pyx_kp_s__24, __pyx_k__24, sizeof(__pyx_k__24), 0, 0, 1, 0},
+  {&__pyx_kp_s__23, __pyx_k__23, sizeof(__pyx_k__23), 0, 0, 1, 0},
+  {&__pyx_kp_s__4, __pyx_k__4, sizeof(__pyx_k__4), 0, 0, 1, 0},
+  {&__pyx_kp_b__43, __pyx_k__43, sizeof(__pyx_k__43), 0, 0, 0, 0},
   {&__pyx_kp_b__44, __pyx_k__44, sizeof(__pyx_k__44), 0, 0, 0, 0},
   {&__pyx_kp_b__45, __pyx_k__45, sizeof(__pyx_k__45), 0, 0, 0, 0},
   {&__pyx_kp_b__46, __pyx_k__46, sizeof(__pyx_k__46), 0, 0, 0, 0},
   {&__pyx_kp_b__47, __pyx_k__47, sizeof(__pyx_k__47), 0, 0, 0, 0},
   {&__pyx_kp_b__48, __pyx_k__48, sizeof(__pyx_k__48), 0, 0, 0, 0},
   {&__pyx_kp_b__49, __pyx_k__49, sizeof(__pyx_k__49), 0, 0, 0, 0},
-  {&__pyx_kp_s__5, __pyx_k__5, sizeof(__pyx_k__5), 0, 0, 1, 0},
   {&__pyx_kp_b__50, __pyx_k__50, sizeof(__pyx_k__50), 0, 0, 0, 0},
   {&__pyx_kp_b__51, __pyx_k__51, sizeof(__pyx_k__51), 0, 0, 0, 0},
   {&__pyx_kp_b__52, __pyx_k__52, sizeof(__pyx_k__52), 0, 0, 0, 0},
   {&__pyx_kp_b__53, __pyx_k__53, sizeof(__pyx_k__53), 0, 0, 0, 0},
-  {&__pyx_kp_b__54, __pyx_k__54, sizeof(__pyx_k__54), 0, 0, 0, 0},
   {&__pyx_n_s_add_shift, __pyx_k_add_shift, sizeof(__pyx_k_add_shift), 0, 0, 1, 1},
+  {&__pyx_n_s_adj_graph, __pyx_k_adj_graph, sizeof(__pyx_k_adj_graph), 0, 0, 1, 1},
+  {&__pyx_n_s_adjacency_graphs, __pyx_k_adjacency_graphs, sizeof(__pyx_k_adjacency_graphs), 0, 0, 1, 1},
   {&__pyx_n_s_all, __pyx_k_all, sizeof(__pyx_k_all), 0, 0, 1, 1},
   {&__pyx_n_s_allocate_buffer, __pyx_k_allocate_buffer, sizeof(__pyx_k_allocate_buffer), 0, 0, 1, 1},
   {&__pyx_kp_b_aoeuidhtns, __pyx_k_aoeuidhtns, sizeof(__pyx_k_aoeuidhtns), 0, 0, 0, 0},
@@ -31035,7 +30381,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_escape, __pyx_k_escape, sizeof(__pyx_k_escape), 0, 0, 1, 1},
   {&__pyx_n_s_extend, __pyx_k_extend, sizeof(__pyx_k_extend), 0, 0, 1, 1},
   {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
-  {&__pyx_n_s_filter, __pyx_k_filter, sizeof(__pyx_k_filter), 0, 0, 1, 1},
   {&__pyx_n_s_findall, __pyx_k_findall, sizeof(__pyx_k_findall), 0, 0, 1, 1},
   {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
   {&__pyx_n_s_format, __pyx_k_format, sizeof(__pyx_k_format), 0, 0, 1, 1},
@@ -31060,6 +30405,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_key_o, __pyx_k_key_o, sizeof(__pyx_k_key_o), 0, 0, 1, 1},
   {&__pyx_n_s_key_t, __pyx_k_key_t, sizeof(__pyx_k_key_t), 0, 0, 1, 1},
   {&__pyx_n_s_keyboard_dist, __pyx_k_keyboard_dist, sizeof(__pyx_k_keyboard_dist), 0, 0, 1, 1},
+  {&__pyx_n_s_keyboard_nearby_chars, __pyx_k_keyboard_nearby_chars, sizeof(__pyx_k_keyboard_nearby_chars), 0, 0, 1, 1},
   {&__pyx_n_s_keyboard_nearby_chars_locals_gen, __pyx_k_keyboard_nearby_chars_locals_gen, sizeof(__pyx_k_keyboard_nearby_chars_locals_gen), 0, 0, 1, 1},
   {&__pyx_n_s_keyseq, __pyx_k_keyseq, sizeof(__pyx_k_keyseq), 0, 0, 1, 1},
   {&__pyx_n_s_keyseq_insert_edits, __pyx_k_keyseq_insert_edits, sizeof(__pyx_k_keyseq_insert_edits), 0, 0, 1, 1},
@@ -31071,7 +30417,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_keyseq_to_word_slow_locals_shift_2, __pyx_k_keyseq_to_word_slow_locals_shift_2, sizeof(__pyx_k_keyseq_to_word_slow_locals_shift_2), 0, 0, 1, 1},
   {&__pyx_n_s_lambda, __pyx_k_lambda, sizeof(__pyx_k_lambda), 0, 0, 1, 1},
   {&__pyx_n_s_layout_matrix, __pyx_k_layout_matrix, sizeof(__pyx_k_layout_matrix), 0, 0, 1, 1},
-  {&__pyx_n_s_load, __pyx_k_load, sizeof(__pyx_k_load), 0, 0, 1, 1},
   {&__pyx_n_s_loc, __pyx_k_loc, sizeof(__pyx_k_loc), 0, 0, 1, 1},
   {&__pyx_n_s_loc_locals_genexpr, __pyx_k_loc_locals_genexpr, sizeof(__pyx_k_loc_locals_genexpr), 0, 0, 1, 1},
   {&__pyx_n_s_m, __pyx_k_m, sizeof(__pyx_k_m), 0, 0, 1, 1},
@@ -31084,12 +30429,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
   {&__pyx_n_s_ndim, __pyx_k_ndim, sizeof(__pyx_k_ndim), 0, 0, 1, 1},
   {&__pyx_n_s_obj, __pyx_k_obj, sizeof(__pyx_k_obj), 0, 0, 1, 1},
-  {&__pyx_n_s_open, __pyx_k_open, sizeof(__pyx_k_open), 0, 0, 1, 1},
   {&__pyx_n_s_os, __pyx_k_os, sizeof(__pyx_k_os), 0, 0, 1, 1},
   {&__pyx_n_s_pack, __pyx_k_pack, sizeof(__pyx_k_pack), 0, 0, 1, 1},
   {&__pyx_n_s_part_keyseq_string, __pyx_k_part_keyseq_string, sizeof(__pyx_k_part_keyseq_string), 0, 0, 1, 1},
   {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
-  {&__pyx_n_s_printables, __pyx_k_printables, sizeof(__pyx_k_printables), 0, 0, 1, 1},
   {&__pyx_kp_b_pyfgcrl, __pyx_k_pyfgcrl, sizeof(__pyx_k_pyfgcrl), 0, 0, 0, 0},
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
@@ -31138,7 +30481,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_w2, __pyx_k_w2, sizeof(__pyx_k_w2), 0, 0, 1, 1},
   {&__pyx_n_s_word, __pyx_k_word, sizeof(__pyx_k_word), 0, 0, 1, 1},
   {&__pyx_n_s_word2keypress__keyboard, __pyx_k_word2keypress__keyboard, sizeof(__pyx_k_word2keypress__keyboard), 0, 0, 1, 1},
-  {&__pyx_kp_s_word2keypress_adjacency_graphs_j, __pyx_k_word2keypress_adjacency_graphs_j, sizeof(__pyx_k_word2keypress_adjacency_graphs_j), 0, 0, 1, 0},
   {&__pyx_n_s_xrange, __pyx_k_xrange, sizeof(__pyx_k_xrange), 0, 0, 1, 1},
   {&__pyx_kp_b_zxcvbnm, __pyx_k_zxcvbnm, sizeof(__pyx_k_zxcvbnm), 0, 0, 0, 0},
   {&__pyx_n_b_zxcvbnm_2, __pyx_k_zxcvbnm_2, sizeof(__pyx_k_zxcvbnm_2), 0, 0, 0, 1},
@@ -31150,17 +30492,15 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_map = __Pyx_GetBuiltinName(__pyx_n_s_map); if (!__pyx_builtin_map) __PYX_ERR(0, 144, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(0, 105, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 109, __pyx_L1_error)
-  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 156, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 223, __pyx_L1_error)
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 218, __pyx_L1_error)
-  __pyx_builtin_filter = __Pyx_GetBuiltinName(__pyx_n_s_filter); if (!__pyx_builtin_filter) __PYX_ERR(0, 317, __pyx_L1_error)
   #if PY_MAJOR_VERSION >= 3
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_xrange) __PYX_ERR(0, 349, __pyx_L1_error)
+  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_xrange) __PYX_ERR(0, 351, __pyx_L1_error)
   #else
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) __PYX_ERR(0, 349, __pyx_L1_error)
+  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) __PYX_ERR(0, 351, __pyx_L1_error)
   #endif
-  __pyx_builtin_AssertionError = __Pyx_GetBuiltinName(__pyx_n_s_AssertionError); if (!__pyx_builtin_AssertionError) __PYX_ERR(0, 353, __pyx_L1_error)
-  __pyx_builtin_Exception = __Pyx_GetBuiltinName(__pyx_n_s_Exception); if (!__pyx_builtin_Exception) __PYX_ERR(0, 650, __pyx_L1_error)
+  __pyx_builtin_AssertionError = __Pyx_GetBuiltinName(__pyx_n_s_AssertionError); if (!__pyx_builtin_AssertionError) __PYX_ERR(0, 355, __pyx_L1_error)
+  __pyx_builtin_Exception = __Pyx_GetBuiltinName(__pyx_n_s_Exception); if (!__pyx_builtin_Exception) __PYX_ERR(0, 652, __pyx_L1_error)
   __pyx_builtin_Ellipsis = __Pyx_GetBuiltinName(__pyx_n_s_Ellipsis); if (!__pyx_builtin_Ellipsis) __PYX_ERR(2, 396, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(2, 425, __pyx_L1_error)
   __pyx_builtin_id = __Pyx_GetBuiltinName(__pyx_n_s_id); if (!__pyx_builtin_id) __PYX_ERR(2, 599, __pyx_L1_error)
@@ -31174,17 +30514,6 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "word2keypress/_keyboard.pyx":156
- *     cdef dict _loc_map, _adj_map
- *     def __init__(self,  str _type='qwerty', float shift_discount=0.8):
- *         self._adj_map = json.load(open('word2keypress/adjacency_graphs.json'))             # <<<<<<<<<<<<<<
- *         assert _type in self._adj_map
- *         self._keyboard_type = _type
- */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_word2keypress_adjacency_graphs_j); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 156, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
-
   /* "word2keypress/_keyboard.pyx":220
  *                              for i, row in enumerate(KM)
  *                              for j, ch in enumerate(row)}
@@ -31192,9 +30521,9 @@ static int __Pyx_InitCachedConstants(void) {
  *             self._printables = set(chr(ch) for ch in self._loc_map)
  *         if _char not in self._loc_map:
  */
-  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_int_3, __pyx_int_0, __pyx_int_0); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 220, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__3);
-  __Pyx_GIVEREF(__pyx_tuple__3);
+  __pyx_tuple__2 = PyTuple_Pack(3, __pyx_int_3, __pyx_int_0, __pyx_int_0); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
 
   /* "word2keypress/_keyboard.pyx":226
  *                              .format(repr(chr(_char))))
@@ -31203,199 +30532,199 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     cdef char loc2char(self, int r, int c):
  */
-  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_int_neg_1, __pyx_int_neg_1, __pyx_int_neg_1); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 226, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_int_neg_1, __pyx_int_neg_1, __pyx_int_neg_1); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "word2keypress/_keyboard.pyx":384
+  /* "word2keypress/_keyboard.pyx":386
  *         m = re.match(r'.*?(?P<endshifts>({0}[a-z][^a-z{0}]*){{2,}}({0}.[^a-z]*)*)$'.format(shift_key), new_str)
  *         if m:
  *             s = m.group('endshifts')             # <<<<<<<<<<<<<<
  *             ns = caps_key + re.sub(r'{0}([a-z])'.format(shift_key), r'\1', s) + caps_key
  *             # print m.groups(), ns, s
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_n_s_endshifts); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 384, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_n_s_endshifts); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 386, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "word2keypress/_keyboard.pyx":445
+  /* "word2keypress/_keyboard.pyx":447
  *         cdef int n = len(keyseq)
  *         A = [[(), (), (), (), ()] for i in xrange(n+1)]
  *         A[0] = [('', False, False),             # <<<<<<<<<<<<<<
  *                 self.part_keyseq_string(keyseq, False, False),# FF
  *                 self.part_keyseq_string(keyseq, False, True), # FT
  */
-  __pyx_tuple__7 = PyTuple_Pack(3, __pyx_kp_s_, Py_False, Py_False); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 445, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_tuple__6 = PyTuple_Pack(3, __pyx_kp_s_, Py_False, Py_False); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 447, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "word2keypress/_keyboard.pyx":450
+  /* "word2keypress/_keyboard.pyx":452
  *                 self.part_keyseq_string(keyseq, True, False), # TF
  *                 self.part_keyseq_string(keyseq, True, True)]  # TT
  *         A[n] = [A[0][1], ('', False, False), ('', False, True), ('', True, False), ('', True, True)]             # <<<<<<<<<<<<<<
  *         cdef int j
  *         spcl_keys = (SHIFT_KEY, CAPS_KEY)
  */
-  __pyx_tuple__8 = PyTuple_Pack(3, __pyx_kp_s_, Py_False, Py_False); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(3, __pyx_kp_s_, Py_False, Py_False); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 452, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_tuple__8 = PyTuple_Pack(3, __pyx_kp_s_, Py_False, Py_True); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_tuple__9 = PyTuple_Pack(3, __pyx_kp_s_, Py_False, Py_True); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(3, __pyx_kp_s_, Py_True, Py_False); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_tuple__10 = PyTuple_Pack(3, __pyx_kp_s_, Py_True, Py_False); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(3, __pyx_kp_s_, Py_True, Py_True); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 452, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_kp_s_, Py_True, Py_True); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 450, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "word2keypress/_keyboard.pyx":464
+  /* "word2keypress/_keyboard.pyx":466
  *                 row[0] = (last_row[0][0], True, last_row[0][2])
  *                 # case 1: shift-caps = FF, remove the shift from next char
  *                 row[1] = (chr(nc) + last_row[1][0][1:], last_row[1][1], last_row[1][2])             # <<<<<<<<<<<<<<
  *                 # case 2: shift-caps = FT
  *                 row[2] = ((safe_chr(shifted_nc) if chr(nc).isalpha() else chr(nc)) + last_row[2][0][1:], last_row[2][1], last_row[2][2])
  */
-  __pyx_slice__12 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__12)) __PYX_ERR(0, 464, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__12);
-  __Pyx_GIVEREF(__pyx_slice__12);
+  __pyx_slice__11 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__11)) __PYX_ERR(0, 466, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__11);
+  __Pyx_GIVEREF(__pyx_slice__11);
 
-  /* "word2keypress/_keyboard.pyx":466
+  /* "word2keypress/_keyboard.pyx":468
  *                 row[1] = (chr(nc) + last_row[1][0][1:], last_row[1][1], last_row[1][2])
  *                 # case 2: shift-caps = FT
  *                 row[2] = ((safe_chr(shifted_nc) if chr(nc).isalpha() else chr(nc)) + last_row[2][0][1:], last_row[2][1], last_row[2][2])             # <<<<<<<<<<<<<<
  *                 # case 2: shift-caps = TF
  *                 row[3] = last_row[3]
  */
-  __pyx_slice__13 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__13)) __PYX_ERR(0, 466, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__13);
-  __Pyx_GIVEREF(__pyx_slice__13);
+  __pyx_slice__12 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__12)) __PYX_ERR(0, 468, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__12);
+  __Pyx_GIVEREF(__pyx_slice__12);
 
-  /* "word2keypress/_keyboard.pyx":490
+  /* "word2keypress/_keyboard.pyx":492
  *                     False, last_row[0][2]
  *                 )
  *                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF             # <<<<<<<<<<<<<<
  *                 row[2] = (last_row[2][0][1:], last_row[2][1], last_row[2][2]) # shift-caps = FT
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],
  */
-  __pyx_slice__14 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__14)) __PYX_ERR(0, 490, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__14);
-  __Pyx_GIVEREF(__pyx_slice__14);
+  __pyx_slice__13 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__13)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__13);
+  __Pyx_GIVEREF(__pyx_slice__13);
 
-  /* "word2keypress/_keyboard.pyx":491
+  /* "word2keypress/_keyboard.pyx":493
  *                 )
  *                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF
  *                 row[2] = (last_row[2][0][1:], last_row[2][1], last_row[2][2]) # shift-caps = FT             # <<<<<<<<<<<<<<
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF
  */
-  __pyx_slice__15 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__15)) __PYX_ERR(0, 491, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__15);
-  __Pyx_GIVEREF(__pyx_slice__15);
+  __pyx_slice__14 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__14)) __PYX_ERR(0, 493, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__14);
+  __Pyx_GIVEREF(__pyx_slice__14);
 
-  /* "word2keypress/_keyboard.pyx":492
+  /* "word2keypress/_keyboard.pyx":494
  *                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF
  *                 row[2] = (last_row[2][0][1:], last_row[2][1], last_row[2][2]) # shift-caps = FT
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],             # <<<<<<<<<<<<<<
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else
  */
-  __pyx_slice__16 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__16)) __PYX_ERR(0, 492, __pyx_L1_error)
+  __pyx_slice__15 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__15)) __PYX_ERR(0, 494, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__15);
+  __Pyx_GIVEREF(__pyx_slice__15);
+  __pyx_slice__16 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__16)) __PYX_ERR(0, 494, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__16);
   __Pyx_GIVEREF(__pyx_slice__16);
-  __pyx_slice__17 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__17)) __PYX_ERR(0, 492, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__17);
-  __Pyx_GIVEREF(__pyx_slice__17);
 
-  /* "word2keypress/_keyboard.pyx":494
+  /* "word2keypress/_keyboard.pyx":496
  *                 row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else             # <<<<<<<<<<<<<<
  *                           safe_chr(shifted_nc) + last_row[4][0][2:],
  *                           last_row[4][1], last_row[4][2]) # shift-caps = TT
  */
-  __pyx_slice__18 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__18)) __PYX_ERR(0, 494, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__18);
-  __Pyx_GIVEREF(__pyx_slice__18);
+  __pyx_slice__17 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__17)) __PYX_ERR(0, 496, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__17);
+  __Pyx_GIVEREF(__pyx_slice__17);
 
-  /* "word2keypress/_keyboard.pyx":495
+  /* "word2keypress/_keyboard.pyx":497
  *                           last_row[3][1], last_row[3][2]) # shift-caps = TF
  *                 row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else
  *                           safe_chr(shifted_nc) + last_row[4][0][2:],             # <<<<<<<<<<<<<<
  *                           last_row[4][1], last_row[4][2]) # shift-caps = TT
  *         return A
  */
-  __pyx_slice__19 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__19)) __PYX_ERR(0, 495, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__19);
-  __Pyx_GIVEREF(__pyx_slice__19);
+  __pyx_slice__18 = PySlice_New(__pyx_int_2, Py_None, Py_None); if (unlikely(!__pyx_slice__18)) __PYX_ERR(0, 497, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__18);
+  __Pyx_GIVEREF(__pyx_slice__18);
 
-  /* "word2keypress/_keyboard.pyx":509
+  /* "word2keypress/_keyboard.pyx":511
  *         sub_words = self._sub_word_table(keyseq)
  *         # print(">>>>>", _insert_keys, _replace_keys)
  *         cdef array.array insert_keys = array.array(b'b')             # <<<<<<<<<<<<<<
  *         cdef array.array replace_keys = array.array(b'b')
  *         insert_keys.fromstring(_insert_keys)
  */
-  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_n_b_b); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 509, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_n_b_b); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
 
-  /* "word2keypress/_keyboard.pyx":510
+  /* "word2keypress/_keyboard.pyx":512
  *         # print(">>>>>", _insert_keys, _replace_keys)
  *         cdef array.array insert_keys = array.array(b'b')
  *         cdef array.array replace_keys = array.array(b'b')             # <<<<<<<<<<<<<<
  *         insert_keys.fromstring(_insert_keys)
  *         replace_keys.fromstring(_replace_keys)
  */
-  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_n_b_b); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 510, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__23);
-  __Pyx_GIVEREF(__pyx_tuple__23);
+  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_n_b_b); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 512, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
 
-  /* "word2keypress/_keyboard.pyx":627
+  /* "word2keypress/_keyboard.pyx":629
  *         def caps_change(m):
  *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
  *                            for c in m.group(1))             # <<<<<<<<<<<<<<
  * 
  *         def shift_change(m):
  */
-  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_int_1); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 627, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__25);
-  __Pyx_GIVEREF(__pyx_tuple__25);
+  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_int_1); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 629, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
 
-  /* "word2keypress/_keyboard.pyx":631
+  /* "word2keypress/_keyboard.pyx":633
  *         def shift_change(m):
  *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
  *                            for c in m.group(1))             # <<<<<<<<<<<<<<
  * 
  *         word = re.sub(r'({0})+'.format(shift_key), r'\1', word)
  */
-  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_int_1); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 631, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__26);
-  __Pyx_GIVEREF(__pyx_tuple__26);
+  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_int_1); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 633, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
 
-  /* "word2keypress/_keyboard.pyx":625
+  /* "word2keypress/_keyboard.pyx":627
  * 
  *         word = keyseq
  *         def caps_change(m):             # <<<<<<<<<<<<<<
  *             return ''.join(self.change_shift(c)[0] if c !=shift_key else shift_key
  *                            for c in m.group(1))
  */
-  __pyx_tuple__27 = PyTuple_Pack(3, __pyx_n_s_m, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 625, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__27);
-  __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_rahul_word2keypress_word2, __pyx_n_s_caps_change, 625, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 625, __pyx_L1_error)
+  __pyx_tuple__26 = PyTuple_Pack(3, __pyx_n_s_m, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 627, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__26);
+  __Pyx_GIVEREF(__pyx_tuple__26);
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_rahul_word2keypress_src_w, __pyx_n_s_caps_change, 627, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 627, __pyx_L1_error)
 
-  /* "word2keypress/_keyboard.pyx":629
+  /* "word2keypress/_keyboard.pyx":631
  *                            for c in m.group(1))
  * 
  *         def shift_change(m):             # <<<<<<<<<<<<<<
  *             return ''.join(self.add_shift(c)[0] if c != caps_key else caps_key
  *                            for c in m.group(1))
  */
-  __pyx_tuple__29 = PyTuple_Pack(3, __pyx_n_s_m, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 629, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__29);
-  __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_rahul_word2keypress_word2, __pyx_n_s_shift_change, 629, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 629, __pyx_L1_error)
+  __pyx_tuple__28 = PyTuple_Pack(3, __pyx_n_s_m, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 631, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__28);
+  __Pyx_GIVEREF(__pyx_tuple__28);
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_rahul_word2keypress_src_w, __pyx_n_s_shift_change, 631, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 631, __pyx_L1_error)
 
   /* "View.MemoryView":131
  * 
@@ -31404,9 +30733,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         if itemsize <= 0:
  */
-  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_kp_s_Empty_shape_tuple_for_cython_arr); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(2, 131, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__31);
-  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_tuple__30 = PyTuple_Pack(1, __pyx_kp_s_Empty_shape_tuple_for_cython_arr); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(2, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__30);
+  __Pyx_GIVEREF(__pyx_tuple__30);
 
   /* "View.MemoryView":134
  * 
@@ -31415,9 +30744,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         if not isinstance(format, bytes):
  */
-  __pyx_tuple__32 = PyTuple_Pack(1, __pyx_kp_s_itemsize_0_for_cython_array); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(2, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
+  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_kp_s_itemsize_0_for_cython_array); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(2, 134, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__31);
+  __Pyx_GIVEREF(__pyx_tuple__31);
 
   /* "View.MemoryView":137
  * 
@@ -31426,9 +30755,9 @@ static int __Pyx_InitCachedConstants(void) {
  *         self._format = format  # keep a reference to the byte string
  *         self.format = self._format
  */
-  __pyx_tuple__33 = PyTuple_Pack(1, __pyx_n_s_ASCII); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(2, 137, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__33);
-  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_tuple__32 = PyTuple_Pack(1, __pyx_n_s_ASCII); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(2, 137, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__32);
+  __Pyx_GIVEREF(__pyx_tuple__32);
 
   /* "View.MemoryView":146
  * 
@@ -31437,9 +30766,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__34 = PyTuple_Pack(1, __pyx_kp_s_unable_to_allocate_shape_and_str); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(2, 146, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
+  __pyx_tuple__33 = PyTuple_Pack(1, __pyx_kp_s_unable_to_allocate_shape_and_str); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(2, 146, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
 
   /* "View.MemoryView":174
  *             self.data = <char *>malloc(self.len)
@@ -31448,9 +30777,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             if self.dtype_is_object:
  */
-  __pyx_tuple__35 = PyTuple_Pack(1, __pyx_kp_s_unable_to_allocate_array_data); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(2, 174, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__35);
-  __Pyx_GIVEREF(__pyx_tuple__35);
+  __pyx_tuple__34 = PyTuple_Pack(1, __pyx_kp_s_unable_to_allocate_array_data); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(2, 174, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__34);
+  __Pyx_GIVEREF(__pyx_tuple__34);
 
   /* "View.MemoryView":190
  *             bufmode = PyBUF_F_CONTIGUOUS | PyBUF_ANY_CONTIGUOUS
@@ -31459,9 +30788,9 @@ static int __Pyx_InitCachedConstants(void) {
  *         info.buf = self.data
  *         info.len = self.len
  */
-  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_kp_s_Can_only_create_a_buffer_that_is); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(2, 190, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__36);
-  __Pyx_GIVEREF(__pyx_tuple__36);
+  __pyx_tuple__35 = PyTuple_Pack(1, __pyx_kp_s_Can_only_create_a_buffer_that_is); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(2, 190, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__35);
+  __Pyx_GIVEREF(__pyx_tuple__35);
 
   /* "View.MemoryView":484
  *             result = struct.unpack(self.view.format, bytesitem)
@@ -31470,9 +30799,9 @@ static int __Pyx_InitCachedConstants(void) {
  *         else:
  *             if len(self.view.format) == 1:
  */
-  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_kp_s_Unable_to_convert_item_to_object); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(2, 484, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__37);
-  __Pyx_GIVEREF(__pyx_tuple__37);
+  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_kp_s_Unable_to_convert_item_to_object); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(2, 484, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__36);
+  __Pyx_GIVEREF(__pyx_tuple__36);
 
   /* "View.MemoryView":556
  *         if self.view.strides == NULL:
@@ -31481,9 +30810,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         return tuple([stride for stride in self.view.strides[:self.view.ndim]])
  */
-  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_kp_s_Buffer_view_does_not_expose_stri); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(2, 556, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__38);
-  __Pyx_GIVEREF(__pyx_tuple__38);
+  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_kp_s_Buffer_view_does_not_expose_stri); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(2, 556, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__37);
+  __Pyx_GIVEREF(__pyx_tuple__37);
 
   /* "View.MemoryView":563
  *     def suboffsets(self):
@@ -31492,12 +30821,12 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         return tuple([suboffset for suboffset in self.view.suboffsets[:self.view.ndim]])
  */
-  __pyx_tuple__39 = PyTuple_New(1); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(2, 563, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__39);
+  __pyx_tuple__38 = PyTuple_New(1); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(2, 563, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__38);
   __Pyx_INCREF(__pyx_int_neg_1);
   __Pyx_GIVEREF(__pyx_int_neg_1);
-  PyTuple_SET_ITEM(__pyx_tuple__39, 0, __pyx_int_neg_1);
-  __Pyx_GIVEREF(__pyx_tuple__39);
+  PyTuple_SET_ITEM(__pyx_tuple__38, 0, __pyx_int_neg_1);
+  __Pyx_GIVEREF(__pyx_tuple__38);
 
   /* "View.MemoryView":668
  *         if item is Ellipsis:
@@ -31506,9 +30835,9 @@ static int __Pyx_InitCachedConstants(void) {
  *                 seen_ellipsis = True
  *             else:
  */
-  __pyx_slice__40 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__40)) __PYX_ERR(2, 668, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__40);
-  __Pyx_GIVEREF(__pyx_slice__40);
+  __pyx_slice__39 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__39)) __PYX_ERR(2, 668, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__39);
+  __Pyx_GIVEREF(__pyx_slice__39);
 
   /* "View.MemoryView":671
  *                 seen_ellipsis = True
@@ -31517,9 +30846,9 @@ static int __Pyx_InitCachedConstants(void) {
  *             have_slices = True
  *         else:
  */
-  __pyx_slice__41 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__41)) __PYX_ERR(2, 671, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__41);
-  __Pyx_GIVEREF(__pyx_slice__41);
+  __pyx_slice__40 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__40)) __PYX_ERR(2, 671, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__40);
+  __Pyx_GIVEREF(__pyx_slice__40);
 
   /* "View.MemoryView":682
  *     nslices = ndim - len(result)
@@ -31528,9 +30857,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     return have_slices or nslices, tuple(result)
  */
-  __pyx_slice__42 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__42)) __PYX_ERR(2, 682, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_slice__42);
-  __Pyx_GIVEREF(__pyx_slice__42);
+  __pyx_slice__41 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__41)) __PYX_ERR(2, 682, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_slice__41);
+  __Pyx_GIVEREF(__pyx_slice__41);
 
   /* "View.MemoryView":689
  *     for suboffset in suboffsets[:ndim]:
@@ -31539,9 +30868,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__43 = PyTuple_Pack(1, __pyx_kp_s_Indirect_dimensions_not_supporte); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(2, 689, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__43);
-  __Pyx_GIVEREF(__pyx_tuple__43);
+  __pyx_tuple__42 = PyTuple_Pack(1, __pyx_kp_s_Indirect_dimensions_not_supporte); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(2, 689, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__42);
+  __Pyx_GIVEREF(__pyx_tuple__42);
 
   /* "View.MemoryView":282
  *         return self.name
@@ -31550,9 +30879,9 @@ static int __Pyx_InitCachedConstants(void) {
  * cdef strided = Enum("<strided and direct>") # default
  * cdef indirect = Enum("<strided and indirect>")
  */
-  __pyx_tuple__55 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct_or_indirect); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(2, 282, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__55);
-  __Pyx_GIVEREF(__pyx_tuple__55);
+  __pyx_tuple__54 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct_or_indirect); if (unlikely(!__pyx_tuple__54)) __PYX_ERR(2, 282, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__54);
+  __Pyx_GIVEREF(__pyx_tuple__54);
 
   /* "View.MemoryView":283
  * 
@@ -31561,9 +30890,9 @@ static int __Pyx_InitCachedConstants(void) {
  * cdef indirect = Enum("<strided and indirect>")
  * 
  */
-  __pyx_tuple__56 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct); if (unlikely(!__pyx_tuple__56)) __PYX_ERR(2, 283, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__56);
-  __Pyx_GIVEREF(__pyx_tuple__56);
+  __pyx_tuple__55 = PyTuple_Pack(1, __pyx_kp_s_strided_and_direct); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(2, 283, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__55);
+  __Pyx_GIVEREF(__pyx_tuple__55);
 
   /* "View.MemoryView":284
  * cdef generic = Enum("<strided and direct or indirect>")
@@ -31572,9 +30901,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__57 = PyTuple_Pack(1, __pyx_kp_s_strided_and_indirect); if (unlikely(!__pyx_tuple__57)) __PYX_ERR(2, 284, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__57);
-  __Pyx_GIVEREF(__pyx_tuple__57);
+  __pyx_tuple__56 = PyTuple_Pack(1, __pyx_kp_s_strided_and_indirect); if (unlikely(!__pyx_tuple__56)) __PYX_ERR(2, 284, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__56);
+  __Pyx_GIVEREF(__pyx_tuple__56);
 
   /* "View.MemoryView":287
  * 
@@ -31583,9 +30912,9 @@ static int __Pyx_InitCachedConstants(void) {
  * cdef indirect_contiguous = Enum("<contiguous and indirect>")
  * 
  */
-  __pyx_tuple__58 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_direct); if (unlikely(!__pyx_tuple__58)) __PYX_ERR(2, 287, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__58);
-  __Pyx_GIVEREF(__pyx_tuple__58);
+  __pyx_tuple__57 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_direct); if (unlikely(!__pyx_tuple__57)) __PYX_ERR(2, 287, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__57);
+  __Pyx_GIVEREF(__pyx_tuple__57);
 
   /* "View.MemoryView":288
  * 
@@ -31594,9 +30923,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * 
  */
-  __pyx_tuple__59 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_indirect); if (unlikely(!__pyx_tuple__59)) __PYX_ERR(2, 288, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__59);
-  __Pyx_GIVEREF(__pyx_tuple__59);
+  __pyx_tuple__58 = PyTuple_Pack(1, __pyx_kp_s_contiguous_and_indirect); if (unlikely(!__pyx_tuple__58)) __PYX_ERR(2, 288, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__58);
+  __Pyx_GIVEREF(__pyx_tuple__58);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -31742,30 +31071,24 @@ PyMODINIT_FUNC PyInit__keyboard(void)
   if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_3_genexpr) < 0) __PYX_ERR(0, 281, __pyx_L1_error)
   __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_3_genexpr.tp_print = 0;
   __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_3_genexpr = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_3_genexpr;
-  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys) < 0) __PYX_ERR(0, 303, __pyx_L1_error)
-  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys.tp_print = 0;
-  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_4__keyboard_nearby_keys;
-  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
-  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr.tp_print = 0;
-  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_5_genexpr;
-  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits) < 0) __PYX_ERR(0, 499, __pyx_L1_error)
-  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits.tp_print = 0;
-  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_keyseq_insert_edits;
-  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow) < 0) __PYX_ERR(0, 616, __pyx_L1_error)
-  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow.tp_print = 0;
-  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_keyseq_to_word_slow;
-  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change) < 0) __PYX_ERR(0, 625, __pyx_L1_error)
-  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change.tp_print = 0;
-  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_caps_change;
-  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr) < 0) __PYX_ERR(0, 626, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits) < 0) __PYX_ERR(0, 501, __pyx_L1_error)
+  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits.tp_print = 0;
+  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_4_keyseq_insert_edits;
+  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow) < 0) __PYX_ERR(0, 618, __pyx_L1_error)
+  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow.tp_print = 0;
+  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_5_keyseq_to_word_slow;
+  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change) < 0) __PYX_ERR(0, 627, __pyx_L1_error)
+  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change.tp_print = 0;
+  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_6_caps_change;
+  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr) < 0) __PYX_ERR(0, 628, __pyx_L1_error)
+  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr.tp_print = 0;
+  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_7_genexpr;
+  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change) < 0) __PYX_ERR(0, 631, __pyx_L1_error)
+  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change.tp_print = 0;
+  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_8_shift_change;
+  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr) < 0) __PYX_ERR(0, 632, __pyx_L1_error)
   __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr.tp_print = 0;
   __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_9_genexpr;
-  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change) < 0) __PYX_ERR(0, 629, __pyx_L1_error)
-  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change.tp_print = 0;
-  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_10_shift_change;
-  if (PyType_Ready(&__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr) < 0) __PYX_ERR(0, 630, __pyx_L1_error)
-  __pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr.tp_print = 0;
-  __pyx_ptype_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr = &__pyx_type_13word2keypress_9_keyboard___pyx_scope_struct_11_genexpr;
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;
   if (PyType_Ready(&__pyx_type___pyx_array) < 0) __PYX_ERR(2, 103, __pyx_L1_error)
@@ -31859,9 +31182,30 @@ PyMODINIT_FUNC PyInit__keyboard(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_json, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+  /* "word2keypress/_keyboard.pyx":11
+ * cimport cython
+ * from libc.stdlib cimport calloc, free
+ * from adjacency_graphs import adj_graph             # <<<<<<<<<<<<<<
+ * cdef int user_friendly = 0
+ * cdef char SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]
+ */
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_n_s_adj_graph);
+  __Pyx_GIVEREF(__pyx_n_s_adj_graph);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_adj_graph);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_adjacency_graphs, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_adj_graph); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_adj_graph, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
   /* "word2keypress/_keyboard.pyx":12
  * from libc.stdlib cimport calloc, free
- * 
+ * from adjacency_graphs import adj_graph
  * cdef int user_friendly = 0             # <<<<<<<<<<<<<<
  * cdef char SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]
  * cdef char CAPS_KEY = 4 # [u'\x04', "<c>"][user_friendly]
@@ -31869,7 +31213,7 @@ PyMODINIT_FUNC PyInit__keyboard(void)
   __pyx_v_13word2keypress_9_keyboard_user_friendly = 0;
 
   /* "word2keypress/_keyboard.pyx":13
- * 
+ * from adjacency_graphs import adj_graph
  * cdef int user_friendly = 0
  * cdef char SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]             # <<<<<<<<<<<<<<
  * cdef char CAPS_KEY = 4 # [u'\x04', "<c>"][user_friendly]
@@ -31905,10 +31249,10 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  * cdef int debug = 0
  * 
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_itertools, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_itertools, __pyx_t_1) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_itertools, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_itertools, __pyx_t_2) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "word2keypress/_keyboard.pyx":17
  * cdef str KEYBOARD_TYPE = 'qwerty'
@@ -31926,49 +31270,49 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  *         b"`1234567890-=",
  *         b"~!@#$%^&*()_+",
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyList_New(10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyList_New(10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_kp_b_1234567890);
   __Pyx_GIVEREF(__pyx_kp_b_1234567890);
-  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_kp_b_1234567890);
-  __Pyx_INCREF(__pyx_kp_b__44);
-  __Pyx_GIVEREF(__pyx_kp_b__44);
-  PyList_SET_ITEM(__pyx_t_2, 1, __pyx_kp_b__44);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_kp_b_1234567890);
+  __Pyx_INCREF(__pyx_kp_b__43);
+  __Pyx_GIVEREF(__pyx_kp_b__43);
+  PyList_SET_ITEM(__pyx_t_1, 1, __pyx_kp_b__43);
   __Pyx_INCREF(__pyx_kp_b_qwertyuiop);
   __Pyx_GIVEREF(__pyx_kp_b_qwertyuiop);
-  PyList_SET_ITEM(__pyx_t_2, 2, __pyx_kp_b_qwertyuiop);
+  PyList_SET_ITEM(__pyx_t_1, 2, __pyx_kp_b_qwertyuiop);
   __Pyx_INCREF(__pyx_kp_b_QWERTYUIOP);
   __Pyx_GIVEREF(__pyx_kp_b_QWERTYUIOP);
-  PyList_SET_ITEM(__pyx_t_2, 3, __pyx_kp_b_QWERTYUIOP);
+  PyList_SET_ITEM(__pyx_t_1, 3, __pyx_kp_b_QWERTYUIOP);
   __Pyx_INCREF(__pyx_kp_b_asdfghjkl);
   __Pyx_GIVEREF(__pyx_kp_b_asdfghjkl);
-  PyList_SET_ITEM(__pyx_t_2, 4, __pyx_kp_b_asdfghjkl);
+  PyList_SET_ITEM(__pyx_t_1, 4, __pyx_kp_b_asdfghjkl);
   __Pyx_INCREF(__pyx_kp_b_ASDFGHJKL);
   __Pyx_GIVEREF(__pyx_kp_b_ASDFGHJKL);
-  PyList_SET_ITEM(__pyx_t_2, 5, __pyx_kp_b_ASDFGHJKL);
+  PyList_SET_ITEM(__pyx_t_1, 5, __pyx_kp_b_ASDFGHJKL);
   __Pyx_INCREF(__pyx_kp_b_zxcvbnm);
   __Pyx_GIVEREF(__pyx_kp_b_zxcvbnm);
-  PyList_SET_ITEM(__pyx_t_2, 6, __pyx_kp_b_zxcvbnm);
+  PyList_SET_ITEM(__pyx_t_1, 6, __pyx_kp_b_zxcvbnm);
   __Pyx_INCREF(__pyx_kp_b_ZXCVBNM);
   __Pyx_GIVEREF(__pyx_kp_b_ZXCVBNM);
-  PyList_SET_ITEM(__pyx_t_2, 7, __pyx_kp_b_ZXCVBNM);
-  __Pyx_INCREF(__pyx_kp_b__45);
-  __Pyx_GIVEREF(__pyx_kp_b__45);
-  PyList_SET_ITEM(__pyx_t_2, 8, __pyx_kp_b__45);
-  __Pyx_INCREF(__pyx_kp_b__45);
-  __Pyx_GIVEREF(__pyx_kp_b__45);
-  PyList_SET_ITEM(__pyx_t_2, 9, __pyx_kp_b__45);
+  PyList_SET_ITEM(__pyx_t_1, 7, __pyx_kp_b_ZXCVBNM);
+  __Pyx_INCREF(__pyx_kp_b__44);
+  __Pyx_GIVEREF(__pyx_kp_b__44);
+  PyList_SET_ITEM(__pyx_t_1, 8, __pyx_kp_b__44);
+  __Pyx_INCREF(__pyx_kp_b__44);
+  __Pyx_GIVEREF(__pyx_kp_b__44);
+  PyList_SET_ITEM(__pyx_t_1, 9, __pyx_kp_b__44);
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __Pyx_INCREF(__pyx_int_2);
   __Pyx_GIVEREF(__pyx_int_2);
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_2);
-  __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_qwerty, __pyx_t_3) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_qwerty, __pyx_t_3) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "word2keypress/_keyboard.pyx":33
@@ -31989,55 +31333,55 @@ PyMODINIT_FUNC PyInit__keyboard(void)
   __Pyx_INCREF(__pyx_kp_b_1234567890_2);
   __Pyx_GIVEREF(__pyx_kp_b_1234567890_2);
   PyList_SET_ITEM(__pyx_t_3, 2, __pyx_kp_b_1234567890_2);
-  __Pyx_INCREF(__pyx_kp_b__46);
-  __Pyx_GIVEREF(__pyx_kp_b__46);
-  PyList_SET_ITEM(__pyx_t_3, 3, __pyx_kp_b__46);
+  __Pyx_INCREF(__pyx_kp_b__45);
+  __Pyx_GIVEREF(__pyx_kp_b__45);
+  PyList_SET_ITEM(__pyx_t_3, 3, __pyx_kp_b__45);
   __Pyx_INCREF(__pyx_n_b_asdfghjkl_2);
   __Pyx_GIVEREF(__pyx_n_b_asdfghjkl_2);
   PyList_SET_ITEM(__pyx_t_3, 4, __pyx_n_b_asdfghjkl_2);
   __Pyx_INCREF(__pyx_n_b_ASDFGHJKL_2);
   __Pyx_GIVEREF(__pyx_n_b_ASDFGHJKL_2);
   PyList_SET_ITEM(__pyx_t_3, 5, __pyx_n_b_ASDFGHJKL_2);
+  __Pyx_INCREF(__pyx_kp_b__46);
+  __Pyx_GIVEREF(__pyx_kp_b__46);
+  PyList_SET_ITEM(__pyx_t_3, 6, __pyx_kp_b__46);
   __Pyx_INCREF(__pyx_kp_b__47);
   __Pyx_GIVEREF(__pyx_kp_b__47);
-  PyList_SET_ITEM(__pyx_t_3, 6, __pyx_kp_b__47);
-  __Pyx_INCREF(__pyx_kp_b__48);
-  __Pyx_GIVEREF(__pyx_kp_b__48);
-  PyList_SET_ITEM(__pyx_t_3, 7, __pyx_kp_b__48);
+  PyList_SET_ITEM(__pyx_t_3, 7, __pyx_kp_b__47);
   __Pyx_INCREF(__pyx_n_b_zxcvbnm_2);
   __Pyx_GIVEREF(__pyx_n_b_zxcvbnm_2);
   PyList_SET_ITEM(__pyx_t_3, 8, __pyx_n_b_zxcvbnm_2);
   __Pyx_INCREF(__pyx_n_b_ZXCVBNM_2);
   __Pyx_GIVEREF(__pyx_n_b_ZXCVBNM_2);
   PyList_SET_ITEM(__pyx_t_3, 9, __pyx_n_b_ZXCVBNM_2);
+  __Pyx_INCREF(__pyx_kp_b__48);
+  __Pyx_GIVEREF(__pyx_kp_b__48);
+  PyList_SET_ITEM(__pyx_t_3, 10, __pyx_kp_b__48);
   __Pyx_INCREF(__pyx_kp_b__49);
   __Pyx_GIVEREF(__pyx_kp_b__49);
-  PyList_SET_ITEM(__pyx_t_3, 10, __pyx_kp_b__49);
+  PyList_SET_ITEM(__pyx_t_3, 11, __pyx_kp_b__49);
   __Pyx_INCREF(__pyx_kp_b__50);
   __Pyx_GIVEREF(__pyx_kp_b__50);
-  PyList_SET_ITEM(__pyx_t_3, 11, __pyx_kp_b__50);
+  PyList_SET_ITEM(__pyx_t_3, 12, __pyx_kp_b__50);
   __Pyx_INCREF(__pyx_kp_b__51);
   __Pyx_GIVEREF(__pyx_kp_b__51);
-  PyList_SET_ITEM(__pyx_t_3, 12, __pyx_kp_b__51);
+  PyList_SET_ITEM(__pyx_t_3, 13, __pyx_kp_b__51);
   __Pyx_INCREF(__pyx_kp_b__52);
   __Pyx_GIVEREF(__pyx_kp_b__52);
-  PyList_SET_ITEM(__pyx_t_3, 13, __pyx_kp_b__52);
-  __Pyx_INCREF(__pyx_kp_b__53);
-  __Pyx_GIVEREF(__pyx_kp_b__53);
-  PyList_SET_ITEM(__pyx_t_3, 14, __pyx_kp_b__53);
-  __Pyx_INCREF(__pyx_kp_b__53);
-  __Pyx_GIVEREF(__pyx_kp_b__53);
-  PyList_SET_ITEM(__pyx_t_3, 15, __pyx_kp_b__53);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 33, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  PyList_SET_ITEM(__pyx_t_3, 14, __pyx_kp_b__52);
+  __Pyx_INCREF(__pyx_kp_b__52);
+  __Pyx_GIVEREF(__pyx_kp_b__52);
+  PyList_SET_ITEM(__pyx_t_3, 15, __pyx_kp_b__52);
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
   __Pyx_INCREF(__pyx_int_4);
   __Pyx_GIVEREF(__pyx_int_4);
-  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_4);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_4);
   __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_MOBILE_ANDROID, __pyx_t_2) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_MOBILE_ANDROID, __pyx_t_1) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "word2keypress/_keyboard.pyx":51
  *         b",<    >."], 4),
@@ -32046,44 +31390,44 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  *         b"`1234567890[]",
  *         b"~!@#$%^&*(){}",
  */
-  __pyx_t_2 = PyList_New(8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyList_New(8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_kp_b_1234567890_3);
   __Pyx_GIVEREF(__pyx_kp_b_1234567890_3);
-  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_kp_b_1234567890_3);
-  __Pyx_INCREF(__pyx_kp_b__54);
-  __Pyx_GIVEREF(__pyx_kp_b__54);
-  PyList_SET_ITEM(__pyx_t_2, 1, __pyx_kp_b__54);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_kp_b_1234567890_3);
+  __Pyx_INCREF(__pyx_kp_b__53);
+  __Pyx_GIVEREF(__pyx_kp_b__53);
+  PyList_SET_ITEM(__pyx_t_1, 1, __pyx_kp_b__53);
   __Pyx_INCREF(__pyx_kp_b_pyfgcrl);
   __Pyx_GIVEREF(__pyx_kp_b_pyfgcrl);
-  PyList_SET_ITEM(__pyx_t_2, 2, __pyx_kp_b_pyfgcrl);
+  PyList_SET_ITEM(__pyx_t_1, 2, __pyx_kp_b_pyfgcrl);
   __Pyx_INCREF(__pyx_kp_b_PYFGCRL);
   __Pyx_GIVEREF(__pyx_kp_b_PYFGCRL);
-  PyList_SET_ITEM(__pyx_t_2, 3, __pyx_kp_b_PYFGCRL);
+  PyList_SET_ITEM(__pyx_t_1, 3, __pyx_kp_b_PYFGCRL);
   __Pyx_INCREF(__pyx_kp_b_aoeuidhtns);
   __Pyx_GIVEREF(__pyx_kp_b_aoeuidhtns);
-  PyList_SET_ITEM(__pyx_t_2, 4, __pyx_kp_b_aoeuidhtns);
+  PyList_SET_ITEM(__pyx_t_1, 4, __pyx_kp_b_aoeuidhtns);
   __Pyx_INCREF(__pyx_n_b_AOEUIDHTNS);
   __Pyx_GIVEREF(__pyx_n_b_AOEUIDHTNS);
-  PyList_SET_ITEM(__pyx_t_2, 5, __pyx_n_b_AOEUIDHTNS);
+  PyList_SET_ITEM(__pyx_t_1, 5, __pyx_n_b_AOEUIDHTNS);
   __Pyx_INCREF(__pyx_kp_b_qjkxbmwvz);
   __Pyx_GIVEREF(__pyx_kp_b_qjkxbmwvz);
-  PyList_SET_ITEM(__pyx_t_2, 6, __pyx_kp_b_qjkxbmwvz);
+  PyList_SET_ITEM(__pyx_t_1, 6, __pyx_kp_b_qjkxbmwvz);
   __Pyx_INCREF(__pyx_kp_b_QJKXBMWVZ);
   __Pyx_GIVEREF(__pyx_kp_b_QJKXBMWVZ);
-  PyList_SET_ITEM(__pyx_t_2, 7, __pyx_kp_b_QJKXBMWVZ);
+  PyList_SET_ITEM(__pyx_t_1, 7, __pyx_kp_b_QJKXBMWVZ);
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __Pyx_INCREF(__pyx_int_2);
   __Pyx_GIVEREF(__pyx_int_2);
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_2);
-  __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dvork, __pyx_t_3) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dvork, __pyx_t_3) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_layout_matrix, __pyx_t_1) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_layout_matrix, __pyx_t_2) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "word2keypress/_keyboard.pyx":71
  *         return ''
@@ -32121,15 +31465,15 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  */
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_b_1234567890_qwertyuiop_asdfghjkl, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_SHIFT_KEY); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
-  __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_chr, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = __Pyx_PyInt_From_char(__pyx_v_13word2keypress_9_keyboard_CAPS_KEY); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -32158,18 +31502,18 @@ PyMODINIT_FUNC PyInit__keyboard(void)
   if (__pyx_t_5) {
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
   }
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_4);
-  __pyx_t_2 = 0;
+  __pyx_t_1 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_t_keys, __pyx_t_1) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_t_keys, __pyx_t_2) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "word2keypress/_keyboard.pyx":142
  * _t_keys = b"`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ {}{}"\
@@ -32178,21 +31522,21 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  * 
  * assert all(map(
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_t_keys); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_t_keys); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_n_b_c);
   __Pyx_GIVEREF(__pyx_n_b_c);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_n_b_c);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_1);
-  __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
+  __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_7cpython_5array_array), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ALLOWED_KEYS, __pyx_t_1) < 0) __PYX_ERR(0, 142, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ALLOWED_KEYS, __pyx_t_2) < 0) __PYX_ERR(0, 142, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "word2keypress/_keyboard.pyx":144
  * ALLOWED_KEYS = array.array(b'c', _t_keys)
@@ -32211,8 +31555,8 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  * )), ALLOWED_KEYS
  * 
  */
-    __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13word2keypress_9_keyboard_2lambda, 0, __pyx_n_s_lambda, NULL, __pyx_n_s_word2keypress__keyboard, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_13word2keypress_9_keyboard_2lambda, 0, __pyx_n_s_lambda, NULL, __pyx_n_s_word2keypress__keyboard, __pyx_d, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
 
     /* "word2keypress/_keyboard.pyx":146
  * assert all(map(
@@ -32233,11 +31577,11 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  */
     __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GIVEREF(__pyx_t_1);
-    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1);
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_3);
-    __pyx_t_1 = 0;
+    __pyx_t_2 = 0;
     __pyx_t_3 = 0;
     __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_map, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -32273,21 +31617,21 @@ PyMODINIT_FUNC PyInit__keyboard(void)
   }
   #endif
 
-  /* "word2keypress/_keyboard.pyx":499
+  /* "word2keypress/_keyboard.pyx":501
  *         return A
  * 
  *     def keyseq_insert_edits(self, str keyseq, _insert_keys=[], _replace_keys=[]):             # <<<<<<<<<<<<<<
  *         """It will insert/replace/delete one key at a time from the
  *         keyseq. And return a set of words. Which keys to insert is
  */
-  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 499, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_k__20 = __pyx_t_7;
+  __pyx_k__19 = __pyx_t_7;
   __Pyx_GIVEREF(__pyx_t_7);
   __pyx_t_7 = 0;
-  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 499, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 501, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_k__21 = __pyx_t_7;
+  __pyx_k__20 = __pyx_t_7;
   __Pyx_GIVEREF(__pyx_t_7);
   __pyx_t_7 = 0;
 
@@ -32321,7 +31665,7 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  * cdef strided = Enum("<strided and direct>") # default
  * cdef indirect = Enum("<strided and indirect>")
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__55, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 282, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__54, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 282, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_XGOTREF(generic);
   __Pyx_DECREF_SET(generic, __pyx_t_7);
@@ -32335,7 +31679,7 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  * cdef indirect = Enum("<strided and indirect>")
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__56, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 283, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__55, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 283, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_XGOTREF(strided);
   __Pyx_DECREF_SET(strided, __pyx_t_7);
@@ -32349,7 +31693,7 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  * 
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__57, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 284, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__56, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 284, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_XGOTREF(indirect);
   __Pyx_DECREF_SET(indirect, __pyx_t_7);
@@ -32363,7 +31707,7 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  * cdef indirect_contiguous = Enum("<contiguous and indirect>")
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__58, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 287, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__57, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 287, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_XGOTREF(contiguous);
   __Pyx_DECREF_SET(contiguous, __pyx_t_7);
@@ -32377,7 +31721,7 @@ PyMODINIT_FUNC PyInit__keyboard(void)
  * 
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__59, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 288, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)__pyx_MemviewEnum_type), __pyx_tuple__58, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_XGOTREF(indirect_contiguous);
   __Pyx_DECREF_SET(indirect_contiguous, __pyx_t_7);
@@ -33218,76 +32562,21 @@ static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, in
     return result;
 }
 
-/* PyObjectCallMethO */
-    #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
-    PyObject *self, *result;
-    PyCFunction cfunc;
-    cfunc = PyCFunction_GET_FUNCTION(func);
-    self = PyCFunction_GET_SELF(func);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = cfunc(self, arg);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
-/* PyObjectCallOneArg */
-    #if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_New(1);
-    if (unlikely(!args)) return NULL;
-    Py_INCREF(arg);
-    PyTuple_SET_ITEM(args, 0, arg);
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
-#else
-    if (likely(PyCFunction_Check(func))) {
-#endif
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
-            return __Pyx_PyObject_CallMethO(func, arg);
-        }
-    }
-    return __Pyx__PyObject_CallOneArg(func, arg);
-}
-#else
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_Pack(1, arg);
-    if (unlikely(!args)) return NULL;
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-#endif
-
 /* RaiseTooManyValuesToUnpack */
-      static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
+    static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
     PyErr_Format(PyExc_ValueError,
                  "too many values to unpack (expected %" CYTHON_FORMAT_SSIZE_T "d)", expected);
 }
 
 /* RaiseNeedMoreValuesToUnpack */
-      static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
+    static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
     PyErr_Format(PyExc_ValueError,
                  "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
                  index, (index == 1) ? "" : "s");
 }
 
 /* IterFinish */
-      static CYTHON_INLINE int __Pyx_IterFinish(void) {
+    static CYTHON_INLINE int __Pyx_IterFinish(void) {
 #if CYTHON_COMPILING_IN_CPYTHON
     PyThreadState *tstate = PyThreadState_GET();
     PyObject* exc_type = tstate->curexc_type;
@@ -33322,7 +32611,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 }
 
 /* UnpackItemEndCheck */
-      static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected) {
+    static int __Pyx_IternextUnpackEndCheck(PyObject *retval, Py_ssize_t expected) {
     if (unlikely(retval)) {
         Py_DECREF(retval);
         __Pyx_RaiseTooManyValuesError(expected);
@@ -33334,7 +32623,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 }
 
 /* BytesEquals */
-      static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals) {
+    static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals) {
 #if CYTHON_COMPILING_IN_PYPY
     return PyObject_RichCompareBool(s1, s2, equals);
 #else
@@ -33372,7 +32661,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 }
 
 /* UnicodeEquals */
-      static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals) {
+    static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals) {
 #if CYTHON_COMPILING_IN_PYPY
     return PyObject_RichCompareBool(s1, s2, equals);
 #else
@@ -33454,6 +32743,61 @@ return_ne:
     return (equals == Py_NE);
 #endif
 }
+
+/* PyObjectCallMethO */
+    #if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
+    PyObject *self, *result;
+    PyCFunction cfunc;
+    cfunc = PyCFunction_GET_FUNCTION(func);
+    self = PyCFunction_GET_SELF(func);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = cfunc(self, arg);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+/* PyObjectCallOneArg */
+    #if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_New(1);
+    if (unlikely(!args)) return NULL;
+    Py_INCREF(arg);
+    PyTuple_SET_ITEM(args, 0, arg);
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+#ifdef __Pyx_CyFunction_USED
+    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
+#else
+    if (likely(PyCFunction_Check(func))) {
+#endif
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
+            return __Pyx_PyObject_CallMethO(func, arg);
+        }
+    }
+    return __Pyx__PyObject_CallOneArg(func, arg);
+}
+#else
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_Pack(1, arg);
+    if (unlikely(!args)) return NULL;
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+#endif
 
 /* PyObjectCallNoArg */
       #if CYTHON_COMPILING_IN_CPYTHON
@@ -33855,8 +33199,857 @@ static CYTHON_INLINE PyObject* __Pyx_PyBytes_Join(PyObject* sep, PyObject* value
 }
 #endif
 
+/* BufferFormatCheck */
+          static CYTHON_INLINE int __Pyx_IsLittleEndian(void) {
+  unsigned int n = 1;
+  return *(unsigned char*)(&n) != 0;
+}
+static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
+                              __Pyx_BufFmt_StackElem* stack,
+                              __Pyx_TypeInfo* type) {
+  stack[0].field = &ctx->root;
+  stack[0].parent_offset = 0;
+  ctx->root.type = type;
+  ctx->root.name = "buffer dtype";
+  ctx->root.offset = 0;
+  ctx->head = stack;
+  ctx->head->field = &ctx->root;
+  ctx->fmt_offset = 0;
+  ctx->head->parent_offset = 0;
+  ctx->new_packmode = '@';
+  ctx->enc_packmode = '@';
+  ctx->new_count = 1;
+  ctx->enc_count = 0;
+  ctx->enc_type = 0;
+  ctx->is_complex = 0;
+  ctx->is_valid_array = 0;
+  ctx->struct_alignment = 0;
+  while (type->typegroup == 'S') {
+    ++ctx->head;
+    ctx->head->field = type->fields;
+    ctx->head->parent_offset = 0;
+    type = type->fields->type;
+  }
+}
+static int __Pyx_BufFmt_ParseNumber(const char** ts) {
+    int count;
+    const char* t = *ts;
+    if (*t < '0' || *t > '9') {
+      return -1;
+    } else {
+        count = *t++ - '0';
+        while (*t >= '0' && *t < '9') {
+            count *= 10;
+            count += *t++ - '0';
+        }
+    }
+    *ts = t;
+    return count;
+}
+static int __Pyx_BufFmt_ExpectNumber(const char **ts) {
+    int number = __Pyx_BufFmt_ParseNumber(ts);
+    if (number == -1)
+        PyErr_Format(PyExc_ValueError,\
+                     "Does not understand character buffer dtype format string ('%c')", **ts);
+    return number;
+}
+static void __Pyx_BufFmt_RaiseUnexpectedChar(char ch) {
+  PyErr_Format(PyExc_ValueError,
+               "Unexpected format string character: '%c'", ch);
+}
+static const char* __Pyx_BufFmt_DescribeTypeChar(char ch, int is_complex) {
+  switch (ch) {
+    case 'c': return "'char'";
+    case 'b': return "'signed char'";
+    case 'B': return "'unsigned char'";
+    case 'h': return "'short'";
+    case 'H': return "'unsigned short'";
+    case 'i': return "'int'";
+    case 'I': return "'unsigned int'";
+    case 'l': return "'long'";
+    case 'L': return "'unsigned long'";
+    case 'q': return "'long long'";
+    case 'Q': return "'unsigned long long'";
+    case 'f': return (is_complex ? "'complex float'" : "'float'");
+    case 'd': return (is_complex ? "'complex double'" : "'double'");
+    case 'g': return (is_complex ? "'complex long double'" : "'long double'");
+    case 'T': return "a struct";
+    case 'O': return "Python object";
+    case 'P': return "a pointer";
+    case 's': case 'p': return "a string";
+    case 0: return "end";
+    default: return "unparseable format string";
+  }
+}
+static size_t __Pyx_BufFmt_TypeCharToStandardSize(char ch, int is_complex) {
+  switch (ch) {
+    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
+    case 'h': case 'H': return 2;
+    case 'i': case 'I': case 'l': case 'L': return 4;
+    case 'q': case 'Q': return 8;
+    case 'f': return (is_complex ? 8 : 4);
+    case 'd': return (is_complex ? 16 : 8);
+    case 'g': {
+      PyErr_SetString(PyExc_ValueError, "Python does not define a standard format string size for long double ('g')..");
+      return 0;
+    }
+    case 'O': case 'P': return sizeof(void*);
+    default:
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+}
+static size_t __Pyx_BufFmt_TypeCharToNativeSize(char ch, int is_complex) {
+  switch (ch) {
+    case 'c': case 'b': case 'B': case 's': case 'p': return 1;
+    case 'h': case 'H': return sizeof(short);
+    case 'i': case 'I': return sizeof(int);
+    case 'l': case 'L': return sizeof(long);
+    #ifdef HAVE_LONG_LONG
+    case 'q': case 'Q': return sizeof(PY_LONG_LONG);
+    #endif
+    case 'f': return sizeof(float) * (is_complex ? 2 : 1);
+    case 'd': return sizeof(double) * (is_complex ? 2 : 1);
+    case 'g': return sizeof(long double) * (is_complex ? 2 : 1);
+    case 'O': case 'P': return sizeof(void*);
+    default: {
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+  }
+}
+typedef struct { char c; short x; } __Pyx_st_short;
+typedef struct { char c; int x; } __Pyx_st_int;
+typedef struct { char c; long x; } __Pyx_st_long;
+typedef struct { char c; float x; } __Pyx_st_float;
+typedef struct { char c; double x; } __Pyx_st_double;
+typedef struct { char c; long double x; } __Pyx_st_longdouble;
+typedef struct { char c; void *x; } __Pyx_st_void_p;
+#ifdef HAVE_LONG_LONG
+typedef struct { char c; PY_LONG_LONG x; } __Pyx_st_longlong;
+#endif
+static size_t __Pyx_BufFmt_TypeCharToAlignment(char ch, CYTHON_UNUSED int is_complex) {
+  switch (ch) {
+    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
+    case 'h': case 'H': return sizeof(__Pyx_st_short) - sizeof(short);
+    case 'i': case 'I': return sizeof(__Pyx_st_int) - sizeof(int);
+    case 'l': case 'L': return sizeof(__Pyx_st_long) - sizeof(long);
+#ifdef HAVE_LONG_LONG
+    case 'q': case 'Q': return sizeof(__Pyx_st_longlong) - sizeof(PY_LONG_LONG);
+#endif
+    case 'f': return sizeof(__Pyx_st_float) - sizeof(float);
+    case 'd': return sizeof(__Pyx_st_double) - sizeof(double);
+    case 'g': return sizeof(__Pyx_st_longdouble) - sizeof(long double);
+    case 'P': case 'O': return sizeof(__Pyx_st_void_p) - sizeof(void*);
+    default:
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+}
+/* These are for computing the padding at the end of the struct to align
+   on the first member of the struct. This will probably the same as above,
+   but we don't have any guarantees.
+ */
+typedef struct { short x; char c; } __Pyx_pad_short;
+typedef struct { int x; char c; } __Pyx_pad_int;
+typedef struct { long x; char c; } __Pyx_pad_long;
+typedef struct { float x; char c; } __Pyx_pad_float;
+typedef struct { double x; char c; } __Pyx_pad_double;
+typedef struct { long double x; char c; } __Pyx_pad_longdouble;
+typedef struct { void *x; char c; } __Pyx_pad_void_p;
+#ifdef HAVE_LONG_LONG
+typedef struct { PY_LONG_LONG x; char c; } __Pyx_pad_longlong;
+#endif
+static size_t __Pyx_BufFmt_TypeCharToPadding(char ch, CYTHON_UNUSED int is_complex) {
+  switch (ch) {
+    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
+    case 'h': case 'H': return sizeof(__Pyx_pad_short) - sizeof(short);
+    case 'i': case 'I': return sizeof(__Pyx_pad_int) - sizeof(int);
+    case 'l': case 'L': return sizeof(__Pyx_pad_long) - sizeof(long);
+#ifdef HAVE_LONG_LONG
+    case 'q': case 'Q': return sizeof(__Pyx_pad_longlong) - sizeof(PY_LONG_LONG);
+#endif
+    case 'f': return sizeof(__Pyx_pad_float) - sizeof(float);
+    case 'd': return sizeof(__Pyx_pad_double) - sizeof(double);
+    case 'g': return sizeof(__Pyx_pad_longdouble) - sizeof(long double);
+    case 'P': case 'O': return sizeof(__Pyx_pad_void_p) - sizeof(void*);
+    default:
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+}
+static char __Pyx_BufFmt_TypeCharToGroup(char ch, int is_complex) {
+  switch (ch) {
+    case 'c':
+        return 'H';
+    case 'b': case 'h': case 'i':
+    case 'l': case 'q': case 's': case 'p':
+        return 'I';
+    case 'B': case 'H': case 'I': case 'L': case 'Q':
+        return 'U';
+    case 'f': case 'd': case 'g':
+        return (is_complex ? 'C' : 'R');
+    case 'O':
+        return 'O';
+    case 'P':
+        return 'P';
+    default: {
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+  }
+}
+static void __Pyx_BufFmt_RaiseExpected(__Pyx_BufFmt_Context* ctx) {
+  if (ctx->head == NULL || ctx->head->field == &ctx->root) {
+    const char* expected;
+    const char* quote;
+    if (ctx->head == NULL) {
+      expected = "end";
+      quote = "";
+    } else {
+      expected = ctx->head->field->type->name;
+      quote = "'";
+    }
+    PyErr_Format(PyExc_ValueError,
+                 "Buffer dtype mismatch, expected %s%s%s but got %s",
+                 quote, expected, quote,
+                 __Pyx_BufFmt_DescribeTypeChar(ctx->enc_type, ctx->is_complex));
+  } else {
+    __Pyx_StructField* field = ctx->head->field;
+    __Pyx_StructField* parent = (ctx->head - 1)->field;
+    PyErr_Format(PyExc_ValueError,
+                 "Buffer dtype mismatch, expected '%s' but got %s in '%s.%s'",
+                 field->type->name, __Pyx_BufFmt_DescribeTypeChar(ctx->enc_type, ctx->is_complex),
+                 parent->type->name, field->name);
+  }
+}
+static int __Pyx_BufFmt_ProcessTypeChunk(__Pyx_BufFmt_Context* ctx) {
+  char group;
+  size_t size, offset, arraysize = 1;
+  if (ctx->enc_type == 0) return 0;
+  if (ctx->head->field->type->arraysize[0]) {
+    int i, ndim = 0;
+    if (ctx->enc_type == 's' || ctx->enc_type == 'p') {
+        ctx->is_valid_array = ctx->head->field->type->ndim == 1;
+        ndim = 1;
+        if (ctx->enc_count != ctx->head->field->type->arraysize[0]) {
+            PyErr_Format(PyExc_ValueError,
+                         "Expected a dimension of size %zu, got %zu",
+                         ctx->head->field->type->arraysize[0], ctx->enc_count);
+            return -1;
+        }
+    }
+    if (!ctx->is_valid_array) {
+      PyErr_Format(PyExc_ValueError, "Expected %d dimensions, got %d",
+                   ctx->head->field->type->ndim, ndim);
+      return -1;
+    }
+    for (i = 0; i < ctx->head->field->type->ndim; i++) {
+      arraysize *= ctx->head->field->type->arraysize[i];
+    }
+    ctx->is_valid_array = 0;
+    ctx->enc_count = 1;
+  }
+  group = __Pyx_BufFmt_TypeCharToGroup(ctx->enc_type, ctx->is_complex);
+  do {
+    __Pyx_StructField* field = ctx->head->field;
+    __Pyx_TypeInfo* type = field->type;
+    if (ctx->enc_packmode == '@' || ctx->enc_packmode == '^') {
+      size = __Pyx_BufFmt_TypeCharToNativeSize(ctx->enc_type, ctx->is_complex);
+    } else {
+      size = __Pyx_BufFmt_TypeCharToStandardSize(ctx->enc_type, ctx->is_complex);
+    }
+    if (ctx->enc_packmode == '@') {
+      size_t align_at = __Pyx_BufFmt_TypeCharToAlignment(ctx->enc_type, ctx->is_complex);
+      size_t align_mod_offset;
+      if (align_at == 0) return -1;
+      align_mod_offset = ctx->fmt_offset % align_at;
+      if (align_mod_offset > 0) ctx->fmt_offset += align_at - align_mod_offset;
+      if (ctx->struct_alignment == 0)
+          ctx->struct_alignment = __Pyx_BufFmt_TypeCharToPadding(ctx->enc_type,
+                                                                 ctx->is_complex);
+    }
+    if (type->size != size || type->typegroup != group) {
+      if (type->typegroup == 'C' && type->fields != NULL) {
+        size_t parent_offset = ctx->head->parent_offset + field->offset;
+        ++ctx->head;
+        ctx->head->field = type->fields;
+        ctx->head->parent_offset = parent_offset;
+        continue;
+      }
+      if ((type->typegroup == 'H' || group == 'H') && type->size == size) {
+      } else {
+          __Pyx_BufFmt_RaiseExpected(ctx);
+          return -1;
+      }
+    }
+    offset = ctx->head->parent_offset + field->offset;
+    if (ctx->fmt_offset != offset) {
+      PyErr_Format(PyExc_ValueError,
+                   "Buffer dtype mismatch; next field is at offset %" CYTHON_FORMAT_SSIZE_T "d but %" CYTHON_FORMAT_SSIZE_T "d expected",
+                   (Py_ssize_t)ctx->fmt_offset, (Py_ssize_t)offset);
+      return -1;
+    }
+    ctx->fmt_offset += size;
+    if (arraysize)
+      ctx->fmt_offset += (arraysize - 1) * size;
+    --ctx->enc_count;
+    while (1) {
+      if (field == &ctx->root) {
+        ctx->head = NULL;
+        if (ctx->enc_count != 0) {
+          __Pyx_BufFmt_RaiseExpected(ctx);
+          return -1;
+        }
+        break;
+      }
+      ctx->head->field = ++field;
+      if (field->type == NULL) {
+        --ctx->head;
+        field = ctx->head->field;
+        continue;
+      } else if (field->type->typegroup == 'S') {
+        size_t parent_offset = ctx->head->parent_offset + field->offset;
+        if (field->type->fields->type == NULL) continue;
+        field = field->type->fields;
+        ++ctx->head;
+        ctx->head->field = field;
+        ctx->head->parent_offset = parent_offset;
+        break;
+      } else {
+        break;
+      }
+    }
+  } while (ctx->enc_count);
+  ctx->enc_type = 0;
+  ctx->is_complex = 0;
+  return 0;
+}
+static CYTHON_INLINE PyObject *
+__pyx_buffmt_parse_array(__Pyx_BufFmt_Context* ctx, const char** tsp)
+{
+    const char *ts = *tsp;
+    int i = 0, number;
+    int ndim = ctx->head->field->type->ndim;
+;
+    ++ts;
+    if (ctx->new_count != 1) {
+        PyErr_SetString(PyExc_ValueError,
+                        "Cannot handle repeated arrays in format string");
+        return NULL;
+    }
+    if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+    while (*ts && *ts != ')') {
+        switch (*ts) {
+            case ' ': case '\f': case '\r': case '\n': case '\t': case '\v':  continue;
+            default:  break;
+        }
+        number = __Pyx_BufFmt_ExpectNumber(&ts);
+        if (number == -1) return NULL;
+        if (i < ndim && (size_t) number != ctx->head->field->type->arraysize[i])
+            return PyErr_Format(PyExc_ValueError,
+                        "Expected a dimension of size %zu, got %d",
+                        ctx->head->field->type->arraysize[i], number);
+        if (*ts != ',' && *ts != ')')
+            return PyErr_Format(PyExc_ValueError,
+                                "Expected a comma in format string, got '%c'", *ts);
+        if (*ts == ',') ts++;
+        i++;
+    }
+    if (i != ndim)
+        return PyErr_Format(PyExc_ValueError, "Expected %d dimension(s), got %d",
+                            ctx->head->field->type->ndim, i);
+    if (!*ts) {
+        PyErr_SetString(PyExc_ValueError,
+                        "Unexpected end of format string, expected ')'");
+        return NULL;
+    }
+    ctx->is_valid_array = 1;
+    ctx->new_count = 1;
+    *tsp = ++ts;
+    return Py_None;
+}
+static const char* __Pyx_BufFmt_CheckString(__Pyx_BufFmt_Context* ctx, const char* ts) {
+  int got_Z = 0;
+  while (1) {
+    switch(*ts) {
+      case 0:
+        if (ctx->enc_type != 0 && ctx->head == NULL) {
+          __Pyx_BufFmt_RaiseExpected(ctx);
+          return NULL;
+        }
+        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+        if (ctx->head != NULL) {
+          __Pyx_BufFmt_RaiseExpected(ctx);
+          return NULL;
+        }
+        return ts;
+      case ' ':
+      case '\r':
+      case '\n':
+        ++ts;
+        break;
+      case '<':
+        if (!__Pyx_IsLittleEndian()) {
+          PyErr_SetString(PyExc_ValueError, "Little-endian buffer not supported on big-endian compiler");
+          return NULL;
+        }
+        ctx->new_packmode = '=';
+        ++ts;
+        break;
+      case '>':
+      case '!':
+        if (__Pyx_IsLittleEndian()) {
+          PyErr_SetString(PyExc_ValueError, "Big-endian buffer not supported on little-endian compiler");
+          return NULL;
+        }
+        ctx->new_packmode = '=';
+        ++ts;
+        break;
+      case '=':
+      case '@':
+      case '^':
+        ctx->new_packmode = *ts++;
+        break;
+      case 'T':
+        {
+          const char* ts_after_sub;
+          size_t i, struct_count = ctx->new_count;
+          size_t struct_alignment = ctx->struct_alignment;
+          ctx->new_count = 1;
+          ++ts;
+          if (*ts != '{') {
+            PyErr_SetString(PyExc_ValueError, "Buffer acquisition: Expected '{' after 'T'");
+            return NULL;
+          }
+          if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+          ctx->enc_type = 0;
+          ctx->enc_count = 0;
+          ctx->struct_alignment = 0;
+          ++ts;
+          ts_after_sub = ts;
+          for (i = 0; i != struct_count; ++i) {
+            ts_after_sub = __Pyx_BufFmt_CheckString(ctx, ts);
+            if (!ts_after_sub) return NULL;
+          }
+          ts = ts_after_sub;
+          if (struct_alignment) ctx->struct_alignment = struct_alignment;
+        }
+        break;
+      case '}':
+        {
+          size_t alignment = ctx->struct_alignment;
+          ++ts;
+          if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+          ctx->enc_type = 0;
+          if (alignment && ctx->fmt_offset % alignment) {
+            ctx->fmt_offset += alignment - (ctx->fmt_offset % alignment);
+          }
+        }
+        return ts;
+      case 'x':
+        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+        ctx->fmt_offset += ctx->new_count;
+        ctx->new_count = 1;
+        ctx->enc_count = 0;
+        ctx->enc_type = 0;
+        ctx->enc_packmode = ctx->new_packmode;
+        ++ts;
+        break;
+      case 'Z':
+        got_Z = 1;
+        ++ts;
+        if (*ts != 'f' && *ts != 'd' && *ts != 'g') {
+          __Pyx_BufFmt_RaiseUnexpectedChar('Z');
+          return NULL;
+        }
+      case 'c': case 'b': case 'B': case 'h': case 'H': case 'i': case 'I':
+      case 'l': case 'L': case 'q': case 'Q':
+      case 'f': case 'd': case 'g':
+      case 'O': case 'p':
+        if (ctx->enc_type == *ts && got_Z == ctx->is_complex &&
+            ctx->enc_packmode == ctx->new_packmode) {
+          ctx->enc_count += ctx->new_count;
+          ctx->new_count = 1;
+          got_Z = 0;
+          ++ts;
+          break;
+        }
+      case 's':
+        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+        ctx->enc_count = ctx->new_count;
+        ctx->enc_packmode = ctx->new_packmode;
+        ctx->enc_type = *ts;
+        ctx->is_complex = got_Z;
+        ++ts;
+        ctx->new_count = 1;
+        got_Z = 0;
+        break;
+      case ':':
+        ++ts;
+        while(*ts != ':') ++ts;
+        ++ts;
+        break;
+      case '(':
+        if (!__pyx_buffmt_parse_array(ctx, &ts)) return NULL;
+        break;
+      default:
+        {
+          int number = __Pyx_BufFmt_ExpectNumber(&ts);
+          if (number == -1) return NULL;
+          ctx->new_count = (size_t)number;
+        }
+    }
+  }
+}
+static CYTHON_INLINE void __Pyx_ZeroBuffer(Py_buffer* buf) {
+  buf->buf = NULL;
+  buf->obj = NULL;
+  buf->strides = __Pyx_zeros;
+  buf->shape = __Pyx_zeros;
+  buf->suboffsets = __Pyx_minusones;
+}
+static CYTHON_INLINE int __Pyx_GetBufferAndValidate(
+        Py_buffer* buf, PyObject* obj,  __Pyx_TypeInfo* dtype, int flags,
+        int nd, int cast, __Pyx_BufFmt_StackElem* stack)
+{
+  if (obj == Py_None || obj == NULL) {
+    __Pyx_ZeroBuffer(buf);
+    return 0;
+  }
+  buf->buf = NULL;
+  if (__Pyx_GetBuffer(obj, buf, flags) == -1) goto fail;
+  if (buf->ndim != nd) {
+    PyErr_Format(PyExc_ValueError,
+                 "Buffer has wrong number of dimensions (expected %d, got %d)",
+                 nd, buf->ndim);
+    goto fail;
+  }
+  if (!cast) {
+    __Pyx_BufFmt_Context ctx;
+    __Pyx_BufFmt_Init(&ctx, stack, dtype);
+    if (!__Pyx_BufFmt_CheckString(&ctx, buf->format)) goto fail;
+  }
+  if ((unsigned)buf->itemsize != dtype->size) {
+    PyErr_Format(PyExc_ValueError,
+      "Item size of buffer (%" CYTHON_FORMAT_SSIZE_T "d byte%s) does not match size of '%s' (%" CYTHON_FORMAT_SSIZE_T "d byte%s)",
+      buf->itemsize, (buf->itemsize > 1) ? "s" : "",
+      dtype->name, (Py_ssize_t)dtype->size, (dtype->size > 1) ? "s" : "");
+    goto fail;
+  }
+  if (buf->suboffsets == NULL) buf->suboffsets = __Pyx_minusones;
+  return 0;
+fail:;
+  __Pyx_ZeroBuffer(buf);
+  return -1;
+}
+static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info) {
+  if (info->buf == NULL) return;
+  if (info->suboffsets == __Pyx_minusones) info->suboffsets = NULL;
+  __Pyx_ReleaseBuffer(info);
+}
+
+/* MemviewSliceInit */
+            static int
+__Pyx_init_memviewslice(struct __pyx_memoryview_obj *memview,
+                        int ndim,
+                        __Pyx_memviewslice *memviewslice,
+                        int memview_is_new_reference)
+{
+    __Pyx_RefNannyDeclarations
+    int i, retval=-1;
+    Py_buffer *buf = &memview->view;
+    __Pyx_RefNannySetupContext("init_memviewslice", 0);
+    if (!buf) {
+        PyErr_SetString(PyExc_ValueError,
+            "buf is NULL.");
+        goto fail;
+    } else if (memviewslice->memview || memviewslice->data) {
+        PyErr_SetString(PyExc_ValueError,
+            "memviewslice is already initialized!");
+        goto fail;
+    }
+    if (buf->strides) {
+        for (i = 0; i < ndim; i++) {
+            memviewslice->strides[i] = buf->strides[i];
+        }
+    } else {
+        Py_ssize_t stride = buf->itemsize;
+        for (i = ndim - 1; i >= 0; i--) {
+            memviewslice->strides[i] = stride;
+            stride *= buf->shape[i];
+        }
+    }
+    for (i = 0; i < ndim; i++) {
+        memviewslice->shape[i]   = buf->shape[i];
+        if (buf->suboffsets) {
+            memviewslice->suboffsets[i] = buf->suboffsets[i];
+        } else {
+            memviewslice->suboffsets[i] = -1;
+        }
+    }
+    memviewslice->memview = memview;
+    memviewslice->data = (char *)buf->buf;
+    if (__pyx_add_acquisition_count(memview) == 0 && !memview_is_new_reference) {
+        Py_INCREF(memview);
+    }
+    retval = 0;
+    goto no_fail;
+fail:
+    memviewslice->memview = 0;
+    memviewslice->data = 0;
+    retval = -1;
+no_fail:
+    __Pyx_RefNannyFinishContext();
+    return retval;
+}
+static CYTHON_INLINE void __pyx_fatalerror(const char *fmt, ...) {
+    va_list vargs;
+    char msg[200];
+#ifdef HAVE_STDARG_PROTOTYPES
+    va_start(vargs, fmt);
+#else
+    va_start(vargs);
+#endif
+    vsnprintf(msg, 200, fmt, vargs);
+    Py_FatalError(msg);
+    va_end(vargs);
+}
+static CYTHON_INLINE int
+__pyx_add_acquisition_count_locked(__pyx_atomic_int *acquisition_count,
+                                   PyThread_type_lock lock)
+{
+    int result;
+    PyThread_acquire_lock(lock, 1);
+    result = (*acquisition_count)++;
+    PyThread_release_lock(lock);
+    return result;
+}
+static CYTHON_INLINE int
+__pyx_sub_acquisition_count_locked(__pyx_atomic_int *acquisition_count,
+                                   PyThread_type_lock lock)
+{
+    int result;
+    PyThread_acquire_lock(lock, 1);
+    result = (*acquisition_count)--;
+    PyThread_release_lock(lock);
+    return result;
+}
+static CYTHON_INLINE void
+__Pyx_INC_MEMVIEW(__Pyx_memviewslice *memslice, int have_gil, int lineno)
+{
+    int first_time;
+    struct __pyx_memoryview_obj *memview = memslice->memview;
+    if (!memview || (PyObject *) memview == Py_None)
+        return;
+    if (__pyx_get_slice_count(memview) < 0)
+        __pyx_fatalerror("Acquisition count is %d (line %d)",
+                         __pyx_get_slice_count(memview), lineno);
+    first_time = __pyx_add_acquisition_count(memview) == 0;
+    if (first_time) {
+        if (have_gil) {
+            Py_INCREF((PyObject *) memview);
+        } else {
+            PyGILState_STATE _gilstate = PyGILState_Ensure();
+            Py_INCREF((PyObject *) memview);
+            PyGILState_Release(_gilstate);
+        }
+    }
+}
+static CYTHON_INLINE void __Pyx_XDEC_MEMVIEW(__Pyx_memviewslice *memslice,
+                                             int have_gil, int lineno) {
+    int last_time;
+    struct __pyx_memoryview_obj *memview = memslice->memview;
+    if (!memview ) {
+        return;
+    } else if ((PyObject *) memview == Py_None) {
+        memslice->memview = NULL;
+        return;
+    }
+    if (__pyx_get_slice_count(memview) <= 0)
+        __pyx_fatalerror("Acquisition count is %d (line %d)",
+                         __pyx_get_slice_count(memview), lineno);
+    last_time = __pyx_sub_acquisition_count(memview) == 1;
+    memslice->data = NULL;
+    if (last_time) {
+        if (have_gil) {
+            Py_CLEAR(memslice->memview);
+        } else {
+            PyGILState_STATE _gilstate = PyGILState_Ensure();
+            Py_CLEAR(memslice->memview);
+            PyGILState_Release(_gilstate);
+        }
+    } else {
+        memslice->memview = NULL;
+    }
+}
+
+
+static CYTHON_INLINE void* __Pyx_BufPtrFull1d_imp(void* buf, Py_ssize_t i0, Py_ssize_t s0, Py_ssize_t o0) {
+  char* ptr = (char*)buf;
+ptr += s0 * i0;
+if (o0 >= 0) ptr = *((char**)ptr) + o0;
+
+return ptr;
+}
+            /* PyErrExceptionMatches */
+            #if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err) {
+    PyObject *exc_type = tstate->curexc_type;
+    if (exc_type == err) return 1;
+    if (unlikely(!exc_type)) return 0;
+    return PyErr_GivenExceptionMatches(exc_type, err);
+}
+#endif
+
+/* SetItemInt */
+            static CYTHON_INLINE int __Pyx_SetItemInt_Generic(PyObject *o, PyObject *j, PyObject *v) {
+    int r;
+    if (!j) return -1;
+    r = PyObject_SetItem(o, j, v);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE int __Pyx_SetItemInt_Fast(PyObject *o, Py_ssize_t i, PyObject *v, int is_list,
+                                               CYTHON_NCP_UNUSED int wraparound, CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = (!wraparound) ? i : ((likely(i >= 0)) ? i : i + PyList_GET_SIZE(o));
+        if ((!boundscheck) || likely((n >= 0) & (n < PyList_GET_SIZE(o)))) {
+            PyObject* old = PyList_GET_ITEM(o, n);
+            Py_INCREF(v);
+            PyList_SET_ITEM(o, n, v);
+            Py_DECREF(old);
+            return 1;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_ass_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
+                        return -1;
+                    PyErr_Clear();
+                }
+            }
+            return m->sq_ass_item(o, i, v);
+        }
+    }
+#else
+#if CYTHON_COMPILING_IN_PYPY
+    if (is_list || (PySequence_Check(o) && !PyDict_Check(o))) {
+#else
+    if (is_list || PySequence_Check(o)) {
+#endif
+        return PySequence_SetItem(o, i, v);
+    }
+#endif
+    return __Pyx_SetItemInt_Generic(o, PyInt_FromSsize_t(i), v);
+}
+
+/* PyIntBinop */
+              #if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
+    if (op1 == op2) {
+        Py_RETURN_TRUE;
+    }
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_CheckExact(op1))) {
+        const long b = intval;
+        long a = PyInt_AS_LONG(op1);
+        if (a == b) {
+            Py_RETURN_TRUE;
+        } else {
+            Py_RETURN_FALSE;
+        }
+    }
+    #endif
+    #if CYTHON_USE_PYLONG_INTERNALS && PY_MAJOR_VERSION >= 3
+    if (likely(PyLong_CheckExact(op1))) {
+        const long b = intval;
+        long a;
+        const digit* digits = ((PyLongObject*)op1)->ob_digit;
+        const Py_ssize_t size = Py_SIZE(op1);
+        if (likely(__Pyx_sst_abs(size) <= 1)) {
+            a = likely(size) ? digits[0] : 0;
+            if (size == -1) a = -a;
+        } else {
+            switch (size) {
+                case -2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case 2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case -3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case 3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case -4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case 4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                #if PyLong_SHIFT < 30 && PyLong_SHIFT != 15
+                default: return PyLong_Type.tp_richcompare(op1, op2, Py_EQ);
+                #else
+                default: Py_RETURN_FALSE;
+                #endif
+            }
+        }
+            if (a == b) {
+                Py_RETURN_TRUE;
+            } else {
+                Py_RETURN_FALSE;
+            }
+    }
+    #endif
+    if (PyFloat_CheckExact(op1)) {
+        const long b = intval;
+        double a = PyFloat_AS_DOUBLE(op1);
+            if ((double)a == (double)b) {
+                Py_RETURN_TRUE;
+            } else {
+                Py_RETURN_FALSE;
+            }
+    }
+    return PyObject_RichCompare(op1, op2, Py_EQ);
+}
+#endif
+
+/* ExtTypeTest */
+              static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    if (likely(PyObject_TypeCheck(obj, type)))
+        return 1;
+    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
+                 Py_TYPE(obj)->tp_name, type->tp_name);
+    return 0;
+}
+
 /* FetchCommonType */
-          static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
+              static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
     PyObject* fake_module;
     PyTypeObject* cached_type = NULL;
     fake_module = PyImport_AddModule((char*) "_cython_" CYTHON_ABI);
@@ -33895,7 +34088,7 @@ bad:
 }
 
 /* CythonFunction */
-          static PyObject *
+              static PyObject *
 __Pyx_CyFunction_get_doc(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *closure)
 {
     if (unlikely(op->func_doc == NULL)) {
@@ -34461,855 +34654,6 @@ static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, Py
     Py_INCREF(dict);
 }
 
-/* BufferFormatCheck */
-              static CYTHON_INLINE int __Pyx_IsLittleEndian(void) {
-  unsigned int n = 1;
-  return *(unsigned char*)(&n) != 0;
-}
-static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
-                              __Pyx_BufFmt_StackElem* stack,
-                              __Pyx_TypeInfo* type) {
-  stack[0].field = &ctx->root;
-  stack[0].parent_offset = 0;
-  ctx->root.type = type;
-  ctx->root.name = "buffer dtype";
-  ctx->root.offset = 0;
-  ctx->head = stack;
-  ctx->head->field = &ctx->root;
-  ctx->fmt_offset = 0;
-  ctx->head->parent_offset = 0;
-  ctx->new_packmode = '@';
-  ctx->enc_packmode = '@';
-  ctx->new_count = 1;
-  ctx->enc_count = 0;
-  ctx->enc_type = 0;
-  ctx->is_complex = 0;
-  ctx->is_valid_array = 0;
-  ctx->struct_alignment = 0;
-  while (type->typegroup == 'S') {
-    ++ctx->head;
-    ctx->head->field = type->fields;
-    ctx->head->parent_offset = 0;
-    type = type->fields->type;
-  }
-}
-static int __Pyx_BufFmt_ParseNumber(const char** ts) {
-    int count;
-    const char* t = *ts;
-    if (*t < '0' || *t > '9') {
-      return -1;
-    } else {
-        count = *t++ - '0';
-        while (*t >= '0' && *t < '9') {
-            count *= 10;
-            count += *t++ - '0';
-        }
-    }
-    *ts = t;
-    return count;
-}
-static int __Pyx_BufFmt_ExpectNumber(const char **ts) {
-    int number = __Pyx_BufFmt_ParseNumber(ts);
-    if (number == -1)
-        PyErr_Format(PyExc_ValueError,\
-                     "Does not understand character buffer dtype format string ('%c')", **ts);
-    return number;
-}
-static void __Pyx_BufFmt_RaiseUnexpectedChar(char ch) {
-  PyErr_Format(PyExc_ValueError,
-               "Unexpected format string character: '%c'", ch);
-}
-static const char* __Pyx_BufFmt_DescribeTypeChar(char ch, int is_complex) {
-  switch (ch) {
-    case 'c': return "'char'";
-    case 'b': return "'signed char'";
-    case 'B': return "'unsigned char'";
-    case 'h': return "'short'";
-    case 'H': return "'unsigned short'";
-    case 'i': return "'int'";
-    case 'I': return "'unsigned int'";
-    case 'l': return "'long'";
-    case 'L': return "'unsigned long'";
-    case 'q': return "'long long'";
-    case 'Q': return "'unsigned long long'";
-    case 'f': return (is_complex ? "'complex float'" : "'float'");
-    case 'd': return (is_complex ? "'complex double'" : "'double'");
-    case 'g': return (is_complex ? "'complex long double'" : "'long double'");
-    case 'T': return "a struct";
-    case 'O': return "Python object";
-    case 'P': return "a pointer";
-    case 's': case 'p': return "a string";
-    case 0: return "end";
-    default: return "unparseable format string";
-  }
-}
-static size_t __Pyx_BufFmt_TypeCharToStandardSize(char ch, int is_complex) {
-  switch (ch) {
-    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
-    case 'h': case 'H': return 2;
-    case 'i': case 'I': case 'l': case 'L': return 4;
-    case 'q': case 'Q': return 8;
-    case 'f': return (is_complex ? 8 : 4);
-    case 'd': return (is_complex ? 16 : 8);
-    case 'g': {
-      PyErr_SetString(PyExc_ValueError, "Python does not define a standard format string size for long double ('g')..");
-      return 0;
-    }
-    case 'O': case 'P': return sizeof(void*);
-    default:
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
-    }
-}
-static size_t __Pyx_BufFmt_TypeCharToNativeSize(char ch, int is_complex) {
-  switch (ch) {
-    case 'c': case 'b': case 'B': case 's': case 'p': return 1;
-    case 'h': case 'H': return sizeof(short);
-    case 'i': case 'I': return sizeof(int);
-    case 'l': case 'L': return sizeof(long);
-    #ifdef HAVE_LONG_LONG
-    case 'q': case 'Q': return sizeof(PY_LONG_LONG);
-    #endif
-    case 'f': return sizeof(float) * (is_complex ? 2 : 1);
-    case 'd': return sizeof(double) * (is_complex ? 2 : 1);
-    case 'g': return sizeof(long double) * (is_complex ? 2 : 1);
-    case 'O': case 'P': return sizeof(void*);
-    default: {
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
-    }
-  }
-}
-typedef struct { char c; short x; } __Pyx_st_short;
-typedef struct { char c; int x; } __Pyx_st_int;
-typedef struct { char c; long x; } __Pyx_st_long;
-typedef struct { char c; float x; } __Pyx_st_float;
-typedef struct { char c; double x; } __Pyx_st_double;
-typedef struct { char c; long double x; } __Pyx_st_longdouble;
-typedef struct { char c; void *x; } __Pyx_st_void_p;
-#ifdef HAVE_LONG_LONG
-typedef struct { char c; PY_LONG_LONG x; } __Pyx_st_longlong;
-#endif
-static size_t __Pyx_BufFmt_TypeCharToAlignment(char ch, CYTHON_UNUSED int is_complex) {
-  switch (ch) {
-    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
-    case 'h': case 'H': return sizeof(__Pyx_st_short) - sizeof(short);
-    case 'i': case 'I': return sizeof(__Pyx_st_int) - sizeof(int);
-    case 'l': case 'L': return sizeof(__Pyx_st_long) - sizeof(long);
-#ifdef HAVE_LONG_LONG
-    case 'q': case 'Q': return sizeof(__Pyx_st_longlong) - sizeof(PY_LONG_LONG);
-#endif
-    case 'f': return sizeof(__Pyx_st_float) - sizeof(float);
-    case 'd': return sizeof(__Pyx_st_double) - sizeof(double);
-    case 'g': return sizeof(__Pyx_st_longdouble) - sizeof(long double);
-    case 'P': case 'O': return sizeof(__Pyx_st_void_p) - sizeof(void*);
-    default:
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
-    }
-}
-/* These are for computing the padding at the end of the struct to align
-   on the first member of the struct. This will probably the same as above,
-   but we don't have any guarantees.
- */
-typedef struct { short x; char c; } __Pyx_pad_short;
-typedef struct { int x; char c; } __Pyx_pad_int;
-typedef struct { long x; char c; } __Pyx_pad_long;
-typedef struct { float x; char c; } __Pyx_pad_float;
-typedef struct { double x; char c; } __Pyx_pad_double;
-typedef struct { long double x; char c; } __Pyx_pad_longdouble;
-typedef struct { void *x; char c; } __Pyx_pad_void_p;
-#ifdef HAVE_LONG_LONG
-typedef struct { PY_LONG_LONG x; char c; } __Pyx_pad_longlong;
-#endif
-static size_t __Pyx_BufFmt_TypeCharToPadding(char ch, CYTHON_UNUSED int is_complex) {
-  switch (ch) {
-    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
-    case 'h': case 'H': return sizeof(__Pyx_pad_short) - sizeof(short);
-    case 'i': case 'I': return sizeof(__Pyx_pad_int) - sizeof(int);
-    case 'l': case 'L': return sizeof(__Pyx_pad_long) - sizeof(long);
-#ifdef HAVE_LONG_LONG
-    case 'q': case 'Q': return sizeof(__Pyx_pad_longlong) - sizeof(PY_LONG_LONG);
-#endif
-    case 'f': return sizeof(__Pyx_pad_float) - sizeof(float);
-    case 'd': return sizeof(__Pyx_pad_double) - sizeof(double);
-    case 'g': return sizeof(__Pyx_pad_longdouble) - sizeof(long double);
-    case 'P': case 'O': return sizeof(__Pyx_pad_void_p) - sizeof(void*);
-    default:
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
-    }
-}
-static char __Pyx_BufFmt_TypeCharToGroup(char ch, int is_complex) {
-  switch (ch) {
-    case 'c':
-        return 'H';
-    case 'b': case 'h': case 'i':
-    case 'l': case 'q': case 's': case 'p':
-        return 'I';
-    case 'B': case 'H': case 'I': case 'L': case 'Q':
-        return 'U';
-    case 'f': case 'd': case 'g':
-        return (is_complex ? 'C' : 'R');
-    case 'O':
-        return 'O';
-    case 'P':
-        return 'P';
-    default: {
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
-    }
-  }
-}
-static void __Pyx_BufFmt_RaiseExpected(__Pyx_BufFmt_Context* ctx) {
-  if (ctx->head == NULL || ctx->head->field == &ctx->root) {
-    const char* expected;
-    const char* quote;
-    if (ctx->head == NULL) {
-      expected = "end";
-      quote = "";
-    } else {
-      expected = ctx->head->field->type->name;
-      quote = "'";
-    }
-    PyErr_Format(PyExc_ValueError,
-                 "Buffer dtype mismatch, expected %s%s%s but got %s",
-                 quote, expected, quote,
-                 __Pyx_BufFmt_DescribeTypeChar(ctx->enc_type, ctx->is_complex));
-  } else {
-    __Pyx_StructField* field = ctx->head->field;
-    __Pyx_StructField* parent = (ctx->head - 1)->field;
-    PyErr_Format(PyExc_ValueError,
-                 "Buffer dtype mismatch, expected '%s' but got %s in '%s.%s'",
-                 field->type->name, __Pyx_BufFmt_DescribeTypeChar(ctx->enc_type, ctx->is_complex),
-                 parent->type->name, field->name);
-  }
-}
-static int __Pyx_BufFmt_ProcessTypeChunk(__Pyx_BufFmt_Context* ctx) {
-  char group;
-  size_t size, offset, arraysize = 1;
-  if (ctx->enc_type == 0) return 0;
-  if (ctx->head->field->type->arraysize[0]) {
-    int i, ndim = 0;
-    if (ctx->enc_type == 's' || ctx->enc_type == 'p') {
-        ctx->is_valid_array = ctx->head->field->type->ndim == 1;
-        ndim = 1;
-        if (ctx->enc_count != ctx->head->field->type->arraysize[0]) {
-            PyErr_Format(PyExc_ValueError,
-                         "Expected a dimension of size %zu, got %zu",
-                         ctx->head->field->type->arraysize[0], ctx->enc_count);
-            return -1;
-        }
-    }
-    if (!ctx->is_valid_array) {
-      PyErr_Format(PyExc_ValueError, "Expected %d dimensions, got %d",
-                   ctx->head->field->type->ndim, ndim);
-      return -1;
-    }
-    for (i = 0; i < ctx->head->field->type->ndim; i++) {
-      arraysize *= ctx->head->field->type->arraysize[i];
-    }
-    ctx->is_valid_array = 0;
-    ctx->enc_count = 1;
-  }
-  group = __Pyx_BufFmt_TypeCharToGroup(ctx->enc_type, ctx->is_complex);
-  do {
-    __Pyx_StructField* field = ctx->head->field;
-    __Pyx_TypeInfo* type = field->type;
-    if (ctx->enc_packmode == '@' || ctx->enc_packmode == '^') {
-      size = __Pyx_BufFmt_TypeCharToNativeSize(ctx->enc_type, ctx->is_complex);
-    } else {
-      size = __Pyx_BufFmt_TypeCharToStandardSize(ctx->enc_type, ctx->is_complex);
-    }
-    if (ctx->enc_packmode == '@') {
-      size_t align_at = __Pyx_BufFmt_TypeCharToAlignment(ctx->enc_type, ctx->is_complex);
-      size_t align_mod_offset;
-      if (align_at == 0) return -1;
-      align_mod_offset = ctx->fmt_offset % align_at;
-      if (align_mod_offset > 0) ctx->fmt_offset += align_at - align_mod_offset;
-      if (ctx->struct_alignment == 0)
-          ctx->struct_alignment = __Pyx_BufFmt_TypeCharToPadding(ctx->enc_type,
-                                                                 ctx->is_complex);
-    }
-    if (type->size != size || type->typegroup != group) {
-      if (type->typegroup == 'C' && type->fields != NULL) {
-        size_t parent_offset = ctx->head->parent_offset + field->offset;
-        ++ctx->head;
-        ctx->head->field = type->fields;
-        ctx->head->parent_offset = parent_offset;
-        continue;
-      }
-      if ((type->typegroup == 'H' || group == 'H') && type->size == size) {
-      } else {
-          __Pyx_BufFmt_RaiseExpected(ctx);
-          return -1;
-      }
-    }
-    offset = ctx->head->parent_offset + field->offset;
-    if (ctx->fmt_offset != offset) {
-      PyErr_Format(PyExc_ValueError,
-                   "Buffer dtype mismatch; next field is at offset %" CYTHON_FORMAT_SSIZE_T "d but %" CYTHON_FORMAT_SSIZE_T "d expected",
-                   (Py_ssize_t)ctx->fmt_offset, (Py_ssize_t)offset);
-      return -1;
-    }
-    ctx->fmt_offset += size;
-    if (arraysize)
-      ctx->fmt_offset += (arraysize - 1) * size;
-    --ctx->enc_count;
-    while (1) {
-      if (field == &ctx->root) {
-        ctx->head = NULL;
-        if (ctx->enc_count != 0) {
-          __Pyx_BufFmt_RaiseExpected(ctx);
-          return -1;
-        }
-        break;
-      }
-      ctx->head->field = ++field;
-      if (field->type == NULL) {
-        --ctx->head;
-        field = ctx->head->field;
-        continue;
-      } else if (field->type->typegroup == 'S') {
-        size_t parent_offset = ctx->head->parent_offset + field->offset;
-        if (field->type->fields->type == NULL) continue;
-        field = field->type->fields;
-        ++ctx->head;
-        ctx->head->field = field;
-        ctx->head->parent_offset = parent_offset;
-        break;
-      } else {
-        break;
-      }
-    }
-  } while (ctx->enc_count);
-  ctx->enc_type = 0;
-  ctx->is_complex = 0;
-  return 0;
-}
-static CYTHON_INLINE PyObject *
-__pyx_buffmt_parse_array(__Pyx_BufFmt_Context* ctx, const char** tsp)
-{
-    const char *ts = *tsp;
-    int i = 0, number;
-    int ndim = ctx->head->field->type->ndim;
-;
-    ++ts;
-    if (ctx->new_count != 1) {
-        PyErr_SetString(PyExc_ValueError,
-                        "Cannot handle repeated arrays in format string");
-        return NULL;
-    }
-    if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-    while (*ts && *ts != ')') {
-        switch (*ts) {
-            case ' ': case '\f': case '\r': case '\n': case '\t': case '\v':  continue;
-            default:  break;
-        }
-        number = __Pyx_BufFmt_ExpectNumber(&ts);
-        if (number == -1) return NULL;
-        if (i < ndim && (size_t) number != ctx->head->field->type->arraysize[i])
-            return PyErr_Format(PyExc_ValueError,
-                        "Expected a dimension of size %zu, got %d",
-                        ctx->head->field->type->arraysize[i], number);
-        if (*ts != ',' && *ts != ')')
-            return PyErr_Format(PyExc_ValueError,
-                                "Expected a comma in format string, got '%c'", *ts);
-        if (*ts == ',') ts++;
-        i++;
-    }
-    if (i != ndim)
-        return PyErr_Format(PyExc_ValueError, "Expected %d dimension(s), got %d",
-                            ctx->head->field->type->ndim, i);
-    if (!*ts) {
-        PyErr_SetString(PyExc_ValueError,
-                        "Unexpected end of format string, expected ')'");
-        return NULL;
-    }
-    ctx->is_valid_array = 1;
-    ctx->new_count = 1;
-    *tsp = ++ts;
-    return Py_None;
-}
-static const char* __Pyx_BufFmt_CheckString(__Pyx_BufFmt_Context* ctx, const char* ts) {
-  int got_Z = 0;
-  while (1) {
-    switch(*ts) {
-      case 0:
-        if (ctx->enc_type != 0 && ctx->head == NULL) {
-          __Pyx_BufFmt_RaiseExpected(ctx);
-          return NULL;
-        }
-        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-        if (ctx->head != NULL) {
-          __Pyx_BufFmt_RaiseExpected(ctx);
-          return NULL;
-        }
-        return ts;
-      case ' ':
-      case '\r':
-      case '\n':
-        ++ts;
-        break;
-      case '<':
-        if (!__Pyx_IsLittleEndian()) {
-          PyErr_SetString(PyExc_ValueError, "Little-endian buffer not supported on big-endian compiler");
-          return NULL;
-        }
-        ctx->new_packmode = '=';
-        ++ts;
-        break;
-      case '>':
-      case '!':
-        if (__Pyx_IsLittleEndian()) {
-          PyErr_SetString(PyExc_ValueError, "Big-endian buffer not supported on little-endian compiler");
-          return NULL;
-        }
-        ctx->new_packmode = '=';
-        ++ts;
-        break;
-      case '=':
-      case '@':
-      case '^':
-        ctx->new_packmode = *ts++;
-        break;
-      case 'T':
-        {
-          const char* ts_after_sub;
-          size_t i, struct_count = ctx->new_count;
-          size_t struct_alignment = ctx->struct_alignment;
-          ctx->new_count = 1;
-          ++ts;
-          if (*ts != '{') {
-            PyErr_SetString(PyExc_ValueError, "Buffer acquisition: Expected '{' after 'T'");
-            return NULL;
-          }
-          if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-          ctx->enc_type = 0;
-          ctx->enc_count = 0;
-          ctx->struct_alignment = 0;
-          ++ts;
-          ts_after_sub = ts;
-          for (i = 0; i != struct_count; ++i) {
-            ts_after_sub = __Pyx_BufFmt_CheckString(ctx, ts);
-            if (!ts_after_sub) return NULL;
-          }
-          ts = ts_after_sub;
-          if (struct_alignment) ctx->struct_alignment = struct_alignment;
-        }
-        break;
-      case '}':
-        {
-          size_t alignment = ctx->struct_alignment;
-          ++ts;
-          if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-          ctx->enc_type = 0;
-          if (alignment && ctx->fmt_offset % alignment) {
-            ctx->fmt_offset += alignment - (ctx->fmt_offset % alignment);
-          }
-        }
-        return ts;
-      case 'x':
-        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-        ctx->fmt_offset += ctx->new_count;
-        ctx->new_count = 1;
-        ctx->enc_count = 0;
-        ctx->enc_type = 0;
-        ctx->enc_packmode = ctx->new_packmode;
-        ++ts;
-        break;
-      case 'Z':
-        got_Z = 1;
-        ++ts;
-        if (*ts != 'f' && *ts != 'd' && *ts != 'g') {
-          __Pyx_BufFmt_RaiseUnexpectedChar('Z');
-          return NULL;
-        }
-      case 'c': case 'b': case 'B': case 'h': case 'H': case 'i': case 'I':
-      case 'l': case 'L': case 'q': case 'Q':
-      case 'f': case 'd': case 'g':
-      case 'O': case 'p':
-        if (ctx->enc_type == *ts && got_Z == ctx->is_complex &&
-            ctx->enc_packmode == ctx->new_packmode) {
-          ctx->enc_count += ctx->new_count;
-          ctx->new_count = 1;
-          got_Z = 0;
-          ++ts;
-          break;
-        }
-      case 's':
-        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-        ctx->enc_count = ctx->new_count;
-        ctx->enc_packmode = ctx->new_packmode;
-        ctx->enc_type = *ts;
-        ctx->is_complex = got_Z;
-        ++ts;
-        ctx->new_count = 1;
-        got_Z = 0;
-        break;
-      case ':':
-        ++ts;
-        while(*ts != ':') ++ts;
-        ++ts;
-        break;
-      case '(':
-        if (!__pyx_buffmt_parse_array(ctx, &ts)) return NULL;
-        break;
-      default:
-        {
-          int number = __Pyx_BufFmt_ExpectNumber(&ts);
-          if (number == -1) return NULL;
-          ctx->new_count = (size_t)number;
-        }
-    }
-  }
-}
-static CYTHON_INLINE void __Pyx_ZeroBuffer(Py_buffer* buf) {
-  buf->buf = NULL;
-  buf->obj = NULL;
-  buf->strides = __Pyx_zeros;
-  buf->shape = __Pyx_zeros;
-  buf->suboffsets = __Pyx_minusones;
-}
-static CYTHON_INLINE int __Pyx_GetBufferAndValidate(
-        Py_buffer* buf, PyObject* obj,  __Pyx_TypeInfo* dtype, int flags,
-        int nd, int cast, __Pyx_BufFmt_StackElem* stack)
-{
-  if (obj == Py_None || obj == NULL) {
-    __Pyx_ZeroBuffer(buf);
-    return 0;
-  }
-  buf->buf = NULL;
-  if (__Pyx_GetBuffer(obj, buf, flags) == -1) goto fail;
-  if (buf->ndim != nd) {
-    PyErr_Format(PyExc_ValueError,
-                 "Buffer has wrong number of dimensions (expected %d, got %d)",
-                 nd, buf->ndim);
-    goto fail;
-  }
-  if (!cast) {
-    __Pyx_BufFmt_Context ctx;
-    __Pyx_BufFmt_Init(&ctx, stack, dtype);
-    if (!__Pyx_BufFmt_CheckString(&ctx, buf->format)) goto fail;
-  }
-  if ((unsigned)buf->itemsize != dtype->size) {
-    PyErr_Format(PyExc_ValueError,
-      "Item size of buffer (%" CYTHON_FORMAT_SSIZE_T "d byte%s) does not match size of '%s' (%" CYTHON_FORMAT_SSIZE_T "d byte%s)",
-      buf->itemsize, (buf->itemsize > 1) ? "s" : "",
-      dtype->name, (Py_ssize_t)dtype->size, (dtype->size > 1) ? "s" : "");
-    goto fail;
-  }
-  if (buf->suboffsets == NULL) buf->suboffsets = __Pyx_minusones;
-  return 0;
-fail:;
-  __Pyx_ZeroBuffer(buf);
-  return -1;
-}
-static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info) {
-  if (info->buf == NULL) return;
-  if (info->suboffsets == __Pyx_minusones) info->suboffsets = NULL;
-  __Pyx_ReleaseBuffer(info);
-}
-
-/* MemviewSliceInit */
-                static int
-__Pyx_init_memviewslice(struct __pyx_memoryview_obj *memview,
-                        int ndim,
-                        __Pyx_memviewslice *memviewslice,
-                        int memview_is_new_reference)
-{
-    __Pyx_RefNannyDeclarations
-    int i, retval=-1;
-    Py_buffer *buf = &memview->view;
-    __Pyx_RefNannySetupContext("init_memviewslice", 0);
-    if (!buf) {
-        PyErr_SetString(PyExc_ValueError,
-            "buf is NULL.");
-        goto fail;
-    } else if (memviewslice->memview || memviewslice->data) {
-        PyErr_SetString(PyExc_ValueError,
-            "memviewslice is already initialized!");
-        goto fail;
-    }
-    if (buf->strides) {
-        for (i = 0; i < ndim; i++) {
-            memviewslice->strides[i] = buf->strides[i];
-        }
-    } else {
-        Py_ssize_t stride = buf->itemsize;
-        for (i = ndim - 1; i >= 0; i--) {
-            memviewslice->strides[i] = stride;
-            stride *= buf->shape[i];
-        }
-    }
-    for (i = 0; i < ndim; i++) {
-        memviewslice->shape[i]   = buf->shape[i];
-        if (buf->suboffsets) {
-            memviewslice->suboffsets[i] = buf->suboffsets[i];
-        } else {
-            memviewslice->suboffsets[i] = -1;
-        }
-    }
-    memviewslice->memview = memview;
-    memviewslice->data = (char *)buf->buf;
-    if (__pyx_add_acquisition_count(memview) == 0 && !memview_is_new_reference) {
-        Py_INCREF(memview);
-    }
-    retval = 0;
-    goto no_fail;
-fail:
-    memviewslice->memview = 0;
-    memviewslice->data = 0;
-    retval = -1;
-no_fail:
-    __Pyx_RefNannyFinishContext();
-    return retval;
-}
-static CYTHON_INLINE void __pyx_fatalerror(const char *fmt, ...) {
-    va_list vargs;
-    char msg[200];
-#ifdef HAVE_STDARG_PROTOTYPES
-    va_start(vargs, fmt);
-#else
-    va_start(vargs);
-#endif
-    vsnprintf(msg, 200, fmt, vargs);
-    Py_FatalError(msg);
-    va_end(vargs);
-}
-static CYTHON_INLINE int
-__pyx_add_acquisition_count_locked(__pyx_atomic_int *acquisition_count,
-                                   PyThread_type_lock lock)
-{
-    int result;
-    PyThread_acquire_lock(lock, 1);
-    result = (*acquisition_count)++;
-    PyThread_release_lock(lock);
-    return result;
-}
-static CYTHON_INLINE int
-__pyx_sub_acquisition_count_locked(__pyx_atomic_int *acquisition_count,
-                                   PyThread_type_lock lock)
-{
-    int result;
-    PyThread_acquire_lock(lock, 1);
-    result = (*acquisition_count)--;
-    PyThread_release_lock(lock);
-    return result;
-}
-static CYTHON_INLINE void
-__Pyx_INC_MEMVIEW(__Pyx_memviewslice *memslice, int have_gil, int lineno)
-{
-    int first_time;
-    struct __pyx_memoryview_obj *memview = memslice->memview;
-    if (!memview || (PyObject *) memview == Py_None)
-        return;
-    if (__pyx_get_slice_count(memview) < 0)
-        __pyx_fatalerror("Acquisition count is %d (line %d)",
-                         __pyx_get_slice_count(memview), lineno);
-    first_time = __pyx_add_acquisition_count(memview) == 0;
-    if (first_time) {
-        if (have_gil) {
-            Py_INCREF((PyObject *) memview);
-        } else {
-            PyGILState_STATE _gilstate = PyGILState_Ensure();
-            Py_INCREF((PyObject *) memview);
-            PyGILState_Release(_gilstate);
-        }
-    }
-}
-static CYTHON_INLINE void __Pyx_XDEC_MEMVIEW(__Pyx_memviewslice *memslice,
-                                             int have_gil, int lineno) {
-    int last_time;
-    struct __pyx_memoryview_obj *memview = memslice->memview;
-    if (!memview ) {
-        return;
-    } else if ((PyObject *) memview == Py_None) {
-        memslice->memview = NULL;
-        return;
-    }
-    if (__pyx_get_slice_count(memview) <= 0)
-        __pyx_fatalerror("Acquisition count is %d (line %d)",
-                         __pyx_get_slice_count(memview), lineno);
-    last_time = __pyx_sub_acquisition_count(memview) == 1;
-    memslice->data = NULL;
-    if (last_time) {
-        if (have_gil) {
-            Py_CLEAR(memslice->memview);
-        } else {
-            PyGILState_STATE _gilstate = PyGILState_Ensure();
-            Py_CLEAR(memslice->memview);
-            PyGILState_Release(_gilstate);
-        }
-    } else {
-        memslice->memview = NULL;
-    }
-}
-
-
-static CYTHON_INLINE void* __Pyx_BufPtrFull1d_imp(void* buf, Py_ssize_t i0, Py_ssize_t s0, Py_ssize_t o0) {
-  char* ptr = (char*)buf;
-ptr += s0 * i0;
-if (o0 >= 0) ptr = *((char**)ptr) + o0;
-
-return ptr;
-}
-                /* PyErrExceptionMatches */
-                #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err) {
-    PyObject *exc_type = tstate->curexc_type;
-    if (exc_type == err) return 1;
-    if (unlikely(!exc_type)) return 0;
-    return PyErr_GivenExceptionMatches(exc_type, err);
-}
-#endif
-
-/* SetItemInt */
-                static CYTHON_INLINE int __Pyx_SetItemInt_Generic(PyObject *o, PyObject *j, PyObject *v) {
-    int r;
-    if (!j) return -1;
-    r = PyObject_SetItem(o, j, v);
-    Py_DECREF(j);
-    return r;
-}
-static CYTHON_INLINE int __Pyx_SetItemInt_Fast(PyObject *o, Py_ssize_t i, PyObject *v, int is_list,
-                                               CYTHON_NCP_UNUSED int wraparound, CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (is_list || PyList_CheckExact(o)) {
-        Py_ssize_t n = (!wraparound) ? i : ((likely(i >= 0)) ? i : i + PyList_GET_SIZE(o));
-        if ((!boundscheck) || likely((n >= 0) & (n < PyList_GET_SIZE(o)))) {
-            PyObject* old = PyList_GET_ITEM(o, n);
-            Py_INCREF(v);
-            PyList_SET_ITEM(o, n, v);
-            Py_DECREF(old);
-            return 1;
-        }
-    } else {
-        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
-        if (likely(m && m->sq_ass_item)) {
-            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
-                Py_ssize_t l = m->sq_length(o);
-                if (likely(l >= 0)) {
-                    i += l;
-                } else {
-                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
-                        return -1;
-                    PyErr_Clear();
-                }
-            }
-            return m->sq_ass_item(o, i, v);
-        }
-    }
-#else
-#if CYTHON_COMPILING_IN_PYPY
-    if (is_list || (PySequence_Check(o) && !PyDict_Check(o))) {
-#else
-    if (is_list || PySequence_Check(o)) {
-#endif
-        return PySequence_SetItem(o, i, v);
-    }
-#endif
-    return __Pyx_SetItemInt_Generic(o, PyInt_FromSsize_t(i), v);
-}
-
-/* PyIntBinop */
-                  #if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
-    if (op1 == op2) {
-        Py_RETURN_TRUE;
-    }
-    #if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_CheckExact(op1))) {
-        const long b = intval;
-        long a = PyInt_AS_LONG(op1);
-        if (a == b) {
-            Py_RETURN_TRUE;
-        } else {
-            Py_RETURN_FALSE;
-        }
-    }
-    #endif
-    #if CYTHON_USE_PYLONG_INTERNALS && PY_MAJOR_VERSION >= 3
-    if (likely(PyLong_CheckExact(op1))) {
-        const long b = intval;
-        long a;
-        const digit* digits = ((PyLongObject*)op1)->ob_digit;
-        const Py_ssize_t size = Py_SIZE(op1);
-        if (likely(__Pyx_sst_abs(size) <= 1)) {
-            a = likely(size) ? digits[0] : 0;
-            if (size == -1) a = -a;
-        } else {
-            switch (size) {
-                case -2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case 2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case -3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case 3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case -4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case 4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                #if PyLong_SHIFT < 30 && PyLong_SHIFT != 15
-                default: return PyLong_Type.tp_richcompare(op1, op2, Py_EQ);
-                #else
-                default: Py_RETURN_FALSE;
-                #endif
-            }
-        }
-            if (a == b) {
-                Py_RETURN_TRUE;
-            } else {
-                Py_RETURN_FALSE;
-            }
-    }
-    #endif
-    if (PyFloat_CheckExact(op1)) {
-        const long b = intval;
-        double a = PyFloat_AS_DOUBLE(op1);
-            if ((double)a == (double)b) {
-                Py_RETURN_TRUE;
-            } else {
-                Py_RETURN_FALSE;
-            }
-    }
-    return PyObject_RichCompare(op1, op2, Py_EQ);
-}
-#endif
-
-/* ExtTypeTest */
-                  static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
-        return 0;
-    }
-    if (likely(PyObject_TypeCheck(obj, type)))
-        return 1;
-    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
-                 Py_TYPE(obj)->tp_name, type->tp_name);
-    return 0;
-}
-
 /* PyIntBinop */
                   #if CYTHON_COMPILING_IN_CPYTHON
 static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
@@ -35737,6 +35081,20 @@ bad:
 bad:
     Py_XDECREF(ob);
     return -1;
+}
+
+/* ImportFrom */
+                  static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
+    PyObject* value = __Pyx_PyObject_GetAttrStr(module, name);
+    if (unlikely(!value) && PyErr_ExceptionMatches(PyExc_AttributeError)) {
+        PyErr_Format(PyExc_ImportError,
+        #if PY_MAJOR_VERSION < 3
+            "cannot import name %.230s", PyString_AS_STRING(name));
+        #else
+            "cannot import name %S", name);
+        #endif
+    }
+    return value;
 }
 
 /* CodeObjectCache */
