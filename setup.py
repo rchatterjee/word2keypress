@@ -19,14 +19,14 @@ else:
 
 configuration = dict(
     name='word2keypress',
-    version='0.9',
+    version='1.0',
     description='Convert word to keypress sequence',
     author='Rahul Chatterjee',
     author_email='rahul@cs.cornell.edu',
     url='https://github.com/rchatterjee/word2keypress.git',
-    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v0.9',
+    download_url = 'https://github.com/rchatterjee/word2keypress/tarball/v1.0',
     install_requires=[],
-    package_data=[('word2keypress/adjacency_graphs.json', ['word2keypress/adjacency_graphs.json'])],
+    package_data={'word2keypress/adjacency_graphs.json': ['word2keypress/adjacency_graphs.json']},
     long_description='See README.md',
     packages=['word2keypress'],
     ext_modules=[keyboardpyx], # cythonize('word2keypress/_keyboard.pyx'),  # accepts a glob pattern
