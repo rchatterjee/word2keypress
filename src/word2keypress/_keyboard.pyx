@@ -537,7 +537,8 @@ cdef class Keyboard(object):
                     else:
                         insert_keys = array.array(b'b', set.union(
                             set(self._keyboard_nearby_keys(ord(keyseq[i-1]))),
-                            set(replace_keys)
+                            set(replace_keys),
+                            set([c, SHIFT_KEY])
                         ))
             # print(chr(c), '--->', replace_keys.tostring(), insert_keys.tostring())
             assert all(map(
