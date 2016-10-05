@@ -20,7 +20,8 @@ else:
     )
 
 
-VERSION = '1.0.3'
+VERSION = '1.0.4'
+GITHUB_URL = 'https://github.com/rchatterjee/word2keypress/tarball/'
 configuration = dict(
     name = 'word2keypress',
     version = VERSION,
@@ -28,7 +29,7 @@ configuration = dict(
     author = 'Rahul Chatterjee',
     author_email = 'rahul@cs.cornell.edu',
     url = 'https://github.com/rchatterjee/word2keypress.git',
-    download_url  =  'https://github.com/rchatterjee/word2keypress/tarball/v{}'.format(VERSION),
+    download_url = "{}/v{}".format(GITHUB_URL, VERSION),
 
     packages = find_packages('src'),
     package_dir={'': 'src'},
@@ -38,7 +39,7 @@ configuration = dict(
     },
 
     long_description = 'See README.md',
-    ext_modules = [keyboardpyx], # cythonize('word2keypress/_keyboard.pyx'),  # accepts a glob pattern
+    ext_modules = [keyboardpyx],
     cmdclass = {'build_ext': build_ext},
 
     # include_dirs = [np.get_include()],
