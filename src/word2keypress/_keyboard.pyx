@@ -358,8 +358,9 @@ cdef class Keyboard(object):
             try:
                 ch, shift = self.remove_shift(ch)
             except (AssertionError, ValueError) as e:
-                print("Bad word found!!", e, repr(word), repr(ch), repr(shift))
-                raise e
+                pass
+                # print("Bad word found!!", e, repr(word), repr(ch), repr(shift))
+                # raise e
             if shift:
                 new_str += shift_key + chr(ch)
             else:
