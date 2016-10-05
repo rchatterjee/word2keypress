@@ -5,7 +5,7 @@ from __future__ import absolute_import, print_function
 import warnings
 from setuptools import setup, Extension, find_packages
 
-publish=False
+publish=True
 if publish:
     from distutils.command.build_ext import build_ext
     keyboardpyx = Extension(
@@ -20,7 +20,7 @@ else:
     )
 
 
-VERSION = '1.0.2'
+VERSION = '1.0.3'
 configuration = dict(
     name = 'word2keypress',
     version = VERSION,
