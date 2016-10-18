@@ -73,8 +73,8 @@ cdef Py_ssize_t ONE_AGO = 1
 cdef Py_ssize_t THIS_ROW = 2
 cpdef unsigned int _dl_distance(s1, s2):
     """
-    Computes the DL distance between two strings s1 and s2. 
-    This part of the code is copied form 
+    Computes the DL distance between two strings s1 and s2.
+    This part of the code is copied form
     https://github.com/gfairchild/pyxDamerauLevenshtein/
     """
     # possible short-circuit if words have a lot in common at the
@@ -99,7 +99,7 @@ cpdef unsigned int _dl_distance(s1, s2):
     cdef unsigned long delete_cost, add_cost, subtract_cost, edit_distance
 
     # storage is a 3 x (len(s2) + 1) array that stores TWO_AGO, ONE_AGO, and THIS_ROW
-    cdef unsigned long * storage = <unsigned long * >calloc(3 * offset, 
+    cdef unsigned long * storage = <unsigned long * >calloc(3 * offset,
                                                             sizeof(unsigned long))
     if not storage:
         raise MemoryError()
@@ -146,10 +146,10 @@ assert all(map(
 )), ALLOWED_KEYS
 
 cdef class Keyboard(object):
-    cdef str _keyboard_type 
+    cdef str _keyboard_type
     # some random parameters, need to learn later
     cdef float _shift_discount
-    cdef int _num_shift 
+    cdef int _num_shift
     cdef list _keyboard
     cdef dict _loc_map, _adj_map
     cdef set _printables
@@ -182,35 +182,35 @@ cdef class Keyboard(object):
 
     def remove_shift(self, char _char):
         # only valid chars
-        assert _char >= 20 and _char < 128, "_char: {!r}".format(_char) 
+        assert _char >= 20 and _char < 128, "_char: {!r}".format(_char)
         cdef int r, c, shift
         r, c, shift = self.loc(_char)
         if shift:
             _char = self.loc2char(r*self._num_shift, c)
-        assert _char>=20, "_char: {!r}".format(_char) 
+        assert _char>=20, "_char: {!r}".format(_char)
         return _char, shift
 
     def add_shift(self, char _char):
         # only valid chars
-        assert _char >= 20 and _char < 128, "_char: {!r}".format(_char) 
+        assert _char >= 20 and _char < 128, "_char: {!r}".format(_char)
         cdef int r, c, shift
         r, c, shift = self.loc(_char)
         if not shift:
             _char = self.loc2char(r*self._num_shift+1, c)
-        assert _char>=20, "_char: {!r}".format(_char) 
+        assert _char>=20, "_char: {!r}".format(_char)
         return _char, shift
-        
+
     def change_shift(self, char _char):
         # only valid chars
-        assert _char >= 20 and _char < 128, "_char: {!r}".format(_char) 
+        assert _char >= 20 and _char < 128, "_char: {!r}".format(_char)
         if not chr(_char).isalpha(): return _char
         cdef int r, c, shift
         r, c, shift = self.loc(_char)
         cdef nshift = (shift+1) % self._num_shift
         _char = self.loc2char(r*self._num_shift + nshift, c)
-        assert _char>=0, "_char: {!r}".format(_char) 
+        assert _char>=0, "_char: {!r}".format(_char)
         return _char, shift
-        
+
     def loc(self, char _char):
         """
         return location of a key, the row, column and shift on
@@ -227,7 +227,7 @@ cdef class Keyboard(object):
         if _char not in self._loc_map:
             raise ValueError("Could not find location of: <{}>"\
                              .format(repr(chr(_char))))
-            
+
         return self._loc_map.get(_char, (-1, -1, -1))
 
     cdef char loc2char(self, int r, int c):
@@ -282,7 +282,7 @@ cdef class Keyboard(object):
 
         # using the Dropbox adjacency graph
         return ''.join(
-            c 
+            c
             for c in self._adj_map[self._keyboard_type].get(_char, [])
             if c
         )
@@ -301,8 +301,8 @@ cdef class Keyboard(object):
         # return ret
 
     def dl_distance(self, w1, w2):
-        w1 = self._word_to_keyseq(array.array(b'c', str(w1)))
-        w2 = self._word_to_keyseq(array.array(b'c', str(w2)))
+        w1 = self._word_to_keyseq(str(w1))
+        w2 = self._word_to_keyseq(str(w2))
         return _dl_distance(w1, w2)
 
     cdef array.array _keyboard_nearby_keys(self, char _char):
@@ -311,7 +311,7 @@ cdef class Keyboard(object):
         :param c: character
         :return: a list of keys
         """
-        if _char == SHIFT_KEY: 
+        if _char == SHIFT_KEY:
             return array.array('b', [CAPS_KEY])
         elif _char == CAPS_KEY:
             return array.array('b', [SHIFT_KEY])
@@ -330,9 +330,9 @@ cdef class Keyboard(object):
         # return ret
 
     def word_to_keyseq(self, word):
-        return self._word_to_keyseq(array.array(b'c', str(word)))
+        return self._word_to_keyseq(str(word))
 
-    cdef str _word_to_keyseq(self, array.array[char] word):
+    cdef str _word_to_keyseq(self, str word):
         """
         Converts a @word into a key press sequence for the keyboard KB.
         >>> KB = Keyboard('qwerty')
@@ -348,51 +348,56 @@ cdef class Keyboard(object):
         """
         caps_key = chr(CAPS_KEY)
         shift_key = chr(SHIFT_KEY)
-        assert KEYBOARD_TYPE == 'qwerty', "Not implemented for {!r}".format(KEYBOARD_TYPE)
-        cdef str new_str = ''
+        assert KEYBOARD_TYPE == 'qwerty', "Not implemented for {!r}"\
+            .format(KEYBOARD_TYPE)
         # Add shift keys
         cdef int i, shift
         cdef char ch
-        for i in xrange(len(word)):
-            ch = word[i]
+        # Add caps in the beginning
+        cdef str nword = re.sub(
+            r'([A-Z][^a-z]{2,})',
+            lambda m: caps_key + m.group(0).lower() + caps_key,
+            word
+        )
+        def unshifted(ch):
+            ich = ord(ch)
+            if ich < 20 or ich >= 128:
+                return ch
             try:
-                ch, shift = self.remove_shift(ch)
+                ich, shift = self.remove_shift(ich)
+                return shift_key + chr(ich) if shift else chr(ich)
             except (AssertionError, ValueError) as e:
-                pass
-                # print("Bad word found!!", e, repr(word), repr(ch), repr(shift))
-                # raise e
-            if shift:
-                new_str += shift_key + chr(ch)
-            else:
-                new_str += chr(ch)
+                return ''
+        new_str = ''.join(unshifted(ch) for ch in nword)
+        # # finding continuous use of shift and replace that with capslock
+        # for s in re.findall(r'(({0}[a-z]){{3,}})'.format(shift_key), new_str):
+        #     o_s, _ = s
+        #     n_s = re.sub(r'{0}([a-z])'.format(shift_key), r'\1'.format(caps_key), o_s)
+        #     new_str = re.sub(re.escape(o_s), '{0}{1}{0}'.format(caps_key, n_s), new_str)
 
-        # finding continuous use of shift and replace that with capslock
-        for s in re.findall(r'(({0}[a-z]){{3,}})'.format(shift_key), new_str):
-            o_s, _ = s
-            n_s = re.sub(r'{0}([a-z])'.format(shift_key), r'\1'.format(caps_key), o_s)
-            new_str = re.sub(re.escape(o_s), '{0}{1}{0}'.format(caps_key, n_s), new_str)
+        # # drop <c>a<c> to <s>a
+        # new_str = re.sub(r'{0}(.){0}'.format(caps_key),
+        #                  r'{}\1'.format(shift_key),
+        #                  new_str)
 
-        
-        # drop <c>a<c> to <s>a
-        new_str = re.sub(r'{0}(.){0}'.format(caps_key),
-                         r'{}\1'.format(shift_key),
-                         new_str)  
+        # # move the last capslock to the end
+        # # PASSOWRD123 -> <c>password<c>123 -> <c>password123<c>
+        # new_str = re.sub(r'{0}([^a-z]+)$'.format(caps_key),
+        #                  r'\1{0}'.format(caps_key),
+        #                  new_str)
 
-        # move the last capslock to the end
-        # PASSOWRD123 -> <c>password<c>123 -> <c>password123<c>
-        new_str = re.sub(r'{0}([^a-z]+)$'.format(caps_key),
-                         r'\1{0}'.format(caps_key),
-                         new_str)  
-        
-        # convert last sequence of shift into caps sequence
-        # passwoRD123 -> passwo<s>r<s>d123 -> passwo<c>rd123<c>
-        # r'(<s>[a-z][^a-z]*)+{2,}$ ->
-        m = re.match(r'.*?(?P<endshifts>({0}[a-z][^a-z{0}]*){{2,}}({0}.[^a-z]*)*)$'.format(shift_key), new_str)
-        if m:
-            s = m.group('endshifts')
-            ns = caps_key + re.sub(r'{0}([a-z])'.format(shift_key), r'\1', s) + caps_key
-            # print m.groups(), ns, s
-            new_str = new_str.replace(s, ns)
+        # # convert last sequence of shift into caps sequence
+        # # passwoRD123 -> passwo<s>r<s>d123 -> passwo<c>rd123<c>
+        # # r'(<s>[a-z][^a-z]*)+{2,}$ ->
+        # m = re.match(r'.*?(?P<endshifts>({0}[a-z][^a-z{0}]*){{2,}}({0}.[^a-z]*)*)$'\
+        #              .format(shift_key), new_str)
+        # if m:
+        #     s = m.group('endshifts')
+        #     ns = caps_key + \
+        #          re.sub(r'{0}([a-z])'.format(shift_key), r'\1', s) + \
+        #          caps_key
+        #     # print m.groups(), ns, s
+        #     new_str = new_str.replace(s, ns)
 
         # drop last <c> before sending
         return new_str.rstrip(caps_key)
@@ -440,7 +445,7 @@ cdef class Keyboard(object):
         keyseq must be pure (that is output of _word_to_keyseq function.
         n = len(word), returns an 2-D array,
         TT = shift-caps, both true, TF, FT and FF are similar
-        i/j  0     1      2     3       4 
+        i/j  0     1      2     3       4
         0  [:0] [0:]FF [:0]FT  [:0]TF  [:0]TT
         1  [:1] [1:]FF [:1]FT  [:1]TF  [:1]TT
         .
@@ -467,7 +472,7 @@ cdef class Keyboard(object):
             shifted_nc = self.add_shift(nc)[0] if nc not in spcl_keys else 0
             if c == SHIFT_KEY:
                 # case 0: only pre
-                row[0] = (last_row[0][0], True, last_row[0][2]) 
+                row[0] = (last_row[0][0], True, last_row[0][2])
                 # case 1: shift-caps = FF, remove the shift from next char
                 row[1] = (chr(nc) + last_row[1][0][1:], last_row[1][1], last_row[1][2])
                 # case 2: shift-caps = FT
@@ -492,7 +497,7 @@ cdef class Keyboard(object):
                     last_row[0][0] + \
                     chr(self._apply_shift_caps(
                         c, last_row[0][1], last_row[0][2])
-                    ), 
+                    ),
                     False, last_row[0][2]
                 )
                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF
@@ -507,8 +512,8 @@ cdef class Keyboard(object):
     def keyseq_insert_edits(self, str keyseq, _insert_keys=[], _replace_keys=[]):
         """It will insert/replace/delete one key at a time from the
         keyseq. And return a set of words. Which keys to insert is
-        specified by the @insert_keys parameter. 
-        :param pos: int, position of the edit, pos=0..len(keyseq): 
+        specified by the @insert_keys parameter.
+        :param pos: int, position of the edit, pos=0..len(keyseq):
         insert, delete and replace.
                     if pos=len(keyseq)+1, then only insert
         """
@@ -582,7 +587,7 @@ cdef class Keyboard(object):
                     yield pre_w + sub_words[i+1][3+caps][0]
                 elif k == CAPS_KEY:
                     # If already caps, then this will cancel that
-                    yield pre_w + sub_words[i+1][2*shift + 2 - caps][0] 
+                    yield pre_w + sub_words[i+1][2*shift + 2 - caps][0]
                 else:
                     yield pre_w + \
                         chr(self._apply_shift_caps(k, shift, caps)) + \
@@ -603,8 +608,8 @@ cdef class Keyboard(object):
         All possible edits around the word.
         Insert all keys, delete all keys, replace only keys that are close.
         """
-        keypress = self._word_to_keyseq(array.array(b'c', word))
-        insert_keys = array.array(b'c', _insert_keys) 
+        keypress = self._word_to_keyseq(word)
+        insert_keys = array.array(b'c', _insert_keys)
         replace_keys = array.array(b'c', _replace_keys)
         return self.keyseq_insert_edits(
             keypress, insert_keys, replace_keys
@@ -617,10 +622,8 @@ cdef class Keyboard(object):
         """This is the same function as word_to_keyseq, just trying to
         make it more efficient. Remeber the capslock and convert the
         shift.
-
         """
         return self.part_keyseq_string(keyseq)[0]
-
 
     def keyseq_to_word_slow(self, char[] keyseq):
         """
@@ -643,7 +646,7 @@ cdef class Keyboard(object):
         word = re.sub(r'({0})+'.format(caps_key), r'\1', word)
         # only swap <s><c> to <c><s>
         word = re.sub(r'({1}{0})+([a-zA-Z])'.format(caps_key, shift_key),
-                      r'{0}{1}\2'.format(caps_key, shift_key), 
+                      r'{0}{1}\2'.format(caps_key, shift_key),
                       word)
 
         if word.count(caps_key)%2 == 1:

@@ -18,8 +18,8 @@ def test_keyboard_type():
         Keyboard('asdfadsf')
     kb = Keyboard('qwerty')
     kb = Keyboard('dvorak')
-    
-        
+
+
 class TestKeyboard():
     def test_loc(self):
         inp_res_map = [(('t'), (1,5,0)),
@@ -74,15 +74,17 @@ key = {'c': chr(CAPS_KEY),
        's': chr(SHIFT_KEY)}
 
 
-@pytest.mark.parametrize(('inp', 'res'),
-                         [('Pa', '{s}pa'),
-                          ('PAasWOrd', '{s}p{s}aas{s}w{s}ord'),
-                          ('password', 'password'),
-                          ('Password', '{s}password'),
-                          ('P@ssword12', '{s}p{s}2ssword12'),
-                          ('@!asdASDads', '{s}2{s}1asd{c}asd{c}ads'),
-                          # There is this small issue, what if there is a shit in the middle of a password
-                          ('PASSwoRD',  '{c}pass{c}wo{c}rd{c}')]
+@pytest.mark.parametrize(
+    ('inp', 'res'),
+    [('Pa', '{s}pa'),
+     ('PAasWOrd', '{s}p{s}aas{s}w{s}ord'),
+     ('password', 'password'),
+     ('Password', '{s}password'),
+     ('P@ssword12', '{s}p{s}2ssword12'),
+     ('@!asdASDads', '{s}2{s}1asd{c}asd{c}ads'),
+     # There is this small issue, what if there
+     # is a shit in the middle of a password
+     ('PASSwoRD', '{c}pass{c}wo{c}rd{c}')]
 )
 class TestKeyPresses():
     @pytest.mark.skip(reason="cpython function. Not available outside")
@@ -98,13 +100,12 @@ class TestKeyPresses():
         kw = kb.keyseq_to_word('{c}asdf{s}1{c}sdf'.format(**key))
         assert 'ASDFasdf' == kb.keyseq_to_word('{c}asdf{s}a{c}sdf'.format(**key))
         assert 'ASDF!sdf' == kb.keyseq_to_word('{c}asdf{s}1{c}sdf'.format(**key))
-                                       
+
     def test_keyseq(self, inp, res):
-        inp_res_map = [(('|'), (1,13,1))
-                       ]
+        inp_res_map = [(('|'), (1, 13, 1))]
         for q, r in inp_res_map:
             assert kb.loc(ord(*q)) == r
-    
+
     def test_part_keyseq(self, inp, res):
         res = res.format(**key)
         i = random.randint(0, len(res))
@@ -120,6 +121,7 @@ class TestKeyPresses():
             post_w = A[i][2*shift + caps + 1][0]
             assert pre_w + post_w == inp
 
+    @pytest.mark.skip(reason="Not available outside")
     def test_keyseq_insert_edits(self, inp, res):
         inp_res_map = [(
             (
@@ -136,7 +138,7 @@ class TestKeyPresses():
         )]
         for inp, res in inp_res_map:
             inp = (kb.keyseq_to_word(inp[0]), inp[1], inp[2])
-            for i,r in enumerate(kb.word_to_typos(*inp)):
+            for i, r in enumerate(kb.word_to_typos(*inp)):
                 assert r == res[i]
 
 def str_cython_char_array(s):
@@ -151,7 +153,7 @@ def test_word_edits(capsys):
     # for pw in kb.word_to_typos(rand_string):
     #     print repr(pw)
     _s = set(allowed_chars)
-    assert all(ch in _s for ch in rand_string),'{} :: {}'\
+    assert all(ch in _s for ch in rand_string), '{} :: {}'\
         .format(repr(rand_string), set(rand_string)-_s)
     s_t = time.time()
     total_typo_computed = 0
@@ -181,7 +183,7 @@ def test_edit_distance():
     for w1, w2 in word_pairs:
         assert distance(w1, w2)<2
 
-    
+
 # class TestPWLogging:
 #     def test_logging(self):
 #         HOST, PORT = "localhost", 9999
@@ -190,13 +192,11 @@ def test_edit_distance():
 #         DB= [('rahulc', 'qwerty'), ('user1', 'Password'), ('user2', 'password'),
 #             ('abcd@xyz.com', 'abcd123')]
 #         #  clear log file
-#         for uid, pw in DB: 
+#         for uid, pw in DB:
 #             data = {'uid': uid, 'password': pw, 'useragent': "User-Agent", 'isValid': -1}
 #             try:
-#                 sock.sendto(json.dumps(data) + "\n", (HOST, PORT)) 
+#                 sock.sendto(json.dumps(data) + "\n", (HOST, PORT))
 #                 recvd = sock.recv(1024)
 #             except socket.timeout:
 #                 print "Cannot reach the logging server."
 #             #  TODO - write this test
-
-

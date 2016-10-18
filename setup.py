@@ -10,13 +10,13 @@ if publish:
     from distutils.command.build_ext import build_ext
     keyboardpyx = Extension(
         'word2keypress/_keyboard',
-        sources = ['src/word2keypress/_keyboard.c'],
+        sources=['src/word2keypress/_keyboard.c'],
     )
 else:
-    from Cython.Distutils import build_ext    
+    from Cython.Distutils import build_ext
     keyboardpyx = Extension(
         'word2keypress/_keyboard',
-        sources = ['src/word2keypress/_keyboard.pyx'],
+        sources=['src/word2keypress/_keyboard.pyx'],
     )
 
 
