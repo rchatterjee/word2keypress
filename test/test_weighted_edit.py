@@ -11,19 +11,25 @@ class Test_Editdistance(unittest.TestCase):
         global UNWEIGHTED
         old_uw = UNWEIGHTED
         UNWEIGHTED = True
-        inp_res_map = [(('', ''), (0.0, [])),
-                       (('', 'a'), (2.5, [(-1, 0, 'i')])),
-                       (('a', 'a'), (0.0, [])),
-                       (('a', 'b'), (3.0, [(0, 0, 'r')])),
-                       (('aaa', 'aa'), (2.0, [(1, 0, 'd')])),
-                       (('a', 'aa'), (1.5, [(0, 1, 'i')])),
-                       (('abcd', 'a'), (6.0, [(1, 0, 'd'), (2, 0, 'd'), (3, 0, 'd')])),
-                       (('abcd', 'Abc'), (2.2, [(0, 0, 'r'), (3, 2, 'd')])),
-                       ]
+        inp_res_map = [
+            (('', ''), (0.0, [('', '')])),
+            (('', 'a'), (1, [(BLANK, 'a')])),
+            (('a', 'a'), (0.0, [('a', 'a')])),
+            (('a', 'b'), (1.0, [('a', 'b')])),
+            (('aaa', 'aa'), (1.0, [
+                ('aaa', '{}aa'.format(BLANK)),
+                ('aaa', 'a{}a'.format(BLANK)),
+                ('aaa', 'aa{}'.format(BLANK)),
+            ])),
+            (('a', 'ab'), (1, [('a{}'.format(BLANK), 'ab')])),
+            (('abcd', 'a'), (3.0, [('abcd', 'a{0}{0}{0}'.format(BLANK))]))
+        ]
 
         for inp, res in inp_res_map:
-            res_ = _editdist(*inp)
-            self.assertEqual(res_, res, "%s --> %s {{%s}}" % (inp, res, res_))
+            res_ = _editdist(inp[0], inp[1], limit=5)
+            self.assertEqual(res[0], res_[0])
+            self.assertEqual(set(res[1]), set(res_[1]))
+
         UNWEIGHTED = old_uw
 
     def test_replace(self):
@@ -31,11 +37,11 @@ class Test_Editdistance(unittest.TestCase):
         old_uw = UNWEIGHTED
         UNWEIGHTED = False
         inp_res_map = [
-            (('a', 'a'), (0)),
-            (('a', 'A'), (0.2))
+            (('a', 1, 'b', 1), (0)),
+            (('a', 1, 'a', 1), (0.2))
         ]
-        for inp, res in inp_res_map:
-            self.assertEqual(_replace(*inp), res)  # , "%s --> %s" %(str(inp),res))
+        res = [_replace(*inp) for inp, res in inp_res_map]
+        assert res[0] > res[1]
         UNWEIGHTED = old_uw
 
     def test_aligned_text(self):

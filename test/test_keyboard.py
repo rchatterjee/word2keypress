@@ -89,7 +89,7 @@ key = {'c': chr(CAPS_KEY),
 class TestKeyPresses():
     @pytest.mark.skip(reason="cpython function. Not available outside")
     def test_word_to_keyseq(self, inp, res):
-        t1 = KB.word_to_keyseq(inp)
+        t1 = kb.word_to_keyseq(inp)
         t2 = res.format(**key)
         assert t1 == t2, "{!r} <--> {!r}".format(t1, t2)
 

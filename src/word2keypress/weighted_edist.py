@@ -9,6 +9,8 @@ try:
 except ImportError:
     from weight_matrix import WEIGHT_MATRIX
 
+WEIGHT_MATRIX = dict(WEIGHT_MATRIX)
+print(WEIGHT_MATRIX)
 
 KB = Keyboard('qwerty')
 SHIFT_KEY = chr(3) # [u'\x03', "<s>"][user_friendly]
@@ -59,7 +61,7 @@ def _delete(s, i, N):
         w = s[:i] + BLANK + s[i+1:]
         return _get_cost(s, w, i, N)
     elif WEIGHT_TYPE == 2:
-        return WEIGHT_MATRIX.get((s[i], BLANK), 1)
+        return WEIGHT_MATRIX.get((s[i-1], BLANK), 1)
 
 def _insert(s, i, N):
     """The cost of inserting a character at 'i'-th character from s. Also
@@ -69,14 +71,17 @@ def _insert(s, i, N):
         w = s[:i] + BLANK + s[i+1:]
         return _get_cost(s, w, i, N)
     elif WEIGHT_TYPE == 2:
-        return 1/WEIGHT_MATRIX.get((BLANK, s[i]), 1)
+        return 1/WEIGHT_MATRIX.get((BLANK, s[i-1]), 1)
 
 def _replace(s, i, c, N):
     if WEIGHT_TYPE == 1:
         w = s[:i] + c + s[i+1:]
         return _get_cost(s, w, i, N)
     elif WEIGHT_TYPE == 2:
-        return 1/WEIGHT_MATRIX.get((s[i], c), 1)
+        if s[i-1] == c:
+            return 0.0
+        else:
+            return 1/WEIGHT_MATRIX.get((s[i-1], c), 1)
 
 def _transposition(s, i, N):
     if WEIGHT_TYPE == 1:
@@ -90,6 +95,7 @@ def weditdist(s1, s2, N=1):
     consideration.
     """
     # remove if some part of the prefix of the string is common
+    s1, s2 = KB.word_to_keyseq(s1), KB.word_to_keyseq(s2)
     i = 0
     for i, (c1, c2) in enumerate(zip(s1, s2)):
         if c1 != c2:
