@@ -3620,7 +3620,7 @@ for (l,r), f in _t_weight_list:
     _total[l] += f
 
 WEIGHT_MATRIX = {
-    l: dict((r, f/float(_total[l])) for r,f in _t_matrix[l])
+    l: dict((r, 1.0 - f/float(_total[l])) for r,f in _t_matrix[l])
     for l in _t_matrix
 }
 
