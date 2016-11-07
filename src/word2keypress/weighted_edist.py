@@ -2,6 +2,7 @@
 from __future__ import print_function
 import os, sys, re, string, csv
 from collections import defaultdict
+import itertools
 import numpy as np
 from word2keypress import Keyboard
 try:
@@ -10,7 +11,18 @@ except ImportError:
     from weight_matrix import WEIGHT_MATRIX
 
 WEIGHT_MATRIX = dict(WEIGHT_MATRIX)
-print(WEIGHT_MATRIX)
+# print(WEIGHT_MATRIX)
+
+####### Extra Key codes #######
+# 1 (\x01) : Start of a string
+# 2 (\x02) : End of a string
+# 3 (\x03) : Shift key
+# 4 (\x04) : Caps lock key
+# 5 (\x05) : Blank, bottom
+#
+# So, \x05 -> 'a' means inserting 'a'
+#    ###################
+
 
 KB = Keyboard('qwerty')
 SHIFT_KEY = chr(3) # [u'\x03', "<s>"][user_friendly]
@@ -354,6 +366,109 @@ def generate_weight_matrix(L):
         f.write('WEIGHT_MATRIX = {}'.format(repr(E)))
 
 
+import random
+M = {}
+for (l, r), f in WEIGHT_MATRIX.iteritems():
+    if l not in M:
+        M[l] = {}
+    if r in (ENDSTR, STARTSTR): continue
+    M[l][r] = f
+
+def get_topk_typos(rpw, n):
+    """
+    Return n most probable typo of rpw
+    """
+    if n<=0: return []
+    w = STARTSTR + KB.word_to_keyseq(rpw) + ENDSTR
+    edits_at_i = [
+        (
+            c, BLANK + c, c + BLANK,
+            w[pos_i:pos_i+2], w[pos_i+1:pos_i+3], w[pos_i:pos_i+3]
+        )
+        for pos_i, c in enumerate(w)
+    ]
+    possible_edits = set(itertools.chain(*edits_at_i))
+
+    allowed_arr = [
+        ((l, r), f)
+        for l in possible_edits
+        for r, f in M.get(l, {}).items()
+    ]
+    if not allowed_arr:
+        return []
+    edits, freqs = zip(*allowed_arr)
+    # keys = np.array(keys)
+    pdist = np.array(freqs)/float(np.sum(freqs))
+    n = min(pdist.shape[0], n)
+    ret = ['' for _ in range(n)]
+    chosen_edits_idxs = np.argpartition(-pdist, n)[:n]
+    for i, ti in enumerate(chosen_edits_idxs):
+        l, r = edits[ti]
+        # pos_i
+        l = l.strip(BLANK)
+        tpw = w.replace(l, r).lstrip(STARTSTR).rstrip(ENDSTR).replace(BLANK, '')
+        # j = (pos_i + 1) if l[0] == c else pos_i
+        # k = j + len(l.replace(BLANK, ''))
+        # # print("{!r} -> {!r}".format(l, r))
+        # tpw = w[:j] + r + w[k:]
+        # tpw = tpw.replace(BLANK, '').lstrip(STARTSTR).rstrip(ENDSTR)
+        ret[i] = KB.keyseq_to_word(tpw)
+    return ret
+
+def sample_typos(rpw, n, topn=False):
+    """
+    Samples 'n' typos for 'rpw' according to the distribution induced
+    by WEIGHT_MATRIX.
+    The samplig procedure is as follows.
+    Pick a random location in the string, pick possible edits with
+    left hand side contining the character. Checkout the "possible_edits"
+    variable bellow for more details.
+    """
+    if n<=0: return []
+    w = KB.word_to_keyseq(rpw)
+    pos_i = random.randint(0, len(w))
+    w = STARTSTR + w + ENDSTR
+    c = w[pos_i+1]
+    possible_edits = set((
+        c, BLANK + c, c + BLANK,
+        w[pos_i:pos_i+2], w[pos_i+1:pos_i+3], w[pos_i:pos_i+3]
+    ))
+
+    allowed_arr = [
+        ((l, r), f)
+        for l in possible_edits
+        for r, f in M.get(l, {}).items()
+        # ((l,r), v) for (l, r), v in WEIGHT_MATRIX.items()
+        # if all((l in possible_edits, ENDSTR not in r, STARTSTR not in r))
+    ]
+    if not allowed_arr:
+        return []
+    edits, freqs = zip(*allowed_arr)
+    # keys = np.array(keys)
+    pdist = np.array(freqs)/float(np.sum(freqs))
+    indxs = np.arange(pdist.shape[0], dtype=int)
+    n = min(pdist.shape[0], n)
+    ret = ['' for _ in range(n)]
+    if topn:
+        sorted_samples = indxs[np.argsort(pdist)[:n]]
+    else:
+        samples = np.random.choice(
+            indxs, n, p=pdist,
+            replace=False
+        )
+        sorted_samples = indxs[np.argsort(pdist[samples])]
+
+    for i, ti in enumerate(sorted_samples):
+        l, r = edits[ti]
+        j = (pos_i + 1) if l[0] == c else pos_i
+        k = j + len(l.replace(BLANK, ''))
+        # print("{!r} -> {!r}".format(l, r))
+        tpw = w[:j] + r + w[k:]
+        tpw = tpw.replace(BLANK, '').lstrip(STARTSTR).rstrip(ENDSTR)
+        tpw = KB.keyseq_to_word(tpw)
+        ret[i] = tpw
+    return ret
+
 if __name__ == '__main__':
     # unittest.main()
     L = [
@@ -369,7 +484,8 @@ if __name__ == '__main__':
     # print(s)
     # print(all_edits(w,s))
     L = [
-        (row['rpw'], row['tpw']) for row in csv.DictReader(open(sys.argv[1], 'rb'))
+        (kb.word_to_keyseq(['rpw']), kb.word_to_keyseq(row['tpw']))
+        for row in csv.DictReader(open(sys.argv[1], 'rb'))
         if row['rpw'] != row['tpw']
     ]
     generate_weight_matrix(L)

@@ -1,5 +1,6 @@
 from ._keyboard import Keyboard
 kb = Keyboard('qwerty')
+import weighted_edist
 
 def distance(w1, w2):
     """
@@ -14,5 +15,6 @@ def distance(w1, w2):
 
 __all__ = [
     'Keyboard',
-    'distance'
+    'distance',
+    'weighted_edist'
 ]
