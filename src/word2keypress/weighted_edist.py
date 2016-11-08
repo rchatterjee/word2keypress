@@ -399,9 +399,13 @@ def get_topk_typos(rpw, n):
     edits, freqs = zip(*allowed_arr)
     # keys = np.array(keys)
     pdist = np.array(freqs)/float(np.sum(freqs))
-    n = min(pdist.shape[0], n)
     ret = ['' for _ in range(n)]
-    chosen_edits_idxs = np.argpartition(-pdist, n)[:n]
+    n = min(pdist.shape[0], n)
+    if pdist.shape[0]>n:
+        chosen_edits_idxs = np.argsort(np.argpartition(-pdist, n)[:n])
+    else:
+        chosen_edits_idxs = np.argsort(-pdist)
+
     for i, ti in enumerate(chosen_edits_idxs):
         l, r = edits[ti]
         # pos_i
@@ -415,7 +419,7 @@ def get_topk_typos(rpw, n):
         ret[i] = KB.keyseq_to_word(tpw)
     return ret
 
-def sample_typos(rpw, n, topn=False):
+def sample_typos(rpw, n):
     """
     Samples 'n' typos for 'rpw' according to the distribution induced
     by WEIGHT_MATRIX.
@@ -447,16 +451,14 @@ def sample_typos(rpw, n, topn=False):
     # keys = np.array(keys)
     pdist = np.array(freqs)/float(np.sum(freqs))
     indxs = np.arange(pdist.shape[0], dtype=int)
+    actual_n = n
     n = min(pdist.shape[0], n)
     ret = ['' for _ in range(n)]
-    if topn:
-        sorted_samples = indxs[np.argsort(pdist)[:n]]
-    else:
-        samples = np.random.choice(
-            indxs, n, p=pdist,
-            replace=False
-        )
-        sorted_samples = indxs[np.argsort(pdist[samples])]
+    samples = np.random.choice(
+        indxs, n, p=pdist,
+        replace=False
+    )
+    sorted_samples = indxs[np.argsort(pdist[samples])]
 
     for i, ti in enumerate(sorted_samples):
         l, r = edits[ti]
@@ -467,7 +469,10 @@ def sample_typos(rpw, n, topn=False):
         tpw = tpw.replace(BLANK, '').lstrip(STARTSTR).rstrip(ENDSTR)
         tpw = KB.keyseq_to_word(tpw)
         ret[i] = tpw
-    return ret
+    if n<actual_n:
+        return ret + sample_typos(rpw, actual_n-n)
+    else:
+        return ret
 
 if __name__ == '__main__':
     # unittest.main()
