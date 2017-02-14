@@ -288,10 +288,14 @@ def _extract_edits(w, s, N=1):
     NOTE: ^ and $ are used to denote start and end of a string.
     In code we use "\1" and "\2".
     """
+    assert isinstance(w, basestring) and isinstance(s, basestring),\
+        "w ({!r}) or s ({!r}) is not string".format(w, s)
     assert len(w) == len(s), \
-        "Length of w (%s-%d) and s (%s - %d) are not equal." % (w, len(w), s, len(s))
+        "Length of w (%s - %d) and s (%s - %d) are not equal."\
+        % (w, len(w), s, len(s))
     assert N >= 0, "N must be >= 0"
     if w == s:  # ******* REMEMBER THIS CHECK **********
+        print("w ({!r}) == s ({!r})".format(w, s))
         return []  # No edit if strings are equal
 
     w = STARTSTR + w + ENDSTR
@@ -299,14 +303,13 @@ def _extract_edits(w, s, N=1):
     l = min(len(w), len(s))
     E = []
     e_count = 0
-    for i, t in enumerate(zip(w, s)):
-        c, d = t
-        if c != d and not confusions(c, d):
-            e_count += 1
-            for j in xrange(-N, 1):  # start anywhere between i-N to i
-                for k in xrange(1, max(2, N + 1)):  # end anywhere between i to i+N
-                    if i+j >= 0 and i+k <= l:
-                        E.append((w[i + j:i + k], s[i + j:i + k]))
+    for i, (c, d) in enumerate(zip(w, s)):
+        if c == d or confusions(c, d): continue
+        e_count += 1
+        for j in xrange(-N, 1):  # start anywhere between i-N to i
+            for k in xrange(1, max(2, N + 1)):  # end anywhere between i to i+N
+                if i+j >= 0 and i+k <= l:
+                    E.append((w[i + j:i + k], s[i + j:i + k]))
 
     return E
 
@@ -334,7 +337,8 @@ def all_edits(orig, typed, N=1, edit_cutoff=2):
         s_priv, t_priv = align(orig, typed_priv)
         # remove_end_deletes
         s_priv, t_priv, _ = is_series_insertion(s_priv, t_priv)
-        num_edits = len([1 for x, y in zip(s_priv, t_priv) if x != y and not confusions(x, y)])
+        num_edits = len([1 for x, y in zip(s_priv, t_priv) \
+                         if x != y and not confusions(x, y)])
         if num_edits > MAX_ALLOWED_EDITS:
             s_priv = ''
             t_priv = ''
@@ -474,6 +478,13 @@ def sample_typos(rpw, n):
     else:
         return ret
 
+def clean_str(s):
+    assert isinstance(s, basestring)
+    return ''.join(
+        c for c in s 
+        if ord(c)>7 and ord(c) <= 255
+    )
+
 if __name__ == '__main__':
     # unittest.main()
     L = [
@@ -488,11 +499,15 @@ if __name__ == '__main__':
     # print(w)
     # print(s)
     # print(all_edits(w,s))
+    
     L = [
-        (kb.word_to_keyseq(['rpw']), kb.word_to_keyseq(row['tpw']))
+        (KB.word_to_keyseq(clean_str(row['rpw'])), 
+         KB.word_to_keyseq(clean_str(row['tpw'])))
         for row in csv.DictReader(open(sys.argv[1], 'rb'))
         if row['rpw'] != row['tpw']
     ]
+
+    print("Got {} typos from {}".format(len(L), sys.argv[1]))
     generate_weight_matrix(L)
     exit(0)
     for rpw, tpw in L:
