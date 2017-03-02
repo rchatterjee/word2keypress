@@ -44,7 +44,7 @@ configuration = dict(
 
     # include_dirs = [np.get_include()],
 
-    install_requires = ["numpy"],
+    install_requires = ["numpy >= 1.12"],
     setup_requires = ['pytest-runner'],
     tests_require = ['pytest'],
 
