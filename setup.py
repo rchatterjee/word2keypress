@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- encoding: utf-8 -*-
+
 from __future__ import absolute_import, print_function
 
 import warnings
@@ -44,7 +44,7 @@ configuration = dict(
 
     # include_dirs = [np.get_include()],
 
-    install_requires = ["numpy >= 1.12"],
+    # install_requires = ["numpy >= 1.12"],
     setup_requires = ['pytest-runner'],
     tests_require = ['pytest'],
 
