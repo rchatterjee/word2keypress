@@ -5,17 +5,15 @@ from __future__ import absolute_import, print_function
 import warnings
 from setuptools import setup, Extension, find_packages
 
-
 publish=False
 if publish:
     # from distutils.command.build_ext import build_ext
     from setuptools.command.build_ext import build_ext
     keyboardpyx = Extension(
-        '_keyboard',
+        'word2keypress._keyboard',
         sources=[
-            'src/word2keypress/_keyboard.c'
-            'src/word2keypress/adjacency_graphs.c'
-        ],
+            'src/word2keypress/_keyboard.c',
+        ]
     )
 else:
     from Cython.Distutils import build_ext
@@ -23,8 +21,7 @@ else:
         'word2keypress._keyboard',
         sources=[
             'src/word2keypress/_keyboard.pyx',
-            'src/word2keypress/adjacency_graphs.py',
-        ],
+        ]
     )
 
 
@@ -38,7 +35,7 @@ configuration = dict(
     author_email = 'rahul@cs.cornell.edu',
     url = 'https://github.com/rchatterjee/word2keypress.git',
     # download_url = "{}/v{}".format(GITHUB_URL, VERSION),
-    
+
     packages = find_packages('src'),
     package_dir={'': 'src'},
     include_package_data = True,

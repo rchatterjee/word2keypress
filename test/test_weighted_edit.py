@@ -52,12 +52,12 @@ class Test_Editdistance(unittest.TestCase):
             (('aAaA', 'AaA'), ('aAaA', '\0AaA')),
         ]
 
-        for n in xrange(6):
+        for n in range(6):
             a = list(ALLOWED_CHARACTERS)
             random.shuffle(a)
             t = a[:n + 1]
             s = t[:]
-            for _ in xrange(random.randint(1, n + 1)):  # how many edit
+            for _ in range(random.randint(1, n + 1)):  # how many edit
                 loc = random.randint(0, len(s))
                 if random.randint(0, 1) == 0:  # what edit -- 0: insert
                     s.insert(loc, a.pop())

@@ -28,7 +28,7 @@ KB = Keyboard('qwerty')
 SHIFT_KEY = chr(3) # [u'\x03', "<s>"][user_friendly]
 CAPS_KEY = chr(4) # [u'\x04', "<c>"][user_friendly]
 
-ALLOWED_KEYS = set(b"`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ {}{}"\
+ALLOWED_KEYS = set("`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ {}{}"\
     .format(SHIFT_KEY, CAPS_KEY))
 ALLOWED_CHARACTERS = set(string.printable[:-5])
 STARTSTR, ENDSTR, BLANK = chr(1), chr(2), chr(5)
@@ -58,8 +58,8 @@ def confusions(w, s):
 def _get_cost(s, w, i, N):
     l = min(len(s), len(w))
     prob = 0.0
-    for j in xrange(-N, 1):  # start anywhere between i-N to i
-        for k in xrange(1, max(2, N + 1)):  # end anywhere between i to i+N
+    for j in range(-N, 1):  # start anywhere between i-N to i
+        for k in range(1, max(2, N + 1)):  # end anywhere between i to i+N
             if i+j >= 0 and i+k <= l:
                 prob += WEIGHT_MATRIX.get(s[i + j:i + k], {})\
                                      .get(w[i + j:i + k], 0.0)
@@ -238,14 +238,14 @@ def _editdist(s1, s2, limit=2):
 def align(s1, s2, prod=True):
     """
     Aligns s1 and s2 according to the best alignment it can think of.
-    :param s1: a basestring object
-    :param s2: a basestring object
+    :param s1: a str
+    :param s2: a str
     :param try_breaking_replace: boolean, denoting whether or not to consider
     replace as a delete and insert
     :return: pair of strings of equal length, with added blanks for insert and delte.
     """
-    assert isinstance(s1, basestring) and isinstance(s2, basestring), \
-        "The input to align should be two basestrings only it will apply the keypress" \
+    assert isinstance(s1, str) and isinstance(s2, str), \
+        "The input to align should be two strs only it will apply the keypress" \
         "function by itself."
 
     # print("{!r} <--> {!r}".format(s1, s2))
@@ -288,7 +288,7 @@ def _extract_edits(w, s, N=1):
     NOTE: ^ and $ are used to denote start and end of a string.
     In code we use "\1" and "\2".
     """
-    assert isinstance(w, basestring) and isinstance(s, basestring),\
+    assert isinstance(w, str) and isinstance(s, str),\
         "w ({!r}) or s ({!r}) is not string".format(w, s)
     assert len(w) == len(s), \
         "Length of w (%s - %d) and s (%s - %d) are not equal."\
@@ -306,8 +306,8 @@ def _extract_edits(w, s, N=1):
     for i, (c, d) in enumerate(zip(w, s)):
         if c == d or confusions(c, d): continue
         e_count += 1
-        for j in xrange(-N, 1):  # start anywhere between i-N to i
-            for k in xrange(1, max(2, N + 1)):  # end anywhere between i to i+N
+        for j in range(-N, 1):  # start anywhere between i-N to i
+            for k in range(1, max(2, N + 1)):  # end anywhere between i to i+N
                 if i+j >= 0 and i+k <= l:
                     E.append((w[i + j:i + k], s[i + j:i + k]))
 
@@ -372,7 +372,7 @@ def generate_weight_matrix(L):
 
 import random
 M = {}
-for (l, r), f in WEIGHT_MATRIX.iteritems():
+for (l, r), f in WEIGHT_MATRIX.items():
     if l not in M:
         M[l] = {}
     if r in (ENDSTR, STARTSTR): continue
@@ -479,9 +479,9 @@ def sample_typos(rpw, n):
         return ret
 
 def clean_str(s):
-    assert isinstance(s, basestring)
+    assert isinstance(s, str)
     return ''.join(
-        c for c in s 
+        c for c in s
         if ord(c)>7 and ord(c) <= 255
     )
 
@@ -499,9 +499,9 @@ if __name__ == '__main__':
     # print(w)
     # print(s)
     # print(all_edits(w,s))
-    
+
     L = [
-        (KB.word_to_keyseq(clean_str(row['rpw'])), 
+        (KB.word_to_keyseq(clean_str(row['rpw'])),
          KB.word_to_keyseq(clean_str(row['tpw'])))
         for row in csv.DictReader(open(sys.argv[1], 'rb'))
         if row['rpw'] != row['tpw']

@@ -1,14 +1,15 @@
 # Convert word to keypress-sequence
+[![Build Status](https://travis-ci.org/rchatterjee/word2keypress.svg?branch=master)](https://travis-ci.org/rchatterjee/word2keypress)
 
 I made this as a submodule for my project on correcting password typos. I found
 this very cool, and might be useful in many scenarios where one has to find
-vairations of word due to mistyping. 
+vairations of word due to mistyping.
 
 Here we define typo as purely mistyping a key, and not due to ignorance. Hence,
 finding possible typos of a word require converting the word into sequence of
 key presses. This module provides those functionality to convert word into and
 from sequence of key presses.  Also, given a word find the possible typo of that
-word tuned to the typos due to mistyping. 
+word tuned to the typos due to mistyping.
 
 ## Dependency
 Right now it needs cython. I will remove it in future.

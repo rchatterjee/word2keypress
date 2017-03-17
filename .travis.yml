@@ -1,0 +1,48 @@
+language: python
+
+matrix:
+    include:
+        - os: linux
+          python: 2.7
+        - os: linux
+          python: 3.5
+        - os: osx
+          language: generic
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update        ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then type python &>/dev/null || brew install python; fi
+  - pip install -U cython numpy pytest
+
+
+# python:
+#   - "2.6"
+#   - "2.7"
+#   - "3.2"
+#   - "3.3"
+#   - "3.4"
+#   # PyPy versions
+#   - "pypy"  # PyPy2 2.5.0
+#   - "pypy3" # Pypy3 2.4.0
+#   - "pypy-5.3.1"
+
+# Requires sudo for install and testing
+# sudo: True
+
+# before_install:
+#  - sudo useradd -u 2540 -p $(echo "superpass" | openssl passwd -2 -stdin) tmp
+
+# command to install dependencies
+install:
+  - pip install .
+
+before_script:
+  - pip install pytest  # dumb .travis
+
+# after_install:
+#  - sudo userdel tmp
+
+
+# command to run tests
+script:
+   - pytest

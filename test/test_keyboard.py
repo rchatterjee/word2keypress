@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from __future__ import print_function, absolute_import
 import pyximport; pyximport.install()
 import os, sys, json, csv, re
 import socket
@@ -116,7 +117,7 @@ class TestKeyPresses():
     def test_sub_word_table(self, inp, res):
         res = res.format(**key)
         A = kb._sub_word_table(res)
-        for i in xrange(len(res)):
+        for i in range(len(res)):
             pre_w, shift, caps = A[i][0]
             post_w = A[i][2*shift + caps + 1][0]
             assert pre_w + post_w == inp
@@ -167,9 +168,9 @@ def test_word_edits(capsys):
         total_typo_computed += len(set(kb.word_to_typos(tpw, allowed_keys, allowed_keys)))
     e_t = time.time()
     # with capsys.disabled():
-    print "\nNumber of typos of {!r}: {:,}".format(rand_string, i)
-    print "Total typos covered: {:,}".format(total_typo_computed)
-    print ">> Time taken: {:.3f} s".format(e_t-s_t)
+    print("\nNumber of typos of {!r}: {:,}".format(rand_string, i))
+    print("Total typos covered: {:,}".format(total_typo_computed))
+    print(">> Time taken: {:.3f} s".format(e_t-s_t))
 
 def test_edit_distance():
     from word2keypress import distance
@@ -198,5 +199,5 @@ def test_edit_distance():
 #                 sock.sendto(json.dumps(data) + "\n", (HOST, PORT))
 #                 recvd = sock.recv(1024)
 #             except socket.timeout:
-#                 print "Cannot reach the logging server."
+#                 print("Cannot reach the logging server.")
 #             #  TODO - write this test
