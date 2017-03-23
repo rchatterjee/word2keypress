@@ -15,6 +15,7 @@ auto/
 pwmodel
 helper.py
 .tox/
+*.rst
 
 build/
 dist/
