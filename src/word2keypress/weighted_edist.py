@@ -242,7 +242,8 @@ def align(s1, s2, prod=True):
     :param s2: a str
     :param try_breaking_replace: boolean, denoting whether or not to consider
     replace as a delete and insert
-    :return: pair of strings of equal length, with added blanks for insert and delte.
+    :return: pair of strings of equal length, with added blanks for 
+             insert and delte.
     """
     assert isinstance(s1, str) and isinstance(s2, str), \
         "The input to align should be two strs only it will apply the keypress" \
@@ -479,7 +480,7 @@ def sample_typos(rpw, n):
         return ret
 
 def clean_str(s):
-    assert isinstance(s, str)
+    assert isinstance(s, str), "{} -> {}".format(s, type(s))
     return ''.join(
         c for c in s
         if ord(c)>7 and ord(c) <= 255
@@ -487,35 +488,53 @@ def clean_str(s):
 
 if __name__ == '__main__':
     # unittest.main()
-    L = [
-        ('!!1303diva', '!!1303DIVA'),
-        ('principle', 'prinncipal'),
-        ('IL0VEMIKE!', 'ILOVEMIKE!'),
-        ('MICHAEL', 'michale'),
-    ]
-    for w1, w2 in L:
-        print("{} <--> {}: {}".format(w1, w2, align(w1, w2)))
-    # w, s = aligned_text(KB.key_presses('GARFIELD'), KB.key_presses('garfied'))
-    # print(w)
-    # print(s)
-    # print(all_edits(w,s))
+    import pandas as pd
+    USAGE = """Usage:
+$ {} [options] [arguments]
 
-    L = [
-        (KB.word_to_keyseq(clean_str(row['rpw'])),
-         KB.word_to_keyseq(clean_str(row['tpw'])))
-        for row in csv.DictReader(open(sys.argv[1], 'rb'))
-        if row['rpw'] != row['tpw']
-    ]
+-train <fname>: trains the model, and generates weigt_matrix.py
+-sample <password>: samples typos for the password from the model
+-prob <rpw> <tpw>: probability of rpw -> tpw
+        """.format(sys.argv[0])
+    if (len(sys.argv)<2):
+        print(USAGE)
+        exit(1)
+    if sys.argv[1] == '-train':
+        train_f = sys.argv[2]
+        d = pd.read_csv(train_f, skipinitialspace=False)\
+              .astype(str)
+        d_tr = d[d.rpw != d.tpw].sample(int(0.1*len(d.index)), random_state=345)
+        L = zip(d_tr.rpw.apply(clean_str), d_tr.tpw.apply(clean_str))
+        print("Got {} typos from {}".format(len(L), sys.argv[1]))
+        generate_weight_matrix(L)
+    elif sys.argv[1] == '-sample':
+        pw = sys.argv[2]
+        print("{} --> {}".format(pw, '\n'.join(sample_typos(pw, 10))))
+    elif sys.argv[1] == '-random':
+        L = [
+            ('!!1303diva', '!!1303DIVA'),
+            ('principle', 'prinncipal'),
+            ('IL0VEMIKE!', 'ILOVEMIKE!'),
+            ('MICHAEL', 'michale'),
+        ]
+        for w1, w2 in L:
+            print("{} <--> {}: {}".format(w1, w2, align(w1, w2)))
+        w, s = align(
+            KB.key_presses('GARFIELD'), 
+            KB.key_presses('garfied')
+        )
+        print(w)
+        print(s)
+        print(all_edits(w,s))
 
-    print("Got {} typos from {}".format(len(L), sys.argv[1]))
-    generate_weight_matrix(L)
-    exit(0)
-    for rpw, tpw in L:
-        s1 = ''.join(c for c in rpw if c in ALLOWED_KEYS)
-        s2 = ''.join(c for c in tpw if c in ALLOWED_KEYS)
-        s1k = KB.word_to_keyseq(s1)
-        s2k = KB.word_to_keyseq(s2)
-        print("{} <--> {}: {}".format(rpw, tpw, weditdist(s1k, s2k, N=1)))
-    # print('\n'.join(str(x) for x in L))
-    # E = {str((k,x)): v[x] for k,v in count_edits(L).items()
-    #     for x in v if x.lower()!=k.lower()}
+        for rpw, tpw in L:
+            s1 = ''.join(c for c in rpw if c in ALLOWED_KEYS)
+            s2 = ''.join(c for c in tpw if c in ALLOWED_KEYS)
+            s1k = KB.word_to_keyseq(s1)
+            s2k = KB.word_to_keyseq(s2)
+            print("{} <--> {}: {}".format(rpw, tpw, weditdist(s1k, s2k, N=1)))
+        # print('\n'.join(str(x) for x in L))
+        # E = {str((k,x)): v[x] for k,v in count_edits(L).items()
+        #     for x in v if x.lower()!=k.lower()}
+    else:
+        print(USAGE)
