@@ -1,6 +1,6 @@
 
 from __future__ import print_function
-import os, sys, re, string, csv
+import os, sys, re, string
 from collections import defaultdict
 import itertools
 import numpy as np
@@ -9,10 +9,7 @@ try:
     from word2keypress.weight_matrix import WEIGHT_MATRIX
 except ImportError:
     from weight_matrix import WEIGHT_MATRIX
-
-WEIGHT_MATRIX = dict(WEIGHT_MATRIX)
-# print(WEIGHT_MATRIX)
-
+import random
 ####### Extra Key codes #######
 # 1 (\x01) : Start of a string
 # 2 (\x02) : End of a string
@@ -47,6 +44,18 @@ def dp(**kwargs):
     print(kwargs)
 
 
+M = {}
+
+def load_weight_matrix():
+    global M, WEIGHT_MATRIX
+    WEIGHT_MATRIX = dict(WEIGHT_MATRIX)
+    for (l, r), f in WEIGHT_MATRIX.items():
+        if l not in M:
+            M[l] = {}
+        if r in (ENDSTR, STARTSTR): continue
+        M[l][r] = f
+
+
 CONFUSING_SETS = [set(['1', 'l', 'I']),
                   set(['o', '0', 'O'])]
 def confusions(w, s):
@@ -59,10 +68,11 @@ def _get_cost(s, w, i, N):
     l = min(len(s), len(w))
     prob = 0.0
     for j in range(-N, 1):  # start anywhere between i-N to i
-        for k in range(1, max(2, N + 1)):  # end anywhere between i to i+N
+        for k in range(1, max(3, N + 2)):  # end anywhere between i to i+N
             if i+j >= 0 and i+k <= l:
-                prob += WEIGHT_MATRIX.get(s[i + j:i + k], {})\
-                                     .get(w[i + j:i + k], 0.0)
+                tl, tr = s[i+j:i+k], w[i+j:i+k]
+                if tl==tr: continue
+                prob += M.get(tl, {}).get(tr, 0.0)
     return prob
 
 def _delete(s, i, N):
@@ -147,7 +157,7 @@ def weditdist(s1, s2, N=1):
         print('\n'.join(str(a) for a in A))
     return A[-1, -1]
 
-def _editdist(s1, s2, limit=2):
+def _editdist(s1, s2, limit=2, is_get_edits=True):
     """
     Edit distance to convert s1 to s2. So basically, what I have to
     insert/delete/replace to *CREATE s2 FROM s1*
@@ -221,21 +231,25 @@ def _editdist(s1, s2, limit=2):
     w = A[n1-1, n2-1]
     if w > limit:
         return limit, []
-    if w > 0:
+    if w > 0 and is_get_edits:
         get_all_edits(n1-1, n2-1)
     else:
         ret = [(s1, s2)]
     ret = list(set(ret))
-    if w == 1 and len(ret) > 1:
-        x = set((c1, c2)
+    if DEBUG:
+        if w == 1 and len(ret) > 1:
+            x = set(
+                (c1, c2)
                 for r1, r2 in ret
-                for c1, c2 in zip(r1, r2) if c1 != c2 and not confusions(c1, c2))
-        if len(x) > 1:
-            sys.stderr.write("OMG!!!! <<ed={}>>> {}\n{}\n".format(w, ret, x))
+                for c1, c2 in zip(r1, r2) if c1 != c2 and not confusions(c1, c2)
+            )
+            if len(x) > 1:
+                print("OMG!!!! <<ed={}>>> {}\n{}\n".format(w, ret, x), 
+                      file=sys.stderr)
     return w, ret
 
 
-def align(s1, s2, prod=True):
+def align(s1, s2, limit=2):
     """
     Aligns s1 and s2 according to the best alignment it can think of.
     :param s1: a str
@@ -246,20 +260,23 @@ def align(s1, s2, prod=True):
              insert and delte.
     """
     assert isinstance(s1, str) and isinstance(s2, str), \
-        "The input to align should be two strs only it will apply the keypress" \
-        "function by itself."
+        "The input to align should be two strs only it will apply the " \
+        "keypress function by itself."
 
     # print("{!r} <--> {!r}".format(s1, s2))
     s1 = ''.join(c for c in s1 if c in ALLOWED_CHARACTERS)
     s2 = ''.join(c for c in s2 if c in ALLOWED_CHARACTERS)
     s1k = KB.word_to_keyseq(s1)
     s2k = KB.word_to_keyseq(s2)
-    w, edits = _editdist(s1k, s2k, limit=2)
+    if s1.swapcase() == s2:  # I don't know how else to fix this
+        s2k = CAPS_KEY + s1k
+    w, edits = _editdist(s1k, s2k, limit=limit)
     return w, edits
 
 def is_series_insertion(s, t):
     #  s,t = ''.join(s), ''.join(t)
-    regex = '^(?P<front>{0}{{2,}})|(?P<back>{0}{{2,}})$'.format(re.escape(BLANK))
+    regex = '^(?P<front>{0}{{2,}})|(?P<back>{0}{{2,}})$'\
+        .format(re.escape(BLANK))
     m = re.search(r'%s' % regex, s)
     if m:
         front, back = m.groups(['front', 'back'])
@@ -273,6 +290,25 @@ def is_series_insertion(s, t):
 
         return s_, t_, t_priv
     return s, t, None
+
+
+def _all_pairs(i, contextsize, arrlen):
+    """
+    i: index in the array
+    contextsize: size of the context around i
+    arrlen: length of the array
+
+    Returns iterator for index-tuples near i in a list of size s with
+    context size @contextsize.  Context of k around i-th index means all
+    substrings/subarrays of a[i-N:i+N+1] containing a[i]. 
+    """
+    return [ 
+        (l,r) 
+        # start anywhere between i - contextsize to i
+        for l in range(max(i-contextsize, 0), i+1)
+        # end anywhere between i to i + contextsize
+        for r in range(i+1, min(i + 1 + contextsize, arrlen))
+    ]
 
 
 def _extract_edits(w, s, N=1):
@@ -301,17 +337,18 @@ def _extract_edits(w, s, N=1):
 
     w = STARTSTR + w + ENDSTR
     s = STARTSTR + s + ENDSTR
-    l = min(len(w), len(s))
-    E = []
-    e_count = 0
-    for i, (c, d) in enumerate(zip(w, s)):
-        if c == d or confusions(c, d): continue
-        e_count += 1
-        for j in range(-N, 1):  # start anywhere between i-N to i
-            for k in range(1, max(2, N + 1)):  # end anywhere between i to i+N
-                if i+j >= 0 and i+k <= l:
-                    E.append((w[i + j:i + k], s[i + j:i + k]))
-
+    wl = len(w)  # or len(s) they are equal
+    E = [
+        (w[l:r], s[l:r]) 
+        for i, (c, d) in enumerate(zip(w, s))
+        for (l, r) in _all_pairs(i, N, wl)
+        if c != d
+    ]
+    # if c == d or confusions(c, d): continue
+    # for j in range(-N, 1):  # start anywhere between i-N to i
+    #     for k in range(1, max(3, N + 2)):  # end anywhere between i to i+N
+    #         if i+j >= 0 and i+k <= l:
+    #             E.append((w[i + j:i + k], s[i + j:i + k]))
     return E
 
 
@@ -325,7 +362,7 @@ def all_edits(orig, typed, N=1, edit_cutoff=2):
     return [
         pair
         for a in alignments
-        for pair in _extract_edits(a[0], a[1])
+        for pair in _extract_edits(a[0], a[1], N=N)
     ]
 
     # IGNORE THE FOLLOWING
@@ -370,14 +407,6 @@ def generate_weight_matrix(L):
     with open('{}/weight_matrix.py'.format(THIS_FOLDER), 'w') as f:
         f.write('WEIGHT_MATRIX = {}'.format(repr(E)))
 
-
-import random
-M = {}
-for (l, r), f in WEIGHT_MATRIX.items():
-    if l not in M:
-        M[l] = {}
-    if r in (ENDSTR, STARTSTR): continue
-    M[l][r] = f
 
 def get_topk_typos(rpw, n):
     """
@@ -499,6 +528,7 @@ $ {} [options] [arguments]
     if (len(sys.argv)<2):
         print(USAGE)
         exit(1)
+    load_weight_matrix()
     if sys.argv[1] == '-train':
         train_f = sys.argv[2]
         d = pd.read_csv(train_f, skipinitialspace=False)\
@@ -510,6 +540,9 @@ $ {} [options] [arguments]
     elif sys.argv[1] == '-sample':
         pw = sys.argv[2]
         print("{} --> {}".format(pw, '\n'.join(sample_typos(pw, 10))))
+    elif sys.argv[1] == '-topktypos':
+        pw = sys.argv[2]
+        print("{} --> {}".format(pw, '\n'.join(get_topk_typos(pw, 10))))
     elif sys.argv[1] == '-random':
         L = [
             ('!!1303diva', '!!1303DIVA'),
@@ -520,8 +553,8 @@ $ {} [options] [arguments]
         for w1, w2 in L:
             print("{} <--> {}: {}".format(w1, w2, align(w1, w2)))
         w, s = align(
-            KB.key_presses('GARFIELD'), 
-            KB.key_presses('garfied')
+            'GARFIELD',
+            'garfied'
         )
         print(w)
         print(s)
