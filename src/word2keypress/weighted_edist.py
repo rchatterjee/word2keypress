@@ -357,7 +357,8 @@ def all_edits(orig, typed, N=1, edit_cutoff=2):
         print("{0:*^30} --> {1:*^30}".format(orig, typed))
     w, alignments = align(orig, typed)
     if w > edit_cutoff:
-        print("Ignoring: {!r} <--> {!r}\t: {}".format(orig, typed, w))
+        print("Ignoring: {!r} <--> {!r}\t: {}".format(orig, typed, w), 
+              file=sys.stderr)
         return []   # ignore
     return [
         pair
@@ -410,8 +411,12 @@ def generate_weight_matrix(L):
 
 def get_topk_typos(rpw, n):
     """
-    Return n most probable typo of rpw
+    Return n most probable typo of rpw. 
+    @rpw: string
+    @n: int
+    @return: a list of strings
     """
+    raise Exception("Deprecated! User typos.get_topk_typos")
     if n<=0: return []
     w = STARTSTR + KB.word_to_keyseq(rpw) + ENDSTR
     edits_at_i = [
@@ -429,6 +434,8 @@ def get_topk_typos(rpw, n):
         for r, f in M.get(l, {}).items()
     ]
     if not allowed_arr:
+        print("Could not find any matching edti for {} in EDIT_MATRIX"\
+              .format(rpw))
         return []
     edits, freqs = zip(*allowed_arr)
     # keys = np.array(keys)
@@ -524,6 +531,8 @@ $ {} [options] [arguments]
 -train <fname>: trains the model, and generates weigt_matrix.py
 -sample <password>: samples typos for the password from the model
 -prob <rpw> <tpw>: probability of rpw -> tpw
+-topktypos <rpw> [<n>]: Get top n (default 10) most probable typo of rpw
+-random: Do random things! (Not recommended).
         """.format(sys.argv[0])
     if (len(sys.argv)<2):
         print(USAGE)
@@ -542,7 +551,8 @@ $ {} [options] [arguments]
         print("{} --> {}".format(pw, '\n'.join(sample_typos(pw, 10))))
     elif sys.argv[1] == '-topktypos':
         pw = sys.argv[2]
-        print("{} --> {}".format(pw, '\n'.join(get_topk_typos(pw, 10))))
+        n = int(sys.argv[3]) if len(sys.argv)>3 else 10
+        print("{} -->\n{}".format(pw, '\n'.join(get_topk_typos(pw, n))))
     elif sys.argv[1] == '-random':
         L = [
             ('!!1303diva', '!!1303DIVA'),

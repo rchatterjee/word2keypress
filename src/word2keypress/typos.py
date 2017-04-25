@@ -9,7 +9,8 @@ except ImportError:
     from weight_matrix import WEIGHT_MATRIX
 
 from weighted_edist import (
-    STARTSTR, ENDSTR, KB, BLANK, SHIFT_KEY, CAPS_KEY, all_edits, _editdist)
+        STARTSTR, ENDSTR, KB, BLANK, SHIFT_KEY, CAPS_KEY, all_edits, _editdist)
+
 
 EDIT_DIST_CUTOFF = 1
 WEIGHT_MATRIX = [
@@ -112,13 +113,41 @@ def get_topk_typos(pw, k=10):
         i += 1
     return sorted(tt.items(), key=lambda x: x[1], reverse=True)[:k]
 
+
+def test_model(train_f):
+    from pyxdameraulevenshtein import damerau_levenshtein_distance as dldist
+    d = pd.read_csv(train_f, skipinitialspace=False)\
+          .astype(str)
+    d_ts = d[d.rpw != d.tpw].sample(int(0.03*len(d.index)), random_state=435)
+    a = np.array([get_prob(rpw, tpw)
+            for rpw, tpw in zip(d_ts.rpw, d_ts.tpw) 
+            if dldist(rpw.lower(), tpw.lower())<=1])
+    a = a[a>0]
+    rank = []
+    for rpw, tpw in  zip(d_ts.rpw, d_ts.tpw):
+        if dldist(rpw.lower(), tpw.lower())>1: continue
+        k = 20
+        typos = [tp for tp, w in get_topk_typos(rpw, k)]
+        if tpw in typos:
+            rank.append(typos.index(tpw)+1)
+        else:
+            rank.append(k)
+    print("Avg_rank: ", sum(rank)/float(len(rank)*k))
+    print(d_ts.shape, a.shape, a.mean(), a.std())
+    return  a
+    
 if __name__ == '__main__':
     USAGE = """Usage:
 $ {} [options] [arguments]
-
+-allowed-edits <rpw> : returns the allowed edits of rpw
 -sample <password>: samples typos for the password from the model
 -prob <rpw> <tpw>: probability of rpw -> tpw
+-topktypos <rpw> [<n>]  : returns n (default 10) typos of rpw 
+-test : Tests the efficacy of the model 
         """.format(sys.argv[0])
+    if len(sys.argv)<=1:
+        print(USAGE)
+        exit(1)
     if sys.argv[1] == '-allowed-edits':
         pw = KB.word_to_keyseq(sys.argv[2])
         (l,r),w  = WEIGHT_MATRIX[0]
@@ -130,10 +159,13 @@ $ {} [options] [arguments]
         print("{} --> {}".format(pw, len(set((sample_typos(pw, 100))))))
     elif sys.argv[1] == '-topktypos':
         pw = sys.argv[2]
-        typos = get_topk_typos(pw, 30)
+        n = int(sys.argv[3]) if len(sys.argv)>3 else 10
+        typos = get_topk_typos(pw, n)
         print('\n'.join("{}: {:.5f}".format(x,y) for x, y in typos))
         print("{} --> {}".format(pw, len(typos)))
     elif sys.argv[1] == '-prob':
         print(get_prob(sys.argv[2], sys.argv[3]))
+    elif sys.argv[1] == '-test':
+        (test_model(sys.argv[2]))
     else:
         print(USAGE)
