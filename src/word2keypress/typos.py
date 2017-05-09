@@ -71,6 +71,15 @@ def apply_edit(pw_key_str, e):
         yield typo_key_str.replace(BLANK, ''), 1.0/len(matched_indexes)
 
 
+def num_typos(n, ed):
+    # type: (int, int) -> int
+    assert ed>=0, "edit distance should be no less than 0. Got = {}".format(ed)
+    t = (2*96)**ed
+    a = n+1
+    for i in range(2, ed+1):
+        a *= (n+i)
+    return a*t
+
 def get_prob(rpw, tpw):
     """
     Probability that rpw is mistyped to tpw,
@@ -83,7 +92,8 @@ def get_prob(rpw, tpw):
     if(s==0): return 0.0
     # print("s = {} (len(E)={})".format(s, len(E)))
     # print(edits)
-    f = 0.0
+    total_ed1_typos_estimate = 2*96*(len(rpw) + 1)
+    f = 1.0/num_typos(len(rpw), 1 if edits else 2)
     for e, w in E:
         if e not in edits: continue
         for typo_key_str, w_frac in apply_edit(pw_key_str, e):
@@ -151,7 +161,7 @@ def test_model_likelihood(train_f):
     d_ts = read_typos(train_f)
     ed = d_ts.apply(lambda r: dldist(r.rpw, r.tpw), axis=1)
     probs = d_ts[ed<=1].apply(lambda r: get_prob(r.rpw, r.tpw), axis=1)
-    likelihood = np.log(probs).mean()
+    likelihood = np.log(probs[probs>0]).mean()
     return likelihood
 
 

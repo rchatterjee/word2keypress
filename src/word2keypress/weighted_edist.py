@@ -176,7 +176,7 @@ def _editdist(s1, s2, limit=2, is_get_edits=True):
 
     allowed_edits = ('', 'd', 'i', 'r', 't')
     op_dict = {c: i for i, c in enumerate(allowed_edits)}
-    index_changes = [(-1, -1), (-1, 0), (0, -1), (-1, -1), (-1, -1)]
+    index_changes = [(-1, -1), (-1, 0), (0, -1), (-1, -1), (-2, -2)]
     t_edits = np.array([op_dict[e] for e in ('d', 'i', 'r', 't', '')])
     A = np.zeros(shape=(n1, n2))
     B = np.zeros(shape=(n1, n2, len(op_dict)))
@@ -189,6 +189,7 @@ def _editdist(s1, s2, limit=2, is_get_edits=True):
     for j in range(1, n2):
         A[0, j] = A[0, j-1] + 1
         B[0, j, op_dict['i']] = 1
+
     def _transposition_cost(i, j):
         if all((i > 1, j > 1, s1[i-1] != s2[j-1],
                 s1[i-2] == s2[j-1], s1[i-1] == s2[j-2])):
@@ -203,7 +204,7 @@ def _editdist(s1, s2, limit=2, is_get_edits=True):
                 A[i, j-1] + 1, # insertion
                 A[i-1, j-1] + 1, # replace
                 A[i-1, j-1] + (1 if s1[i-1] != s2[j-1] else 0), # nothing
-                _transposition_cost(i, j)  # transposition
+                _transposition_cost(i, j),  # transposition
             )
             min_cost = min(costs)
             possible_edits = np.array([
