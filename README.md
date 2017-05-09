@@ -40,3 +40,17 @@ print "\nkeyseq->word:", kb.keyseq_to_word(kseq)
 
 print "\ndistance:", distance('Password1', 'PASSWORD1')
 ```
+
+
+### How to test/develop ?
+(For myself, as I keep forgetting how to deal with cython. Stupid Idea)
+Don't forget to regenerate the `src/word2keypress/_keyboard.c` file in
+Option 1.
+```bash
+$ python setup.py pytest      # Option 1
+$ tox                         # Option 2
+$ python -m pytest tests/     # Option 3
+```
+In any case have to regenerate the _keyboard.c to test with the new code.
+
+

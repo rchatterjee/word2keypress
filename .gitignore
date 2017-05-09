@@ -17,6 +17,9 @@ helper.py
 .tox/
 *.rst
 
+# Random test file
+src/word2keypress/a.py
+
 build/
 dist/
 MANIFEST

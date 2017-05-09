@@ -10,7 +10,8 @@ try:
 except ImportError:
     from weight_matrix import WEIGHT_MATRIX
     from weighted_edist import (
-        STARTSTR, ENDSTR, KB, BLANK, SHIFT_KEY, CAPS_KEY, all_edits, _editdist)
+        STARTSTR, ENDSTR, KB, BLANK, SHIFT_KEY, CAPS_KEY, all_edits, _editdist
+    )
 
 
 
@@ -35,14 +36,14 @@ def allowed_edits(pw_key_str):
         # print(pw_key_str)
     return sorted(
         [((l,r), w) for ((l,r),w) in WEIGHT_MATRIX
-         if l.replace(BLANK, '') in pw_key_str], 
+         if l.replace(BLANK, '') in pw_key_str],
         key=lambda x: x[1], reverse=True
     )
 
 def edit_locs(pw_key_str, l):
     matched_indexes = [
         (m.start(), m.end())
-        for m in re.finditer('({})'.format(re.escape(l.replace(BLANK, ''))), 
+        for m in re.finditer('({})'.format(re.escape(l.replace(BLANK, ''))),
                              pw_key_str)
         if m.start()<len(pw_key_str) and m.end()>0
     ]
@@ -61,7 +62,7 @@ def apply_edit(pw_key_str, e):
     # Choose one index at random from the possible options
     # i = np.random.randint(0, len(matched_indexes))
     # pos_s, pos_e = matched_indexes[i]
-    # if BLANK in l: 
+    # if BLANK in l:
     #     typo_key_str = _insert_edit(pw_key_str, l, r, pos_s, pos_e)
     # else:
     for m in matched_indexes:
@@ -69,7 +70,7 @@ def apply_edit(pw_key_str, e):
         typo_key_str = pw_key_str[:pos_s] + r + pw_key_str[pos_e:]
         yield typo_key_str.replace(BLANK, ''), 1.0/len(matched_indexes)
 
-    
+
 def get_prob(rpw, tpw):
     """
     Probability that rpw is mistyped to tpw,
@@ -92,7 +93,7 @@ def get_prob(rpw, tpw):
                 f += w*w_frac
     return f/s
 
-            
+
 def get_topk_typos(pw, k=10):
     """
     Returns top k typos of the word pw
@@ -104,7 +105,7 @@ def get_topk_typos(pw, k=10):
     s = float(sum(x[1] for x in E))
     # print("s = {} (len(E)={})".format(s, len(E)))
     i = 0
-    debug_pw = set([pw.swapcase()])
+    debug_pw = {pw.swapcase()}
     while len(tt)<k*len(pw)*10 and i <len(E):
         e, w = E[i]
         for typo_key_str, w_frac in apply_edit(pw_key_str, e):
@@ -117,13 +118,18 @@ def get_topk_typos(pw, k=10):
     return sorted(tt.items(), key=lambda x: x[1], reverse=True)[:k]
 
 
-def test_model(train_f):
-    from pyxdameraulevenshtein import damerau_levenshtein_distance as dldist
-    d = pd.read_csv(train_f, skipinitialspace=False)\
+def read_typos(f_name):
+    d = pd.read_csv(f_name, skipinitialspace=False)\
           .astype(str)
     d_ts = d[d.rpw != d.tpw].sample(int(0.03*len(d.index)), random_state=435)
+    return d_ts
+
+
+def test_model_rank(train_f):
+    from pyxdameraulevenshtein import damerau_levenshtein_distance as dldist
+    d_ts = read_typos(train_f)
     a = np.array([get_prob(rpw, tpw)
-            for rpw, tpw in zip(d_ts.rpw, d_ts.tpw) 
+            for rpw, tpw in zip(d_ts.rpw, d_ts.tpw)
             if dldist(rpw.lower(), tpw.lower())<=1])
     a = a[a>0]
     rank = []
@@ -138,15 +144,26 @@ def test_model(train_f):
     print("Avg_rank: ", sum(rank)/float(len(rank)*k))
     print(d_ts.shape, a.shape, a.mean(), a.std())
     return  a
-    
+
+
+def test_model_likelihood(train_f):
+    from pyxdameraulevenshtein import damerau_levenshtein_distance as dldist
+    d_ts = read_typos(train_f)
+    ed = d_ts.apply(lambda r: dldist(r.rpw, r.tpw), axis=1)
+    probs = d_ts[ed<=1].apply(lambda r: get_prob(r.rpw, r.tpw), axis=1)
+    likelihood = np.log(probs).mean()
+    return likelihood
+
+
 if __name__ == '__main__':
     USAGE = """Usage:
 $ {} [options] [arguments]
 -allowed-edits <rpw> : returns the allowed edits of rpw
 -sample <password>: samples typos for the password from the model
 -prob <rpw> <tpw>: probability of rpw -> tpw
--topktypos <rpw> [<n>]  : returns n (default 10) typos of rpw 
--test : Tests the efficacy of the model 
+-topktypos <rpw> [<n>]  : returns n (default 10) typos of rpw
+-test <typo-fname> : Tests the efficacy of the model, ~/pwtypos-code/typodata/typos.csv
+-keypress  <rpw> : Return the keypress representation of 
         """.format(sys.argv[0])
     if len(sys.argv)<=1:
         print(USAGE)
@@ -169,6 +186,9 @@ $ {} [options] [arguments]
     elif sys.argv[1] == '-prob':
         print(get_prob(sys.argv[2], sys.argv[3]))
     elif sys.argv[1] == '-test':
-        (test_model(sys.argv[2]))
+        # test_model_rank(sys.argv[2])
+        print("Log-Likelihood: ", test_model_likelihood(sys.argv[2]))
+    elif sys.argv[1] == '-keypress':
+        print(repr(KB.word_to_keyseq(sys.argv[2])))
     else:
         print(USAGE)

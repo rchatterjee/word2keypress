@@ -2,9 +2,9 @@
 # cython: infer_types=True, c_string_encoding=utf-8
 # cython: cdivision=True, profile=True
 
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 
-import re, os, sys
+import re, sys
 from cpython cimport array
 import array
 import json
@@ -50,6 +50,7 @@ layout_matrix = {
         b",<    >.",
         b",<    >."], 4),
 
+    # dvorak - Not tested
     "dvorak": ([
         b"`1234567890[]",
         b"~!@#$%^&*(){}",
@@ -69,6 +70,9 @@ cdef str safe_chr(char c):
         return chr(c)
     else:
         return ''
+
+cdef int map_chr_2to3(char ch):
+    return ord(ch) if sys.version_info < (3,) else ch
 
 cdef Py_ssize_t TWO_AGO = 0
 cdef Py_ssize_t ONE_AGO = 1
@@ -151,6 +155,8 @@ assert all(map(
     lambda c: (c>=20 and c<128) or c in [3,4], ALLOWED_KEYS
 )), ALLOWED_KEYS
 
+
+
 cdef class Keyboard(object):
     cdef str _keyboard_type
     # some random parameters, need to learn later
@@ -161,7 +167,8 @@ cdef class Keyboard(object):
     cdef set _printables
     def __init__(self,  str _type='qwerty', float shift_discount=0.8):
         self._adj_map = adj_graph
-        assert _type in self._adj_map
+        assert _type in self._adj_map, "{} not in adj_map"\
+            .format(_type, self._adj_map.keys())
         self._keyboard_type = _type
         try:
             self._keyboard, self._num_shift = layout_matrix[self._keyboard_type]
@@ -223,16 +230,19 @@ cdef class Keyboard(object):
         or off.
         """
         assert _char > 0 and _char < 128 # only valid chars
-        cdef int i, j, num_shift
+        cdef int i, j, num_shift, _ch_t
         KM, num_shift = self._keyboard, self._num_shift
         if not self._loc_map:
-            def map_chr_2to3(ch):
-                return ord(ch) if sys.version_info < (3,) else ch
-
-            self._loc_map = {map_chr_2to3(ch): (i/num_shift, j, i % num_shift)
-                             for i, row in enumerate(KM)
-                             for j, ch in enumerate(row)}
-            self._loc_map[map_chr_2to3(b' ')] = (3, 0, 0)
+            self._loc_map = {}
+            for i, row in enumerate(KM):
+                for j, ch in enumerate(row):
+                    _ch_t = map_chr_2to3(ch)
+                    if _ch_t not in self._loc_map:
+                        self._loc_map[_ch_t] = (i/num_shift, j, i % num_shift)
+            self._loc_map[map_chr_2to3(' ')] = (4, 0, 0)
+            # print(self._loc_map)
+            # print("Location of space:", self._loc_map[map_chr_2to3(' ')])
+            # self._loc_map[map_chr_2to3(b' ')] = (3, 0, 0)
         if _char not in self._loc_map:
             raise ValueError("Could not find location of: {!r} <{}, {}>"\
                              .format(_char, type(_char), repr(chr(_char))))
@@ -340,22 +350,22 @@ cdef class Keyboard(object):
         # return ret
 
     def word_to_keyseq(self, word):
-        return self._word_to_keyseq(str(word))
-
-    cdef str _word_to_keyseq(self, str word):
         """
         Converts a @word into a key press sequence for the keyboard KB.
         >>> KB = Keyboard('qwerty')
-        >>> KB.word_to_keyseqes('Password12!@')
+        >>> KB.word_to_keyseq('Password12!@')
         <s>password12<s>1<s>2
-        >>> KB.word_to_keyseqes('pASSWORD')
+        >>> KB.word_to_keyseq('pASSWORD')
         <c><s>password
-        >>> KB.word_to_keyseqes('PASSword!@')
+        >>> KB.word_to_keyseq('PASSword!@')
         <c>pass</c>word<s>1<s>2
-        >>> KB.word_to_keyseqes('PAasWOrd') # this is not what it should but close!
+        >>> KB.word_to_keyseq('PAasWOrd') # this is not what it should but close!
         <s>p<s>aas<s>w<s>ord
         <c>pa</c>as<c>wo</c>rd
         """
+        return self._word_to_keyseq(str(word))
+
+    cdef str _word_to_keyseq(self, str word):
         caps_key = chr(CAPS_KEY)
         shift_key = chr(SHIFT_KEY)
         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for {!r}"\
@@ -376,7 +386,7 @@ cdef class Keyboard(object):
                 return chr(ich)
             try:
                 ich, shift = self.remove_shift(ich)
-                return shift_key + chr(ich) if shift else chr(ich)
+                return(shift_key + chr(ich)) if shift else chr(ich)
             except (AssertionError, ValueError) as e:
                 return ''
         new_str = ''.join(unshifted(ch) for ch in nword)

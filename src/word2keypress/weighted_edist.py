@@ -56,8 +56,8 @@ def load_weight_matrix():
         M[l][r] = f
 
 
-CONFUSING_SETS = [set(['1', 'l', 'I']),
-                  set(['o', '0', 'O'])]
+CONFUSING_SETS = [{'1', 'l', 'I'},
+                  {'o', '0', 'O'}]
 def confusions(w, s):
     for cset in CONFUSING_SETS:
         if w in cset and s in cset:
@@ -357,8 +357,9 @@ def all_edits(orig, typed, N=1, edit_cutoff=2):
         print("{0:*^30} --> {1:*^30}".format(orig, typed))
     w, alignments = align(orig, typed)
     if w > edit_cutoff:
-        print("Ignoring: {!r} <--> {!r}\t: {}".format(orig, typed, w), 
-              file=sys.stderr)
+        print("Ignoring: {!r} <--> {!r}\t: {}"
+              .format(orig, typed, w, ),  file=sys.stderr)
+
         return []   # ignore
     return [
         pair
@@ -366,23 +367,23 @@ def all_edits(orig, typed, N=1, edit_cutoff=2):
         for pair in _extract_edits(a[0], a[1], N=N)
     ]
 
-    # IGNORE THE FOLLOWING
-    # modify series insertion
-    s, t, typed_priv = is_series_insertion(s, t)
-    s_priv, t_priv = '', ''
-    if DEBUG:
-        print("Typed Extra:", typed_priv)
-    if typed_priv:
-        s_priv, t_priv = align(orig, typed_priv)
-        # remove_end_deletes
-        s_priv, t_priv, _ = is_series_insertion(s_priv, t_priv)
-        num_edits = len([1 for x, y in zip(s_priv, t_priv) \
-                         if x != y and not confusions(x, y)])
-        if num_edits > MAX_ALLOWED_EDITS:
-            s_priv = ''
-            t_priv = ''
-    # print("%s\t\t%s\n%s\t\t%s" % (s_priv, s, t_priv, t))
-    return _extract_edits(s_priv, t_priv, N=N) + _extract_edits(s, t, N=N)
+    # # IGNORE THE FOLLOWING
+    # # modify series insertion
+    # s, t, typed_priv = is_series_insertion(s, t)
+    # s_priv, t_priv = '', ''
+    # if DEBUG:
+    #     print("Typed Extra:", typed_priv)
+    # if typed_priv:
+    #     s_priv, t_priv = align(orig, typed_priv)
+    #     # remove_end_deletes
+    #     s_priv, t_priv, _ = is_series_insertion(s_priv, t_priv)
+    #     num_edits = len([1 for x, y in zip(s_priv, t_priv) \
+    #                      if x != y and not confusions(x, y)])
+    #     if num_edits > MAX_ALLOWED_EDITS:
+    #         s_priv = ''
+    #         t_priv = ''
+    # # print("%s\t\t%s\n%s\t\t%s" % (s_priv, s, t_priv, t))
+    # return _extract_edits(s_priv, t_priv, N=N) + _extract_edits(s, t, N=N)
 
 
 def count_edits(L):
@@ -474,10 +475,8 @@ def sample_typos(rpw, n):
     pos_i = random.randint(0, len(w))
     w = STARTSTR + w + ENDSTR
     c = w[pos_i+1]
-    possible_edits = set((
-        c, BLANK + c, c + BLANK,
-        w[pos_i:pos_i+2], w[pos_i+1:pos_i+3], w[pos_i:pos_i+3]
-    ))
+    possible_edits = {c, BLANK + c, c + BLANK, w[pos_i:pos_i + 2],
+                      w[pos_i + 1:pos_i + 3], w[pos_i:pos_i + 3]}
 
     allowed_arr = [
         ((l, r), f)
@@ -490,7 +489,7 @@ def sample_typos(rpw, n):
         return []
     edits, freqs = zip(*allowed_arr)
     # keys = np.array(keys)
-    pdist = np.array(freqs)/float(np.sum(freqs))
+    pdist = np.array(freqs)/float(sum(freqs))
     indxs = np.arange(pdist.shape[0], dtype=int)
     actual_n = n
     n = min(pdist.shape[0], n)
@@ -521,6 +520,7 @@ def clean_str(s):
         c for c in s
         if ord(c)>7 and ord(c) <= 255
     )
+
 
 if __name__ == '__main__':
     # unittest.main()

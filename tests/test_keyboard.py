@@ -1,18 +1,26 @@
 #!/usr/bin/python
 from __future__ import print_function, absolute_import
-import pyximport; pyximport.install()
-import os, sys, json, csv, re
-import socket
+
+import pyximport
+pyximport.install()
+
 import random
 import pytest
 import array
 from word2keypress import Keyboard
+# from _keyboard import Keyboard
 import time
-SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]
-CAPS_KEY = 4 # [u'\x04', "<c>"][user_friendly]
+import sys
 
+import word2keypress
+print(word2keypress.__file__)
+
+SHIFT_KEY = 3  # [u'\x03', "<s>"][user_friendly]
+CAPS_KEY = 4  # [u'\x04', "<c>"][user_friendly]
 
 kb = Keyboard('qwerty')
+
+
 def test_keyboard_type():
     with pytest.raises(AssertionError):
         Keyboard('US')
@@ -21,15 +29,21 @@ def test_keyboard_type():
     kb = Keyboard('dvorak')
 
 
+def map_chr_2to3(ch):
+    return ord(ch) if sys.version_info < (3,) else ch
+
 class TestKeyboard():
     def test_loc(self):
-        inp_res_map = [(('t'), (1,5,0)),
-                      (('T'), (1,5,1)),
-                      (('a'), (2,1,0)),
-                      (('('), (0,9,1)),
-                      (('M'), (3,7,1))]
+        inp_res_map = [
+            ((b't'), (1, 5, 0)),
+            ((b'T'), (1, 5, 1)),
+            ((b'a'), (2, 1, 0)),
+            ((b'('), (0, 9, 1)),
+            ((b'M'), (3, 7, 1)),
+            ((b' '), (4, 0, 0))
+        ]
         for q, r in inp_res_map:
-            assert kb.loc(ord(*q)) == r
+            assert kb.loc(*q) == r
 
     def test_keyboard_dist(self):
         inp_res_map = [(('t', 't'), (0)),
@@ -38,10 +52,10 @@ class TestKeyboard():
                        (('a', 'w'), (2)),
                        (('w', '$'), (3.8)),
                        (('<', '>'), (1))
-                   ]
+                       ]
         for q, r in inp_res_map:
             q = [ord(x) for x in q]
-            assert abs(kb.keyboard_dist(*q)-r)<0.0001
+            assert abs(kb.keyboard_dist(*q) - r) < 0.0001
 
     def test_is_typable(self):
         assert kb.is_typable('adfasdf')
@@ -85,10 +99,12 @@ key = {'c': chr(CAPS_KEY),
      ('@!asdASDads', '{s}2{s}1asd{c}asd{c}ads'),
      # There is this small issue, what if there
      # is a shit in the middle of a password
-     ('PASSwoRD', '{c}pass{c}wo{c}rd{c}')]
+     ('PASSwoRD', '{c}pass{c}wo{s}r{s}d'),
+     ('Pa ss', '{s}pa ss')
+     ]
 )
 class TestKeyPresses():
-    @pytest.mark.skip(reason="cpython function. Not available outside")
+    # @pytest.mark.skip(reason="cpython function. Not available outside")
     def test_word_to_keyseq(self, inp, res):
         t1 = kb.word_to_keyseq(inp)
         t2 = res.format(**key)
@@ -99,8 +115,10 @@ class TestKeyPresses():
 
     def test_other_keyseq_to_word(self, inp, res):
         kw = kb.keyseq_to_word('{c}asdf{s}1{c}sdf'.format(**key))
-        assert 'ASDFasdf' == kb.keyseq_to_word('{c}asdf{s}a{c}sdf'.format(**key))
-        assert 'ASDF!sdf' == kb.keyseq_to_word('{c}asdf{s}1{c}sdf'.format(**key))
+        assert 'ASDFasdf' == kb.keyseq_to_word(
+            '{c}asdf{s}a{c}sdf'.format(**key))
+        assert 'ASDF!sdf' == kb.keyseq_to_word(
+            '{c}asdf{s}1{c}sdf'.format(**key))
 
     def test_keyseq(self, inp, res):
         inp_res_map = [(('|'), (1, 13, 1))]
@@ -119,21 +137,21 @@ class TestKeyPresses():
         A = kb._sub_word_table(res)
         for i in range(len(res)):
             pre_w, shift, caps = A[i][0]
-            post_w = A[i][2*shift + caps + 1][0]
+            post_w = A[i][2 * shift + caps + 1][0]
             assert pre_w + post_w == inp
 
     @pytest.mark.skip(reason="Not available outside")
     def test_keyseq_insert_edits(self, inp, res):
         inp_res_map = [(
             (
-                b'{s}pa'.format(**key),
+                bytes('{s}pa'.format(**key)),
                 [chr(CAPS_KEY), chr(SHIFT_KEY), 'a'],
                 [chr(CAPS_KEY), 't']
             ),
             (
-                'pA', 'Pa', 'aPa', 'pa', 'PA', 'tpa', # j=0
-                'pA', 'Pa', 'Apa', 'A', 'a', 'Ta',   # j=1
-                'PA', 'PA', 'Paa', 'P', 'P', 'Pt',   # j=2
+                'pA', 'Pa', 'aPa', 'pa', 'PA', 'tpa',  # j=0
+                'pA', 'Pa', 'Apa', 'A', 'a', 'Ta',  # j=1
+                'PA', 'PA', 'Paa', 'P', 'P', 'Pt',  # j=2
                 'Paa'
             )
         )]
@@ -142,20 +160,24 @@ class TestKeyPresses():
             for i, r in enumerate(kb.word_to_typos(*inp)):
                 assert r == res[i]
 
+
 def str_cython_char_array(s):
     return array.array('c', s)
 
+
 allowed_keys = b"`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ "
 import string
+
 allowed_chars = list(string.printable[:-5])
+
 
 def test_word_edits(capsys):
     rand_string = ''.join(random.choice(allowed_chars) for _ in range(12))
     # for pw in kb.word_to_typos(rand_string):
     #     print repr(pw)
     _s = set(allowed_chars)
-    assert all(ch in _s for ch in rand_string), '{} :: {}'\
-        .format(repr(rand_string), set(rand_string)-_s)
+    assert all(ch in _s for ch in rand_string), '{} :: {}' \
+        .format(repr(rand_string), set(rand_string) - _s)
     s_t = time.time()
     total_typo_computed = 0
     for i, tpw in enumerate(
@@ -164,13 +186,15 @@ def test_word_edits(capsys):
         total_typo_computed += 1
         # print repr(rand_string), repr(tpw)
         assert all(ch in _s for ch in tpw), \
-            '{}. {!r} --> {!r} :: {}'.format(i, rand_string, tpw, set(tpw)-_s)
-        total_typo_computed += len(set(kb.word_to_typos(tpw, allowed_keys, allowed_keys)))
+            '{}. {!r} --> {!r} :: {}'.format(i, rand_string, tpw, set(tpw) - _s)
+        total_typo_computed += len(
+            set(kb.word_to_typos(tpw, allowed_keys, allowed_keys)))
     e_t = time.time()
     # with capsys.disabled():
     print("\nNumber of typos of {!r}: {:,}".format(rand_string, i))
     print("Total typos covered: {:,}".format(total_typo_computed))
-    print(">> Time taken: {:.3f} s".format(e_t-s_t))
+    print(">> Time taken: {:.3f} s".format(e_t - s_t))
+
 
 def test_edit_distance():
     from word2keypress import distance
@@ -182,8 +206,7 @@ def test_edit_distance():
         ('pASSWORD', 'Password'),  # This is not good!
         ('P@ssword', 'P2ssword')]
     for w1, w2 in word_pairs:
-        assert distance(w1, w2)<2
-
+        assert distance(w1, w2) < 2
 
 # class TestPWLogging:
 #     def test_logging(self):

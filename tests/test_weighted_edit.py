@@ -3,7 +3,8 @@ import unittest
 import random
 from word2keypress.weighted_edist import (
     _editdist, BLANK, UNWEIGHTED, _replace,
-    ALLOWED_CHARACTERS, align
+    ALLOWED_CHARACTERS, align, load_weight_matrix,
+    CAPS_KEY, SHIFT_KEY, KB
 )
 
 class Test_Editdistance(unittest.TestCase):
@@ -32,6 +33,34 @@ class Test_Editdistance(unittest.TestCase):
 
         UNWEIGHTED = old_uw
 
+    def random_typos(self):
+        for n in range(6):
+            a = list(ALLOWED_CHARACTERS)
+            random.shuffle(a)
+            t = list(KB.word_to_keyseq(''.join(a[:n + 1])))
+            s = t[:]
+            for _ in range(random.randint(1, n + 1)):  # how many edit
+                loc = random.randint(0, len(s))
+                # 0: insert, 1: delete, 2: replace, 3: transposition
+                edit = random.randint(0, 4)
+                ch = KB.word_to_keyseq(a.pop())
+                if edit == 0: # insert
+                    s.insert(loc, ch)
+                    t.insert(loc, BLANK*len(ch))
+                elif edit == 1:  # 1: delete
+                    t.insert(loc, ch)
+                    s.insert(loc, BLANK*len(ch))
+                elif edit == 2:
+                    s[loc] = ch
+                elif n>1 and edit == 3:
+                    if loc >= n: loc = n-2
+                    t[loc], t[loc-1] = t[loc-1], t[loc]
+            s, t = ''.join(s), ''.join(t)
+            yield (
+                (s.replace(BLANK, ''), t.replace(BLANK, '')),
+                (s, t)
+            )
+
     def test_replace(self):
         global UNWEIGHTED
         old_uw = UNWEIGHTED
@@ -40,6 +69,7 @@ class Test_Editdistance(unittest.TestCase):
             (('a', 1, 'b', 1), (0)),
             (('a', 1, 'a', 1), (0.2))
         ]
+        load_weight_matrix()
         res = [_replace(*inp) for inp, res in inp_res_map]
         assert res[0] > res[1]
         UNWEIGHTED = old_uw
@@ -48,32 +78,15 @@ class Test_Editdistance(unittest.TestCase):
         inp_res_map = [
             (('', 'a'), (BLANK, 'a')),
             (('a', ''), ('a', BLANK)),
-            (('abcd', 'ABCD'), ('abcd', 'ABCD')),
-            (('aAaA', 'AaA'), ('aAaA', '\0AaA')),
+            (('abcd', 'ABCD'), (BLANK + 'abcd', CAPS_KEY + 'abcd')),
+            (('aAaA', 'AaA'),
+                ('a{s}aa{s}a'.format(s=SHIFT_KEY),
+                '{b}{s}aa{s}a'.format(b=BLANK, s=SHIFT_KEY))
+             ),
         ]
 
-        for n in range(6):
-            a = list(ALLOWED_CHARACTERS)
-            random.shuffle(a)
-            t = a[:n + 1]
-            s = t[:]
-            for _ in range(random.randint(1, n + 1)):  # how many edit
-                loc = random.randint(0, len(s))
-                if random.randint(0, 1) == 0:  # what edit -- 0: insert
-                    s.insert(loc, a.pop())
-                    t.insert(loc, BLANK)
-                else:  # 1: delete
-                    t.insert(loc, a.pop())
-                    s.insert(loc, BLANK)
-            s, t = ''.join(s), ''.join(t)
-            inp_res_map.append(((s.replace(BLANK, ''),
-                                 t.replace(BLANK, ''), True), (s, t)))
         for inp, res in inp_res_map:
             try:
-                self.assertEqual(align(*inp), res)
-            except:
-                if len(res[1]) > 5:
-                    continue
-                else:
-                    print(align(*inp))
-                    print(res)
+                self.assertIn(res, align(*inp)[1])
+            except Exception as e:
+                raise e
