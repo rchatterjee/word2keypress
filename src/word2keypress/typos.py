@@ -5,11 +5,14 @@ import numpy as np
 import pandas as pd
 try:
     from word2keypress.weight_matrix import WEIGHT_MATRIX
+    from word2keypress.weighted_edist import (
+        STARTSTR, ENDSTR, KB, BLANK, SHIFT_KEY, CAPS_KEY, all_edits, _editdist)
 except ImportError:
     from weight_matrix import WEIGHT_MATRIX
-
-from weighted_edist import (
+    from weighted_edist import (
         STARTSTR, ENDSTR, KB, BLANK, SHIFT_KEY, CAPS_KEY, all_edits, _editdist)
+
+
 
 
 EDIT_DIST_CUTOFF = 1

@@ -542,7 +542,8 @@ $ {} [options] [arguments]
         train_f = sys.argv[2]
         d = pd.read_csv(train_f, skipinitialspace=False)\
               .astype(str)
-        d_tr = d[d.rpw != d.tpw].sample(int(0.1*len(d.index)), random_state=345)
+        d_tr = d[d.rpw != d.tpw].sample(int(0.8*len(d.index)), random_state=345)
+        d_ts = d[d.rpw != d.tpw].sample(int(0.2*len(d.index)))
         L = zip(d_tr.rpw.apply(clean_str), d_tr.tpw.apply(clean_str))
         print("Got {} typos from {}".format(len(L), sys.argv[1]))
         generate_weight_matrix(L)
