@@ -4,11 +4,13 @@ import os, sys, re, string
 from collections import defaultdict
 import itertools
 import numpy as np
-from word2keypress import Keyboard
 try:
     from word2keypress.weight_matrix import WEIGHT_MATRIX
+    from word2keypress import Keyboard
 except ImportError:
     from weight_matrix import WEIGHT_MATRIX
+    import pyximport; pyximport.install()
+    from _keyboard import Keyboard
 import random
 ####### Extra Key codes #######
 # 1 (\x01) : Start of a string
@@ -21,7 +23,7 @@ import random
 #    ###################
 
 
-KB = Keyboard('qwerty')
+KB = Keyboard("qwerty")
 SHIFT_KEY = chr(3) # [u'\x03', "<s>"][user_friendly]
 CAPS_KEY = chr(4) # [u'\x04', "<c>"][user_friendly]
 
@@ -203,8 +205,8 @@ def _editdist(s1, s2, limit=2, is_get_edits=True):
                 A[i-1, j] + 1, # deletion
                 A[i, j-1] + 1, # insertion
                 A[i-1, j-1] + 1, # replace
-                A[i-1, j-1] + (1 if s1[i-1] != s2[j-1] else 0), # nothing
                 _transposition_cost(i, j),  # transposition
+                A[i-1, j-1] + (1 if s1[i-1] != s2[j-1] else 0), # nothing
             )
             min_cost = min(costs)
             possible_edits = np.array([
@@ -230,9 +232,9 @@ def _editdist(s1, s2, limit=2, is_get_edits=True):
                 ret.append((w1prime, w2prime))
 
     w = A[n1-1, n2-1]
-    if w > limit:
-        return limit, []
-    if w > 0 and is_get_edits:
+    if w > limit or not is_get_edits:
+        return min(limit, w), []
+    if w > 0:
         get_all_edits(n1-1, n2-1)
     else:
         ret = [(s1, s2)]
@@ -288,7 +290,8 @@ def is_series_insertion(s, t):
         elif back:
             s_ = s[:m.start()]
             t_ = t[:m.start()]
-
+        else:
+            s_, t_ = '', ''
         return s_, t_, t_priv
     return s, t, None
 

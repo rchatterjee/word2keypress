@@ -10,7 +10,11 @@ import array
 import json
 cimport cython
 from libc.stdlib cimport calloc, free
-from word2keypress.adjacency_graphs import adj_graph
+try:
+    from word2keypress.adjacency_graphs import adj_graph
+except ImportError:
+    from adjacency_graphs import adj_graph
+
 cdef int user_friendly = 0
 cdef char SHIFT_KEY = 3 # [u'\x03', "<s>"][user_friendly]
 cdef char CAPS_KEY = 4 # [u'\x04', "<c>"][user_friendly]
