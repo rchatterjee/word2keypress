@@ -75,8 +75,8 @@ cdef str safe_chr(char c):
     else:
         return ''
 
-cdef int map_chr_2to3(char ch):
-    return ord(ch) if sys.version_info < (3,) else ch
+cdef int map_chr_2to3(ch):
+    return ch if isinstance(ch, int) else ord(ch)
 
 cdef Py_ssize_t TWO_AGO = 0
 cdef Py_ssize_t ONE_AGO = 1
@@ -242,7 +242,7 @@ cdef class Keyboard(object):
                 for j, ch in enumerate(row):
                     _ch_t = map_chr_2to3(ch)
                     if _ch_t not in self._loc_map:
-                        self._loc_map[_ch_t] = (i/num_shift, j, i % num_shift)
+                        self._loc_map[_ch_t] = (i//num_shift, j, i % num_shift)
             self._loc_map[map_chr_2to3(' ')] = (4, 0, 0)
             # print(self._loc_map)
             # print("Location of space:", self._loc_map[map_chr_2to3(' ')])
@@ -385,7 +385,7 @@ cdef class Keyboard(object):
         )
         def unshifted(ch):
             """Takes a str or byte, and return a string"""
-            ich = ord(ch) if isinstance(ch, str) else ch
+            ich = map_chr_2to3(ch)
             if ich < 20 or ich >= 128:
                 return chr(ich)
             try:
@@ -491,7 +491,7 @@ cdef class Keyboard(object):
         cdef char c, nc, shifted_nc
         for j in xrange(1, n):
             last_row = A[j-1]
-            row = A[j];
+            row = A[j]
             c = ord(keyseq[j-1]) # current char
             nc = ord(keyseq[j]) # if j<n else 0 # next char
             shifted_nc = self.add_shift(nc)[0] if nc not in spcl_keys else 0
@@ -534,7 +534,7 @@ cdef class Keyboard(object):
                           last_row[4][1], last_row[4][2]) # shift-caps = TT
         return A
 
-    def keyseq_insert_edits(self, str keyseq, _insert_keys=[], _replace_keys=[]):
+    def keyseq_insert_edits(self, str keyseq, _insert_keys=(), _replace_keys=()):
         """It will insert/replace/delete one key at a time from the
         keyseq. And return a set of words. Which keys to insert is
         specified by the @insert_keys parameter.

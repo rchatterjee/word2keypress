@@ -414,56 +414,6 @@ def generate_weight_matrix(L):
         f.write('WEIGHT_MATRIX = {}'.format(repr(E)))
 
 
-def get_topk_typos(rpw, n):
-    """
-    Return n most probable typo of rpw. 
-    @rpw: string
-    @n: int
-    @return: a list of strings
-    """
-    raise Exception("Deprecated! User typos.get_topk_typos")
-    if n<=0: return []
-    w = STARTSTR + KB.word_to_keyseq(rpw) + ENDSTR
-    edits_at_i = [
-        (
-            c, BLANK + c, c + BLANK,
-            w[pos_i:pos_i+2], w[pos_i+1:pos_i+3], w[pos_i:pos_i+3]
-        )
-        for pos_i, c in enumerate(w)
-    ]
-    possible_edits = set(itertools.chain(*edits_at_i))
-
-    allowed_arr = [
-        ((l, r), f)
-        for l in possible_edits
-        for r, f in M.get(l, {}).items()
-    ]
-    if not allowed_arr:
-        print("Could not find any matching edti for {} in EDIT_MATRIX"\
-              .format(rpw))
-        return []
-    edits, freqs = zip(*allowed_arr)
-    # keys = np.array(keys)
-    pdist = np.array(freqs)/float(np.sum(freqs))
-    ret = ['' for _ in range(n)]
-    n = min(pdist.shape[0], n)
-    if pdist.shape[0]>n:
-        chosen_edits_idxs = np.argsort(np.argpartition(-pdist, n)[:n])
-    else:
-        chosen_edits_idxs = np.argsort(-pdist)
-
-    for i, ti in enumerate(chosen_edits_idxs):
-        l, r = edits[ti]
-        # pos_i
-        l = l.strip(BLANK)
-        tpw = w.replace(l, r).lstrip(STARTSTR).rstrip(ENDSTR).replace(BLANK, '')
-        # j = (pos_i + 1) if l[0] == c else pos_i
-        # k = j + len(l.replace(BLANK, ''))
-        # # print("{!r} -> {!r}".format(l, r))
-        # tpw = w[:j] + r + w[k:]
-        # tpw = tpw.replace(BLANK, '').lstrip(STARTSTR).rstrip(ENDSTR)
-        ret[i] = KB.keyseq_to_word(tpw)
-    return ret
 
 def sample_typos(rpw, n):
     """
@@ -535,8 +485,8 @@ $ {} [options] [arguments]
 -train <fname>: trains the model, and generates weigt_matrix.py
 -sample <password>: samples typos for the password from the model
 -prob <rpw> <tpw>: probability of rpw -> tpw
--topktypos <rpw> [<n>]: Get top n (default 10) most probable typo of rpw
 -random: Do random things! (Not recommended).
+-edist <rpw> <tpw> : Returns the edist between rpw and tpw
         """.format(sys.argv[0])
     if (len(sys.argv)<2):
         print(USAGE)
@@ -554,10 +504,6 @@ $ {} [options] [arguments]
     elif sys.argv[1] == '-sample':
         pw = sys.argv[2]
         print("{} --> {}".format(pw, '\n'.join(sample_typos(pw, 10))))
-    elif sys.argv[1] == '-topktypos':
-        pw = sys.argv[2]
-        n = int(sys.argv[3]) if len(sys.argv)>3 else 10
-        print("{} -->\n{}".format(pw, '\n'.join(get_topk_typos(pw, n))))
     elif sys.argv[1] == '-random':
         L = [
             ('!!1303diva', '!!1303DIVA'),
@@ -584,5 +530,10 @@ $ {} [options] [arguments]
         # print('\n'.join(str(x) for x in L))
         # E = {str((k,x)): v[x] for k,v in count_edits(L).items()
         #     for x in v if x.lower()!=k.lower()}
+    elif sys.argv[1] == "-edist":
+        print(_editdist(sys.argv[2], sys.argv[3]))
+        print(KB.dl_distance(sys.argv[2], sys.argv[3]))
+        print([KB.change_shift(ord(ch)) for ch in sys.argv[2]])
+        print(KB.loc(ord(b'q')))
     else:
         print(USAGE)

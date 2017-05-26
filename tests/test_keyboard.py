@@ -35,15 +35,16 @@ def map_chr_2to3(ch):
 class TestKeyboard():
     def test_loc(self):
         inp_res_map = [
-            ((b't'), (1, 5, 0)),
-            ((b'T'), (1, 5, 1)),
-            ((b'a'), (2, 1, 0)),
-            ((b'('), (0, 9, 1)),
-            ((b'M'), (3, 7, 1)),
-            ((b' '), (4, 0, 0))
+            (b't', (1, 5, 0)),
+            (b'T', (1, 5, 1)),
+            (b'a', (2, 1, 0)),
+            (b'(', (0, 9, 1)),
+            (b'M', (3, 7, 1)),
+            (b' ', (4, 0, 0))
         ]
         for q, r in inp_res_map:
-            assert kb.loc(*q) == r
+            q = ord(q)
+            assert kb.loc(q) == r
 
     def test_keyboard_dist(self):
         inp_res_map = [(('t', 't'), (0)),
