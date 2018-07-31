@@ -26,7 +26,7 @@ else:
     )
 
 
-VERSION = '1.0.12'
+VERSION = '1.0.16'
 GITHUB_URL = 'https://github.com/rchatterjee/word2keypress/tarball/'
 configuration = dict(
     name='word2keypress',
@@ -41,10 +41,10 @@ configuration = dict(
     package_dir={'': 'src'},
     include_package_data=True,
     package_data={
-        '': ['*.json', 'LICENSE', 'README.md']
+        '': ['*.json', 'LICENSE', 'README']
     },
 
-    long_description=open('README.md').read(),
+    long_description=open('README').read(),
     ext_modules=[keyboardpyx],
     cmdclass={'build_ext': build_ext},
 
@@ -59,7 +59,7 @@ configuration = dict(
         "Topic :: Utilities",
         "License :: OSI Approved :: MIT License"
     ],
-    license='MIT License',
+    # license='MIT License',
     zip_safe=False,
 )
 

@@ -17,7 +17,7 @@ Right now it needs cython. I will remove it in future.
 
 ## Install ##
 
-```
+```bash
 $ pip install word2keypress
 
 # or
@@ -29,7 +29,7 @@ $ python setup.py install
 
 Refer to the `HowToRun.ipynb` file.
 
-```
+```python
 from word2keypress import distance, Keyboard
 kb = Keyboard(u'US') # making unicode is mandatory (weird Cython)
 kseq = kb.word_to_keyseq('Password')
