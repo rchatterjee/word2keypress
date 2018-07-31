@@ -44,7 +44,7 @@ configuration = dict(
         '': ['*.json', 'LICENSE', 'README.md']
     },
 
-    long_description='See README.md',
+    long_description=open('README.md').read(),
     ext_modules=[keyboardpyx],
     cmdclass={'build_ext': build_ext},
 

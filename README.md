@@ -11,12 +11,13 @@ key presses. This module provides those functionality to convert word into and
 from sequence of key presses.  Also, given a word find the possible typo of that
 word tuned to the typos due to mistyping.
 
-## Dependency
+## Dependency ##
 Right now it needs cython. I will remove it in future.
 * Cython.
 
-## Install
-```bash
+## Install ##
+
+```
 $ pip install word2keypress
 
 # or
@@ -24,11 +25,11 @@ $ pip install word2keypress
 $ python setup.py install
 ```
 
-## How to Use?
+## How to Use? ##
 
 Refer to the `HowToRun.ipynb` file.
 
-```python
+```
 from word2keypress import distance, Keyboard
 kb = Keyboard(u'US') # making unicode is mandatory (weird Cython)
 kseq = kb.word_to_keyseq('Password')
@@ -46,11 +47,11 @@ print "\ndistance:", distance('Password1', 'PASSWORD1')
 (For myself, as I keep forgetting how to deal with cython. Stupid Idea)
 Don't forget to regenerate the `src/word2keypress/_keyboard.c` file in
 Option 1.
-```bash
+```
 $ python setup.py pytest      # Option 1
 $ tox                         # Option 2
 $ python -m pytest tests/     # Option 3
 ```
-In any case have to regenerate the _keyboard.c to test with the new code.
+In any case have to regenerate the `_keyboard.c` to test with the new code.
 
 
