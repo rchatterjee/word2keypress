@@ -377,10 +377,18 @@ cdef class Keyboard(object):
         # Add shift keys
         cdef int i, shift
         cdef char ch
-        # Add caps in the beginning
+        # Add caps at the beginning
+        
+        # 0123pASSWORD => {c}123<s>password
+        # p0123ASSWORD => {c}<s>p123assword
+        # 1PASSWORD => {c}password
         cdef str nword = re.sub(
-            r'([A-Z][^a-z]{2,})',
-            lambda m: caps_key + m.group(0).lower() + caps_key,
+            r'((?P<start>^|[^a-zA-Z]+)(?P<lower>[a-z][^a-zA-Z]*))?(?P<caps>[A-Z][^a-z]{2,})',
+            #r'([a-z][^a-zA-Z]*)?([A-Z][^a-z]{2,})',
+            lambda m: ("{c}{start}{s}{lower}{caps}{c}" if m.group('lower')
+                       else "{start}{lower}{c}{caps}{c}")\
+                        .format(c=caps_key, s=shift_key,
+                                **{k: v.lower() for k, v in m.groupdict('').items()}),
             word
         )
         def unshifted(ch):
@@ -434,13 +442,16 @@ cdef class Keyboard(object):
 
     def part_keyseq_string(self, str keyseq, shift=False, caps=False):
         """
-        returns the word for a part of the keyseq, and returns (word, shift, caps)
+        returns the word for a part of the keyseq given the state of shift and caps.
+        Return type: (word:str, shift:int, caps:int)
+        shift, caps are the state of shift and caps after the part. 
+        
         """
         assert KEYBOARD_TYPE == 'qwerty', "Not implemented for mobile"
         cdef str ret = ''
         cdef int i = 0
         cdef char a
-        while i<len(keyseq):
+        while i < len(keyseq):
             a = ord(keyseq[i])
             if a == CAPS_KEY:
                 caps = caps^True
@@ -458,24 +469,39 @@ cdef class Keyboard(object):
 
     cdef char _apply_shift_caps(self, char c, shift, caps):
         assert c>=20 and c<128, "Got: {!r}".format(c)
-        if chr(c).isalpha() and shift^caps:
-            c = self.add_shift(c)[0]
-        elif shift:
-            c = self.add_shift(c)[0]
+        if chr(c).isalpha():
+            if shift^caps:
+                c = self.add_shift(c)[0]
+        else:
+            if shift:
+                c = self.add_shift(c)[0]
         assert c>=20, "Returning: {!r}".format(c)
         return c
 
+    def apply_shift_caps(self, c, shift, caps):
+        return self._apply_shift_caps(ord(c), shift, caps)
+
+
     def _sub_word_table(self, str keyseq):
-        """
-        keyseq must be pure (that is output of _word_to_keyseq function.
+        """keyseq must be pure (that is output of _word_to_keyseq function.
         n = len(word), returns an 2-D array,
         TT = shift-caps, both true, TF, FT and FF are similar
+           prefix [postfix -->            ]
         i/j  0     1      2     3       4
         0  [:0] [0:]FF [:0]FT  [:0]TF  [:0]TT
         1  [:1] [1:]FF [:1]FT  [:1]TF  [:1]TT
         .
         .
         n  [:n] [n:]FF [:n]FT  [:n]TF  [:n]TT
+
+        This function try to optimize typo creation procedure given a string.
+        The five columns in A matrix are the following. A[i, j] is tuple (w, s,
+        c) denoting the word(keyseq[:i]), shift-state, and caps-state, respectively.
+        
+        The prefix A[i, 0] is the string w[:i] along with the state of the shift
+        and caps key.  The values A[i, 1], A[i, 2], and so on, are values of
+        postfix of the string w[i:] assuming they began with shift-caps states
+        as FF, FT, TF, TT, respectively.
 
         """
         cdef int n = len(keyseq)
@@ -495,17 +521,20 @@ cdef class Keyboard(object):
             c = ord(keyseq[j-1]) # current char
             nc = ord(keyseq[j]) # if j<n else 0 # next char
             shifted_nc = self.add_shift(nc)[0] if nc not in spcl_keys else 0
+            print(c, spcl_keys)
             if c == SHIFT_KEY:
                 # case 0: only pre
                 row[0] = (last_row[0][0], True, last_row[0][2])
                 # case 1: shift-caps = FF, remove the shift from next char
                 row[1] = (chr(nc) + last_row[1][0][1:], last_row[1][1], last_row[1][2])
                 # case 2: shift-caps = FT
-                row[2] = ((safe_chr(shifted_nc) if chr(nc).isalpha() else chr(nc)) + last_row[2][0][1:], last_row[2][1], last_row[2][2])
+                row[2] = ((safe_chr(shifted_nc) if chr(nc).isalpha() else chr(nc)) + \
+                          last_row[2][0][1:], last_row[2][1], last_row[2][2])
                 # case 2: shift-caps = TF
                 row[3] = last_row[3]
                 # case 2: shift-caps = TT
                 row[4] = last_row[4]
+                print(c, spcl_keys, row[4], A)
             elif c == CAPS_KEY:
                 # case 0: only pre
                 row[0] = (last_row[0][0], last_row[0][1], last_row[0][2]^True)
@@ -527,10 +556,10 @@ cdef class Keyboard(object):
                 )
                 row[1] = (last_row[1][0][1:], last_row[1][1], last_row[1][2]) # shift-caps = FF
                 row[2] = (last_row[2][0][1:], last_row[2][1], last_row[2][2]) # shift-caps = FT
-                row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else last_row[3][0][1:],
-                          last_row[3][1], last_row[3][2]) # shift-caps = TF
-                row[4] = (chr(nc) + last_row[4][0][2:] if chr(nc).isalpha() else
-                          safe_chr(shifted_nc) + last_row[4][0][2:],
+                row[3] = (safe_chr(shifted_nc) + last_row[3][0][2:] if shifted_nc else
+                          last_row[3][0][1:], last_row[3][1], last_row[3][2]) # shift-caps = TF
+                row[4] = ((chr(nc) if chr(nc).isalpha() else safe_chr(shifted_nc)) + \
+                          last_row[4][0][2-int(nc in spcl_keys):],
                           last_row[4][1], last_row[4][2]) # shift-caps = TT
         return A
 

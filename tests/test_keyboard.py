@@ -85,6 +85,9 @@ class TestKeyboard():
             )
             assert w == res
 
+    def test_add_shift_key(self):
+        for inp, res in [(('c', False, False), 'c'), (('c', True, True), 'c')]:
+            assert chr(kb.apply_shift_caps(*inp)) == res
 
 key = {'c': chr(CAPS_KEY),
        's': chr(SHIFT_KEY)}
@@ -101,7 +104,10 @@ key = {'c': chr(CAPS_KEY),
      # There is this small issue, what if there
      # is a shit in the middle of a password
      ('PASSwoRD', '{c}pass{c}wo{s}r{s}d'),
-     ('Pa ss', '{s}pa ss')
+     ('Pa ss', '{s}pa ss'),
+     ('pASSWORD', '{c}{s}password'),
+     ('p1234ASSWORD', '{c}{s}p1234assword'),
+     ('1234pASSWORD', '{c}1234{s}password'),
      ]
 )
 class TestKeyPresses():
@@ -134,10 +140,15 @@ class TestKeyPresses():
         assert inp == pre_word + post_word
 
     def test_sub_word_table(self, inp, res):
+        """
+        Construct the subword table, 
+        """
         res = res.format(**key)
         A = kb._sub_word_table(res)
+        print(A)
         for i in range(len(res)):
             pre_w, shift, caps = A[i][0]
+            print(pre_w, shift, caps)
             post_w = A[i][2 * shift + caps + 1][0]
             assert pre_w + post_w == inp
 
