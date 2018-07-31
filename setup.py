@@ -4,7 +4,7 @@ from __future__ import absolute_import, print_function
 
 from setuptools import setup, Extension, find_packages
 
-publish = False
+publish = True
 if publish:
     # from distutils.command.build_ext import build_ext
     from setuptools.command.build_ext import build_ext
@@ -26,7 +26,7 @@ else:
     )
 
 
-VERSION = '1.0.10'
+VERSION = '1.0.11'
 GITHUB_URL = 'https://github.com/rchatterjee/word2keypress/tarball/'
 configuration = dict(
     name='word2keypress',
