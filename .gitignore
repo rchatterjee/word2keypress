@@ -29,3 +29,4 @@ word2keypress.egg-info/
 *.so
 .pytest_cache/
 
+README

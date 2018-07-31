@@ -26,7 +26,7 @@ else:
     )
 
 
-VERSION = '1.0.11'
+VERSION = '1.0.12'
 GITHUB_URL = 'https://github.com/rchatterjee/word2keypress/tarball/'
 configuration = dict(
     name='word2keypress',
