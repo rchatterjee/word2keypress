@@ -31,7 +31,7 @@ Refer to the `HowToRun.ipynb` file.
 
 ```python
 from word2keypress import distance, Keyboard
-kb = Keyboard(u'US') # making unicode is mandatory (weird Cython)
+kb = Keyboard() # making unicode is mandatory (weird Cython)
 kseq = kb.word_to_keyseq('Password')
 print "\nRaw sequence:", repr(kseq)
 
