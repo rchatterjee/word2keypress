@@ -79,7 +79,10 @@ class TestKeyboard():
 
     def test_keypress_to_w(self):
         for inp, res in [('wor{c}d123', 'worD123'),
-                         ('{c}pass{c}wo{c}rd{c}', 'PASSwoRD')]:
+                         ('{c}pass{c}wo{c}rd{c}', 'PASSwoRD'),
+                         ('{s}pass', 'Pass'),
+                         ('{s}{s}pass', 'Pass')
+        ]:
             w = kb.keyseq_to_word(
                 inp.format(s=chr(SHIFT_KEY), c=chr(CAPS_KEY))
             )
