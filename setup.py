@@ -26,7 +26,7 @@ else:
     )
 
 
-VERSION = '1.0.16'
+VERSION = '1.0.17'
 GITHUB_URL = 'https://github.com/rchatterjee/word2keypress/tarball/'
 configuration = dict(
     name='word2keypress',
@@ -51,6 +51,7 @@ configuration = dict(
     # include_dirs = [np.get_include()],
 
     # install_requires = ["numpy >= 1.12"],
+    python_requires='>=3.8,<3.13',
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
 
