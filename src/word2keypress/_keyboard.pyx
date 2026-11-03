@@ -1,6 +1,6 @@
 # cython: boundscheck=False, c_string_type=str
 # cython: infer_types=True, c_string_encoding=utf-8
-# cython: cdivision=True, profile=True
+# cython: cdivision=True
 
 from __future__ import print_function, absolute_import
 
@@ -576,8 +576,8 @@ cdef class Keyboard(object):
         # print(">>>>>", _insert_keys, _replace_keys)
         cdef array.array insert_keys = array.array('B')
         cdef array.array replace_keys = array.array('B')
-        insert_keys.fromstring(_insert_keys)
-        replace_keys.fromstring(_replace_keys)
+        insert_keys.frombytes(_insert_keys)
+        replace_keys.frombytes(_replace_keys)
         cdef int smart = not (insert_keys or len(insert_keys)>0 or \
                               replace_keys or len(replace_keys)>0)
         cdef int i, t
